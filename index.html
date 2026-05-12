@@ -1,0 +1,2173 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Java Practical Codes Library</title>
+<link href="https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@400;600;700&family=Syne:wght@400;600;700;800&display=swap" rel="stylesheet">
+<style>
+  * { box-sizing: border-box; margin: 0; padding: 0; }
+
+  body {
+    background: #ffffff;
+    color: #333333;
+    font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+    min-height: 100vh;
+    padding: 0 0 60px;
+  }
+
+  /* Header */
+  .header {
+    background: #ffffff;
+    border-bottom: 1px solid #e5e5e5;
+    padding: 40px 24px 32px;
+    text-align: center;
+  }
+
+  .header-badge {
+    display: inline-flex;
+    align-items: center;
+    gap: 8px;
+    background: #f5f5f5;
+    border: 1px solid #e5e5e5;
+    border-radius: 20px;
+    padding: 6px 14px;
+    font-size: 12px;
+    color: #666;
+    margin-bottom: 16px;
+  }
+
+  .header-badge span { color: #4CAF50; font-size: 10px; }
+
+  h1 {
+    font-size: 2.2rem;
+    font-weight: 700;
+    color: #1a1a1a;
+    line-height: 1.2;
+    margin-bottom: 8px;
+  }
+
+  .subtitle {
+    color: #666;
+    font-size: 0.95rem;
+    margin-top: 8px;
+    font-weight: 400;
+  }
+
+  /* Search */
+  .search-wrap {
+    max-width: 600px;
+    margin: 28px auto 0;
+    padding: 0 20px;
+    position: relative;
+  }
+
+  .search-icon {
+    position: absolute;
+    left: 32px; top: 50%;
+    transform: translateY(-50%);
+    color: #999;
+    pointer-events: none;
+  }
+
+  #search {
+    width: 100%;
+    background: #ffffff;
+    border: 1px solid #ddd;
+    border-radius: 8px;
+    padding: 12px 16px 12px 40px;
+    color: #333;
+    font-size: 0.95rem;
+    outline: none;
+    transition: border-color 0.2s;
+  }
+
+  #search::placeholder { color: #999; }
+
+  #search:focus {
+    border-color: #999;
+    box-shadow: 0 0 0 2px rgba(0, 0, 0, 0.05);
+  }
+
+  /* Stats bar */
+  .stats-bar {
+    max-width: 900px;
+    margin: 24px auto 0;
+    padding: 0 20px;
+    display: flex;
+    align-items: center;
+    gap: 16px;
+    flex-wrap: wrap;
+  }
+
+  .stat-pill {
+    background: #f5f5f5;
+    border: 1px solid #e5e5e5;
+    border-radius: 6px;
+    padding: 6px 12px;
+    font-size: 12px;
+    color: #666;
+  }
+
+  .stat-pill strong { color: #333; }
+
+  #result-count { color: #999; font-size: 0.9rem; margin-left: auto; }
+
+  /* Grid */
+  .grid {
+    max-width: 900px;
+    margin: 24px auto 0;
+    padding: 0 20px;
+    display: flex;
+    flex-direction: column;
+    gap: 8px;
+  }
+
+  .card {
+    background: #ffffff;
+    border: 1px solid #e5e5e5;
+    border-radius: 8px;
+    padding: 14px 16px;
+    display: flex;
+    align-items: center;
+    gap: 12px;
+    transition: border-color 0.2s, background 0.2s;
+  }
+
+  .card:hover {
+    border-color: #999;
+    background: #fafafa;
+  }
+
+  .card-num {
+    font-size: 0.85rem;
+    font-weight: 600;
+    color: #666;
+    background: #f0f0f0;
+    border: 1px solid #e0e0e0;
+    border-radius: 6px;
+    min-width: 32px;
+    height: 32px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    flex-shrink: 0;
+  }
+
+  .card-info { flex: 1; min-width: 0; }
+
+  .card-title {
+    font-size: 0.95rem;
+    font-weight: 600;
+    color: #1a1a1a;
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+  }
+
+  .card-tag {
+    display: inline-block;
+    margin-top: 4px;
+    font-size: 11px;
+    color: #999;
+    background: #f5f5f5;
+    border-radius: 4px;
+    padding: 2px 8px;
+  }
+
+  .copy-btn {
+    flex-shrink: 0;
+    background: #f5f5f5;
+    border: 1px solid #ddd;
+    color: #333;
+    border-radius: 6px;
+    padding: 8px 14px;
+    font-size: 12px;
+    font-weight: 600;
+    cursor: pointer;
+    transition: background 0.2s, border-color 0.2s;
+    display: flex;
+    align-items: center;
+    gap: 6px;
+    white-space: nowrap;
+  }
+
+  .copy-btn:hover {
+    background: #e8e8e8;
+    border-color: #999;
+  }
+
+  .copy-btn.copied {
+    background: #e8f5e9;
+    border-color: #4CAF50;
+    color: #2e7d32;
+  }
+
+  .no-results {
+    text-align: center;
+    padding: 60px 20px;
+    color: #999;
+    font-size: 0.95rem;
+    display: none;
+  }
+
+  .no-results .emoji { font-size: 2rem; display: block; margin-bottom: 12px; }
+
+  .section-label {
+    font-size: 11px;
+    color: #999;
+    letter-spacing: 0.1em;
+    text-transform: uppercase;
+    padding: 4px 0 2px;
+    border-bottom: 1px solid #e5e5e5;
+    margin-top: 6px;
+    margin-bottom: 2px;
+  }
+
+  @media (max-width: 600px) {
+    .card { padding: 12px 12px; gap: 10px; }
+    .card-title { font-size: 0.88rem; }
+    .copy-btn { padding: 6px 10px; font-size: 11px; }
+    h1 { font-size: 1.6rem; }
+  }
+</style>
+</head>
+<body>
+
+<div class="header">
+  <div class="header-badge"><span>●</span> JAVA PRACTICALS &nbsp;·&nbsp; SE / TE</div>
+  <h1>Java Practical Codes Library</h1>
+  <p class="subtitle"></p>
+  <div class="search-wrap">
+    <span class="search-icon">⌕</span>
+    <input type="text" id="search" placeholder="Search programs by name or topic..." oninput="filterPrograms()">
+  </div>
+</div>
+
+<div class="stats-bar">
+  <div class="stat-pill">Total: <strong>22</strong> Programs</div>
+  <div class="stat-pill">Practicals: <strong>02 – 13</strong></div>
+  <div class="stat-pill">Language: <strong>Java</strong></div>
+  <span id="result-count">Showing 22 of 22</span>
+</div>
+
+<div class="grid" id="programGrid"></div>
+<div class="no-results" id="noResults">
+  <span class="emoji">🔍</span>
+  No programs found matching your search.
+</div>
+
+<script>
+const programs = [
+  {
+    id: 1,
+    title: "Bank Account Management System",
+    practical: "Practical 02 — Class, Object, Methods, Constructors",
+    tag: "OOP · Constructor · Method Overloading",
+    code: `// Practical 02 — Problem 1: Bank Account Management System
+class BankAccount {
+    int accountNumber;
+    String holderName;
+    double balance;
+
+    // Parameterized Constructor
+    BankAccount(int accountNumber, String holderName, double balance) {
+        this.accountNumber = accountNumber;
+        this.holderName = holderName;
+        this.balance = balance;
+    }
+
+    void deposit(double amt) {
+        balance += amt;
+        System.out.println("Deposited ₹" + amt + " | New Balance: ₹" + balance);
+    }
+
+    void deposit(double amt, String remark) {
+        balance += amt;
+        System.out.println("Deposited ₹" + amt + " [" + remark + "] | New Balance: ₹" + balance);
+    }
+
+    void withdraw(double amt) {
+        if (amt > balance) {
+            System.out.println("Insufficient balance!");
+        } else {
+            balance -= amt;
+            System.out.println("Withdrawn ₹" + amt + " | New Balance: ₹" + balance);
+        }
+    }
+
+    void displayBalance() {
+        System.out.println("Account: " + accountNumber + " | Holder: " + holderName + " | Balance: ₹" + balance);
+    }
+
+    String checkMinBalance() {
+        if (balance < 1000) {
+            return "WARNING: Balance below minimum limit of ₹1000!";
+        }
+        return "Balance is above minimum limit.";
+    }
+}
+
+public class BankSystem {
+    public static void main(String[] args) {
+        BankAccount acc1 = new BankAccount(1001, "Amit", 5000);
+        BankAccount acc2 = new BankAccount(1002, "Priya", 800);
+        BankAccount acc3 = new BankAccount(1003, "Ravi", 2000);
+
+        System.out.println("=== Account 1 ===");
+        acc1.displayBalance();
+        acc1.deposit(2000);
+        acc1.displayBalance();
+        System.out.println(acc1.checkMinBalance());
+
+        System.out.println("\\n=== Account 2 ===");
+        acc2.displayBalance();
+        acc2.withdraw(700);
+        acc2.displayBalance();
+        System.out.println(acc2.checkMinBalance());
+
+        System.out.println("\\n=== Account 3 (Overloaded deposit) ===");
+        acc3.deposit(500, "Salary Credit");
+        acc3.displayBalance();
+        System.out.println(acc3.checkMinBalance());
+    }
+}`
+  },
+  {
+    id: 2,
+    title: "Employee Payroll Calculator",
+    practical: "Practical 02 — Class, Object, Methods, Constructors",
+    tag: "OOP · this keyword · Method Overloading",
+    code: `// Practical 02 — Problem 2: Employee Payroll Calculator
+class Employee {
+    int empId;
+    String name;
+    double basicSalary;
+    String department;
+
+    // Default Constructor
+    Employee() {
+        this(0, "Unknown", 0.0, "General");
+    }
+
+    // Parameterized Constructor using 'this'
+    Employee(int empId, String name, double basicSalary, String department) {
+        this.empId = empId;
+        this.name = name;
+        this.basicSalary = basicSalary;
+        this.department = department;
+    }
+
+    double calculateHRA() { return 0.20 * basicSalary; }
+    double calculateDA()  { return 0.11 * basicSalary; }
+    double calculateNetSalary() { return basicSalary + calculateHRA() + calculateDA(); }
+
+    void displayPayslip() {
+        System.out.println("--- Payslip for " + name + " ---");
+        System.out.println("ID: " + empId + " | Dept: " + department);
+        System.out.printf("Basic: ₹%.2f | HRA: ₹%.2f | DA: ₹%.2f%n",
+                basicSalary, calculateHRA(), calculateDA());
+        System.out.printf("Net Salary: ₹%.2f%n", calculateNetSalary());
+    }
+
+    void displayPayslip(boolean showDeductions) {
+        displayPayslip();
+        if (showDeductions) {
+            double tax = 0.10 * calculateNetSalary();
+            System.out.printf("Tax Deduction (10%%): ₹%.2f%n", tax);
+            System.out.printf("In-hand Salary: ₹%.2f%n", calculateNetSalary() - tax);
+        }
+    }
+}
+
+public class PayrollSystem {
+    public static void main(String[] args) {
+        Employee e1 = new Employee(201, "Rohit", 40000, "IT");
+        Employee e2 = new Employee(202, "Sneha", 60000, "HR");
+        Employee e3 = new Employee(203, "Karan", 30000, "Finance");
+
+        Employee[] employees = {e1, e2, e3};
+        for (Employee e : employees) {
+            if (e.calculateNetSalary() > 50000) {
+                e.displayPayslip(true);
+            } else {
+                e.displayPayslip();
+            }
+            System.out.println();
+        }
+    }
+}`
+  },
+  {
+    id: 3,
+    title: "University Staff Hierarchy",
+    practical: "Practical 03 — Java Inheritance",
+    tag: "Inheritance · super · Multilevel",
+    code: `// Practical 03 — Problem 3: University Staff Hierarchy
+class Person {
+    String name;
+    int age;
+    String contactNo;
+
+    Person(String name, int age, String contactNo) {
+        this.name = name;
+        this.age = age;
+        this.contactNo = contactNo;
+    }
+
+    void displayInfo() {
+        System.out.println("Name: " + name + " | Age: " + age + " | Contact: " + contactNo);
+    }
+}
+
+class EmployeeStaff extends Person {
+    String empId, department;
+
+    EmployeeStaff(String name, int age, String contactNo, String empId, String department) {
+        super(name, age, contactNo);
+        this.empId = empId;
+        this.department = department;
+    }
+
+    void displayEmployeeDetails() {
+        displayInfo();
+        System.out.println("EmpID: " + empId + " | Dept: " + department);
+    }
+}
+
+class Faculty extends EmployeeStaff {
+    String designation;
+    String[] subjectsTaught;
+
+    Faculty(String name, int age, String contactNo, String empId, String department,
+            String designation, String[] subjects) {
+        super(name, age, contactNo, empId, department);
+        this.designation = designation;
+        this.subjectsTaught = subjects;
+    }
+
+    void displayFacultyDetails() {
+        displayEmployeeDetails();
+        System.out.println("Designation: " + designation);
+        System.out.print("Subjects: ");
+        for (String s : subjectsTaught) System.out.print(s + " ");
+        System.out.println();
+    }
+}
+
+class HodFaculty extends Faculty {
+    double additionalAllowance;
+
+    HodFaculty(String name, int age, String contactNo, String empId, String department,
+               String designation, String[] subjects, double allowance) {
+        super(name, age, contactNo, empId, department, designation, subjects);
+        this.additionalAllowance = allowance;
+    }
+
+    void displayHodDetails() {
+        displayFacultyDetails();
+        System.out.println("HoD Allowance: ₹" + additionalAllowance);
+    }
+}
+
+class AdminStaff extends EmployeeStaff {
+    String role;
+
+    AdminStaff(String name, int age, String contactNo, String empId, String department, String role) {
+        super(name, age, contactNo, empId, department);
+        this.role = role;
+    }
+
+    void displayAdminDetails() {
+        displayEmployeeDetails();
+        System.out.println("Role: " + role);
+    }
+}
+
+public class UniversityStaff {
+    public static void main(String[] args) {
+        System.out.println("=== Faculty ===");
+        Faculty f = new Faculty("Dr. Mehta", 45, "9876543210", "F001", "IT",
+                "Professor", new String[]{"Java", "OS"});
+        f.displayFacultyDetails();
+
+        System.out.println("\\n=== HoD Faculty (Multilevel) ===");
+        HodFaculty hod = new HodFaculty("Dr. Sharma", 50, "9876500000", "H001", "CS",
+                "HoD", new String[]{"DBMS", "AI"}, 5000);
+        hod.displayHodDetails();
+
+        System.out.println("\\n=== Admin Staff (Hierarchical) ===");
+        AdminStaff admin = new AdminStaff("Suresh", 38, "9900001111", "A001", "Admin", "Clerk");
+        admin.displayAdminDetails();
+    }
+}`
+  },
+  {
+    id: 4,
+    title: "E-Commerce Product Catalogue",
+    practical: "Practical 03 — Java Inheritance",
+    tag: "Inheritance · Method Overriding · super.method()",
+    code: `// Practical 03 — Problem 4: E-Commerce Product Catalogue
+class Product {
+    String productId, name;
+    double price;
+
+    Product(String productId, String name, double price) {
+        this.productId = productId;
+        this.name = name;
+        this.price = price;
+    }
+
+    void displayProduct() {
+        System.out.println("ID: " + productId + " | Name: " + name + " | Price: ₹" + price);
+    }
+}
+
+class Electronics extends Product {
+    String brand;
+    int warrantyYears;
+
+    Electronics(String productId, String name, double price, String brand, int warrantyYears) {
+        super(productId, name, price);
+        this.brand = brand;
+        this.warrantyYears = warrantyYears;
+    }
+
+    @Override
+    void displayProduct() {
+        super.displayProduct();
+        System.out.println("  Brand: " + brand + " | Warranty: " + warrantyYears + " yrs [Electronics]");
+    }
+}
+
+class Clothing extends Product {
+    String size, material;
+
+    Clothing(String productId, String name, double price, String size, String material) {
+        super(productId, name, price);
+        this.size = size;
+        this.material = material;
+    }
+
+    @Override
+    void displayProduct() {
+        super.displayProduct();
+        System.out.println("  Size: " + size + " | Material: " + material + " [Clothing]");
+    }
+}
+
+class Grocery extends Product {
+    String expiryDate;
+    double weightKg;
+
+    Grocery(String productId, String name, double price, String expiryDate, double weightKg) {
+        super(productId, name, price);
+        this.expiryDate = expiryDate;
+        this.weightKg = weightKg;
+    }
+
+    @Override
+    void displayProduct() {
+        super.displayProduct();
+        System.out.println("  Expiry: " + expiryDate + " | Weight: " + weightKg + "kg [Grocery]");
+    }
+}
+
+public class ECommerceCatalogue {
+    public static void main(String[] args) {
+        Product[] catalogue = {
+            new Electronics("P001", "Samsung Phone", 25000, "Samsung", 2),
+            new Electronics("P002", "Sony TV", 45000, "Sony", 3),
+            new Clothing("C001", "Blue Shirt", 799, "M", "Cotton"),
+            new Clothing("C002", "Denim Jeans", 1299, "L", "Denim"),
+            new Grocery("G001", "Basmati Rice", 180, "Dec-2025", 5.0),
+            new Grocery("G002", "Sunflower Oil", 220, "Mar-2026", 1.0)
+        };
+
+        System.out.println("=== Product Catalogue ===");
+        for (Product p : catalogue) {
+            p.displayProduct();
+            System.out.println();
+        }
+    }
+}`
+  },
+  {
+    id: 5,
+    title: "College Admission Counter System",
+    practical: "Practical 04 — Static, Final, Super, This Keyword",
+    tag: "static · final · this() · super()",
+    code: `// Practical 04 — Problem 5: College Admission Counter System
+class PersonBase {
+    String name;
+    PersonBase(String name) {
+        this.name = name;
+    }
+}
+
+class Student extends PersonBase {
+    int rollNo;
+    String branch;
+    static int totalAdmitted = 0;
+    final int MAX_CAPACITY = 60;
+
+    // Default constructor using this() chaining
+    Student() {
+        this("Unknown", 0, "General");
+    }
+
+    // Parameterized constructor using 'this' and 'super'
+    Student(String name, int rollNo, String branch) {
+        super(name);
+        this.rollNo = rollNo;
+        this.branch = branch;
+        totalAdmitted++;
+    }
+
+    static int getTotalAdmitted() {
+        return totalAdmitted;
+    }
+
+    void displayStudent() {
+        System.out.println("Roll: " + rollNo + " | Name: " + name + " | Branch: " + branch +
+                " | MAX_CAPACITY: " + MAX_CAPACITY);
+    }
+}
+
+public class AdmissionSystem {
+    public static void main(String[] args) {
+        Student s1 = new Student("Asha", 1, "CS");
+        Student s2 = new Student("Raj", 2, "IT");
+        Student s3 = new Student("Priya", 3, "CS");
+        Student s4 = new Student("Dev", 4, "ENTC");
+        Student s5 = new Student("Neha", 5, "IT");
+
+        Student[] students = {s1, s2, s3, s4, s5};
+        for (Student s : students) s.displayStudent();
+
+        System.out.println("\\nTotal Admitted = " + Student.getTotalAdmitted());
+
+        // MAX_CAPACITY = 70; // COMPILE ERROR: cannot assign a value to final variable
+        System.out.println("MAX_CAPACITY is fixed at: " + s1.MAX_CAPACITY);
+    }
+}`
+  },
+  {
+    id: 6,
+    title: "Vehicle Registration System",
+    practical: "Practical 04 — Static, Final, Super, This Keyword",
+    tag: "static · final method · this · super()",
+    code: `// Practical 04 — Problem 6: Vehicle Registration System
+class Vehicle {
+    final String vehicleType;
+    int engineCC;
+
+    Vehicle(String vehicleType, int engineCC) {
+        this.vehicleType = vehicleType;
+        this.engineCC = engineCC;
+    }
+
+    // final method — cannot be overridden
+    final String getVehicleType() {
+        return vehicleType;
+    }
+}
+
+class RegisteredVehicle extends Vehicle {
+    String regNo, ownerName;
+    static int totalRegistered = 0;
+
+    RegisteredVehicle(String vehicleType, int engineCC, String regNo, String ownerName) {
+        super(vehicleType, engineCC);  // calling parent constructor
+        this.regNo = regNo;
+        this.ownerName = ownerName;
+        totalRegistered++;
+    }
+
+    static int getTotalRegistered() {
+        return totalRegistered;
+    }
+
+    void displayRegistration() {
+        System.out.println("Type: " + getVehicleType() + " | CC: " + engineCC +
+                " | Reg: " + regNo + " | Owner: " + ownerName);
+    }
+
+    // Cannot override getVehicleType() — it's final in Vehicle:
+    // String getVehicleType() { return "Overridden"; } // COMPILE ERROR
+}
+
+public class RTOSystem {
+    public static void main(String[] args) {
+        RegisteredVehicle v1 = new RegisteredVehicle("Car", 1500, "MH12AB1234", "Suresh");
+        RegisteredVehicle v2 = new RegisteredVehicle("Bike", 150, "MH12CD5678", "Pooja");
+        RegisteredVehicle v3 = new RegisteredVehicle("Truck", 3000, "MH14EF9012", "Ramesh");
+        RegisteredVehicle v4 = new RegisteredVehicle("Van", 2000, "MH14GH3456", "Anita");
+
+        RegisteredVehicle[] vehicles = {v1, v2, v3, v4};
+        System.out.println("=== Vehicle Registration Details ===");
+        for (RegisteredVehicle v : vehicles) v.displayRegistration();
+
+        System.out.println("\\nTotal Registered Vehicles: " + RegisteredVehicle.getTotalRegistered());
+    }
+}`
+  },
+  {
+    id: 7,
+    title: "Banking Transaction Processor",
+    practical: "Practical 05 — Polymorphism",
+    tag: "Overloading · Overriding · Dynamic Dispatch",
+    code: `// Practical 05 — Problem 7: Banking Transaction Processor
+
+// Compile-time Polymorphism — Method Overloading
+class Transaction {
+    void processPayment(int amount) {
+        System.out.println("Processing integer payment: ₹" + amount);
+    }
+    void processPayment(double amount) {
+        System.out.println("Processing payment: ₹" + amount);
+    }
+    void processPayment(double amount, String remarks) {
+        System.out.println("Processing ₹" + amount + " | Remark: " + remarks);
+    }
+    void processPayment(String upiId, double amount) {
+        System.out.println("UPI Payment of ₹" + amount + " to " + upiId);
+    }
+}
+
+// Runtime Polymorphism — Method Overriding
+class Account {
+    double principal;
+    Account(double principal) { this.principal = principal; }
+    double calculateInterest() { return 0; }
+    String getType() { return "Account"; }
+}
+
+class SavingsAccount extends Account {
+    SavingsAccount(double principal) { super(principal); }
+    @Override
+    double calculateInterest() { return principal * 0.04; }
+    @Override
+    String getType() { return "Savings Account"; }
+}
+
+class FixedDeposit extends Account {
+    FixedDeposit(double principal) { super(principal); }
+    @Override
+    double calculateInterest() { return principal * 0.07; }
+    @Override
+    String getType() { return "Fixed Deposit"; }
+}
+
+public class BankPolymorphism {
+    public static void main(String[] args) {
+        System.out.println("=== Method Overloading ===");
+        Transaction t = new Transaction();
+        t.processPayment(5000);
+        t.processPayment(2500.50);
+        t.processPayment(1000.0, "EMI Payment");
+        t.processPayment("upi@bank", 3000);
+
+        System.out.println("\\n=== Method Overriding (Dynamic Dispatch) ===");
+        Account[] accounts = {new SavingsAccount(50000), new FixedDeposit(100000)};
+        for (Account acc : accounts) {
+            System.out.printf("%s Interest: ₹%.0f%n", acc.getType(), acc.calculateInterest());
+        }
+    }
+}`
+  },
+  {
+    id: 8,
+    title: "Smart Home Device Control",
+    practical: "Practical 05 — Polymorphism",
+    tag: "Overloading · Overriding · instanceof",
+    code: `// Practical 05 — Problem 8: Smart Home Device Control
+
+class DeviceController {
+    void setTimer(int minutes) {
+        System.out.println("Timer set for " + minutes + " minutes.");
+    }
+    void setTimer(int hours, int minutes) {
+        System.out.println("Timer set for " + hours + "hr " + minutes + "min.");
+    }
+    void setTimer(String schedule) {
+        System.out.println("Timer scheduled at: " + schedule);
+    }
+}
+
+class SmartDevice {
+    String name;
+    SmartDevice(String name) { this.name = name; }
+    void activate() {
+        System.out.println(name + " activated.");
+    }
+}
+
+class SmartLight extends SmartDevice {
+    int brightness;
+    SmartLight(String name, int brightness) {
+        super(name);
+        this.brightness = brightness;
+    }
+    @Override
+    void activate() {
+        System.out.println("Turning lights ON at " + brightness + "% brightness.");
+    }
+}
+
+class SmartAC extends SmartDevice {
+    int temperature;
+    SmartAC(String name, int temperature) {
+        super(name);
+        this.temperature = temperature;
+    }
+    @Override
+    void activate() {
+        System.out.println("Setting AC to " + temperature + "°C.");
+    }
+}
+
+class SmartFan extends SmartDevice {
+    int speed;
+    SmartFan(String name, int speed) {
+        super(name);
+        this.speed = speed;
+    }
+    @Override
+    void activate() {
+        System.out.println("Fan speed set to " + speed + ".");
+    }
+}
+
+public class SmartHome {
+    public static void main(String[] args) {
+        System.out.println("=== Timer Overloading ===");
+        DeviceController dc = new DeviceController();
+        dc.setTimer(30);
+        dc.setTimer(1, 30);
+        dc.setTimer("Morning 6AM");
+
+        System.out.println("\\n=== Device Polymorphism ===");
+        SmartDevice[] devices = {
+            new SmartLight("Living Room Light", 75),
+            new SmartAC("Bedroom AC", 22),
+            new SmartFan("Ceiling Fan", 3)
+        };
+        for (SmartDevice d : devices) {
+            d.activate();
+            if (d instanceof SmartLight)  System.out.println("  [Type: SmartLight]");
+            else if (d instanceof SmartAC) System.out.println("  [Type: SmartAC]");
+            else if (d instanceof SmartFan) System.out.println("  [Type: SmartFan]");
+        }
+    }
+}`
+  },
+  {
+    id: 9,
+    title: "Insurance Premium Calculator",
+    practical: "Practical 06 — Abstract Class, Interfaces, Lambda",
+    tag: "Abstract · Interface · Lambda · Predicate",
+    code: `// Practical 06 — Problem 9: Insurance Premium Calculator
+import java.util.*;
+import java.util.stream.*;
+import java.util.function.*;
+
+interface Taxable {
+    double applyGST(double premium);
+}
+
+abstract class InsurancePolicy {
+    String policyNo, holderName;
+    double sumInsured;
+
+    InsurancePolicy(String policyNo, String holderName, double sumInsured) {
+        this.policyNo = policyNo;
+        this.holderName = holderName;
+        this.sumInsured = sumInsured;
+    }
+
+    abstract double calculatePremium();
+
+    void displayPolicy() {
+        double premium = calculatePremium();
+        System.out.printf("Policy: %s | Holder: %s | Sum Insured: ₹%.0f | Premium: ₹%.0f%n",
+                policyNo, holderName, sumInsured, premium);
+    }
+}
+
+class HealthInsurance extends InsurancePolicy implements Taxable {
+    HealthInsurance(String policyNo, String holderName, double sumInsured) {
+        super(policyNo, holderName, sumInsured);
+    }
+
+    @Override
+    public double calculatePremium() { return 0.02 * sumInsured; }
+
+    @Override
+    public double applyGST(double premium) { return premium + 0.18 * premium; }
+}
+
+class VehicleInsurance extends InsurancePolicy implements Taxable {
+    VehicleInsurance(String policyNo, String holderName, double sumInsured) {
+        super(policyNo, holderName, sumInsured);
+    }
+
+    @Override
+    public double calculatePremium() { return 0.03 * sumInsured; }
+
+    @Override
+    public double applyGST(double premium) { return premium + 0.18 * premium; }
+}
+
+public class InsuranceSystem {
+    public static void main(String[] args) {
+        List<InsurancePolicy> policies = new ArrayList<>(Arrays.asList(
+            new HealthInsurance("H001", "Asha", 250000),
+            new HealthInsurance("H002", "Raj", 500000),
+            new HealthInsurance("H003", "Dev", 100000),
+            new VehicleInsurance("V001", "Priya", 150000),
+            new VehicleInsurance("V002", "Neha", 300000)
+        ));
+
+        System.out.println("=== All Policies ===");
+        policies.forEach(p -> {
+            p.displayPolicy();
+            if (p instanceof Taxable) {
+                System.out.printf("  Premium with GST: ₹%.2f%n",
+                        ((Taxable)p).applyGST(p.calculatePremium()));
+            }
+        });
+
+        // Sort by sumInsured using lambda
+        System.out.println("\\n=== Sorted by Sum Insured ===");
+        policies.sort((a, b) -> Double.compare(a.sumInsured, b.sumInsured));
+        policies.forEach(InsurancePolicy::displayPolicy);
+
+        // Filter: premium > 5000
+        System.out.println("\\n=== High Premium Policies (> ₹5000) ===");
+        Predicate<InsurancePolicy> highPremium = p -> p.calculatePremium() > 5000;
+        policies.stream().filter(highPremium).forEach(InsurancePolicy::displayPolicy);
+    }
+}`
+  },
+  {
+    id: 10,
+    title: "Food Delivery Order System",
+    practical: "Practical 06 — Abstract Class, Interfaces, Lambda",
+    tag: "Abstract · Multiple Interfaces · Lambda forEach",
+    code: `// Practical 06 — Problem 10: Food Delivery Order System
+import java.util.*;
+
+interface Discountable {
+    double applyDiscount(double percent);
+}
+
+interface Trackable {
+    String trackOrder();
+}
+
+abstract class FoodItem implements Discountable, Trackable {
+    String itemName;
+    double price;
+
+    FoodItem(String itemName, double price) {
+        this.itemName = itemName;
+        this.price = price;
+    }
+
+    abstract void prepareItem();
+
+    void displayItem() {
+        System.out.printf("Item: %-25s Price: ₹%.2f%n", itemName, price);
+    }
+
+    @Override
+    public double applyDiscount(double percent) {
+        return price - (price * percent / 100);
+    }
+}
+
+class VegItem extends FoodItem {
+    VegItem(String itemName, double price) { super(itemName, price); }
+
+    @Override
+    public void prepareItem() {
+        System.out.println("Preparing Veg: " + itemName);
+    }
+
+    @Override
+    public String trackOrder() {
+        return "ETA: 25-30 minutes (Veg)";
+    }
+}
+
+class NonVegItem extends FoodItem {
+    NonVegItem(String itemName, double price) { super(itemName, price); }
+
+    @Override
+    public void prepareItem() {
+        System.out.println("Preparing Non-Veg: " + itemName);
+    }
+
+    @Override
+    public String trackOrder() {
+        return "ETA: 35-40 minutes (Non-Veg)";
+    }
+}
+
+public class FoodDelivery {
+    public static void main(String[] args) {
+        List<FoodItem> menu = new ArrayList<>(Arrays.asList(
+            new VegItem("Paneer Butter Masala", 320),
+            new NonVegItem("Chicken Biryani", 280),
+            new VegItem("Dal Tadka", 180),
+            new NonVegItem("Mutton Curry", 380)
+        ));
+
+        System.out.println("=== Preparation Status ===");
+        menu.forEach(item -> {
+            item.prepareItem();
+            System.out.println("  " + item.trackOrder());
+            System.out.printf("  Discounted Price (10%%): ₹%.2f%n", item.applyDiscount(10));
+        });
+
+        System.out.println("\\n=== Menu Sorted by Price ===");
+        menu.sort(Comparator.comparingDouble(i -> i.price));
+        menu.forEach(item -> System.out.printf("%-25s ₹%.2f%n", item.itemName, item.applyDiscount(10)));
+    }
+}`
+  },
+  {
+    id: 11,
+    title: "ATM Withdrawal System",
+    practical: "Practical 07 — Exception Handling",
+    tag: "Custom Exceptions · try-catch-finally · Re-throw",
+    code: `// Practical 07 — Problem 11: ATM Withdrawal System
+
+// Custom Checked Exception
+class InsufficientFundsException extends Exception {
+    InsufficientFundsException(String message) { super(message); }
+}
+
+// Custom Checked Exception
+class DailyLimitExceededException extends Exception {
+    DailyLimitExceededException(String message) { super(message); }
+}
+
+// Custom Unchecked Exception
+class InvalidAmountException extends RuntimeException {
+    InvalidAmountException(String message) { super(message); }
+}
+
+class ATM {
+    double balance;
+    double dailyWithdrawn = 0;
+    final double DAILY_LIMIT = 20000;
+
+    ATM(double balance) { this.balance = balance; }
+
+    void withdraw(double amount) throws InsufficientFundsException, DailyLimitExceededException {
+        try {
+            // Unchecked validation
+            if (amount <= 0 || amount % 100 != 0) {
+                throw new InvalidAmountException("Invalid amount: ₹" + amount + ". Must be positive multiple of 100.");
+            }
+            if (dailyWithdrawn + amount > DAILY_LIMIT) {
+                throw new DailyLimitExceededException("Daily limit of ₹" + DAILY_LIMIT + " exceeded!");
+            }
+            if (amount > balance) {
+                throw new InsufficientFundsException("Insufficient balance! Available: ₹" + balance);
+            }
+            balance -= amount;
+            dailyWithdrawn += amount;
+            System.out.println("✓ Withdrawal of ₹" + amount + " successful. Remaining Balance: ₹" + balance);
+        } catch (InvalidAmountException e) {
+            System.out.println("✗ Invalid Amount: " + e.getMessage());
+        } finally {
+            System.out.println("  Transaction log saved.");
+        }
+    }
+}
+
+public class ATMSystem {
+    public static void main(String[] args) {
+        ATM atm = new ATM(15000);
+
+        // 1. Valid withdrawal
+        try { atm.withdraw(5000); }
+        catch (InsufficientFundsException | DailyLimitExceededException e) {
+            System.out.println("✗ " + e.getMessage());
+        }
+
+        // 2. Daily limit breach
+        try { atm.withdraw(12000); }
+        catch (DailyLimitExceededException e) {
+            System.out.println("✗ Daily Limit: " + e.getMessage());
+            System.out.println("  Transaction log saved.");
+        } catch (InsufficientFundsException e) {
+            System.out.println("✗ " + e.getMessage());
+        }
+
+        // 3. Invalid amount
+        try { atm.withdraw(-500); }
+        catch (InsufficientFundsException | DailyLimitExceededException e) {
+            System.out.println("✗ " + e.getMessage());
+        }
+
+        // 4. Insufficient funds
+        try { atm.withdraw(8000); }
+        catch (InsufficientFundsException e) {
+            System.out.println("✗ Insufficient Funds: " + e.getMessage());
+            System.out.println("  Transaction log saved.");
+        } catch (DailyLimitExceededException e) {
+            System.out.println("✗ " + e.getMessage());
+        }
+    }
+}`
+  },
+  {
+    id: 12,
+    title: "Student Online Exam Portal",
+    practical: "Practical 07 — Exception Handling",
+    tag: "Custom Exceptions · multi-catch | · finally",
+    code: `// Practical 07 — Problem 12: Student Online Exam Portal
+
+class ExamTimeExpiredException extends Exception {
+    ExamTimeExpiredException(String msg) { super(msg); }
+}
+
+class AlreadySubmittedException extends Exception {
+    AlreadySubmittedException(String msg) { super(msg); }
+}
+
+class InvalidAnswerFormatException extends RuntimeException {
+    InvalidAnswerFormatException(String msg) { super(msg); }
+}
+
+class StudentExam {
+    String name;
+    boolean submitted = false;
+    StudentExam(String name) { this.name = name; }
+}
+
+class ExamPortal {
+    final long ALLOWED_DURATION = 90; // minutes
+
+    void submitExam(StudentExam s, long timeTaken, String[] answers)
+            throws ExamTimeExpiredException, AlreadySubmittedException {
+        try {
+            if (s.submitted) {
+                throw new AlreadySubmittedException(s.name + " has already submitted the exam!");
+            }
+            for (String ans : answers) {
+                if (ans == null || ans.isEmpty()) {
+                    throw new InvalidAnswerFormatException("Answer cannot be null or empty!");
+                }
+            }
+            if (timeTaken > ALLOWED_DURATION) {
+                throw new ExamTimeExpiredException("Time exceeded! " + timeTaken + " min > " + ALLOWED_DURATION + " min allowed.");
+            }
+            s.submitted = true;
+            System.out.println("✓ Exam submitted successfully for " + s.name + " in " + timeTaken + " min.");
+        } catch (InvalidAnswerFormatException e) {
+            System.out.println("✗ Format Error: " + e.getMessage());
+        } finally {
+            System.out.println("  Session closed for " + s.name + ".");
+        }
+    }
+}
+
+public class ExamSystem {
+    public static void main(String[] args) {
+        ExamPortal portal = new ExamPortal();
+        StudentExam raj = new StudentExam("Raj");
+
+        // 1. Valid submission
+        try {
+            portal.submitExam(raj, 85, new String[]{"A", "B", "C"});
+        } catch (ExamTimeExpiredException | AlreadySubmittedException e) {
+            System.out.println("✗ " + e.getMessage());
+        }
+
+        // 2. Time expired
+        StudentExam meena = new StudentExam("Meena");
+        try {
+            portal.submitExam(meena, 95, new String[]{"A", "B"});
+        } catch (ExamTimeExpiredException | AlreadySubmittedException e) {
+            System.out.println("✗ " + e.getMessage());
+            System.out.println("  Session closed for " + meena.name + ".");
+        }
+
+        // 3. Invalid answer (null)
+        StudentExam john = new StudentExam("John");
+        try {
+            portal.submitExam(john, 70, new String[]{"A", null});
+        } catch (ExamTimeExpiredException | AlreadySubmittedException e) {
+            System.out.println("✗ " + e.getMessage());
+        }
+
+        // 4. Already submitted
+        try {
+            portal.submitExam(raj, 80, new String[]{"A", "B", "C"});
+        } catch (ExamTimeExpiredException | AlreadySubmittedException e) {
+            System.out.println("✗ " + e.getMessage());
+            System.out.println("  Session closed for " + raj.name + ".");
+        }
+    }
+}`
+  },
+  {
+    id: 13,
+    title: "Railway Ticket Booking — Seat Reservation",
+    practical: "Practical 08 — Java Threads",
+    tag: "synchronized · Thread · sleep() · race condition",
+    code: `// Practical 08 — Problem 13: Railway Ticket Booking — Seat Reservation
+class SeatReservation {
+    int availableSeats = 10;
+
+    synchronized void bookSeats(int count, String agentName) {
+        System.out.println(Thread.currentThread().getName() + " (" + agentName + ") trying to book " + count + " seat(s).");
+        try { Thread.sleep(500); } catch (InterruptedException e) { e.printStackTrace(); }
+
+        if (availableSeats >= count) {
+            availableSeats -= count;
+            System.out.println("✓ " + agentName + " successfully booked " + count + " seat(s). Remaining: " + availableSeats);
+        } else {
+            System.out.println("✗ Seats not available for " + agentName + ". Only " + availableSeats + " seat(s) left.");
+        }
+    }
+}
+
+class BookingAgent extends Thread {
+    SeatReservation reservation;
+    int seatsToBook;
+    String agentName;
+
+    BookingAgent(SeatReservation reservation, int seatsToBook, String agentName) {
+        this.reservation = reservation;
+        this.seatsToBook = seatsToBook;
+        this.agentName = agentName;
+    }
+
+    @Override
+    public void run() {
+        reservation.bookSeats(seatsToBook, agentName);
+    }
+}
+
+public class RailwayBooking {
+    public static void main(String[] args) throws InterruptedException {
+        SeatReservation sr = new SeatReservation();
+        System.out.println("Available Seats: " + sr.availableSeats);
+
+        BookingAgent a1 = new BookingAgent(sr, 3, "Agent1");
+        BookingAgent a2 = new BookingAgent(sr, 4, "Agent2");
+        BookingAgent a3 = new BookingAgent(sr, 2, "Agent3");
+        BookingAgent a4 = new BookingAgent(sr, 3, "Agent4");
+
+        a1.start(); a2.start(); a3.start(); a4.start();
+
+        a1.join(); a2.join(); a3.join(); a4.join();
+
+        System.out.println("\\nFinal Available Seats: " + sr.availableSeats);
+    }
+}`
+  },
+  {
+    id: 14,
+    title: "Stock Market Price Feed Simulator",
+    practical: "Practical 08 — Java Threads",
+    tag: "Runnable · volatile · join() · Thread.getState()",
+    code: `// Practical 08 — Problem 14: Stock Market Price Feed Simulator
+import java.util.Random;
+
+class StockUpdater implements Runnable {
+    String stockName;
+    volatile double price;
+
+    StockUpdater(String stockName, double initialPrice) {
+        this.stockName = stockName;
+        this.price = initialPrice;
+    }
+
+    @Override
+    public void run() {
+        Random rand = new Random();
+        for (int i = 1; i <= 5; i++) {
+            double change = price * 0.05 * (rand.nextBoolean() ? 1 : -1);
+            price += change;
+            System.out.printf("[%s] Update %d: ₹%.2f%n", stockName, i, price);
+            try { Thread.sleep(500); } catch (InterruptedException e) { break; }
+        }
+    }
+}
+
+class StockMonitor extends Thread {
+    StockUpdater target;
+    double threshold;
+
+    StockMonitor(StockUpdater target, double threshold) {
+        this.target = target;
+        this.threshold = threshold;
+    }
+
+    @Override
+    public void run() {
+        for (int i = 0; i < 5; i++) {
+            if (target.price > threshold) {
+                System.out.println("ALERT: " + target.stockName + " crossed ₹" + threshold + "! Current: ₹" + String.format("%.2f", target.price));
+            }
+            try { Thread.sleep(500); } catch (InterruptedException e) { break; }
+        }
+    }
+}
+
+public class StockMarket {
+    public static void main(String[] args) throws InterruptedException {
+        StockUpdater reliance = new StockUpdater("RELIANCE", 2500);
+        StockUpdater infy     = new StockUpdater("INFY", 1800);
+        StockUpdater tcs      = new StockUpdater("TCS", 4000);
+
+        Thread t1 = new Thread(reliance, "RELIANCE-Thread");
+        Thread t2 = new Thread(infy, "INFY-Thread");
+        Thread t3 = new Thread(tcs, "TCS-Thread");
+        StockMonitor monitor = new StockMonitor(reliance, 2600);
+
+        System.out.println("Thread States before start: " + t1.getState());
+        t1.start(); t2.start(); t3.start(); monitor.start();
+        System.out.println("Thread States after start: " + t1.getState());
+
+        t1.join(); t2.join(); t3.join(); monitor.join();
+
+        System.out.println("\\n=== Final Prices ===");
+        System.out.printf("RELIANCE: ₹%.2f | INFY: ₹%.2f | TCS: ₹%.2f%n",
+                reliance.price, infy.price, tcs.price);
+        System.out.println("Thread State after finish: " + t1.getState());
+    }
+}`
+  },
+  {
+    id: 15,
+    title: "Hospital Patient Record System",
+    practical: "Practical 09 — Packages and Collections",
+    tag: "ArrayList · HashMap · LinkedList · TreeSet",
+    code: `// Practical 09 — Problem 15: Hospital Patient Record System
+// Note: In a real project, split into packages hospital.model, hospital.service, hospital.main
+// Shown here as a single file for simplicity
+
+import java.util.*;
+
+class Patient {
+    String patientId, name, disease;
+    int age;
+
+    Patient(String patientId, String name, int age, String disease) {
+        this.patientId = patientId;
+        this.name = name;
+        this.age = age;
+        this.disease = disease;
+    }
+
+    @Override
+    public String toString() {
+        return patientId + " | " + name + " | Age: " + age + " | " + disease;
+    }
+}
+
+class PatientService {
+    ArrayList<Patient> patientList = new ArrayList<>();
+    HashMap<String, Patient> patientMap = new HashMap<>();
+    LinkedList<Patient> consultationQueue = new LinkedList<>();
+    TreeSet<String> diseaseSet = new TreeSet<>();
+
+    void addPatient(Patient p) {
+        patientList.add(p);
+        patientMap.put(p.patientId, p);
+        consultationQueue.add(p);
+        diseaseSet.add(p.disease);
+    }
+
+    void displayAll() {
+        System.out.println("=== All Patients ===");
+        patientList.forEach(System.out::println);
+    }
+
+    void searchById(String id) {
+        Patient p = patientMap.get(id);
+        System.out.println("Search [" + id + "]: " + (p != null ? p : "Not found"));
+    }
+
+    void nextInQueue() {
+        Patient p = consultationQueue.poll();
+        System.out.println("Next Patient: " + (p != null ? p : "Queue empty"));
+    }
+
+    void displayDiseases() {
+        System.out.println("Unique Diseases (Sorted): " + diseaseSet);
+    }
+}
+
+public class HospitalSystem {
+    public static void main(String[] args) {
+        PatientService service = new PatientService();
+        service.addPatient(new Patient("P001", "Asha", 32, "Fever"));
+        service.addPatient(new Patient("P002", "Raj", 45, "Diabetes"));
+        service.addPatient(new Patient("P003", "Priya", 28, "Fever"));
+        service.addPatient(new Patient("P004", "Dev", 60, "BP"));
+        service.addPatient(new Patient("P005", "Neha", 35, "Asthma"));
+
+        service.displayAll();
+        System.out.println();
+        service.searchById("P002");
+        System.out.println();
+        service.nextInQueue();
+        System.out.println();
+        service.displayDiseases();
+    }
+}`
+  },
+  {
+    id: 16,
+    title: "Online Shopping Cart System",
+    practical: "Practical 09 — Packages and Collections",
+    tag: "HashMap · Stack · TreeMap · ArrayList",
+    code: `// Practical 09 — Problem 16: Online Shopping Cart System
+import java.util.*;
+
+class ProductItem {
+    String productId, name, category;
+    double price;
+
+    ProductItem(String productId, String name, double price, String category) {
+        this.productId = productId;
+        this.name = name;
+        this.price = price;
+        this.category = category;
+    }
+
+    @Override
+    public String toString() {
+        return productId + " | " + name + " | ₹" + price + " | " + category;
+    }
+}
+
+class ShoppingCart {
+    ArrayList<ProductItem> catalogue = new ArrayList<>();
+    HashMap<String, Integer> cart = new HashMap<>();
+    Stack<String> undoHistory = new Stack<>();
+    TreeMap<Double, String> priceMap = new TreeMap<>();
+
+    void addToCatalogue(ProductItem p) {
+        catalogue.add(p);
+        priceMap.put(p.price, p.name);
+    }
+
+    void addToCart(String productId, int qty) {
+        cart.put(productId, cart.getOrDefault(productId, 0) + qty);
+        undoHistory.push(productId);
+        System.out.println("Added to cart: " + productId + " x" + qty);
+    }
+
+    void undoLastAdd() {
+        if (!undoHistory.isEmpty()) {
+            String last = undoHistory.pop();
+            cart.remove(last);
+            System.out.println("Undo: Removed " + last + " from cart.");
+        }
+    }
+
+    void displayCartTotal() {
+        System.out.println("\\n=== Cart Total ===");
+        double total = 0;
+        for (Map.Entry<String, Integer> entry : cart.entrySet()) {
+            for (ProductItem p : catalogue) {
+                if (p.productId.equals(entry.getKey())) {
+                    double cost = p.price * entry.getValue();
+                    System.out.printf("%s x%d = ₹%.0f%n", p.name, entry.getValue(), cost);
+                    total += cost;
+                }
+            }
+        }
+        System.out.printf("TOTAL: ₹%.0f%n", total);
+    }
+
+    void displaySortedByPrice() {
+        System.out.println("\\n=== Products Sorted by Price ===");
+        priceMap.forEach((price, name) -> System.out.printf("%-20s ₹%.0f%n", name, price));
+    }
+
+    void searchProduct(String id) {
+        boolean found = catalogue.stream().anyMatch(p -> p.productId.equals(id));
+        System.out.println("Product [" + id + "]: " + (found ? "Found" : "Not found"));
+    }
+}
+
+public class ShoppingSystem {
+    public static void main(String[] args) {
+        ShoppingCart sc = new ShoppingCart();
+        sc.addToCatalogue(new ProductItem("P1", "Phone", 25000, "Electronics"));
+        sc.addToCatalogue(new ProductItem("P2", "Laptop", 65000, "Electronics"));
+        sc.addToCatalogue(new ProductItem("P3", "Earphones", 2000, "Electronics"));
+        sc.addToCatalogue(new ProductItem("P4", "Mouse", 800, "Accessories"));
+        sc.addToCatalogue(new ProductItem("P5", "Keyboard", 1500, "Accessories"));
+        sc.addToCatalogue(new ProductItem("P6", "Monitor", 12000, "Electronics"));
+
+        sc.addToCart("P1", 1);
+        sc.addToCart("P3", 2);
+        sc.addToCart("P4", 1);
+        sc.addToCart("P5", 1);
+
+        sc.undoLastAdd(); // Undo last (P5)
+        sc.displayCartTotal();
+        sc.displaySortedByPrice();
+        sc.searchProduct("P2");
+    }
+}`
+  },
+  {
+    id: 17,
+    title: "Student Result File Management",
+    practical: "Practical 10 — File Handling",
+    tag: "File · FileWriter · BufferedReader · Append",
+    code: `// Practical 10 — Problem 17: Student Result File Management
+import java.io.*;
+import java.util.*;
+
+public class StudentResultManager {
+    static String getGrade(int marks) {
+        if (marks >= 90) return "O";
+        else if (marks >= 75) return "A";
+        else if (marks >= 60) return "B";
+        else if (marks >= 40) return "C";
+        else return "F";
+    }
+
+    public static void main(String[] args) {
+        // (a) List .txt files in directory
+        File dir = new File("results");
+        dir.mkdir();
+        System.out.println("=== .txt files in results/ ===");
+        File[] files = dir.listFiles((d, n) -> n.endsWith(".txt"));
+        if (files != null) for (File f : files) System.out.println(f.getName());
+
+        // (b) Write student results to file
+        String[][] students = {
+            {"101", "Asha", "85"},
+            {"102", "Raj", "72"},
+            {"103", "Priya", "91"},
+            {"104", "Dev", "38"}
+        };
+
+        try (BufferedWriter bw = new BufferedWriter(new FileWriter("results/results.txt"))) {
+            for (String[] s : students) {
+                int marks = Integer.parseInt(s[2]);
+                bw.write(s[0] + "," + s[1] + "," + s[2] + "," + getGrade(marks));
+                bw.newLine();
+            }
+            System.out.println("\\nResults written to file.");
+        } catch (IOException e) { e.printStackTrace(); }
+
+        // (c) Read and display
+        System.out.println("\\n=== Result Table ===");
+        System.out.printf("%-6s %-10s %-6s %-5s%n", "Roll", "Name", "Marks", "Grade");
+        System.out.println("-".repeat(30));
+        try (BufferedReader br = new BufferedReader(new FileReader("results/results.txt"))) {
+            String line;
+            while ((line = br.readLine()) != null) {
+                String[] parts = line.split(",");
+                System.out.printf("%-6s %-10s %-6s %-5s%n", parts[0], parts[1], parts[2], parts[3]);
+            }
+        } catch (IOException e) { e.printStackTrace(); }
+
+        // (d) Append new record
+        try (BufferedWriter bw = new BufferedWriter(new FileWriter("results/results.txt", true))) {
+            bw.write("105,Neha,65," + getGrade(65));
+            bw.newLine();
+            System.out.println("\\nAppended: 105, Neha, 65");
+        } catch (IOException e) { e.printStackTrace(); }
+
+        // (e) Count passed students
+        int passCount = 0;
+        try (BufferedReader br = new BufferedReader(new FileReader("results/results.txt"))) {
+            String line;
+            while ((line = br.readLine()) != null) {
+                int marks = Integer.parseInt(line.split(",")[2]);
+                if (marks >= 40) passCount++;
+            }
+        } catch (IOException e) { e.printStackTrace(); }
+        System.out.println("\\nTotal Passed: " + passCount);
+    }
+}`
+  },
+  {
+    id: 18,
+    title: "Daily Expense Tracker Log",
+    practical: "Practical 10 — File Handling",
+    tag: "File · PrintWriter · BufferedReader · Append",
+    code: `// Practical 10 — Problem 18: Daily Expense Tracker Log
+import java.io.*;
+import java.util.*;
+
+public class ExpenseTracker {
+    public static void main(String[] args) {
+        File dir = new File("expenses");
+        dir.mkdir();
+
+        // (a) List files in expenses/ with sizes
+        System.out.println("=== Files in expenses/ ===");
+        File[] files = dir.listFiles();
+        if (files != null && files.length > 0) {
+            for (File f : files) System.out.println(f.getName() + " (" + f.length() + " bytes)");
+        } else { System.out.println("No files yet."); }
+
+        // (b) Write 5 expense records
+        String[][] expenses = {
+            {"01-May", "Food", "250", "Lunch"},
+            {"01-May", "Travel", "80", "Bus"},
+            {"02-May", "Food", "310", "Dinner"},
+            {"02-May", "Shopping", "1200", "Shirt"},
+            {"03-May", "Food", "190", "Breakfast"}
+        };
+
+        try (PrintWriter pw = new PrintWriter(new FileWriter("expenses/expenses_log.txt"))) {
+            for (String[] e : expenses) {
+                pw.println(e[0] + "," + e[1] + "," + e[2] + "," + e[3]);
+            }
+            System.out.println("\\n5 records written.");
+        } catch (IOException ex) { ex.printStackTrace(); }
+
+        // (c) Read and display
+        System.out.println("\\n=== Expense Table ===");
+        System.out.printf("%-10s %-12s %-8s %-15s%n", "Date", "Category", "Amount", "Description");
+        System.out.println("-".repeat(48));
+        try (BufferedReader br = new BufferedReader(new FileReader("expenses/expenses_log.txt"))) {
+            String line;
+            while ((line = br.readLine()) != null) {
+                String[] p = line.split(",");
+                System.out.printf("%-10s %-12s ₹%-7s %-15s%n", p[0], p[1], p[2], p[3]);
+            }
+        } catch (IOException ex) { ex.printStackTrace(); }
+
+        // (d) Append new expense
+        try (PrintWriter pw = new PrintWriter(new FileWriter("expenses/expenses_log.txt", true))) {
+            pw.println("03-May,Travel,50,Auto");
+            System.out.println("\\nAppended: 03-May, Travel, ₹50, Auto");
+        } catch (IOException ex) { ex.printStackTrace(); }
+
+        // (e) Calculate stats
+        double total = 0, max = 0;
+        int foodCount = 0;
+        try (BufferedReader br = new BufferedReader(new FileReader("expenses/expenses_log.txt"))) {
+            String line;
+            while ((line = br.readLine()) != null) {
+                String[] p = line.split(",");
+                double amt = Double.parseDouble(p[2]);
+                total += amt;
+                if (amt > max) max = amt;
+                if (p[1].equals("Food")) foodCount++;
+            }
+        } catch (IOException ex) { ex.printStackTrace(); }
+
+        System.out.printf("%nTotal Expenditure: ₹%.0f | Max Expense: ₹%.0f | Food Count: %d%n",
+                total, max, foodCount);
+    }
+}`
+  },
+  {
+    id: 19,
+    title: "Student Registration Form (GUI)",
+    practical: "Practical 11 — Java Swing",
+    tag: "JTextField · JComboBox · JCheckBox · GridBagLayout",
+    code: `// Practical 11 — Problem 19: Student Registration Form (GUI)
+import javax.swing.*;
+import java.awt.*;
+import java.awt.event.*;
+
+public class StudentRegistrationForm extends JFrame {
+    JTextField txtName, txtEmail, txtContact, txtCity;
+    JRadioButton rbMale, rbFemale, rbOther;
+    JCheckBox cbJava, cbPython, cbWeb, cbDS;
+    JComboBox<String> cbBranch;
+    JList<String> lstHobbies;
+    JTextArea taAddress, taOutput;
+
+    public StudentRegistrationForm() {
+        setTitle("Student Registration Form");
+        setSize(650, 700);
+        setDefaultCloseOperation(EXIT_ON_CLOSE);
+        setLayout(new BorderLayout(10, 10));
+
+        JPanel mainPanel = new JPanel(new GridBagLayout());
+        mainPanel.setBorder(BorderFactory.createEmptyBorder(15, 15, 15, 15));
+        GridBagConstraints gbc = new GridBagConstraints();
+        gbc.fill = GridBagConstraints.HORIZONTAL;
+        gbc.insets = new Insets(5, 5, 5, 5);
+
+        // Name
+        addField(mainPanel, gbc, 0, "Name:", txtName = new JTextField(20));
+        addField(mainPanel, gbc, 1, "Email:", txtEmail = new JTextField(20));
+        addField(mainPanel, gbc, 2, "Contact:", txtContact = new JTextField(20));
+        addField(mainPanel, gbc, 3, "City:", txtCity = new JTextField(20));
+
+        // Gender
+        gbc.gridx = 0; gbc.gridy = 4;
+        mainPanel.add(new JLabel("Gender:"), gbc);
+        JPanel genderPanel = new JPanel(new FlowLayout(FlowLayout.LEFT));
+        ButtonGroup bg = new ButtonGroup();
+        rbMale = new JRadioButton("Male"); rbFemale = new JRadioButton("Female"); rbOther = new JRadioButton("Other");
+        bg.add(rbMale); bg.add(rbFemale); bg.add(rbOther);
+        genderPanel.add(rbMale); genderPanel.add(rbFemale); genderPanel.add(rbOther);
+        gbc.gridx = 1; mainPanel.add(genderPanel, gbc);
+
+        // Courses
+        gbc.gridx = 0; gbc.gridy = 5;
+        mainPanel.add(new JLabel("Courses:"), gbc);
+        JPanel coursePanel = new JPanel(new FlowLayout(FlowLayout.LEFT));
+        cbJava = new JCheckBox("Java"); cbPython = new JCheckBox("Python");
+        cbWeb = new JCheckBox("Web Dev"); cbDS = new JCheckBox("Data Science");
+        coursePanel.add(cbJava); coursePanel.add(cbPython); coursePanel.add(cbWeb); coursePanel.add(cbDS);
+        gbc.gridx = 1; mainPanel.add(coursePanel, gbc);
+
+        // Branch
+        gbc.gridx = 0; gbc.gridy = 6;
+        mainPanel.add(new JLabel("Branch:"), gbc);
+        cbBranch = new JComboBox<>(new String[]{"CS", "IT", "ENTC", "Mechanical", "Civil"});
+        gbc.gridx = 1; mainPanel.add(cbBranch, gbc);
+
+        // Hobbies
+        gbc.gridx = 0; gbc.gridy = 7;
+        mainPanel.add(new JLabel("Hobbies:"), gbc);
+        lstHobbies = new JList<>(new String[]{"Reading", "Sports", "Music", "Coding", "Travel"});
+        lstHobbies.setSelectionMode(ListSelectionModel.MULTIPLE_INTERVAL_SELECTION);
+        gbc.gridx = 1; mainPanel.add(new JScrollPane(lstHobbies), gbc);
+
+        // Address
+        gbc.gridx = 0; gbc.gridy = 8;
+        mainPanel.add(new JLabel("Address:"), gbc);
+        taAddress = new JTextArea(3, 20);
+        gbc.gridx = 1; mainPanel.add(new JScrollPane(taAddress), gbc);
+
+        // Buttons
+        JPanel btnPanel = new JPanel();
+        JButton btnSubmit = new JButton("Submit");
+        JButton btnClear  = new JButton("Clear");
+        JButton btnExit   = new JButton("Exit");
+        btnPanel.add(btnSubmit); btnPanel.add(btnClear); btnPanel.add(btnExit);
+
+        taOutput = new JTextArea(6, 40);
+        taOutput.setEditable(false);
+
+        add(mainPanel, BorderLayout.CENTER);
+        add(btnPanel, BorderLayout.SOUTH);
+        add(new JScrollPane(taOutput), BorderLayout.NORTH);
+
+        btnSubmit.addActionListener(e -> {
+            if (txtName.getText().isEmpty() || txtEmail.getText().isEmpty()) {
+                JOptionPane.showMessageDialog(this, "Name and Email are required!", "Warning", JOptionPane.WARNING_MESSAGE);
+                return;
+            }
+            StringBuilder sb = new StringBuilder("=== Registration Details ===\\n");
+            sb.append("Name: ").append(txtName.getText()).append("\\n");
+            sb.append("Email: ").append(txtEmail.getText()).append("\\n");
+            sb.append("Branch: ").append(cbBranch.getSelectedItem()).append("\\n");
+            taOutput.setText(sb.toString());
+        });
+
+        btnClear.addActionListener(e -> {
+            txtName.setText(""); txtEmail.setText(""); txtContact.setText(""); txtCity.setText("");
+            bg.clearSelection(); cbJava.setSelected(false); cbPython.setSelected(false);
+            cbWeb.setSelected(false); cbDS.setSelected(false);
+            taAddress.setText(""); taOutput.setText("");
+        });
+
+        btnExit.addActionListener(e -> {
+            if (JOptionPane.showConfirmDialog(this, "Exit?", "Confirm", JOptionPane.YES_NO_OPTION) == 0)
+                System.exit(0);
+        });
+
+        setVisible(true);
+    }
+
+    void addField(JPanel p, GridBagConstraints gbc, int row, String label, JTextField field) {
+        gbc.gridx = 0; gbc.gridy = row; p.add(new JLabel(label), gbc);
+        gbc.gridx = 1; p.add(field, gbc);
+    }
+
+    public static void main(String[] args) {
+        SwingUtilities.invokeLater(StudentRegistrationForm::new);
+    }
+}`
+  },
+  {
+    id: 20,
+    title: "Library Book Search and Issue GUI",
+    practical: "Practical 11 — Java Swing",
+    tag: "JTable · JMenuBar · JComboBox · JOptionPane",
+    code: `// Practical 11 — Problem 20: Library Book Search and Issue GUI
+import javax.swing.*;
+import javax.swing.table.*;
+import java.awt.*;
+import java.awt.event.*;
+
+public class LibraryGUI extends JFrame {
+    DefaultTableModel model;
+    JTable table;
+    JTextField tfSearch;
+    JLabel lblCount;
+    JComboBox<String> cbCategory;
+
+    String[][] bookData = {
+        {"B001","Core Java","Herbert Schildt","Technology","Available"},
+        {"B002","DBMS","Korth","Technology","Available"},
+        {"B003","Wings of Fire","A.P.J. Kalam","History","Available"},
+        {"B004","Clean Code","Robert Martin","Technology","Available"},
+        {"B005","Harry Potter","J.K. Rowling","Fiction","Available"},
+        {"B006","Cosmos","Carl Sagan","Science","Available"}
+    };
+
+    public LibraryGUI() {
+        setTitle("Library Management System");
+        setSize(800, 500);
+        setDefaultCloseOperation(EXIT_ON_CLOSE);
+        setLayout(new BorderLayout(8, 8));
+
+        // Menu Bar
+        JMenuBar menuBar = new JMenuBar();
+        JMenu fileMenu = new JMenu("File"); JMenu helpMenu = new JMenu("Help");
+        JMenuItem exitItem = new JMenuItem("Exit");
+        JMenuItem aboutItem = new JMenuItem("About");
+        exitItem.addActionListener(e -> System.exit(0));
+        aboutItem.addActionListener(e -> JOptionPane.showMessageDialog(this, "Library System v1.0"));
+        fileMenu.add(exitItem); helpMenu.add(aboutItem);
+        menuBar.add(fileMenu); menuBar.add(helpMenu);
+        setJMenuBar(menuBar);
+
+        // Top panel
+        JPanel topPanel = new JPanel(new FlowLayout(FlowLayout.LEFT));
+        tfSearch = new JTextField(20);
+        cbCategory = new JComboBox<>(new String[]{"All","Fiction","Science","History","Technology"});
+        JButton btnSearch = new JButton("Search");
+        JButton btnIssue  = new JButton("Issue Book");
+        JButton btnReturn = new JButton("Return Book");
+        JButton btnClear  = new JButton("Clear");
+        lblCount = new JLabel("Showing: 6 books");
+        topPanel.add(new JLabel("Search:")); topPanel.add(tfSearch);
+        topPanel.add(new JLabel("Category:")); topPanel.add(cbCategory);
+        topPanel.add(btnSearch); topPanel.add(btnIssue); topPanel.add(btnReturn);
+        topPanel.add(btnClear); topPanel.add(lblCount);
+
+        // Table
+        String[] cols = {"Book ID","Title","Author","Category","Status"};
+        model = new DefaultTableModel(bookData, cols) {
+            public boolean isCellEditable(int r, int c) { return false; }
+        };
+        table = new JTable(model);
+        table.setSelectionMode(ListSelectionModel.SINGLE_SELECTION);
+
+        add(topPanel, BorderLayout.NORTH);
+        add(new JScrollPane(table), BorderLayout.CENTER);
+
+        btnSearch.addActionListener(e -> filterTable());
+        cbCategory.addActionListener(e -> filterTable());
+
+        btnIssue.addActionListener(e -> {
+            int row = table.getSelectedRow();
+            if (row < 0) { JOptionPane.showMessageDialog(this, "Select a book first!"); return; }
+            if (model.getValueAt(row, 4).equals("Issued")) {
+                JOptionPane.showMessageDialog(this, "Book already issued!"); return;
+            }
+            int confirm = JOptionPane.showConfirmDialog(this, "Issue '" + model.getValueAt(row, 1) + "'?");
+            if (confirm == 0) { model.setValueAt("Issued", row, 4); lblCount.setText("Book issued!"); }
+        });
+
+        btnReturn.addActionListener(e -> {
+            int row = table.getSelectedRow();
+            if (row < 0) { JOptionPane.showMessageDialog(this, "Select a book first!"); return; }
+            model.setValueAt("Available", row, 4);
+            JOptionPane.showMessageDialog(this, "Book returned successfully!");
+        });
+
+        btnClear.addActionListener(e -> { tfSearch.setText(""); cbCategory.setSelectedIndex(0); filterTable(); });
+
+        setVisible(true);
+    }
+
+    void filterTable() {
+        String query = tfSearch.getText().toLowerCase();
+        String cat = (String) cbCategory.getSelectedItem();
+        model.setRowCount(0);
+        int count = 0;
+        for (String[] row : bookData) {
+            boolean matchSearch = row[1].toLowerCase().contains(query) || row[2].toLowerCase().contains(query);
+            boolean matchCat = cat.equals("All") || row[3].equals(cat);
+            if (matchSearch && matchCat) { model.addRow(row); count++; }
+        }
+        lblCount.setText("Showing: " + count + " books");
+    }
+
+    public static void main(String[] args) {
+        SwingUtilities.invokeLater(LibraryGUI::new);
+    }
+}`
+  },
+  {
+    id: 21,
+    title: "Employee Records Management using JDBC",
+    practical: "Practical 12 — JDBC",
+    tag: "PreparedStatement · ResultSet · Batch · Transaction",
+    code: `// Practical 12 — Problem 21: Employee Records Management using JDBC
+import java.sql.*;
+
+public class EmployeeJDBC {
+    static final String URL  = "jdbc:mysql://localhost:3306/company_db";
+    static final String USER = "root";
+    static final String PASS = "password"; // change as needed
+
+    public static void main(String[] args) {
+        try (Connection conn = DriverManager.getConnection(URL, USER, PASS)) {
+            System.out.println("Connected to company_db");
+
+            // (a) Create table
+            conn.createStatement().execute("DROP TABLE IF EXISTS Employee");
+            conn.createStatement().execute(
+                "CREATE TABLE Employee (EmpId INT PRIMARY KEY, Name VARCHAR(50), " +
+                "Department VARCHAR(50), Salary DOUBLE, JoiningDate DATE)");
+            System.out.println("Table created.");
+
+            // (b) Insert 5 records using PreparedStatement
+            String insertSQL = "INSERT INTO Employee VALUES (?, ?, ?, ?, ?)";
+            PreparedStatement ps = conn.prepareStatement(insertSQL);
+            Object[][] emp = {
+                {101,"Asha","IT",45000.0,"2023-01-10"},
+                {102,"Raj","HR",38000.0,"2022-06-15"},
+                {103,"Priya","IT",52000.0,"2021-03-20"},
+                {104,"Dev","Finance",41000.0,"2023-08-01"},
+                {105,"Neha","IT",47000.0,"2022-11-05"}
+            };
+            for (Object[] e : emp) {
+                ps.setInt(1,(int)e[0]); ps.setString(2,(String)e[1]);
+                ps.setString(3,(String)e[2]); ps.setDouble(4,(double)e[3]); ps.setString(5,(String)e[4]);
+                ps.executeUpdate();
+            }
+            System.out.println("5 records inserted.");
+
+            // (c) Display all records
+            System.out.println("\\n=== All Employees ===");
+            ResultSet rs = conn.createStatement().executeQuery("SELECT * FROM Employee");
+            System.out.printf("%-5s %-10s %-10s %-8s %-12s%n","ID","Name","Dept","Salary","JoinDate");
+            while (rs.next()) {
+                System.out.printf("%-5d %-10s %-10s %-8.0f %-12s%n",
+                    rs.getInt(1),rs.getString(2),rs.getString(3),rs.getDouble(4),rs.getString(5));
+            }
+
+            // (d) Batch insert 2 more
+            ps.setInt(1,106); ps.setString(2,"Arjun"); ps.setString(3,"IT");
+            ps.setDouble(4,43000); ps.setString(5,"2024-01-15"); ps.addBatch();
+            ps.setInt(1,107); ps.setString(2,"Kavya"); ps.setString(3,"HR");
+            ps.setDouble(4,36000); ps.setString(5,"2024-02-10"); ps.addBatch();
+            ps.executeBatch();
+            System.out.println("\\nBatch insert: 2 more records added.");
+
+            // (e) Update salary of EmpId=2
+            PreparedStatement updatePS = conn.prepareStatement("UPDATE Employee SET Salary = Salary * 1.15 WHERE EmpId = 102");
+            updatePS.executeUpdate();
+            System.out.println("Salary updated for Raj (EmpId 102) by 15%.");
+
+            // (f) Delete EmpId=5
+            conn.createStatement().executeUpdate("DELETE FROM Employee WHERE EmpId = 105");
+            System.out.println("Neha (EmpId 105) deleted.");
+
+            // (g) Select IT employees
+            System.out.println("\\n=== IT Department ===");
+            ResultSet rs2 = conn.createStatement().executeQuery(
+                "SELECT * FROM Employee WHERE Department='IT'");
+            while (rs2.next()) {
+                System.out.println(rs2.getInt(1)+" | "+rs2.getString(2)+" | ₹"+rs2.getDouble(4));
+            }
+        } catch (SQLException e) { e.printStackTrace(); }
+    }
+}`
+  },
+  {
+    id: 22,
+    title: "Library Book Management using JDBC",
+    practical: "Practical 12 — JDBC",
+    tag: "PreparedStatement · setAutoCommit · commit · rollback",
+    code: `// Practical 12 — Problem 22: Library Book Management using JDBC
+import java.sql.*;
+import java.time.LocalDate;
+
+public class LibraryJDBC {
+    static final String URL  = "jdbc:mysql://localhost:3306/library_db";
+    static final String USER = "root";
+    static final String PASS = "password"; // change as needed
+
+    public static void main(String[] args) {
+        try (Connection conn = DriverManager.getConnection(URL, USER, PASS)) {
+            System.out.println("Connected to library_db");
+
+            // (a) Create tables
+            Statement stmt = conn.createStatement();
+            stmt.execute("DROP TABLE IF EXISTS IssuedBooks");
+            stmt.execute("DROP TABLE IF EXISTS Books");
+            stmt.execute("CREATE TABLE Books (BookId VARCHAR(10) PRIMARY KEY, Title VARCHAR(100), " +
+                "Author VARCHAR(100), Category VARCHAR(50), Available INT)");
+            stmt.execute("CREATE TABLE IssuedBooks (IssueId INT AUTO_INCREMENT PRIMARY KEY, " +
+                "BookId VARCHAR(10), StudentName VARCHAR(100), IssueDate DATE, ReturnDate DATE, " +
+                "FOREIGN KEY (BookId) REFERENCES Books(BookId))");
+
+            // (b) Insert 5 books
+            String insertBook = "INSERT INTO Books VALUES (?,?,?,?,?)";
+            PreparedStatement ps = conn.prepareStatement(insertBook);
+            String[][] books = {
+                {"B001","Core Java","Schildt","Technology","1"},
+                {"B002","DBMS","Korth","Technology","1"},
+                {"B003","Fiction","Chetan Bhagat","Fiction","1"},
+                {"B004","OS Concepts","Silberschatz","Technology","1"},
+                {"B005","History of India","Romila Thapar","History","1"}
+            };
+            for (String[] b : books) {
+                ps.setString(1,b[0]); ps.setString(2,b[1]); ps.setString(3,b[2]);
+                ps.setString(4,b[3]); ps.setInt(5,Integer.parseInt(b[4])); ps.executeUpdate();
+            }
+            System.out.println("5 books inserted.");
+
+            // (c) Display all books
+            System.out.println("\\n=== All Books ===");
+            ResultSet rs = stmt.executeQuery("SELECT * FROM Books");
+            while (rs.next())
+                System.out.printf("%-6s %-20s %-15s %-12s %s%n",
+                    rs.getString(1),rs.getString(2),rs.getString(3),rs.getString(4),
+                    rs.getInt(5)==1?"Available":"Issued");
+
+            // (d) Issue a book — transaction
+            conn.setAutoCommit(false);
+            try {
+                PreparedStatement issuePS = conn.prepareStatement(
+                    "INSERT INTO IssuedBooks (BookId, StudentName, IssueDate) VALUES (?,?,?)");
+                issuePS.setString(1,"B001"); issuePS.setString(2,"Asha");
+                issuePS.setDate(3, Date.valueOf(LocalDate.now())); issuePS.executeUpdate();
+                stmt.executeUpdate("UPDATE Books SET Available=0 WHERE BookId='B001'");
+                conn.commit();
+                System.out.println("\\nBook B001 issued to Asha — transaction committed.");
+            } catch (Exception e) { conn.rollback(); System.out.println("Issue failed, rolled back."); }
+
+            // (e) Return a book — transaction
+            conn.setAutoCommit(false);
+            try {
+                PreparedStatement retPS = conn.prepareStatement(
+                    "UPDATE IssuedBooks SET ReturnDate=? WHERE IssueId=1");
+                retPS.setDate(1, Date.valueOf(LocalDate.now())); retPS.executeUpdate();
+                stmt.executeUpdate("UPDATE Books SET Available=1 WHERE BookId='B001'");
+                conn.commit();
+                System.out.println("Book returned — transaction committed.");
+            } catch (Exception e) { conn.rollback(); System.out.println("Return failed, rolled back."); }
+            conn.setAutoCommit(true);
+
+            // (f) Delete a book
+            stmt.executeUpdate("DELETE FROM Books WHERE BookId='B003'");
+            System.out.println("B003 deleted.");
+
+            // (g) Display Technology books
+            System.out.println("\\n=== Technology Books ===");
+            PreparedStatement catPS = conn.prepareStatement("SELECT * FROM Books WHERE Category=?");
+            catPS.setString(1,"Technology");
+            ResultSet rs2 = catPS.executeQuery();
+            while (rs2.next())
+                System.out.println(rs2.getString(1)+" | "+rs2.getString(2)+" | "+rs2.getString(3));
+
+        } catch (SQLException e) { e.printStackTrace(); }
+    }
+}`
+  }
+];
+
+// Practical section labels
+const sections = {
+  1:  "Practical 02 — Class, Object, Methods, Constructors",
+  3:  "Practical 03 — Java Inheritance",
+  5:  "Practical 04 — Static, Final, Super, This Keyword",
+  7:  "Practical 05 — Polymorphism",
+  9:  "Practical 06 — Abstract Class, Interfaces, Lambda",
+  11: "Practical 07 — Exception Handling",
+  13: "Practical 08 — Java Threads",
+  15: "Practical 09 — Packages and Collections",
+  17: "Practical 10 — File Handling",
+  19: "Practical 11 — Java Swing",
+  21: "Practical 12 — JDBC"
+};
+
+function renderPrograms(list) {
+  const grid = document.getElementById('programGrid');
+  const noResults = document.getElementById('noResults');
+  const counter = document.getElementById('result-count');
+  grid.innerHTML = '';
+
+  if (list.length === 0) {
+    noResults.style.display = 'block';
+    counter.textContent = 'Showing 0 of ' + programs.length;
+    return;
+  }
+  noResults.style.display = 'none';
+  counter.textContent = 'Showing ' + list.length + ' of ' + programs.length;
+
+  let lastSection = '';
+  list.forEach(prog => {
+    const secLabel = sections[prog.id];
+    if (secLabel && secLabel !== lastSection) {
+      lastSection = secLabel;
+      const lbl = document.createElement('div');
+      lbl.className = 'section-label';
+      lbl.textContent = secLabel;
+      grid.appendChild(lbl);
+    }
+
+    const card = document.createElement('div');
+    card.className = 'card';
+    card.innerHTML = `
+      <div class="card-num">${String(prog.id).padStart(2,'0')}</div>
+      <div class="card-info">
+        <div class="card-title">${prog.title}</div>
+        <span class="card-tag">${prog.tag}</span>
+      </div>
+      <button class="copy-btn" onclick="copyCode(${prog.id}, this)">
+        <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2">
+          <rect x="9" y="9" width="13" height="13" rx="2" ry="2"></rect>
+          <path d="M5 15H4a2 2 0 0 1-2-2V4a2 2 0 0 1 2-2h9a2 2 0 0 1 2 2v1"></path>
+        </svg>
+        Copy Code
+      </button>
+    `;
+    grid.appendChild(card);
+  });
+}
+
+function copyCode(id, btn) {
+  const prog = programs.find(p => p.id === id);
+  if (!prog) return;
+  navigator.clipboard.writeText(prog.code).then(() => {
+    btn.classList.add('copied');
+    btn.innerHTML = `<svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><polyline points="20 6 9 17 4 12"></polyline></svg> Code Copied!`;
+    setTimeout(() => {
+      btn.classList.remove('copied');
+      btn.innerHTML = `<svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2"><rect x="9" y="9" width="13" height="13" rx="2" ry="2"></rect><path d="M5 15H4a2 2 0 0 1-2-2V4a2 2 0 0 1 2-2h9a2 2 0 0 1 2 2v1"></path></svg> Copy Code`;
+    }, 2000);
+  });
+}
+
+function filterPrograms() {
+  const q = document.getElementById('search').value.toLowerCase().trim();
+  const filtered = q
+    ? programs.filter(p =>
+        p.title.toLowerCase().includes(q) ||
+        p.tag.toLowerCase().includes(q) ||
+        p.practical.toLowerCase().includes(q))
+    : programs;
+  renderPrograms(filtered);
+}
+
+// Initial render
+renderPrograms(programs);
+</script>
+</body>
+</html>`
