@@ -245,10 +245,10 @@
 </div>
 
 <div class="stats-bar">
-  <div class="stat-pill">Total: <strong>22</strong> Programs</div>
+  <div class="stat-pill">Total: <strong>24</strong> Programs</div>
   <div class="stat-pill">Practicals: <strong>02 – 13</strong></div>
   <div class="stat-pill">Language: <strong>Java</strong></div>
-  <span id="result-count">Showing 22 of 22</span>
+  <span id="result-count">Showing 24 of 24</span>
 </div>
 
 <div class="grid" id="programGrid"></div>
@@ -2079,6 +2079,228 @@ public class LibraryJDBC {
         } catch (SQLException e) { e.printStackTrace(); }
     }
 }`
+  },
+  {
+    id: 23,
+    title: "Generic Product Inventory Comparator",
+    practical: "Practical 13 — Java Generics",
+    tag: "Generic Methods · Bounded Wildcards · Type Safety",
+    code: `// Practical 13 — Problem 23: Generic Product Inventory Comparator
+import java.util.*;
+
+public class GenericInventory {
+    // (a) Generic method checkIdentical
+    static <T> boolean checkIdentical(T[] arr1, T[] arr2) {
+        if (arr1.length != arr2.length) return false;
+        for (int i = 0; i < arr1.length; i++) {
+            if (!arr1[i].equals(arr2[i])) return false;
+        }
+        return true;
+    }
+
+    // (b) Generic method sumByParity
+    static String sumByParity(List<? extends Number> numbers) {
+        long evenSum = 0, oddSum = 0;
+        for (Number n : numbers) {
+            int val = n.intValue();
+            if (val % 2 == 0) evenSum += val;
+            else oddSum += val;
+        }
+        return "Even Sum: " + evenSum + ", Odd Sum: " + oddSum;
+    }
+
+    // (c) Generic class Inventory<T>
+    static class Inventory<T> {
+        private List<T> items = new ArrayList<>();
+
+        void add(T item) {
+            items.add(item);
+            System.out.println("Added: " + item);
+        }
+
+        void remove(T item) {
+            if (items.remove(item))
+                System.out.println("Removed: " + item);
+            else
+                System.out.println("Item not found!");
+        }
+
+        boolean contains(T item) {
+            return items.contains(item);
+        }
+
+        void display() {
+            System.out.println("Inventory: " + items);
+        }
+    }
+
+    public static void main(String[] args) {
+        System.out.println("=== Test (a): checkIdentical ===");
+        Integer[] arr1 = {10, 20, 30};
+        Integer[] arr2 = {10, 20, 30};
+        Integer[] arr3 = {10, 25, 30};
+        System.out.println("arr1=[10,20,30], arr2=[10,20,30] → " + (checkIdentical(arr1, arr2) ? "Identical" : "Not identical"));
+        System.out.println("arr1=[10,20,30], arr3=[10,25,30] → " + (checkIdentical(arr1, arr3) ? "Identical" : "Not identical"));
+
+        String[] str1 = {"A", "B", "C"};
+        String[] str2 = {"A", "B", "C"};
+        System.out.println("\\nString arrays [A,B,C] vs [A,B,C] → " + (checkIdentical(str1, str2) ? "Identical" : "Not identical"));
+
+        Double[] dbl1 = {1.5, 2.5, 3.5};
+        Double[] dbl2 = {1.5, 2.5, 3.5};
+        System.out.println("Double arrays [1.5,2.5,3.5] vs [1.5,2.5,3.5] → " + (checkIdentical(dbl1, dbl2) ? "Identical" : "Not identical"));
+
+        System.out.println("\\n=== Test (b): sumByParity ===");
+        List<Number> numbers = Arrays.asList(1, 2, 3, 4, 5, 6);
+        System.out.println("Numbers: [1,2,3,4,5,6] → " + sumByParity(numbers));
+
+        System.out.println("\\n=== Test (c): Inventory<T> - Type Safety ===");
+        // (d) Instantiate Inventory<String>
+        Inventory<String> productNames = new Inventory<>();
+        productNames.add("Laptop");
+        productNames.add("Mouse");
+        productNames.add("Keyboard");
+        productNames.display();
+
+        // (d) Instantiate Inventory<Integer>
+        Inventory<Integer> productCodes = new Inventory<>();
+        productCodes.add(1001);
+        productCodes.add(1002);
+        productCodes.add(1003);
+        productCodes.display();
+
+        // (d) Instantiate Inventory<Double>
+        Inventory<Double> prices = new Inventory<>();
+        prices.add(45000.0);
+        prices.add(500.0);
+        prices.add(3500.0);
+        prices.display();
+
+        // (e) Demonstrate type safety
+        System.out.println("\\n=== Type Safety Demo ===");
+        System.out.println("Inventory<String> can hold: productNames.contains(\\"Laptop\\") → " + productNames.contains("Laptop"));
+        // productNames.add(100); // COMPILE ERROR: Cannot add Integer to Inventory<String>
+        System.out.println("// productNames.add(100); - COMPILE TIME ERROR! Cannot add Integer to String Inventory");
+    }
+}`
+  },
+  {
+    id: 24,
+    title: "Generic Student Grade Analyser",
+    practical: "Practical 13 — Java Generics",
+    tag: "Bounded Type Parameters · Comparable · Generic Methods",
+    code: `// Practical 13 — Problem 24: Generic Student Grade Analyser
+import java.util.*;
+
+public class GradeAnalysis {
+    // (a) Generic method compareRecords
+    static <T> boolean compareRecords(T[] batch1, T[] batch2) {
+        if (batch1.length != batch2.length) return false;
+        for (int i = 0; i < batch1.length; i++) {
+            if (!batch1[i].equals(batch2[i])) return false;
+        }
+        return true;
+    }
+
+    // (b) Generic method analyseNumbers
+    static String analyseNumbers(List<? extends Number> marks) {
+        long evenSum = 0, oddSum = 0;
+        for (Number n : marks) {
+            int val = n.intValue();
+            if (val % 2 == 0) evenSum += val;
+            else oddSum += val;
+        }
+        return "Even-valued marks sum: " + evenSum + ", Odd-valued marks sum: " + oddSum;
+    }
+
+    // (c) Generic class with bounded type parameter
+    static class GradeBook<T extends Comparable<T>> {
+        private List<T> grades = new ArrayList<>();
+
+        void add(T grade) {
+            grades.add(grade);
+        }
+
+        T getMax() {
+            if (grades.isEmpty()) return null;
+            T max = grades.get(0);
+            for (T g : grades) {
+                if (g.compareTo(max) > 0) max = g;
+            }
+            return max;
+        }
+
+        T getMin() {
+            if (grades.isEmpty()) return null;
+            T min = grades.get(0);
+            for (T g : grades) {
+                if (g.compareTo(min) < 0) min = g;
+            }
+            return min;
+        }
+
+        void displayAll() {
+            System.out.println("Grades: " + grades);
+        }
+    }
+
+    // (e) Generic method swap
+    static <T> void swap(T[] arr, int i, int j) {
+        if (i >= 0 && i < arr.length && j >= 0 && j < arr.length) {
+            T temp = arr[i];
+            arr[i] = arr[j];
+            arr[j] = temp;
+        }
+    }
+
+    public static void main(String[] args) {
+        System.out.println("=== Test (a): compareRecords ===");
+        String[] batch1 = {"Asha", "Raj", "Priya"};
+        String[] batch2 = {"Asha", "Raj", "Dev"};
+        String[] batch3 = {"Asha", "Raj", "Priya"};
+        System.out.println("batch1=[Asha,Raj,Priya] vs batch2=[Asha,Raj,Dev] → " + (compareRecords(batch1, batch2) ? "Identical" : "Not identical"));
+        System.out.println("batch1=[Asha,Raj,Priya] vs batch3=[Asha,Raj,Priya] → " + (compareRecords(batch1, batch3) ? "Identical" : "Not identical"));
+
+        Integer[] roll1 = {101, 102, 103};
+        Integer[] roll2 = {101, 102, 103};
+        System.out.println("\\nRoll numbers [101,102,103] vs [101,102,103] → " + (compareRecords(roll1, roll2) ? "Identical" : "Not identical"));
+
+        System.out.println("\\n=== Test (b): analyseNumbers ===");
+        List<Number> marks = Arrays.asList(72, 85, 90, 63, 48, 76);
+        System.out.println("Marks: [72,85,90,63,48,76]");
+        System.out.println(analyseNumbers(marks));
+
+        System.out.println("\\n=== Test (c) & (d): GradeBook<T> ===");
+        // (d) GradeBook<Integer>
+        GradeBook<Integer> intGrades = new GradeBook<>();
+        intGrades.add(85);
+        intGrades.add(72);
+        intGrades.add(91);
+        intGrades.add(63);
+        intGrades.displayAll();
+        System.out.println("Max: " + intGrades.getMax() + ", Min: " + intGrades.getMin());
+
+        // (d) GradeBook<Double>
+        GradeBook<Double> doubleGrades = new GradeBook<>();
+        doubleGrades.add(3.8);
+        doubleGrades.add(3.5);
+        doubleGrades.add(3.9);
+        doubleGrades.add(3.2);
+        doubleGrades.displayAll();
+        System.out.println("Max GPA: " + doubleGrades.getMax() + ", Min GPA: " + doubleGrades.getMin());
+
+        System.out.println("\\n=== Test (e): Generic swap method ===");
+        Integer[] intArr = {10, 20, 30, 40};
+        System.out.println("Before swap (Integer): " + Arrays.toString(intArr));
+        swap(intArr, 0, 3);
+        System.out.println("After swap(0,3): " + Arrays.toString(intArr));
+
+        String[] strArr = {"Apple", "Banana", "Cherry"};
+        System.out.println("\\nBefore swap (String): " + Arrays.toString(strArr));
+        swap(strArr, 0, 2);
+        System.out.println("After swap(0,2): " + Arrays.toString(strArr));
+    }
+}`
   }
 ];
 
@@ -2094,7 +2316,8 @@ const sections = {
   15: "Practical 09 — Packages and Collections",
   17: "Practical 10 — File Handling",
   19: "Practical 11 — Java Swing",
-  21: "Practical 12 — JDBC"
+  21: "Practical 12 — JDBC",
+  23: "Practical 13 — Java Generics"
 };
 
 function renderPrograms(list) {
