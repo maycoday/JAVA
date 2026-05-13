@@ -3,2394 +3,2747 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Java Practical Codes Library</title>
-<link href="https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@400;600;700&family=Syne:wght@400;600;700;800&display=swap" rel="stylesheet">
+<title>DBMS Practicals – Solution Hub</title>
+<link href="https://fonts.googleapis.com/css2?family=Space+Mono:wght@400;700&family=DM+Sans:wght@300;400;500;600&display=swap" rel="stylesheet">
 <style>
+  :root {
+    --bg: #f5f4f0;
+    --surface: #ffffff;
+    --border: #e2e0d8;
+    --text: #1a1917;
+    --muted: #7a7870;
+    --sql-accent: #2563eb;
+    --sql-light: #eff6ff;
+    --sql-border: #bfdbfe;
+    --mongo-accent: #16a34a;
+    --mongo-light: #f0fdf4;
+    --mongo-border: #bbf7d0;
+    --plsql-accent: #9333ea;
+    --plsql-light: #faf5ff;
+    --plsql-border: #e9d5ff;
+    --jdbc-accent: #ea580c;
+    --jdbc-light: #fff7ed;
+    --jdbc-border: #fed7aa;
+    --copied: #16a34a;
+    --radius: 10px;
+    --shadow: 0 1px 3px rgba(0,0,0,0.07), 0 2px 8px rgba(0,0,0,0.05);
+  }
+
   * { box-sizing: border-box; margin: 0; padding: 0; }
 
   body {
-    background: #ffffff;
-    color: #333333;
-    font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+    font-family: 'DM Sans', sans-serif;
+    background: var(--bg);
+    color: var(--text);
     min-height: 100vh;
-    padding: 0 0 60px;
+    padding: 0 0 60px 0;
   }
 
-  /* Header */
-  .header {
-    background: #ffffff;
-    border-bottom: 1px solid #e5e5e5;
-    padding: 40px 24px 32px;
-    text-align: center;
+  /* ── HEADER ── */
+  header {
+    background: var(--text);
+    color: #fff;
+    padding: 28px 24px 22px;
+    position: sticky;
+    top: 0;
+    z-index: 100;
+    box-shadow: 0 2px 12px rgba(0,0,0,0.15);
+  }
+  .header-inner {
+    max-width: 860px;
+    margin: 0 auto;
+  }
+  header h1 {
+    font-family: 'Space Mono', monospace;
+    font-size: clamp(1.1rem, 3vw, 1.45rem);
+    letter-spacing: -0.02em;
+    margin-bottom: 4px;
+  }
+  header p {
+    font-size: 0.8rem;
+    color: #a0a0a0;
+    font-weight: 300;
+    margin-bottom: 14px;
   }
 
-  .header-badge {
-    display: inline-flex;
-    align-items: center;
-    gap: 8px;
-    background: #f5f5f5;
-    border: 1px solid #e5e5e5;
-    border-radius: 20px;
-    padding: 6px 14px;
-    font-size: 12px;
-    color: #666;
-    margin-bottom: 16px;
-  }
-
-  .header-badge span { color: #4CAF50; font-size: 10px; }
-
-  h1 {
-    font-size: 2.2rem;
-    font-weight: 700;
-    color: #1a1a1a;
-    line-height: 1.2;
-    margin-bottom: 8px;
-  }
-
-  .subtitle {
-    color: #666;
-    font-size: 0.95rem;
-    margin-top: 8px;
-    font-weight: 400;
-  }
-
-  /* Search */
+  /* ── SEARCH ── */
   .search-wrap {
-    max-width: 600px;
-    margin: 28px auto 0;
-    padding: 0 20px;
     position: relative;
+    max-width: 420px;
   }
-
-  .search-icon {
+  .search-wrap svg {
     position: absolute;
-    left: 32px; top: 50%;
+    left: 12px;
+    top: 50%;
     transform: translateY(-50%);
-    color: #999;
+    color: #888;
     pointer-events: none;
+    width: 16px; height: 16px;
   }
-
-  #search {
+  #searchInput {
     width: 100%;
-    background: #ffffff;
-    border: 1px solid #ddd;
+    padding: 9px 12px 9px 36px;
     border-radius: 8px;
-    padding: 12px 16px 12px 40px;
-    color: #333;
-    font-size: 0.95rem;
+    border: 1.5px solid #3a3a3a;
+    background: #2a2a2a;
+    color: #fff;
+    font-family: 'DM Sans', sans-serif;
+    font-size: 0.88rem;
     outline: none;
     transition: border-color 0.2s;
   }
+  #searchInput::placeholder { color: #777; }
+  #searchInput:focus { border-color: #666; }
 
-  #search::placeholder { color: #999; }
-
-  #search:focus {
-    border-color: #999;
-    box-shadow: 0 0 0 2px rgba(0, 0, 0, 0.05);
+  /* ── MAIN ── */
+  main {
+    max-width: 860px;
+    margin: 0 auto;
+    padding: 32px 16px 0;
   }
 
-  /* Stats bar */
-  .stats-bar {
-    max-width: 900px;
-    margin: 24px auto 0;
-    padding: 0 20px;
+  /* ── SECTION ── */
+  .section { margin-bottom: 40px; }
+
+  .section-header {
     display: flex;
     align-items: center;
-    gap: 16px;
-    flex-wrap: wrap;
+    gap: 10px;
+    margin-bottom: 16px;
+    padding-bottom: 10px;
+    border-bottom: 2px solid var(--border);
+  }
+  .section-badge {
+    font-family: 'Space Mono', monospace;
+    font-size: 0.65rem;
+    font-weight: 700;
+    padding: 4px 10px;
+    border-radius: 20px;
+    letter-spacing: 0.06em;
+    text-transform: uppercase;
+  }
+  .section-title {
+    font-size: 1.05rem;
+    font-weight: 600;
+    color: var(--text);
+  }
+  .section-count {
+    margin-left: auto;
+    font-size: 0.75rem;
+    color: var(--muted);
+    font-family: 'Space Mono', monospace;
   }
 
-  .stat-pill {
-    background: #f5f5f5;
-    border: 1px solid #e5e5e5;
-    border-radius: 6px;
-    padding: 6px 12px;
-    font-size: 12px;
-    color: #666;
-  }
+  /* Section colour variants */
+  .sql-section .section-header { border-color: var(--sql-border); }
+  .sql-section .section-badge { background: var(--sql-light); color: var(--sql-accent); }
+  .mongo-section .section-header { border-color: var(--mongo-border); }
+  .mongo-section .section-badge { background: var(--mongo-light); color: var(--mongo-accent); }
+  .plsql-section .section-header { border-color: var(--plsql-border); }
+  .plsql-section .section-badge { background: var(--plsql-light); color: var(--plsql-accent); }
+  .jdbc-section .section-header { border-color: var(--jdbc-border); }
+  .jdbc-section .section-badge { background: var(--jdbc-light); color: var(--jdbc-accent); }
 
-  .stat-pill strong { color: #333; }
-
-  #result-count { color: #999; font-size: 0.9rem; margin-left: auto; }
-
-  /* Grid */
-  .grid {
-    max-width: 900px;
-    margin: 24px auto 0;
-    padding: 0 20px;
-    display: flex;
-    flex-direction: column;
-    gap: 8px;
-  }
-
+  /* ── CARD ── */
   .card {
-    background: #ffffff;
-    border: 1px solid #e5e5e5;
-    border-radius: 8px;
+    background: var(--surface);
+    border: 1.5px solid var(--border);
+    border-radius: var(--radius);
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
     padding: 14px 16px;
-    display: flex;
-    align-items: center;
-    gap: 12px;
-    transition: border-color 0.2s, background 0.2s;
+    margin-bottom: 8px;
+    transition: box-shadow 0.18s, border-color 0.18s, transform 0.15s;
+    box-shadow: var(--shadow);
   }
-
-  .card:hover {
-    border-color: #999;
-    background: #fafafa;
-  }
-
+  .card:hover { box-shadow: 0 3px 16px rgba(0,0,0,0.09); transform: translateY(-1px); }
+  .card-left { display: flex; align-items: center; gap: 12px; }
   .card-num {
-    font-size: 0.85rem;
-    font-weight: 600;
-    color: #666;
-    background: #f0f0f0;
-    border: 1px solid #e0e0e0;
-    border-radius: 6px;
-    min-width: 32px;
-    height: 32px;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    flex-shrink: 0;
+    font-family: 'Space Mono', monospace;
+    font-size: 0.7rem;
+    color: var(--muted);
+    min-width: 26px;
   }
+  .card-title { font-size: 0.9rem; font-weight: 500; }
 
-  .card-info { flex: 1; min-width: 0; }
-
-  .card-title {
-    font-size: 0.95rem;
-    font-weight: 600;
-    color: #1a1a1a;
-    white-space: nowrap;
-    overflow: hidden;
-    text-overflow: ellipsis;
-  }
-
-  .card-tag {
-    display: inline-block;
-    margin-top: 4px;
-    font-size: 11px;
-    color: #999;
-    background: #f5f5f5;
-    border-radius: 4px;
-    padding: 2px 8px;
-  }
-
+  /* ── COPY BUTTON ── */
   .copy-btn {
-    flex-shrink: 0;
-    background: #f5f5f5;
-    border: 1px solid #ddd;
-    color: #333;
+    background: none;
+    border: 1.5px solid var(--border);
+    padding: 6px 14px;
     border-radius: 6px;
-    padding: 8px 14px;
-    font-size: 12px;
-    font-weight: 600;
+    font-family: 'Space Mono', monospace;
+    font-size: 0.7rem;
     cursor: pointer;
-    transition: background 0.2s, border-color 0.2s;
-    display: flex;
-    align-items: center;
-    gap: 6px;
+    color: var(--muted);
+    transition: all 0.18s;
     white-space: nowrap;
+    flex-shrink: 0;
   }
-
   .copy-btn:hover {
-    background: #e8e8e8;
-    border-color: #999;
+    background: var(--text);
+    color: #fff;
+    border-color: var(--text);
   }
-
   .copy-btn.copied {
-    background: #e8f5e9;
-    border-color: #4CAF50;
-    color: #2e7d32;
+    background: var(--copied);
+    color: #fff;
+    border-color: var(--copied);
   }
 
-  .no-results {
+  /* Section-specific btn hover */
+  .sql-section .copy-btn:hover { background: var(--sql-accent); border-color: var(--sql-accent); }
+  .mongo-section .copy-btn:hover { background: var(--mongo-accent); border-color: var(--mongo-accent); }
+  .plsql-section .copy-btn:hover { background: var(--plsql-accent); border-color: var(--plsql-accent); }
+  .jdbc-section .copy-btn:hover { background: var(--jdbc-accent); border-color: var(--jdbc-accent); }
+
+  /* ── NO RESULTS ── */
+  #noResults {
     text-align: center;
-    padding: 60px 20px;
-    color: #999;
-    font-size: 0.95rem;
+    padding: 48px 0;
+    color: var(--muted);
     display: none;
   }
+  #noResults svg { width: 40px; height: 40px; margin-bottom: 12px; opacity: 0.4; }
+  #noResults p { font-size: 0.9rem; }
 
-  .no-results .emoji { font-size: 2rem; display: block; margin-bottom: 12px; }
-
-  .section-label {
-    font-size: 11px;
-    color: #999;
-    letter-spacing: 0.1em;
-    text-transform: uppercase;
-    padding: 4px 0 2px;
-    border-bottom: 1px solid #e5e5e5;
-    margin-top: 6px;
-    margin-bottom: 2px;
+  /* ── TOAST ── */
+  #toast {
+    position: fixed;
+    bottom: 28px;
+    left: 50%;
+    transform: translateX(-50%) translateY(80px);
+    background: #1a1917;
+    color: #fff;
+    padding: 10px 22px;
+    border-radius: 8px;
+    font-size: 0.82rem;
+    font-family: 'Space Mono', monospace;
+    pointer-events: none;
+    transition: transform 0.3s cubic-bezier(.34,1.56,.64,1), opacity 0.3s;
+    opacity: 0;
+    z-index: 9999;
+    box-shadow: 0 4px 20px rgba(0,0,0,0.2);
   }
+  #toast.show { transform: translateX(-50%) translateY(0); opacity: 1; }
 
-  @media (max-width: 600px) {
-    .card { padding: 12px 12px; gap: 10px; }
-    .card-title { font-size: 0.88rem; }
-    .copy-btn { padding: 6px 10px; font-size: 11px; }
-    h1 { font-size: 1.6rem; }
+  /* ── EMPTY SECTION ── */
+  .section.hidden { display: none; }
+
+  @media (max-width: 480px) {
+    .card { flex-wrap: wrap; gap: 10px; }
+    .copy-btn { width: 100%; text-align: center; }
   }
 </style>
 </head>
 <body>
 
-<div class="header">
-  <div class="header-badge"><span>●</span> JAVA PRACTICALS &nbsp;·&nbsp; SE / TE</div>
-  <h1>Java Practical Codes Library</h1>
-  <p class="subtitle"></p>
-  <div class="search-wrap">
-    <span class="search-icon">⌕</span>
-    <input type="text" id="search" placeholder="Search programs by name or topic..." oninput="filterPrograms()">
+<header>
+  <div class="header-inner">
+    <h1>📚 DBMS Practicals – Solution Hub</h1>
+    <p>Click "Copy Code" on any program to instantly copy the solution to clipboard</p>
+    <div class="search-wrap">
+      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+        <circle cx="11" cy="11" r="8"/><path d="m21 21-4.35-4.35"/>
+      </svg>
+      <input type="text" id="searchInput" placeholder="Search programs..." autocomplete="off">
+    </div>
   </div>
+</header>
+
+<main>
+
+<!-- ══════════════════════════════════
+     SQL SECTION
+══════════════════════════════════ -->
+<div class="section sql-section" id="section-sql">
+  <div class="section-header">
+    <span class="section-badge">SQL</span>
+    <span class="section-title">SQL Select Queries</span>
+    <span class="section-count" id="count-sql"></span>
+  </div>
+  <div class="cards" id="cards-sql"></div>
 </div>
 
-<div class="stats-bar">
-  <div class="stat-pill">Total: <strong>24</strong> Programs</div>
-  <div class="stat-pill">Practicals: <strong>02 – 13</strong></div>
-  <div class="stat-pill">Language: <strong>Java</strong></div>
-  <span id="result-count">Showing 24 of 24</span>
+<!-- ══════════════════════════════════
+     MONGODB SECTION
+══════════════════════════════════ -->
+<div class="section mongo-section" id="section-mongo">
+  <div class="section-header">
+    <span class="section-badge">MongoDB</span>
+    <span class="section-title">MongoDB Queries</span>
+    <span class="section-count" id="count-mongo"></span>
+  </div>
+  <div class="cards" id="cards-mongo"></div>
 </div>
 
-<div class="grid" id="programGrid"></div>
-<div class="no-results" id="noResults">
-  <span class="emoji">🔍</span>
-  No programs found matching your search.
+<!-- ══════════════════════════════════
+     PL/SQL SECTION
+══════════════════════════════════ -->
+<div class="section plsql-section" id="section-plsql">
+  <div class="section-header">
+    <span class="section-badge">PL/SQL</span>
+    <span class="section-title">PL/SQL Procedures, Functions & Triggers</span>
+    <span class="section-count" id="count-plsql"></span>
+  </div>
+  <div class="cards" id="cards-plsql"></div>
 </div>
+
+<!-- ══════════════════════════════════
+     JDBC SECTION
+══════════════════════════════════ -->
+<div class="section jdbc-section" id="section-jdbc">
+  <div class="section-header">
+    <span class="section-badge">JDBC</span>
+    <span class="section-title">JDBC – Java + Database</span>
+    <span class="section-count" id="count-jdbc"></span>
+  </div>
+  <div class="cards" id="cards-jdbc"></div>
+</div>
+
+<div id="noResults">
+  <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5">
+    <circle cx="11" cy="11" r="8"/><path d="m21 21-4.35-4.35"/>
+    <path d="M8 11h6M11 8v6" stroke-dasharray="2 2"/>
+  </svg>
+  <p>No programs found matching your search.</p>
+</div>
+
+</main>
+<div id="toast">✓ Code Copied!</div>
 
 <script>
-const programs = [
+// ═══════════════════════════════════════════════════
+//  DATA
+// ═══════════════════════════════════════════════════
+
+const sqlData = [
   {
-    id: 1,
-    title: "Bank Account Management System",
-    practical: "Practical 02 — Class, Object, Methods, Constructors",
-    tag: "OOP · Constructor · Method Overloading",
-    code: `// Practical 02 — Problem 1: Bank Account Management System
-class BankAccount {
-    int accountNumber;
-    String holderName;
-    double balance;
+    name: "Library Management System",
+    code: `-- Schema: BOOK(Book_ID, Title, Author, Category, Price), MEMBER(Member_ID, Member_Name, City), ISSUE(Issue_ID, Book_ID, Member_ID, Issue_Date, Return_Date)
 
-    // Parameterized Constructor
-    BankAccount(int accountNumber, String holderName, double balance) {
-        this.accountNumber = accountNumber;
-        this.holderName = holderName;
-        this.balance = balance;
-    }
+-- 1. Display all books with price greater than 500
+SELECT * FROM BOOK WHERE Price > 500;
 
-    void deposit(double amt) {
-        balance += amt;
-        System.out.println("Deposited ₹" + amt + " | New Balance: ₹" + balance);
-    }
+-- 2. Display member details from Pune city
+SELECT * FROM MEMBER WHERE City='Pune';
 
-    void deposit(double amt, String remark) {
-        balance += amt;
-        System.out.println("Deposited ₹" + amt + " [" + remark + "] | New Balance: ₹" + balance);
-    }
+-- 3. Show book title and member name for issued books
+SELECT B.Title, M.Member_Name
+FROM BOOK B
+JOIN ISSUE I ON B.Book_ID=I.Book_ID
+JOIN MEMBER M ON M.Member_ID=I.Member_ID;
 
-    void withdraw(double amt) {
-        if (amt > balance) {
-            System.out.println("Insufficient balance!");
-        } else {
-            balance -= amt;
-            System.out.println("Withdrawn ₹" + amt + " | New Balance: ₹" + balance);
-        }
-    }
+-- 4. Count total books in each category
+SELECT Category, COUNT(*)
+FROM BOOK
+GROUP BY Category;
 
-    void displayBalance() {
-        System.out.println("Account: " + accountNumber + " | Holder: " + holderName + " | Balance: ₹" + balance);
-    }
+-- 5. Display members who issued books after '2026-01-01'
+SELECT DISTINCT M.Member_Name
+FROM MEMBER M
+JOIN ISSUE I ON M.Member_ID=I.Member_ID
+WHERE Issue_Date > '2026-01-01';
 
-    String checkMinBalance() {
-        if (balance < 1000) {
-            return "WARNING: Balance below minimum limit of ₹1000!";
-        }
-        return "Balance is above minimum limit.";
-    }
-}
+-- 6. Display the member who issued maximum books
+SELECT M.Member_Name, COUNT(*) AS Total_Books
+FROM MEMBER M
+JOIN ISSUE I ON M.Member_ID=I.Member_ID
+GROUP BY M.Member_Name
+ORDER BY Total_Books DESC
+LIMIT 1;
 
-public class BankSystem {
-    public static void main(String[] args) {
-        BankAccount acc1 = new BankAccount(1001, "Amit", 5000);
-        BankAccount acc2 = new BankAccount(1002, "Priya", 800);
-        BankAccount acc3 = new BankAccount(1003, "Ravi", 2000);
-
-        System.out.println("=== Account 1 ===");
-        acc1.displayBalance();
-        acc1.deposit(2000);
-        acc1.displayBalance();
-        System.out.println(acc1.checkMinBalance());
-
-        System.out.println("\\n=== Account 2 ===");
-        acc2.displayBalance();
-        acc2.withdraw(700);
-        acc2.displayBalance();
-        System.out.println(acc2.checkMinBalance());
-
-        System.out.println("\\n=== Account 3 (Overloaded deposit) ===");
-        acc3.deposit(500, "Salary Credit");
-        acc3.displayBalance();
-        System.out.println(acc3.checkMinBalance());
-    }
-}`
+-- 7. Display category-wise average price of books having average price greater than 400
+SELECT Category, AVG(Price)
+FROM BOOK
+GROUP BY Category
+HAVING AVG(Price) > 400;`
   },
   {
-    id: 2,
-    title: "Employee Payroll Calculator",
-    practical: "Practical 02 — Class, Object, Methods, Constructors",
-    tag: "OOP · this keyword · Method Overloading",
-    code: `// Practical 02 — Problem 2: Employee Payroll Calculator
-class Employee {
-    int empId;
-    String name;
-    double basicSalary;
-    String department;
+    name: "Hospital Management System",
+    code: `-- Schema: DOCTOR(Doctor_ID, Doctor_Name, Specialization, Salary), PATIENT(Patient_ID, Patient_Name, Age, City), APPOINTMENT(Appointment_ID, Doctor_ID, Patient_ID, Appointment_Date)
 
-    // Default Constructor
-    Employee() {
-        this(0, "Unknown", 0.0, "General");
-    }
+-- 1. Display all doctors with salary greater than 80000
+SELECT * FROM DOCTOR WHERE Salary > 80000;
 
-    // Parameterized Constructor using 'this'
-    Employee(int empId, String name, double basicSalary, String department) {
-        this.empId = empId;
-        this.name = name;
-        this.basicSalary = basicSalary;
-        this.department = department;
-    }
+-- 2. Display patient details whose age is above 50
+SELECT * FROM PATIENT WHERE Age > 50;
 
-    double calculateHRA() { return 0.20 * basicSalary; }
-    double calculateDA()  { return 0.11 * basicSalary; }
-    double calculateNetSalary() { return basicSalary + calculateHRA() + calculateDA(); }
+-- 3. Show doctor name and patient name for appointments
+SELECT D.Doctor_Name, P.Patient_Name
+FROM DOCTOR D
+JOIN APPOINTMENT A ON D.Doctor_ID=A.Doctor_ID
+JOIN PATIENT P ON P.Patient_ID=A.Patient_ID;
 
-    void displayPayslip() {
-        System.out.println("--- Payslip for " + name + " ---");
-        System.out.println("ID: " + empId + " | Dept: " + department);
-        System.out.printf("Basic: ₹%.2f | HRA: ₹%.2f | DA: ₹%.2f%n",
-                basicSalary, calculateHRA(), calculateDA());
-        System.out.printf("Net Salary: ₹%.2f%n", calculateNetSalary());
-    }
+-- 4. Count total doctors specialization-wise
+SELECT Specialization, COUNT(*)
+FROM DOCTOR
+GROUP BY Specialization;
 
-    void displayPayslip(boolean showDeductions) {
-        displayPayslip();
-        if (showDeductions) {
-            double tax = 0.10 * calculateNetSalary();
-            System.out.printf("Tax Deduction (10%%): ₹%.2f%n", tax);
-            System.out.printf("In-hand Salary: ₹%.2f%n", calculateNetSalary() - tax);
-        }
-    }
-}
+-- 5. Display appointments after '2026-03-01'
+SELECT * FROM APPOINTMENT
+WHERE Appointment_Date > '2026-03-01';
 
-public class PayrollSystem {
-    public static void main(String[] args) {
-        Employee e1 = new Employee(201, "Rohit", 40000, "IT");
-        Employee e2 = new Employee(202, "Sneha", 60000, "HR");
-        Employee e3 = new Employee(203, "Karan", 30000, "Finance");
+-- 6. Find the doctor handling maximum appointments
+SELECT D.Doctor_Name, COUNT(*) AS Total_Appointments
+FROM DOCTOR D
+JOIN APPOINTMENT A ON D.Doctor_ID=A.Doctor_ID
+GROUP BY D.Doctor_Name
+ORDER BY Total_Appointments DESC
+LIMIT 1;
 
-        Employee[] employees = {e1, e2, e3};
-        for (Employee e : employees) {
-            if (e.calculateNetSalary() > 50000) {
-                e.displayPayslip(true);
-            } else {
-                e.displayPayslip();
-            }
-            System.out.println();
-        }
-    }
-}`
+-- 7. Display specialization-wise average salary greater than 70000
+SELECT Specialization, AVG(Salary)
+FROM DOCTOR
+GROUP BY Specialization
+HAVING AVG(Salary) > 70000;`
   },
   {
-    id: 3,
-    title: "University Staff Hierarchy",
-    practical: "Practical 03 — Java Inheritance",
-    tag: "Inheritance · super · Multilevel",
-    code: `// Practical 03 — Problem 3: University Staff Hierarchy
-class Person {
-    String name;
-    int age;
-    String contactNo;
+    name: "Online Shopping System",
+    code: `-- Schema: CUSTOMER(Customer_ID, Customer_Name, City), PRODUCT(Product_ID, Product_Name, Category, Price), ORDERS(Order_ID, Customer_ID, Product_ID, Quantity, Order_Date)
 
-    Person(String name, int age, String contactNo) {
-        this.name = name;
-        this.age = age;
-        this.contactNo = contactNo;
-    }
+-- 1. Display products with price less than 1000
+SELECT * FROM PRODUCT WHERE Price < 1000;
 
-    void displayInfo() {
-        System.out.println("Name: " + name + " | Age: " + age + " | Contact: " + contactNo);
-    }
-}
+-- 2. Display customers from Mumbai
+SELECT * FROM CUSTOMER WHERE City='Mumbai';
 
-class EmployeeStaff extends Person {
-    String empId, department;
+-- 3. Show customer name and product name for all orders
+SELECT C.Customer_Name, P.Product_Name
+FROM CUSTOMER C
+JOIN ORDERS O ON C.Customer_ID=O.Customer_ID
+JOIN PRODUCT P ON P.Product_ID=O.Product_ID;
 
-    EmployeeStaff(String name, int age, String contactNo, String empId, String department) {
-        super(name, age, contactNo);
-        this.empId = empId;
-        this.department = department;
-    }
+-- 4. Count products category-wise
+SELECT Category, COUNT(*)
+FROM PRODUCT
+GROUP BY Category;
 
-    void displayEmployeeDetails() {
-        displayInfo();
-        System.out.println("EmpID: " + empId + " | Dept: " + department);
-    }
-}
+-- 5. Display orders placed in April 2026
+SELECT * FROM ORDERS
+WHERE MONTH(Order_Date)=4 AND YEAR(Order_Date)=2026;
 
-class Faculty extends EmployeeStaff {
-    String designation;
-    String[] subjectsTaught;
+-- 6. Find the customer who placed maximum orders
+SELECT C.Customer_Name, COUNT(*) AS Total_Orders
+FROM CUSTOMER C
+JOIN ORDERS O ON C.Customer_ID=O.Customer_ID
+GROUP BY C.Customer_Name
+ORDER BY Total_Orders DESC
+LIMIT 1;
 
-    Faculty(String name, int age, String contactNo, String empId, String department,
-            String designation, String[] subjects) {
-        super(name, age, contactNo, empId, department);
-        this.designation = designation;
-        this.subjectsTaught = subjects;
-    }
-
-    void displayFacultyDetails() {
-        displayEmployeeDetails();
-        System.out.println("Designation: " + designation);
-        System.out.print("Subjects: ");
-        for (String s : subjectsTaught) System.out.print(s + " ");
-        System.out.println();
-    }
-}
-
-class HodFaculty extends Faculty {
-    double additionalAllowance;
-
-    HodFaculty(String name, int age, String contactNo, String empId, String department,
-               String designation, String[] subjects, double allowance) {
-        super(name, age, contactNo, empId, department, designation, subjects);
-        this.additionalAllowance = allowance;
-    }
-
-    void displayHodDetails() {
-        displayFacultyDetails();
-        System.out.println("HoD Allowance: ₹" + additionalAllowance);
-    }
-}
-
-class AdminStaff extends EmployeeStaff {
-    String role;
-
-    AdminStaff(String name, int age, String contactNo, String empId, String department, String role) {
-        super(name, age, contactNo, empId, department);
-        this.role = role;
-    }
-
-    void displayAdminDetails() {
-        displayEmployeeDetails();
-        System.out.println("Role: " + role);
-    }
-}
-
-public class UniversityStaff {
-    public static void main(String[] args) {
-        System.out.println("=== Faculty ===");
-        Faculty f = new Faculty("Dr. Mehta", 45, "9876543210", "F001", "IT",
-                "Professor", new String[]{"Java", "OS"});
-        f.displayFacultyDetails();
-
-        System.out.println("\\n=== HoD Faculty (Multilevel) ===");
-        HodFaculty hod = new HodFaculty("Dr. Sharma", 50, "9876500000", "H001", "CS",
-                "HoD", new String[]{"DBMS", "AI"}, 5000);
-        hod.displayHodDetails();
-
-        System.out.println("\\n=== Admin Staff (Hierarchical) ===");
-        AdminStaff admin = new AdminStaff("Suresh", 38, "9900001111", "A001", "Admin", "Clerk");
-        admin.displayAdminDetails();
-    }
-}`
+-- 7. Display category-wise maximum product price
+SELECT Category, MAX(Price)
+FROM PRODUCT
+GROUP BY Category;`
   },
   {
-    id: 4,
-    title: "E-Commerce Product Catalogue",
-    practical: "Practical 03 — Java Inheritance",
-    tag: "Inheritance · Method Overriding · super.method()",
-    code: `// Practical 03 — Problem 4: E-Commerce Product Catalogue
-class Product {
-    String productId, name;
-    double price;
+    name: "College Management System",
+    code: `-- Schema: STUDENT(Student_ID, Student_Name, Branch, CGPA), FACULTY(Faculty_ID, Faculty_Name, Department), COURSE(Course_ID, Course_Name, Faculty_ID)
 
-    Product(String productId, String name, double price) {
-        this.productId = productId;
-        this.name = name;
-        this.price = price;
-    }
+-- 1. Display students with CGPA greater than 8
+SELECT * FROM STUDENT WHERE CGPA > 8;
 
-    void displayProduct() {
-        System.out.println("ID: " + productId + " | Name: " + name + " | Price: ₹" + price);
-    }
-}
+-- 2. Display faculty from IT department
+SELECT * FROM FACULTY WHERE Department='IT';
 
-class Electronics extends Product {
-    String brand;
-    int warrantyYears;
+-- 3. Show course name with faculty name
+SELECT C.Course_Name, F.Faculty_Name
+FROM COURSE C
+JOIN FACULTY F ON C.Faculty_ID=F.Faculty_ID;
 
-    Electronics(String productId, String name, double price, String brand, int warrantyYears) {
-        super(productId, name, price);
-        this.brand = brand;
-        this.warrantyYears = warrantyYears;
-    }
+-- 4. Count students branch-wise
+SELECT Branch, COUNT(*)
+FROM STUDENT
+GROUP BY Branch;
 
-    @Override
-    void displayProduct() {
-        super.displayProduct();
-        System.out.println("  Brand: " + brand + " | Warranty: " + warrantyYears + " yrs [Electronics]");
-    }
-}
+-- 5. Display students sorted by CGPA descending
+SELECT * FROM STUDENT
+ORDER BY CGPA DESC;
 
-class Clothing extends Product {
-    String size, material;
+-- 6. Find the branch having maximum students
+SELECT Branch, COUNT(*) AS Total_Students
+FROM STUDENT
+GROUP BY Branch
+ORDER BY Total_Students DESC
+LIMIT 1;
 
-    Clothing(String productId, String name, double price, String size, String material) {
-        super(productId, name, price);
-        this.size = size;
-        this.material = material;
-    }
-
-    @Override
-    void displayProduct() {
-        super.displayProduct();
-        System.out.println("  Size: " + size + " | Material: " + material + " [Clothing]");
-    }
-}
-
-class Grocery extends Product {
-    String expiryDate;
-    double weightKg;
-
-    Grocery(String productId, String name, double price, String expiryDate, double weightKg) {
-        super(productId, name, price);
-        this.expiryDate = expiryDate;
-        this.weightKg = weightKg;
-    }
-
-    @Override
-    void displayProduct() {
-        super.displayProduct();
-        System.out.println("  Expiry: " + expiryDate + " | Weight: " + weightKg + "kg [Grocery]");
-    }
-}
-
-public class ECommerceCatalogue {
-    public static void main(String[] args) {
-        Product[] catalogue = {
-            new Electronics("P001", "Samsung Phone", 25000, "Samsung", 2),
-            new Electronics("P002", "Sony TV", 45000, "Sony", 3),
-            new Clothing("C001", "Blue Shirt", 799, "M", "Cotton"),
-            new Clothing("C002", "Denim Jeans", 1299, "L", "Denim"),
-            new Grocery("G001", "Basmati Rice", 180, "Dec-2025", 5.0),
-            new Grocery("G002", "Sunflower Oil", 220, "Mar-2026", 1.0)
-        };
-
-        System.out.println("=== Product Catalogue ===");
-        for (Product p : catalogue) {
-            p.displayProduct();
-            System.out.println();
-        }
-    }
-}`
+-- 7. Display average CGPA branch-wise having average CGPA above 7
+SELECT Branch, AVG(CGPA)
+FROM STUDENT
+GROUP BY Branch
+HAVING AVG(CGPA) > 7;`
   },
   {
-    id: 5,
-    title: "College Admission Counter System",
-    practical: "Practical 04 — Static, Final, Super, This Keyword",
-    tag: "static · final · this() · super()",
-    code: `// Practical 04 — Problem 5: College Admission Counter System
-class PersonBase {
-    String name;
-    PersonBase(String name) {
-        this.name = name;
-    }
-}
+    name: "Banking System",
+    code: `-- Schema: CUSTOMER(Customer_ID, Customer_Name, City), ACCOUNT(Account_No, Customer_ID, Account_Type, Balance), TRANSACTION(Transaction_ID, Account_No, Amount, Transaction_Type)
 
-class Student extends PersonBase {
-    int rollNo;
-    String branch;
-    static int totalAdmitted = 0;
-    final int MAX_CAPACITY = 60;
+-- 1. Display accounts with balance greater than 50000
+SELECT * FROM ACCOUNT WHERE Balance > 50000;
 
-    // Default constructor using this() chaining
-    Student() {
-        this("Unknown", 0, "General");
-    }
+-- 2. Display customers from Nashik
+SELECT * FROM CUSTOMER WHERE City='Nashik';
 
-    // Parameterized constructor using 'this' and 'super'
-    Student(String name, int rollNo, String branch) {
-        super(name);
-        this.rollNo = rollNo;
-        this.branch = branch;
-        totalAdmitted++;
-    }
+-- 3. Show customer name with account type
+SELECT C.Customer_Name, A.Account_Type
+FROM CUSTOMER C
+JOIN ACCOUNT A ON C.Customer_ID=A.Customer_ID;
 
-    static int getTotalAdmitted() {
-        return totalAdmitted;
-    }
+-- 4. Count accounts type-wise
+SELECT Account_Type, COUNT(*)
+FROM ACCOUNT
+GROUP BY Account_Type;
 
-    void displayStudent() {
-        System.out.println("Roll: " + rollNo + " | Name: " + name + " | Branch: " + branch +
-                " | MAX_CAPACITY: " + MAX_CAPACITY);
-    }
-}
+-- 5. Display debit transactions only
+SELECT * FROM TRANSACTION
+WHERE Transaction_Type='Debit';
 
-public class AdmissionSystem {
-    public static void main(String[] args) {
-        Student s1 = new Student("Asha", 1, "CS");
-        Student s2 = new Student("Raj", 2, "IT");
-        Student s3 = new Student("Priya", 3, "CS");
-        Student s4 = new Student("Dev", 4, "ENTC");
-        Student s5 = new Student("Neha", 5, "IT");
+-- 6. Find the customer having highest balance
+SELECT C.Customer_Name, MAX(A.Balance)
+FROM CUSTOMER C
+JOIN ACCOUNT A ON C.Customer_ID=A.Customer_ID;
 
-        Student[] students = {s1, s2, s3, s4, s5};
-        for (Student s : students) s.displayStudent();
-
-        System.out.println("\\nTotal Admitted = " + Student.getTotalAdmitted());
-
-        // MAX_CAPACITY = 70; // COMPILE ERROR: cannot assign a value to final variable
-        System.out.println("MAX_CAPACITY is fixed at: " + s1.MAX_CAPACITY);
-    }
-}`
+-- 7. Display account type-wise average balance greater than 30000
+SELECT Account_Type, AVG(Balance)
+FROM ACCOUNT
+GROUP BY Account_Type
+HAVING AVG(Balance) > 30000;`
   },
   {
-    id: 6,
-    title: "Vehicle Registration System",
-    practical: "Practical 04 — Static, Final, Super, This Keyword",
-    tag: "static · final method · this · super()",
-    code: `// Practical 04 — Problem 6: Vehicle Registration System
-class Vehicle {
-    final String vehicleType;
-    int engineCC;
+    name: "Employee Payroll System",
+    code: `-- Schema: EMPLOYEE(Emp_ID, Emp_Name, Department, Salary), PROJECT(Project_ID, Project_Name, Budget), WORKS_ON(Emp_ID, Project_ID, Hours)
 
-    Vehicle(String vehicleType, int engineCC) {
-        this.vehicleType = vehicleType;
-        this.engineCC = engineCC;
-    }
+-- 1. Display employees with salary above 60000
+SELECT * FROM EMPLOYEE WHERE Salary > 60000;
 
-    // final method — cannot be overridden
-    final String getVehicleType() {
-        return vehicleType;
-    }
-}
+-- 2. Display projects with budget greater than 100000
+SELECT * FROM PROJECT WHERE Budget > 100000;
 
-class RegisteredVehicle extends Vehicle {
-    String regNo, ownerName;
-    static int totalRegistered = 0;
+-- 3. Show employee name with project name
+SELECT E.Emp_Name, P.Project_Name
+FROM EMPLOYEE E
+JOIN WORKS_ON W ON E.Emp_ID=W.Emp_ID
+JOIN PROJECT P ON P.Project_ID=W.Project_ID;
 
-    RegisteredVehicle(String vehicleType, int engineCC, String regNo, String ownerName) {
-        super(vehicleType, engineCC);  // calling parent constructor
-        this.regNo = regNo;
-        this.ownerName = ownerName;
-        totalRegistered++;
-    }
+-- 4. Count employees department-wise
+SELECT Department, COUNT(*)
+FROM EMPLOYEE
+GROUP BY Department;
 
-    static int getTotalRegistered() {
-        return totalRegistered;
-    }
+-- 5. Display employees sorted by salary descending
+SELECT * FROM EMPLOYEE
+ORDER BY Salary DESC;
 
-    void displayRegistration() {
-        System.out.println("Type: " + getVehicleType() + " | CC: " + engineCC +
-                " | Reg: " + regNo + " | Owner: " + ownerName);
-    }
+-- 6. Find the department with highest average salary
+SELECT Department, AVG(Salary) AS Avg_Salary
+FROM EMPLOYEE
+GROUP BY Department
+ORDER BY Avg_Salary DESC
+LIMIT 1;
 
-    // Cannot override getVehicleType() — it's final in Vehicle:
-    // String getVehicleType() { return "Overridden"; } // COMPILE ERROR
-}
-
-public class RTOSystem {
-    public static void main(String[] args) {
-        RegisteredVehicle v1 = new RegisteredVehicle("Car", 1500, "MH12AB1234", "Suresh");
-        RegisteredVehicle v2 = new RegisteredVehicle("Bike", 150, "MH12CD5678", "Pooja");
-        RegisteredVehicle v3 = new RegisteredVehicle("Truck", 3000, "MH14EF9012", "Ramesh");
-        RegisteredVehicle v4 = new RegisteredVehicle("Van", 2000, "MH14GH3456", "Anita");
-
-        RegisteredVehicle[] vehicles = {v1, v2, v3, v4};
-        System.out.println("=== Vehicle Registration Details ===");
-        for (RegisteredVehicle v : vehicles) v.displayRegistration();
-
-        System.out.println("\\nTotal Registered Vehicles: " + RegisteredVehicle.getTotalRegistered());
-    }
-}`
+-- 7. Display employees working on more than one project
+SELECT Emp_ID, COUNT(Project_ID)
+FROM WORKS_ON
+GROUP BY Emp_ID
+HAVING COUNT(Project_ID) > 1;`
   },
   {
-    id: 7,
-    title: "Banking Transaction Processor",
-    practical: "Practical 05 — Polymorphism",
-    tag: "Overloading · Overriding · Dynamic Dispatch",
-    code: `// Practical 05 — Problem 7: Banking Transaction Processor
+    name: "Railway Reservation System",
+    code: `-- Schema: TRAIN(Train_ID, Train_Name, Source, Destination), PASSENGER(Passenger_ID, Passenger_Name, Age), RESERVATION(Reservation_ID, Train_ID, Passenger_ID, Journey_Date)
 
-// Compile-time Polymorphism — Method Overloading
-class Transaction {
-    void processPayment(int amount) {
-        System.out.println("Processing integer payment: ₹" + amount);
-    }
-    void processPayment(double amount) {
-        System.out.println("Processing payment: ₹" + amount);
-    }
-    void processPayment(double amount, String remarks) {
-        System.out.println("Processing ₹" + amount + " | Remark: " + remarks);
-    }
-    void processPayment(String upiId, double amount) {
-        System.out.println("UPI Payment of ₹" + amount + " to " + upiId);
-    }
-}
+-- 1. Display trains starting from Pune
+SELECT * FROM TRAIN WHERE Source='Pune';
 
-// Runtime Polymorphism — Method Overriding
-class Account {
-    double principal;
-    Account(double principal) { this.principal = principal; }
-    double calculateInterest() { return 0; }
-    String getType() { return "Account"; }
-}
+-- 2. Display passengers whose age is greater than 60
+SELECT * FROM PASSENGER WHERE Age > 60;
 
-class SavingsAccount extends Account {
-    SavingsAccount(double principal) { super(principal); }
-    @Override
-    double calculateInterest() { return principal * 0.04; }
-    @Override
-    String getType() { return "Savings Account"; }
-}
+-- 3. Show passenger name with train name
+SELECT P.Passenger_Name, T.Train_Name
+FROM PASSENGER P
+JOIN RESERVATION R ON P.Passenger_ID=R.Passenger_ID
+JOIN TRAIN T ON T.Train_ID=R.Train_ID;
 
-class FixedDeposit extends Account {
-    FixedDeposit(double principal) { super(principal); }
-    @Override
-    double calculateInterest() { return principal * 0.07; }
-    @Override
-    String getType() { return "Fixed Deposit"; }
-}
+-- 4. Count reservations train-wise
+SELECT Train_ID, COUNT(*)
+FROM RESERVATION
+GROUP BY Train_ID;
 
-public class BankPolymorphism {
-    public static void main(String[] args) {
-        System.out.println("=== Method Overloading ===");
-        Transaction t = new Transaction();
-        t.processPayment(5000);
-        t.processPayment(2500.50);
-        t.processPayment(1000.0, "EMI Payment");
-        t.processPayment("upi@bank", 3000);
+-- 5. Display reservations after '2026-02-01'
+SELECT * FROM RESERVATION
+WHERE Journey_Date > '2026-02-01';
 
-        System.out.println("\\n=== Method Overriding (Dynamic Dispatch) ===");
-        Account[] accounts = {new SavingsAccount(50000), new FixedDeposit(100000)};
-        for (Account acc : accounts) {
-            System.out.printf("%s Interest: ₹%.0f%n", acc.getType(), acc.calculateInterest());
-        }
-    }
-}`
+-- 6. Find the train with maximum reservations
+SELECT Train_ID, COUNT(*) AS Total_Reservations
+FROM RESERVATION
+GROUP BY Train_ID
+ORDER BY Total_Reservations DESC
+LIMIT 1;
+
+-- 7. Display source-wise total trains
+SELECT Source, COUNT(*)
+FROM TRAIN
+GROUP BY Source;`
   },
   {
-    id: 8,
-    title: "Smart Home Device Control",
-    practical: "Practical 05 — Polymorphism",
-    tag: "Overloading · Overriding · instanceof",
-    code: `// Practical 05 — Problem 8: Smart Home Device Control
+    name: "Hotel Management System",
+    code: `-- Schema: ROOM(Room_No, Room_Type, Charges), CUSTOMER(Customer_ID, Customer_Name, City), BOOKING(Booking_ID, Room_No, Customer_ID, CheckIn_Date)
 
-class DeviceController {
-    void setTimer(int minutes) {
-        System.out.println("Timer set for " + minutes + " minutes.");
-    }
-    void setTimer(int hours, int minutes) {
-        System.out.println("Timer set for " + hours + "hr " + minutes + "min.");
-    }
-    void setTimer(String schedule) {
-        System.out.println("Timer scheduled at: " + schedule);
-    }
-}
+-- 1. Display rooms with charges greater than 3000
+SELECT * FROM ROOM WHERE Charges > 3000;
 
-class SmartDevice {
-    String name;
-    SmartDevice(String name) { this.name = name; }
-    void activate() {
-        System.out.println(name + " activated.");
-    }
-}
+-- 2. Display customers from Delhi
+SELECT * FROM CUSTOMER WHERE City='Delhi';
 
-class SmartLight extends SmartDevice {
-    int brightness;
-    SmartLight(String name, int brightness) {
-        super(name);
-        this.brightness = brightness;
-    }
-    @Override
-    void activate() {
-        System.out.println("Turning lights ON at " + brightness + "% brightness.");
-    }
-}
+-- 3. Show customer name with room type
+SELECT C.Customer_Name, R.Room_Type
+FROM CUSTOMER C
+JOIN BOOKING B ON C.Customer_ID=B.Customer_ID
+JOIN ROOM R ON R.Room_No=B.Room_No;
 
-class SmartAC extends SmartDevice {
-    int temperature;
-    SmartAC(String name, int temperature) {
-        super(name);
-        this.temperature = temperature;
-    }
-    @Override
-    void activate() {
-        System.out.println("Setting AC to " + temperature + "°C.");
-    }
-}
+-- 4. Count rooms type-wise
+SELECT Room_Type, COUNT(*)
+FROM ROOM
+GROUP BY Room_Type;
 
-class SmartFan extends SmartDevice {
-    int speed;
-    SmartFan(String name, int speed) {
-        super(name);
-        this.speed = speed;
-    }
-    @Override
-    void activate() {
-        System.out.println("Fan speed set to " + speed + ".");
-    }
-}
+-- 5. Display bookings in May 2026
+SELECT * FROM BOOKING
+WHERE MONTH(CheckIn_Date)=5;
 
-public class SmartHome {
-    public static void main(String[] args) {
-        System.out.println("=== Timer Overloading ===");
-        DeviceController dc = new DeviceController();
-        dc.setTimer(30);
-        dc.setTimer(1, 30);
-        dc.setTimer("Morning 6AM");
+-- 6. Find the most booked room type
+SELECT R.Room_Type, COUNT(*) AS Total_Bookings
+FROM ROOM R
+JOIN BOOKING B ON R.Room_No=B.Room_No
+GROUP BY R.Room_Type
+ORDER BY Total_Bookings DESC
+LIMIT 1;
 
-        System.out.println("\\n=== Device Polymorphism ===");
-        SmartDevice[] devices = {
-            new SmartLight("Living Room Light", 75),
-            new SmartAC("Bedroom AC", 22),
-            new SmartFan("Ceiling Fan", 3)
-        };
-        for (SmartDevice d : devices) {
-            d.activate();
-            if (d instanceof SmartLight)  System.out.println("  [Type: SmartLight]");
-            else if (d instanceof SmartAC) System.out.println("  [Type: SmartAC]");
-            else if (d instanceof SmartFan) System.out.println("  [Type: SmartFan]");
-        }
-    }
-}`
+-- 7. Display average room charges type-wise
+SELECT Room_Type, AVG(Charges)
+FROM ROOM
+GROUP BY Room_Type;`
   },
   {
-    id: 9,
-    title: "Insurance Premium Calculator",
-    practical: "Practical 06 — Abstract Class, Interfaces, Lambda",
-    tag: "Abstract · Interface · Lambda · Predicate",
-    code: `// Practical 06 — Problem 9: Insurance Premium Calculator
-import java.util.*;
-import java.util.stream.*;
-import java.util.function.*;
+    name: "University Examination System",
+    code: `-- Schema: STUDENT(Student_ID, Student_Name, Branch), SUBJECT(Subject_ID, Subject_Name, Credits), RESULT(Student_ID, Subject_ID, Marks)
 
-interface Taxable {
-    double applyGST(double premium);
-}
+-- 1. Display students from Computer branch
+SELECT * FROM STUDENT WHERE Branch='Computer';
 
-abstract class InsurancePolicy {
-    String policyNo, holderName;
-    double sumInsured;
+-- 2. Display subjects with credits greater than 3
+SELECT * FROM SUBJECT WHERE Credits > 3;
 
-    InsurancePolicy(String policyNo, String holderName, double sumInsured) {
-        this.policyNo = policyNo;
-        this.holderName = holderName;
-        this.sumInsured = sumInsured;
-    }
+-- 3. Show student name with subject name
+SELECT S.Student_Name, SU.Subject_Name
+FROM STUDENT S
+JOIN RESULT R ON S.Student_ID=R.Student_ID
+JOIN SUBJECT SU ON SU.Subject_ID=R.Subject_ID;
 
-    abstract double calculatePremium();
+-- 4. Count students branch-wise
+SELECT Branch, COUNT(*)
+FROM STUDENT
+GROUP BY Branch;
 
-    void displayPolicy() {
-        double premium = calculatePremium();
-        System.out.printf("Policy: %s | Holder: %s | Sum Insured: ₹%.0f | Premium: ₹%.0f%n",
-                policyNo, holderName, sumInsured, premium);
-    }
-}
+-- 5. Display students scoring above 75 marks
+SELECT * FROM RESULT WHERE Marks > 75;
 
-class HealthInsurance extends InsurancePolicy implements Taxable {
-    HealthInsurance(String policyNo, String holderName, double sumInsured) {
-        super(policyNo, holderName, sumInsured);
-    }
+-- 6. Find the topper student
+SELECT Student_ID, SUM(Marks) AS Total
+FROM RESULT
+GROUP BY Student_ID
+ORDER BY Total DESC
+LIMIT 1;
 
-    @Override
-    public double calculatePremium() { return 0.02 * sumInsured; }
-
-    @Override
-    public double applyGST(double premium) { return premium + 0.18 * premium; }
-}
-
-class VehicleInsurance extends InsurancePolicy implements Taxable {
-    VehicleInsurance(String policyNo, String holderName, double sumInsured) {
-        super(policyNo, holderName, sumInsured);
-    }
-
-    @Override
-    public double calculatePremium() { return 0.03 * sumInsured; }
-
-    @Override
-    public double applyGST(double premium) { return premium + 0.18 * premium; }
-}
-
-public class InsuranceSystem {
-    public static void main(String[] args) {
-        List<InsurancePolicy> policies = new ArrayList<>(Arrays.asList(
-            new HealthInsurance("H001", "Asha", 250000),
-            new HealthInsurance("H002", "Raj", 500000),
-            new HealthInsurance("H003", "Dev", 100000),
-            new VehicleInsurance("V001", "Priya", 150000),
-            new VehicleInsurance("V002", "Neha", 300000)
-        ));
-
-        System.out.println("=== All Policies ===");
-        policies.forEach(p -> {
-            p.displayPolicy();
-            if (p instanceof Taxable) {
-                System.out.printf("  Premium with GST: ₹%.2f%n",
-                        ((Taxable)p).applyGST(p.calculatePremium()));
-            }
-        });
-
-        // Sort by sumInsured using lambda
-        System.out.println("\\n=== Sorted by Sum Insured ===");
-        policies.sort((a, b) -> Double.compare(a.sumInsured, b.sumInsured));
-        policies.forEach(InsurancePolicy::displayPolicy);
-
-        // Filter: premium > 5000
-        System.out.println("\\n=== High Premium Policies (> ₹5000) ===");
-        Predicate<InsurancePolicy> highPremium = p -> p.calculatePremium() > 5000;
-        policies.stream().filter(highPremium).forEach(InsurancePolicy::displayPolicy);
-    }
-}`
+-- 7. Display average marks subject-wise greater than 70
+SELECT Subject_ID, AVG(Marks)
+FROM RESULT
+GROUP BY Subject_ID
+HAVING AVG(Marks) > 70;`
   },
   {
-    id: 10,
-    title: "Food Delivery Order System",
-    practical: "Practical 06 — Abstract Class, Interfaces, Lambda",
-    tag: "Abstract · Multiple Interfaces · Lambda forEach",
-    code: `// Practical 06 — Problem 10: Food Delivery Order System
-import java.util.*;
+    name: "Inventory Management System",
+    code: `-- Schema: PRODUCT(Product_ID, Product_Name, Stock, Price), SUPPLIER(Supplier_ID, Supplier_Name, City), SUPPLY(Product_ID, Supplier_ID, Quantity)
 
-interface Discountable {
-    double applyDiscount(double percent);
-}
+-- 1. Display products with stock less than 20
+SELECT * FROM PRODUCT WHERE Stock < 20;
 
-interface Trackable {
-    String trackOrder();
-}
+-- 2. Display suppliers from Chennai
+SELECT * FROM SUPPLIER WHERE City='Chennai';
 
-abstract class FoodItem implements Discountable, Trackable {
-    String itemName;
-    double price;
+-- 3. Show product name with supplier name
+SELECT P.Product_Name, S.Supplier_Name
+FROM PRODUCT P
+JOIN SUPPLY SU ON P.Product_ID=SU.Product_ID
+JOIN SUPPLIER S ON S.Supplier_ID=SU.Supplier_ID;
 
-    FoodItem(String itemName, double price) {
-        this.itemName = itemName;
-        this.price = price;
-    }
+-- 4. Count products supplier-wise
+SELECT Supplier_ID, COUNT(*)
+FROM SUPPLY
+GROUP BY Supplier_ID;
 
-    abstract void prepareItem();
+-- 5. Display products with price between 500 and 2000
+SELECT * FROM PRODUCT
+WHERE Price BETWEEN 500 AND 2000;
 
-    void displayItem() {
-        System.out.printf("Item: %-25s Price: ₹%.2f%n", itemName, price);
-    }
+-- 6. Find supplier supplying maximum quantity
+SELECT Supplier_ID, SUM(Quantity) AS Total_Qty
+FROM SUPPLY
+GROUP BY Supplier_ID
+ORDER BY Total_Qty DESC
+LIMIT 1;
 
-    @Override
-    public double applyDiscount(double percent) {
-        return price - (price * percent / 100);
-    }
-}
-
-class VegItem extends FoodItem {
-    VegItem(String itemName, double price) { super(itemName, price); }
-
-    @Override
-    public void prepareItem() {
-        System.out.println("Preparing Veg: " + itemName);
-    }
-
-    @Override
-    public String trackOrder() {
-        return "ETA: 25-30 minutes (Veg)";
-    }
-}
-
-class NonVegItem extends FoodItem {
-    NonVegItem(String itemName, double price) { super(itemName, price); }
-
-    @Override
-    public void prepareItem() {
-        System.out.println("Preparing Non-Veg: " + itemName);
-    }
-
-    @Override
-    public String trackOrder() {
-        return "ETA: 35-40 minutes (Non-Veg)";
-    }
-}
-
-public class FoodDelivery {
-    public static void main(String[] args) {
-        List<FoodItem> menu = new ArrayList<>(Arrays.asList(
-            new VegItem("Paneer Butter Masala", 320),
-            new NonVegItem("Chicken Biryani", 280),
-            new VegItem("Dal Tadka", 180),
-            new NonVegItem("Mutton Curry", 380)
-        ));
-
-        System.out.println("=== Preparation Status ===");
-        menu.forEach(item -> {
-            item.prepareItem();
-            System.out.println("  " + item.trackOrder());
-            System.out.printf("  Discounted Price (10%%): ₹%.2f%n", item.applyDiscount(10));
-        });
-
-        System.out.println("\\n=== Menu Sorted by Price ===");
-        menu.sort(Comparator.comparingDouble(i -> i.price));
-        menu.forEach(item -> System.out.printf("%-25s ₹%.2f%n", item.itemName, item.applyDiscount(10)));
-    }
-}`
+-- 7. Display average product price greater than 1000
+SELECT AVG(Price)
+FROM PRODUCT
+HAVING AVG(Price) > 1000;`
   },
   {
-    id: 11,
-    title: "ATM Withdrawal System",
-    practical: "Practical 07 — Exception Handling",
-    tag: "Custom Exceptions · try-catch-finally · Re-throw",
-    code: `// Practical 07 — Problem 11: ATM Withdrawal System
+    name: "Movie Ticket Booking System",
+    code: `-- Schema: MOVIE(Movie_ID, Movie_Name, Genre, Rating), CUSTOMER(Customer_ID, Customer_Name, City), BOOKING(Booking_ID, Movie_ID, Customer_ID, Seats)
 
-// Custom Checked Exception
-class InsufficientFundsException extends Exception {
-    InsufficientFundsException(String message) { super(message); }
-}
+-- 1. Display movies with rating above 8
+SELECT * FROM MOVIE WHERE Rating > 8;
 
-// Custom Checked Exception
-class DailyLimitExceededException extends Exception {
-    DailyLimitExceededException(String message) { super(message); }
-}
+-- 2. Display customers from Hyderabad
+SELECT * FROM CUSTOMER WHERE City='Hyderabad';
 
-// Custom Unchecked Exception
-class InvalidAmountException extends RuntimeException {
-    InvalidAmountException(String message) { super(message); }
-}
+-- 3. Show movie name with customer name
+SELECT M.Movie_Name, C.Customer_Name
+FROM MOVIE M
+JOIN BOOKING B ON M.Movie_ID=B.Movie_ID
+JOIN CUSTOMER C ON C.Customer_ID=B.Customer_ID;
 
-class ATM {
-    double balance;
-    double dailyWithdrawn = 0;
-    final double DAILY_LIMIT = 20000;
+-- 4. Count movies genre-wise
+SELECT Genre, COUNT(*)
+FROM MOVIE
+GROUP BY Genre;
 
-    ATM(double balance) { this.balance = balance; }
+-- 5. Display bookings with seats greater than 4
+SELECT * FROM BOOKING WHERE Seats > 4;
 
-    void withdraw(double amount) throws InsufficientFundsException, DailyLimitExceededException {
-        try {
-            // Unchecked validation
-            if (amount <= 0 || amount % 100 != 0) {
-                throw new InvalidAmountException("Invalid amount: ₹" + amount + ". Must be positive multiple of 100.");
-            }
-            if (dailyWithdrawn + amount > DAILY_LIMIT) {
-                throw new DailyLimitExceededException("Daily limit of ₹" + DAILY_LIMIT + " exceeded!");
-            }
-            if (amount > balance) {
-                throw new InsufficientFundsException("Insufficient balance! Available: ₹" + balance);
-            }
-            balance -= amount;
-            dailyWithdrawn += amount;
-            System.out.println("✓ Withdrawal of ₹" + amount + " successful. Remaining Balance: ₹" + balance);
-        } catch (InvalidAmountException e) {
-            System.out.println("✗ Invalid Amount: " + e.getMessage());
-        } finally {
-            System.out.println("  Transaction log saved.");
-        }
-    }
-}
+-- 6. Find movie with maximum bookings
+SELECT Movie_ID, COUNT(*) AS Total_Bookings
+FROM BOOKING
+GROUP BY Movie_ID
+ORDER BY Total_Bookings DESC
+LIMIT 1;
 
-public class ATMSystem {
-    public static void main(String[] args) {
-        ATM atm = new ATM(15000);
-
-        // 1. Valid withdrawal
-        try { atm.withdraw(5000); }
-        catch (InsufficientFundsException | DailyLimitExceededException e) {
-            System.out.println("✗ " + e.getMessage());
-        }
-
-        // 2. Daily limit breach
-        try { atm.withdraw(12000); }
-        catch (DailyLimitExceededException e) {
-            System.out.println("✗ Daily Limit: " + e.getMessage());
-            System.out.println("  Transaction log saved.");
-        } catch (InsufficientFundsException e) {
-            System.out.println("✗ " + e.getMessage());
-        }
-
-        // 3. Invalid amount
-        try { atm.withdraw(-500); }
-        catch (InsufficientFundsException | DailyLimitExceededException e) {
-            System.out.println("✗ " + e.getMessage());
-        }
-
-        // 4. Insufficient funds
-        try { atm.withdraw(8000); }
-        catch (InsufficientFundsException e) {
-            System.out.println("✗ Insufficient Funds: " + e.getMessage());
-            System.out.println("  Transaction log saved.");
-        } catch (DailyLimitExceededException e) {
-            System.out.println("✗ " + e.getMessage());
-        }
-    }
-}`
+-- 7. Display average rating genre-wise
+SELECT Genre, AVG(Rating)
+FROM MOVIE
+GROUP BY Genre;`
   },
   {
-    id: 12,
-    title: "Student Online Exam Portal",
-    practical: "Practical 07 — Exception Handling",
-    tag: "Custom Exceptions · multi-catch | · finally",
-    code: `// Practical 07 — Problem 12: Student Online Exam Portal
+    name: "Sports Club Management System",
+    code: `-- Schema: PLAYER(Player_ID, Player_Name, Sport, Age), COACH(Coach_ID, Coach_Name, Experience), TRAINING(Player_ID, Coach_ID, Hours)
 
-class ExamTimeExpiredException extends Exception {
-    ExamTimeExpiredException(String msg) { super(msg); }
-}
+-- 1. Display players older than 25
+SELECT * FROM PLAYER WHERE Age > 25;
 
-class AlreadySubmittedException extends Exception {
-    AlreadySubmittedException(String msg) { super(msg); }
-}
+-- 2. Display coaches with experience greater than 10 years
+SELECT * FROM COACH WHERE Experience > 10;
 
-class InvalidAnswerFormatException extends RuntimeException {
-    InvalidAnswerFormatException(String msg) { super(msg); }
-}
+-- 3. Show player name with coach name
+SELECT P.Player_Name, C.Coach_Name
+FROM PLAYER P
+JOIN TRAINING T ON P.Player_ID=T.Player_ID
+JOIN COACH C ON C.Coach_ID=T.Coach_ID;
 
-class StudentExam {
-    String name;
-    boolean submitted = false;
-    StudentExam(String name) { this.name = name; }
-}
+-- 4. Count players sport-wise
+SELECT Sport, COUNT(*)
+FROM PLAYER
+GROUP BY Sport;
 
-class ExamPortal {
-    final long ALLOWED_DURATION = 90; // minutes
+-- 5. Display players sorted by age descending
+SELECT * FROM PLAYER ORDER BY Age DESC;
 
-    void submitExam(StudentExam s, long timeTaken, String[] answers)
-            throws ExamTimeExpiredException, AlreadySubmittedException {
-        try {
-            if (s.submitted) {
-                throw new AlreadySubmittedException(s.name + " has already submitted the exam!");
-            }
-            for (String ans : answers) {
-                if (ans == null || ans.isEmpty()) {
-                    throw new InvalidAnswerFormatException("Answer cannot be null or empty!");
-                }
-            }
-            if (timeTaken > ALLOWED_DURATION) {
-                throw new ExamTimeExpiredException("Time exceeded! " + timeTaken + " min > " + ALLOWED_DURATION + " min allowed.");
-            }
-            s.submitted = true;
-            System.out.println("✓ Exam submitted successfully for " + s.name + " in " + timeTaken + " min.");
-        } catch (InvalidAnswerFormatException e) {
-            System.out.println("✗ Format Error: " + e.getMessage());
-        } finally {
-            System.out.println("  Session closed for " + s.name + ".");
-        }
-    }
-}
+-- 6. Find coach training maximum players
+SELECT Coach_ID, COUNT(Player_ID) AS Total_Players
+FROM TRAINING
+GROUP BY Coach_ID
+ORDER BY Total_Players DESC
+LIMIT 1;
 
-public class ExamSystem {
-    public static void main(String[] args) {
-        ExamPortal portal = new ExamPortal();
-        StudentExam raj = new StudentExam("Raj");
-
-        // 1. Valid submission
-        try {
-            portal.submitExam(raj, 85, new String[]{"A", "B", "C"});
-        } catch (ExamTimeExpiredException | AlreadySubmittedException e) {
-            System.out.println("✗ " + e.getMessage());
-        }
-
-        // 2. Time expired
-        StudentExam meena = new StudentExam("Meena");
-        try {
-            portal.submitExam(meena, 95, new String[]{"A", "B"});
-        } catch (ExamTimeExpiredException | AlreadySubmittedException e) {
-            System.out.println("✗ " + e.getMessage());
-            System.out.println("  Session closed for " + meena.name + ".");
-        }
-
-        // 3. Invalid answer (null)
-        StudentExam john = new StudentExam("John");
-        try {
-            portal.submitExam(john, 70, new String[]{"A", null});
-        } catch (ExamTimeExpiredException | AlreadySubmittedException e) {
-            System.out.println("✗ " + e.getMessage());
-        }
-
-        // 4. Already submitted
-        try {
-            portal.submitExam(raj, 80, new String[]{"A", "B", "C"});
-        } catch (ExamTimeExpiredException | AlreadySubmittedException e) {
-            System.out.println("✗ " + e.getMessage());
-            System.out.println("  Session closed for " + raj.name + ".");
-        }
-    }
-}`
+-- 7. Display sport-wise average age of players
+SELECT Sport, AVG(Age)
+FROM PLAYER
+GROUP BY Sport;`
   },
   {
-    id: 13,
-    title: "Railway Ticket Booking — Seat Reservation",
-    practical: "Practical 08 — Java Threads",
-    tag: "synchronized · Thread · sleep() · race condition",
-    code: `// Practical 08 — Problem 13: Railway Ticket Booking — Seat Reservation
-class SeatReservation {
-    int availableSeats = 10;
+    name: "Airline Reservation System",
+    code: `-- Schema: FLIGHT(Flight_ID, Flight_Name, Source, Destination), PASSENGER(Passenger_ID, Passenger_Name, Passport_No), TICKET(Ticket_ID, Flight_ID, Passenger_ID, Fare)
 
-    synchronized void bookSeats(int count, String agentName) {
-        System.out.println(Thread.currentThread().getName() + " (" + agentName + ") trying to book " + count + " seat(s).");
-        try { Thread.sleep(500); } catch (InterruptedException e) { e.printStackTrace(); }
+-- 1. Display flights from Mumbai
+SELECT * FROM FLIGHT WHERE Source='Mumbai';
 
-        if (availableSeats >= count) {
-            availableSeats -= count;
-            System.out.println("✓ " + agentName + " successfully booked " + count + " seat(s). Remaining: " + availableSeats);
-        } else {
-            System.out.println("✗ Seats not available for " + agentName + ". Only " + availableSeats + " seat(s) left.");
-        }
-    }
-}
+-- 2. Display passengers whose fare is greater than 10000
+SELECT * FROM TICKET WHERE Fare > 10000;
 
-class BookingAgent extends Thread {
-    SeatReservation reservation;
-    int seatsToBook;
-    String agentName;
+-- 3. Show passenger name with flight name
+SELECT P.Passenger_Name, F.Flight_Name
+FROM PASSENGER P
+JOIN TICKET T ON P.Passenger_ID=T.Passenger_ID
+JOIN FLIGHT F ON F.Flight_ID=T.Flight_ID;
 
-    BookingAgent(SeatReservation reservation, int seatsToBook, String agentName) {
-        this.reservation = reservation;
-        this.seatsToBook = seatsToBook;
-        this.agentName = agentName;
-    }
+-- 4. Count flights source-wise
+SELECT Source, COUNT(*)
+FROM FLIGHT
+GROUP BY Source;
 
-    @Override
-    public void run() {
-        reservation.bookSeats(seatsToBook, agentName);
-    }
-}
+-- 5. Display tickets with fare between 5000 and 15000
+SELECT * FROM TICKET
+WHERE Fare BETWEEN 5000 AND 15000;
 
-public class RailwayBooking {
-    public static void main(String[] args) throws InterruptedException {
-        SeatReservation sr = new SeatReservation();
-        System.out.println("Available Seats: " + sr.availableSeats);
+-- 6. Find flight generating maximum revenue
+SELECT Flight_ID, SUM(Fare) AS Revenue
+FROM TICKET
+GROUP BY Flight_ID
+ORDER BY Revenue DESC
+LIMIT 1;
 
-        BookingAgent a1 = new BookingAgent(sr, 3, "Agent1");
-        BookingAgent a2 = new BookingAgent(sr, 4, "Agent2");
-        BookingAgent a3 = new BookingAgent(sr, 2, "Agent3");
-        BookingAgent a4 = new BookingAgent(sr, 3, "Agent4");
-
-        a1.start(); a2.start(); a3.start(); a4.start();
-
-        a1.join(); a2.join(); a3.join(); a4.join();
-
-        System.out.println("\\nFinal Available Seats: " + sr.availableSeats);
-    }
-}`
+-- 7. Display average fare flight-wise
+SELECT Flight_ID, AVG(Fare)
+FROM TICKET
+GROUP BY Flight_ID;`
   },
   {
-    id: 14,
-    title: "Stock Market Price Feed Simulator",
-    practical: "Practical 08 — Java Threads",
-    tag: "Runnable · volatile · join() · Thread.getState()",
-    code: `// Practical 08 — Problem 14: Stock Market Price Feed Simulator
-import java.util.Random;
+    name: "E-Learning Platform",
+    code: `-- Schema: STUDENT(Student_ID, Student_Name, Course), INSTRUCTOR(Instructor_ID, Instructor_Name, Expertise), ENROLLMENT(Student_ID, Instructor_ID, Completion_Percentage)
 
-class StockUpdater implements Runnable {
-    String stockName;
-    volatile double price;
+-- 1. Display students enrolled in Java course
+SELECT * FROM STUDENT WHERE Course='Java';
 
-    StockUpdater(String stockName, double initialPrice) {
-        this.stockName = stockName;
-        this.price = initialPrice;
-    }
+-- 2. Display instructors with expertise in Python
+SELECT * FROM INSTRUCTOR WHERE Expertise='Python';
 
-    @Override
-    public void run() {
-        Random rand = new Random();
-        for (int i = 1; i <= 5; i++) {
-            double change = price * 0.05 * (rand.nextBoolean() ? 1 : -1);
-            price += change;
-            System.out.printf("[%s] Update %d: ₹%.2f%n", stockName, i, price);
-            try { Thread.sleep(500); } catch (InterruptedException e) { break; }
-        }
-    }
-}
+-- 3. Show student name with instructor name
+SELECT S.Student_Name, I.Instructor_Name
+FROM STUDENT S
+JOIN ENROLLMENT E ON S.Student_ID=E.Student_ID
+JOIN INSTRUCTOR I ON I.Instructor_ID=E.Instructor_ID;
 
-class StockMonitor extends Thread {
-    StockUpdater target;
-    double threshold;
+-- 4. Count students course-wise
+SELECT Course, COUNT(*)
+FROM STUDENT
+GROUP BY Course;
 
-    StockMonitor(StockUpdater target, double threshold) {
-        this.target = target;
-        this.threshold = threshold;
-    }
+-- 5. Display students with completion percentage above 80
+SELECT * FROM ENROLLMENT
+WHERE Completion_Percentage > 80;
 
-    @Override
-    public void run() {
-        for (int i = 0; i < 5; i++) {
-            if (target.price > threshold) {
-                System.out.println("ALERT: " + target.stockName + " crossed ₹" + threshold + "! Current: ₹" + String.format("%.2f", target.price));
-            }
-            try { Thread.sleep(500); } catch (InterruptedException e) { break; }
-        }
-    }
-}
+-- 6. Find instructor teaching maximum students
+SELECT Instructor_ID, COUNT(Student_ID) AS Total_Students
+FROM ENROLLMENT
+GROUP BY Instructor_ID
+ORDER BY Total_Students DESC
+LIMIT 1;
 
-public class StockMarket {
-    public static void main(String[] args) throws InterruptedException {
-        StockUpdater reliance = new StockUpdater("RELIANCE", 2500);
-        StockUpdater infy     = new StockUpdater("INFY", 1800);
-        StockUpdater tcs      = new StockUpdater("TCS", 4000);
-
-        Thread t1 = new Thread(reliance, "RELIANCE-Thread");
-        Thread t2 = new Thread(infy, "INFY-Thread");
-        Thread t3 = new Thread(tcs, "TCS-Thread");
-        StockMonitor monitor = new StockMonitor(reliance, 2600);
-
-        System.out.println("Thread States before start: " + t1.getState());
-        t1.start(); t2.start(); t3.start(); monitor.start();
-        System.out.println("Thread States after start: " + t1.getState());
-
-        t1.join(); t2.join(); t3.join(); monitor.join();
-
-        System.out.println("\\n=== Final Prices ===");
-        System.out.printf("RELIANCE: ₹%.2f | INFY: ₹%.2f | TCS: ₹%.2f%n",
-                reliance.price, infy.price, tcs.price);
-        System.out.println("Thread State after finish: " + t1.getState());
-    }
-}`
+-- 7. Display average completion percentage instructor-wise
+SELECT Instructor_ID, AVG(Completion_Percentage)
+FROM ENROLLMENT
+GROUP BY Instructor_ID;`
   },
   {
-    id: 15,
-    title: "Hospital Patient Record System",
-    practical: "Practical 09 — Packages and Collections",
-    tag: "ArrayList · HashMap · LinkedList · TreeSet",
-    code: `// Practical 09 — Problem 15: Hospital Patient Record System
-// Note: In a real project, split into packages hospital.model, hospital.service, hospital.main
-// Shown here as a single file for simplicity
+    name: "Vehicle Service Management System",
+    code: `-- Schema: VEHICLE(Vehicle_ID, Owner_Name, Vehicle_Type), MECHANIC(Mechanic_ID, Mechanic_Name, Experience), SERVICE(Service_ID, Vehicle_ID, Mechanic_ID, Service_Cost)
 
-import java.util.*;
+-- 1. Display vehicles of type Car
+SELECT * FROM VEHICLE WHERE Vehicle_Type='Car';
 
-class Patient {
-    String patientId, name, disease;
-    int age;
+-- 2. Display mechanics with experience greater than 5 years
+SELECT * FROM MECHANIC WHERE Experience > 5;
 
-    Patient(String patientId, String name, int age, String disease) {
-        this.patientId = patientId;
-        this.name = name;
-        this.age = age;
-        this.disease = disease;
-    }
+-- 3. Show owner name with mechanic name
+SELECT V.Owner_Name, M.Mechanic_Name
+FROM VEHICLE V
+JOIN SERVICE S ON V.Vehicle_ID=S.Vehicle_ID
+JOIN MECHANIC M ON M.Mechanic_ID=S.Mechanic_ID;
 
-    @Override
-    public String toString() {
-        return patientId + " | " + name + " | Age: " + age + " | " + disease;
-    }
-}
+-- 4. Count vehicles type-wise
+SELECT Vehicle_Type, COUNT(*)
+FROM VEHICLE
+GROUP BY Vehicle_Type;
 
-class PatientService {
-    ArrayList<Patient> patientList = new ArrayList<>();
-    HashMap<String, Patient> patientMap = new HashMap<>();
-    LinkedList<Patient> consultationQueue = new LinkedList<>();
-    TreeSet<String> diseaseSet = new TreeSet<>();
+-- 5. Display services with cost greater than 5000
+SELECT * FROM SERVICE WHERE Service_Cost > 5000;
 
-    void addPatient(Patient p) {
-        patientList.add(p);
-        patientMap.put(p.patientId, p);
-        consultationQueue.add(p);
-        diseaseSet.add(p.disease);
-    }
+-- 6. Find mechanic handling maximum services
+SELECT Mechanic_ID, COUNT(*) AS Total_Services
+FROM SERVICE
+GROUP BY Mechanic_ID
+ORDER BY Total_Services DESC
+LIMIT 1;
 
-    void displayAll() {
-        System.out.println("=== All Patients ===");
-        patientList.forEach(System.out::println);
-    }
-
-    void searchById(String id) {
-        Patient p = patientMap.get(id);
-        System.out.println("Search [" + id + "]: " + (p != null ? p : "Not found"));
-    }
-
-    void nextInQueue() {
-        Patient p = consultationQueue.poll();
-        System.out.println("Next Patient: " + (p != null ? p : "Queue empty"));
-    }
-
-    void displayDiseases() {
-        System.out.println("Unique Diseases (Sorted): " + diseaseSet);
-    }
-}
-
-public class HospitalSystem {
-    public static void main(String[] args) {
-        PatientService service = new PatientService();
-        service.addPatient(new Patient("P001", "Asha", 32, "Fever"));
-        service.addPatient(new Patient("P002", "Raj", 45, "Diabetes"));
-        service.addPatient(new Patient("P003", "Priya", 28, "Fever"));
-        service.addPatient(new Patient("P004", "Dev", 60, "BP"));
-        service.addPatient(new Patient("P005", "Neha", 35, "Asthma"));
-
-        service.displayAll();
-        System.out.println();
-        service.searchById("P002");
-        System.out.println();
-        service.nextInQueue();
-        System.out.println();
-        service.displayDiseases();
-    }
-}`
+-- 7. Display average service cost mechanic-wise greater than 3000
+SELECT Mechanic_ID, AVG(Service_Cost)
+FROM SERVICE
+GROUP BY Mechanic_ID
+HAVING AVG(Service_Cost) > 3000;`
   },
   {
-    id: 16,
-    title: "Online Shopping Cart System",
-    practical: "Practical 09 — Packages and Collections",
-    tag: "HashMap · Stack · TreeMap · ArrayList",
-    code: `// Practical 09 — Problem 16: Online Shopping Cart System
-import java.util.*;
+    name: "Food Delivery Application",
+    code: `-- Schema: CUSTOMER(Customer_ID, Customer_Name, City), RESTAURANT(Restaurant_ID, Restaurant_Name, Rating), ORDERS(Order_ID, Customer_ID, Restaurant_ID, Amount)
 
-class ProductItem {
-    String productId, name, category;
-    double price;
+-- 1. Display restaurants with rating above 4
+SELECT * FROM RESTAURANT WHERE Rating > 4;
 
-    ProductItem(String productId, String name, double price, String category) {
-        this.productId = productId;
-        this.name = name;
-        this.price = price;
-        this.category = category;
-    }
+-- 2. Display customers from Bangalore
+SELECT * FROM CUSTOMER WHERE City='Bangalore';
 
-    @Override
-    public String toString() {
-        return productId + " | " + name + " | ₹" + price + " | " + category;
-    }
-}
+-- 3. Show customer name with restaurant name
+SELECT C.Customer_Name, R.Restaurant_Name
+FROM CUSTOMER C
+JOIN ORDERS O ON C.Customer_ID=O.Customer_ID
+JOIN RESTAURANT R ON R.Restaurant_ID=O.Restaurant_ID;
 
-class ShoppingCart {
-    ArrayList<ProductItem> catalogue = new ArrayList<>();
-    HashMap<String, Integer> cart = new HashMap<>();
-    Stack<String> undoHistory = new Stack<>();
-    TreeMap<Double, String> priceMap = new TreeMap<>();
+-- 4. Count total orders restaurant-wise
+SELECT Restaurant_ID, COUNT(*)
+FROM ORDERS
+GROUP BY Restaurant_ID;
 
-    void addToCatalogue(ProductItem p) {
-        catalogue.add(p);
-        priceMap.put(p.price, p.name);
-    }
+-- 5. Display orders with amount greater than 1000
+SELECT * FROM ORDERS WHERE Amount > 1000;
 
-    void addToCart(String productId, int qty) {
-        cart.put(productId, cart.getOrDefault(productId, 0) + qty);
-        undoHistory.push(productId);
-        System.out.println("Added to cart: " + productId + " x" + qty);
-    }
+-- 6. Find restaurant receiving maximum orders
+SELECT Restaurant_ID, COUNT(*) AS Total_Orders
+FROM ORDERS
+GROUP BY Restaurant_ID
+ORDER BY Total_Orders DESC
+LIMIT 1;
 
-    void undoLastAdd() {
-        if (!undoHistory.isEmpty()) {
-            String last = undoHistory.pop();
-            cart.remove(last);
-            System.out.println("Undo: Removed " + last + " from cart.");
-        }
-    }
-
-    void displayCartTotal() {
-        System.out.println("\\n=== Cart Total ===");
-        double total = 0;
-        for (Map.Entry<String, Integer> entry : cart.entrySet()) {
-            for (ProductItem p : catalogue) {
-                if (p.productId.equals(entry.getKey())) {
-                    double cost = p.price * entry.getValue();
-                    System.out.printf("%s x%d = ₹%.0f%n", p.name, entry.getValue(), cost);
-                    total += cost;
-                }
-            }
-        }
-        System.out.printf("TOTAL: ₹%.0f%n", total);
-    }
-
-    void displaySortedByPrice() {
-        System.out.println("\\n=== Products Sorted by Price ===");
-        priceMap.forEach((price, name) -> System.out.printf("%-20s ₹%.0f%n", name, price));
-    }
-
-    void searchProduct(String id) {
-        boolean found = catalogue.stream().anyMatch(p -> p.productId.equals(id));
-        System.out.println("Product [" + id + "]: " + (found ? "Found" : "Not found"));
-    }
-}
-
-public class ShoppingSystem {
-    public static void main(String[] args) {
-        ShoppingCart sc = new ShoppingCart();
-        sc.addToCatalogue(new ProductItem("P1", "Phone", 25000, "Electronics"));
-        sc.addToCatalogue(new ProductItem("P2", "Laptop", 65000, "Electronics"));
-        sc.addToCatalogue(new ProductItem("P3", "Earphones", 2000, "Electronics"));
-        sc.addToCatalogue(new ProductItem("P4", "Mouse", 800, "Accessories"));
-        sc.addToCatalogue(new ProductItem("P5", "Keyboard", 1500, "Accessories"));
-        sc.addToCatalogue(new ProductItem("P6", "Monitor", 12000, "Electronics"));
-
-        sc.addToCart("P1", 1);
-        sc.addToCart("P3", 2);
-        sc.addToCart("P4", 1);
-        sc.addToCart("P5", 1);
-
-        sc.undoLastAdd(); // Undo last (P5)
-        sc.displayCartTotal();
-        sc.displaySortedByPrice();
-        sc.searchProduct("P2");
-    }
-}`
+-- 7. Display average order amount restaurant-wise greater than 500
+SELECT Restaurant_ID, AVG(Amount)
+FROM ORDERS
+GROUP BY Restaurant_ID
+HAVING AVG(Amount) > 500;`
   },
   {
-    id: 17,
-    title: "Student Result File Management",
-    practical: "Practical 10 — File Handling",
-    tag: "File · FileWriter · BufferedReader · Append",
-    code: `// Practical 10 — Problem 17: Student Result File Management
-import java.io.*;
-import java.util.*;
+    name: "OTT Streaming Platform",
+    code: `-- Schema: USER(User_ID, User_Name, Subscription_Type), SHOWS(Show_ID, Show_Name, Genre, Rating), WATCH_HISTORY(User_ID, Show_ID, Watch_Time)
 
-public class StudentResultManager {
-    static String getGrade(int marks) {
-        if (marks >= 90) return "O";
-        else if (marks >= 75) return "A";
-        else if (marks >= 60) return "B";
-        else if (marks >= 40) return "C";
-        else return "F";
-    }
+-- 1. Display shows with rating greater than 8
+SELECT * FROM SHOWS WHERE Rating > 8;
 
-    public static void main(String[] args) {
-        // (a) List .txt files in directory
-        File dir = new File("results");
-        dir.mkdir();
-        System.out.println("=== .txt files in results/ ===");
-        File[] files = dir.listFiles((d, n) -> n.endsWith(".txt"));
-        if (files != null) for (File f : files) System.out.println(f.getName());
+-- 2. Display users having Premium subscription
+SELECT * FROM USER WHERE Subscription_Type='Premium';
 
-        // (b) Write student results to file
-        String[][] students = {
-            {"101", "Asha", "85"},
-            {"102", "Raj", "72"},
-            {"103", "Priya", "91"},
-            {"104", "Dev", "38"}
-        };
+-- 3. Show user name with watched show name
+SELECT U.User_Name, S.Show_Name
+FROM USER U
+JOIN WATCH_HISTORY W ON U.User_ID=W.User_ID
+JOIN SHOWS S ON S.Show_ID=W.Show_ID;
 
-        try (BufferedWriter bw = new BufferedWriter(new FileWriter("results/results.txt"))) {
-            for (String[] s : students) {
-                int marks = Integer.parseInt(s[2]);
-                bw.write(s[0] + "," + s[1] + "," + s[2] + "," + getGrade(marks));
-                bw.newLine();
-            }
-            System.out.println("\\nResults written to file.");
-        } catch (IOException e) { e.printStackTrace(); }
+-- 4. Count shows genre-wise
+SELECT Genre, COUNT(*)
+FROM SHOWS
+GROUP BY Genre;
 
-        // (c) Read and display
-        System.out.println("\\n=== Result Table ===");
-        System.out.printf("%-6s %-10s %-6s %-5s%n", "Roll", "Name", "Marks", "Grade");
-        System.out.println("-".repeat(30));
-        try (BufferedReader br = new BufferedReader(new FileReader("results/results.txt"))) {
-            String line;
-            while ((line = br.readLine()) != null) {
-                String[] parts = line.split(",");
-                System.out.printf("%-6s %-10s %-6s %-5s%n", parts[0], parts[1], parts[2], parts[3]);
-            }
-        } catch (IOException e) { e.printStackTrace(); }
+-- 5. Display watch history with watch time greater than 2 hours
+SELECT * FROM WATCH_HISTORY WHERE Watch_Time > 2;
 
-        // (d) Append new record
-        try (BufferedWriter bw = new BufferedWriter(new FileWriter("results/results.txt", true))) {
-            bw.write("105,Neha,65," + getGrade(65));
-            bw.newLine();
-            System.out.println("\\nAppended: 105, Neha, 65");
-        } catch (IOException e) { e.printStackTrace(); }
+-- 6. Find most watched show
+SELECT Show_ID, COUNT(*) AS Total_Views
+FROM WATCH_HISTORY
+GROUP BY Show_ID
+ORDER BY Total_Views DESC
+LIMIT 1;
 
-        // (e) Count passed students
-        int passCount = 0;
-        try (BufferedReader br = new BufferedReader(new FileReader("results/results.txt"))) {
-            String line;
-            while ((line = br.readLine()) != null) {
-                int marks = Integer.parseInt(line.split(",")[2]);
-                if (marks >= 40) passCount++;
-            }
-        } catch (IOException e) { e.printStackTrace(); }
-        System.out.println("\\nTotal Passed: " + passCount);
-    }
-}`
+-- 7. Display average show rating genre-wise
+SELECT Genre, AVG(Rating)
+FROM SHOWS
+GROUP BY Genre;`
   },
   {
-    id: 18,
-    title: "Daily Expense Tracker Log",
-    practical: "Practical 10 — File Handling",
-    tag: "File · PrintWriter · BufferedReader · Append",
-    code: `// Practical 10 — Problem 18: Daily Expense Tracker Log
-import java.io.*;
-import java.util.*;
+    name: "Smart Parking System",
+    code: `-- Schema: VEHICLE(Vehicle_ID, Owner_Name, Vehicle_Type), PARKING_SLOT(Slot_ID, Floor_No, Charges), PARKING_RECORD(Record_ID, Vehicle_ID, Slot_ID, Hours)
 
-public class ExpenseTracker {
-    public static void main(String[] args) {
-        File dir = new File("expenses");
-        dir.mkdir();
+-- 1. Display parking slots with charges greater than 100
+SELECT * FROM PARKING_SLOT WHERE Charges > 100;
 
-        // (a) List files in expenses/ with sizes
-        System.out.println("=== Files in expenses/ ===");
-        File[] files = dir.listFiles();
-        if (files != null && files.length > 0) {
-            for (File f : files) System.out.println(f.getName() + " (" + f.length() + " bytes)");
-        } else { System.out.println("No files yet."); }
+-- 2. Display vehicles of type Bike
+SELECT * FROM VEHICLE WHERE Vehicle_Type='Bike';
 
-        // (b) Write 5 expense records
-        String[][] expenses = {
-            {"01-May", "Food", "250", "Lunch"},
-            {"01-May", "Travel", "80", "Bus"},
-            {"02-May", "Food", "310", "Dinner"},
-            {"02-May", "Shopping", "1200", "Shirt"},
-            {"03-May", "Food", "190", "Breakfast"}
-        };
+-- 3. Show owner name with slot number
+SELECT V.Owner_Name, P.Slot_ID
+FROM VEHICLE V
+JOIN PARKING_RECORD R ON V.Vehicle_ID=R.Vehicle_ID
+JOIN PARKING_SLOT P ON P.Slot_ID=R.Slot_ID;
 
-        try (PrintWriter pw = new PrintWriter(new FileWriter("expenses/expenses_log.txt"))) {
-            for (String[] e : expenses) {
-                pw.println(e[0] + "," + e[1] + "," + e[2] + "," + e[3]);
-            }
-            System.out.println("\\n5 records written.");
-        } catch (IOException ex) { ex.printStackTrace(); }
+-- 4. Count parking slots floor-wise
+SELECT Floor_No, COUNT(*)
+FROM PARKING_SLOT
+GROUP BY Floor_No;
 
-        // (c) Read and display
-        System.out.println("\\n=== Expense Table ===");
-        System.out.printf("%-10s %-12s %-8s %-15s%n", "Date", "Category", "Amount", "Description");
-        System.out.println("-".repeat(48));
-        try (BufferedReader br = new BufferedReader(new FileReader("expenses/expenses_log.txt"))) {
-            String line;
-            while ((line = br.readLine()) != null) {
-                String[] p = line.split(",");
-                System.out.printf("%-10s %-12s ₹%-7s %-15s%n", p[0], p[1], p[2], p[3]);
-            }
-        } catch (IOException ex) { ex.printStackTrace(); }
+-- 5. Display parking records with hours greater than 5
+SELECT * FROM PARKING_RECORD WHERE Hours > 5;
 
-        // (d) Append new expense
-        try (PrintWriter pw = new PrintWriter(new FileWriter("expenses/expenses_log.txt", true))) {
-            pw.println("03-May,Travel,50,Auto");
-            System.out.println("\\nAppended: 03-May, Travel, ₹50, Auto");
-        } catch (IOException ex) { ex.printStackTrace(); }
+-- 6. Find slot used maximum times
+SELECT Slot_ID, COUNT(*) AS Usage_Count
+FROM PARKING_RECORD
+GROUP BY Slot_ID
+ORDER BY Usage_Count DESC
+LIMIT 1;
 
-        // (e) Calculate stats
-        double total = 0, max = 0;
-        int foodCount = 0;
-        try (BufferedReader br = new BufferedReader(new FileReader("expenses/expenses_log.txt"))) {
-            String line;
-            while ((line = br.readLine()) != null) {
-                String[] p = line.split(",");
-                double amt = Double.parseDouble(p[2]);
-                total += amt;
-                if (amt > max) max = amt;
-                if (p[1].equals("Food")) foodCount++;
-            }
-        } catch (IOException ex) { ex.printStackTrace(); }
-
-        System.out.printf("%nTotal Expenditure: ₹%.0f | Max Expense: ₹%.0f | Food Count: %d%n",
-                total, max, foodCount);
-    }
-}`
+-- 7. Display average parking hours slot-wise
+SELECT Slot_ID, AVG(Hours)
+FROM PARKING_RECORD
+GROUP BY Slot_ID;`
   },
   {
-    id: 19,
-    title: "Student Registration Form (GUI)",
-    practical: "Practical 11 — Java Swing",
-    tag: "JTextField · JComboBox · JCheckBox · GridBagLayout",
-    code: `// Practical 11 — Problem 19: Student Registration Form (GUI)
-import javax.swing.*;
-import java.awt.*;
-import java.awt.event.*;
+    name: "Online Examination Portal",
+    code: `-- Schema: STUDENT(Student_ID, Student_Name, Course), EXAM(Exam_ID, Subject_Name, Total_Marks), RESULT(Student_ID, Exam_ID, Marks_Obtained)
 
-public class StudentRegistrationForm extends JFrame {
-    JTextField txtName, txtEmail, txtContact, txtCity;
-    JRadioButton rbMale, rbFemale, rbOther;
-    JCheckBox cbJava, cbPython, cbWeb, cbDS;
-    JComboBox<String> cbBranch;
-    JList<String> lstHobbies;
-    JTextArea taAddress, taOutput;
+-- 1. Display exams with total marks greater than 50
+SELECT * FROM EXAM WHERE Total_Marks > 50;
 
-    public StudentRegistrationForm() {
-        setTitle("Student Registration Form");
-        setSize(650, 700);
-        setDefaultCloseOperation(EXIT_ON_CLOSE);
-        setLayout(new BorderLayout(10, 10));
+-- 2. Display students enrolled in AI course
+SELECT * FROM STUDENT WHERE Course='AI';
 
-        JPanel mainPanel = new JPanel(new GridBagLayout());
-        mainPanel.setBorder(BorderFactory.createEmptyBorder(15, 15, 15, 15));
-        GridBagConstraints gbc = new GridBagConstraints();
-        gbc.fill = GridBagConstraints.HORIZONTAL;
-        gbc.insets = new Insets(5, 5, 5, 5);
+-- 3. Show student name with subject name
+SELECT S.Student_Name, E.Subject_Name
+FROM STUDENT S
+JOIN RESULT R ON S.Student_ID=R.Student_ID
+JOIN EXAM E ON E.Exam_ID=R.Exam_ID;
 
-        // Name
-        addField(mainPanel, gbc, 0, "Name:", txtName = new JTextField(20));
-        addField(mainPanel, gbc, 1, "Email:", txtEmail = new JTextField(20));
-        addField(mainPanel, gbc, 2, "Contact:", txtContact = new JTextField(20));
-        addField(mainPanel, gbc, 3, "City:", txtCity = new JTextField(20));
+-- 4. Count students course-wise
+SELECT Course, COUNT(*)
+FROM STUDENT
+GROUP BY Course;
 
-        // Gender
-        gbc.gridx = 0; gbc.gridy = 4;
-        mainPanel.add(new JLabel("Gender:"), gbc);
-        JPanel genderPanel = new JPanel(new FlowLayout(FlowLayout.LEFT));
-        ButtonGroup bg = new ButtonGroup();
-        rbMale = new JRadioButton("Male"); rbFemale = new JRadioButton("Female"); rbOther = new JRadioButton("Other");
-        bg.add(rbMale); bg.add(rbFemale); bg.add(rbOther);
-        genderPanel.add(rbMale); genderPanel.add(rbFemale); genderPanel.add(rbOther);
-        gbc.gridx = 1; mainPanel.add(genderPanel, gbc);
+-- 5. Display students scoring above 80
+SELECT * FROM RESULT WHERE Marks_Obtained > 80;
 
-        // Courses
-        gbc.gridx = 0; gbc.gridy = 5;
-        mainPanel.add(new JLabel("Courses:"), gbc);
-        JPanel coursePanel = new JPanel(new FlowLayout(FlowLayout.LEFT));
-        cbJava = new JCheckBox("Java"); cbPython = new JCheckBox("Python");
-        cbWeb = new JCheckBox("Web Dev"); cbDS = new JCheckBox("Data Science");
-        coursePanel.add(cbJava); coursePanel.add(cbPython); coursePanel.add(cbWeb); coursePanel.add(cbDS);
-        gbc.gridx = 1; mainPanel.add(coursePanel, gbc);
+-- 6. Find student obtaining highest marks
+SELECT Student_ID, SUM(Marks_Obtained) AS Total
+FROM RESULT
+GROUP BY Student_ID
+ORDER BY Total DESC
+LIMIT 1;
 
-        // Branch
-        gbc.gridx = 0; gbc.gridy = 6;
-        mainPanel.add(new JLabel("Branch:"), gbc);
-        cbBranch = new JComboBox<>(new String[]{"CS", "IT", "ENTC", "Mechanical", "Civil"});
-        gbc.gridx = 1; mainPanel.add(cbBranch, gbc);
-
-        // Hobbies
-        gbc.gridx = 0; gbc.gridy = 7;
-        mainPanel.add(new JLabel("Hobbies:"), gbc);
-        lstHobbies = new JList<>(new String[]{"Reading", "Sports", "Music", "Coding", "Travel"});
-        lstHobbies.setSelectionMode(ListSelectionModel.MULTIPLE_INTERVAL_SELECTION);
-        gbc.gridx = 1; mainPanel.add(new JScrollPane(lstHobbies), gbc);
-
-        // Address
-        gbc.gridx = 0; gbc.gridy = 8;
-        mainPanel.add(new JLabel("Address:"), gbc);
-        taAddress = new JTextArea(3, 20);
-        gbc.gridx = 1; mainPanel.add(new JScrollPane(taAddress), gbc);
-
-        // Buttons
-        JPanel btnPanel = new JPanel();
-        JButton btnSubmit = new JButton("Submit");
-        JButton btnClear  = new JButton("Clear");
-        JButton btnExit   = new JButton("Exit");
-        btnPanel.add(btnSubmit); btnPanel.add(btnClear); btnPanel.add(btnExit);
-
-        taOutput = new JTextArea(6, 40);
-        taOutput.setEditable(false);
-
-        add(mainPanel, BorderLayout.CENTER);
-        add(btnPanel, BorderLayout.SOUTH);
-        add(new JScrollPane(taOutput), BorderLayout.NORTH);
-
-        btnSubmit.addActionListener(e -> {
-            if (txtName.getText().isEmpty() || txtEmail.getText().isEmpty()) {
-                JOptionPane.showMessageDialog(this, "Name and Email are required!", "Warning", JOptionPane.WARNING_MESSAGE);
-                return;
-            }
-            StringBuilder sb = new StringBuilder("=== Registration Details ===\\n");
-            sb.append("Name: ").append(txtName.getText()).append("\\n");
-            sb.append("Email: ").append(txtEmail.getText()).append("\\n");
-            sb.append("Branch: ").append(cbBranch.getSelectedItem()).append("\\n");
-            taOutput.setText(sb.toString());
-        });
-
-        btnClear.addActionListener(e -> {
-            txtName.setText(""); txtEmail.setText(""); txtContact.setText(""); txtCity.setText("");
-            bg.clearSelection(); cbJava.setSelected(false); cbPython.setSelected(false);
-            cbWeb.setSelected(false); cbDS.setSelected(false);
-            taAddress.setText(""); taOutput.setText("");
-        });
-
-        btnExit.addActionListener(e -> {
-            if (JOptionPane.showConfirmDialog(this, "Exit?", "Confirm", JOptionPane.YES_NO_OPTION) == 0)
-                System.exit(0);
-        });
-
-        setVisible(true);
-    }
-
-    void addField(JPanel p, GridBagConstraints gbc, int row, String label, JTextField field) {
-        gbc.gridx = 0; gbc.gridy = row; p.add(new JLabel(label), gbc);
-        gbc.gridx = 1; p.add(field, gbc);
-    }
-
-    public static void main(String[] args) {
-        SwingUtilities.invokeLater(StudentRegistrationForm::new);
-    }
-}`
+-- 7. Display subject-wise average marks greater than 70
+SELECT Exam_ID, AVG(Marks_Obtained)
+FROM RESULT
+GROUP BY Exam_ID
+HAVING AVG(Marks_Obtained) > 70;`
   },
   {
-    id: 20,
-    title: "Library Book Search and Issue GUI",
-    practical: "Practical 11 — Java Swing",
-    tag: "JTable · JMenuBar · JComboBox · JOptionPane",
-    code: `// Practical 11 — Problem 20: Library Book Search and Issue GUI
-import javax.swing.*;
-import javax.swing.table.*;
-import java.awt.*;
-import java.awt.event.*;
+    name: "EV Charging Station System",
+    code: `-- Schema: VEHICLE(Vehicle_ID, Owner_Name, Battery_Capacity), STATION(Station_ID, Station_Name, Location), CHARGING_SESSION(Session_ID, Vehicle_ID, Station_ID, Units_Consumed)
 
-public class LibraryGUI extends JFrame {
-    DefaultTableModel model;
-    JTable table;
-    JTextField tfSearch;
-    JLabel lblCount;
-    JComboBox<String> cbCategory;
+-- 1. Display vehicles with battery capacity greater than 50
+SELECT * FROM VEHICLE WHERE Battery_Capacity > 50;
 
-    String[][] bookData = {
-        {"B001","Core Java","Herbert Schildt","Technology","Available"},
-        {"B002","DBMS","Korth","Technology","Available"},
-        {"B003","Wings of Fire","A.P.J. Kalam","History","Available"},
-        {"B004","Clean Code","Robert Martin","Technology","Available"},
-        {"B005","Harry Potter","J.K. Rowling","Fiction","Available"},
-        {"B006","Cosmos","Carl Sagan","Science","Available"}
-    };
+-- 2. Display charging stations located in Pune
+SELECT * FROM STATION WHERE Location='Pune';
 
-    public LibraryGUI() {
-        setTitle("Library Management System");
-        setSize(800, 500);
-        setDefaultCloseOperation(EXIT_ON_CLOSE);
-        setLayout(new BorderLayout(8, 8));
+-- 3. Show owner name with station name
+SELECT V.Owner_Name, S.Station_Name
+FROM VEHICLE V
+JOIN CHARGING_SESSION C ON V.Vehicle_ID=C.Vehicle_ID
+JOIN STATION S ON S.Station_ID=C.Station_ID;
 
-        // Menu Bar
-        JMenuBar menuBar = new JMenuBar();
-        JMenu fileMenu = new JMenu("File"); JMenu helpMenu = new JMenu("Help");
-        JMenuItem exitItem = new JMenuItem("Exit");
-        JMenuItem aboutItem = new JMenuItem("About");
-        exitItem.addActionListener(e -> System.exit(0));
-        aboutItem.addActionListener(e -> JOptionPane.showMessageDialog(this, "Library System v1.0"));
-        fileMenu.add(exitItem); helpMenu.add(aboutItem);
-        menuBar.add(fileMenu); menuBar.add(helpMenu);
-        setJMenuBar(menuBar);
+-- 4. Count charging sessions station-wise
+SELECT Station_ID, COUNT(*)
+FROM CHARGING_SESSION
+GROUP BY Station_ID;
 
-        // Top panel
-        JPanel topPanel = new JPanel(new FlowLayout(FlowLayout.LEFT));
-        tfSearch = new JTextField(20);
-        cbCategory = new JComboBox<>(new String[]{"All","Fiction","Science","History","Technology"});
-        JButton btnSearch = new JButton("Search");
-        JButton btnIssue  = new JButton("Issue Book");
-        JButton btnReturn = new JButton("Return Book");
-        JButton btnClear  = new JButton("Clear");
-        lblCount = new JLabel("Showing: 6 books");
-        topPanel.add(new JLabel("Search:")); topPanel.add(tfSearch);
-        topPanel.add(new JLabel("Category:")); topPanel.add(cbCategory);
-        topPanel.add(btnSearch); topPanel.add(btnIssue); topPanel.add(btnReturn);
-        topPanel.add(btnClear); topPanel.add(lblCount);
+-- 5. Display sessions with units consumed greater than 30
+SELECT * FROM CHARGING_SESSION WHERE Units_Consumed > 30;
 
-        // Table
-        String[] cols = {"Book ID","Title","Author","Category","Status"};
-        model = new DefaultTableModel(bookData, cols) {
-            public boolean isCellEditable(int r, int c) { return false; }
-        };
-        table = new JTable(model);
-        table.setSelectionMode(ListSelectionModel.SINGLE_SELECTION);
+-- 6. Find station with highest total units consumed
+SELECT Station_ID, SUM(Units_Consumed) AS Total_Units
+FROM CHARGING_SESSION
+GROUP BY Station_ID
+ORDER BY Total_Units DESC
+LIMIT 1;
 
-        add(topPanel, BorderLayout.NORTH);
-        add(new JScrollPane(table), BorderLayout.CENTER);
-
-        btnSearch.addActionListener(e -> filterTable());
-        cbCategory.addActionListener(e -> filterTable());
-
-        btnIssue.addActionListener(e -> {
-            int row = table.getSelectedRow();
-            if (row < 0) { JOptionPane.showMessageDialog(this, "Select a book first!"); return; }
-            if (model.getValueAt(row, 4).equals("Issued")) {
-                JOptionPane.showMessageDialog(this, "Book already issued!"); return;
-            }
-            int confirm = JOptionPane.showConfirmDialog(this, "Issue '" + model.getValueAt(row, 1) + "'?");
-            if (confirm == 0) { model.setValueAt("Issued", row, 4); lblCount.setText("Book issued!"); }
-        });
-
-        btnReturn.addActionListener(e -> {
-            int row = table.getSelectedRow();
-            if (row < 0) { JOptionPane.showMessageDialog(this, "Select a book first!"); return; }
-            model.setValueAt("Available", row, 4);
-            JOptionPane.showMessageDialog(this, "Book returned successfully!");
-        });
-
-        btnClear.addActionListener(e -> { tfSearch.setText(""); cbCategory.setSelectedIndex(0); filterTable(); });
-
-        setVisible(true);
-    }
-
-    void filterTable() {
-        String query = tfSearch.getText().toLowerCase();
-        String cat = (String) cbCategory.getSelectedItem();
-        model.setRowCount(0);
-        int count = 0;
-        for (String[] row : bookData) {
-            boolean matchSearch = row[1].toLowerCase().contains(query) || row[2].toLowerCase().contains(query);
-            boolean matchCat = cat.equals("All") || row[3].equals(cat);
-            if (matchSearch && matchCat) { model.addRow(row); count++; }
-        }
-        lblCount.setText("Showing: " + count + " books");
-    }
-
-    public static void main(String[] args) {
-        SwingUtilities.invokeLater(LibraryGUI::new);
-    }
-}`
+-- 7. Display average units consumed station-wise
+SELECT Station_ID, AVG(Units_Consumed)
+FROM CHARGING_SESSION
+GROUP BY Station_ID;`
   },
   {
-    id: 21,
-    title: "Employee Records Management using JDBC",
-    practical: "Practical 12 — JDBC",
-    tag: "PreparedStatement · ResultSet · Batch · Transaction",
-    code: `// Practical 12 — Problem 21: Employee Records Management using JDBC
-import java.sql.*;
+    name: "Freelancing Marketplace",
+    code: `-- Schema: FREELANCER(Freelancer_ID, Freelancer_Name, Skill, Rating), CLIENT(Client_ID, Client_Name, Country), PROJECT(Project_ID, Freelancer_ID, Client_ID, Budget)
 
-public class EmployeeJDBC {
-    static final String URL  = "jdbc:mysql://localhost:3306/company_db";
-    static final String USER = "root";
-    static final String PASS = "password"; // change as needed
+-- 1. Display freelancers with rating above 4.5
+SELECT * FROM FREELANCER WHERE Rating > 4.5;
 
-    public static void main(String[] args) {
-        try (Connection conn = DriverManager.getConnection(URL, USER, PASS)) {
-            System.out.println("Connected to company_db");
+-- 2. Display clients from USA
+SELECT * FROM CLIENT WHERE Country='USA';
 
-            // (a) Create table
-            conn.createStatement().execute("DROP TABLE IF EXISTS Employee");
-            conn.createStatement().execute(
-                "CREATE TABLE Employee (EmpId INT PRIMARY KEY, Name VARCHAR(50), " +
-                "Department VARCHAR(50), Salary DOUBLE, JoiningDate DATE)");
-            System.out.println("Table created.");
+-- 3. Show freelancer name with client name
+SELECT F.Freelancer_Name, C.Client_Name
+FROM FREELANCER F
+JOIN PROJECT P ON F.Freelancer_ID=P.Freelancer_ID
+JOIN CLIENT C ON C.Client_ID=P.Client_ID;
 
-            // (b) Insert 5 records using PreparedStatement
-            String insertSQL = "INSERT INTO Employee VALUES (?, ?, ?, ?, ?)";
-            PreparedStatement ps = conn.prepareStatement(insertSQL);
-            Object[][] emp = {
-                {101,"Asha","IT",45000.0,"2023-01-10"},
-                {102,"Raj","HR",38000.0,"2022-06-15"},
-                {103,"Priya","IT",52000.0,"2021-03-20"},
-                {104,"Dev","Finance",41000.0,"2023-08-01"},
-                {105,"Neha","IT",47000.0,"2022-11-05"}
-            };
-            for (Object[] e : emp) {
-                ps.setInt(1,(int)e[0]); ps.setString(2,(String)e[1]);
-                ps.setString(3,(String)e[2]); ps.setDouble(4,(double)e[3]); ps.setString(5,(String)e[4]);
-                ps.executeUpdate();
-            }
-            System.out.println("5 records inserted.");
+-- 4. Count freelancers skill-wise
+SELECT Skill, COUNT(*)
+FROM FREELANCER
+GROUP BY Skill;
 
-            // (c) Display all records
-            System.out.println("\\n=== All Employees ===");
-            ResultSet rs = conn.createStatement().executeQuery("SELECT * FROM Employee");
-            System.out.printf("%-5s %-10s %-10s %-8s %-12s%n","ID","Name","Dept","Salary","JoinDate");
-            while (rs.next()) {
-                System.out.printf("%-5d %-10s %-10s %-8.0f %-12s%n",
-                    rs.getInt(1),rs.getString(2),rs.getString(3),rs.getDouble(4),rs.getString(5));
-            }
+-- 5. Display projects with budget greater than 50000
+SELECT * FROM PROJECT WHERE Budget > 50000;
 
-            // (d) Batch insert 2 more
-            ps.setInt(1,106); ps.setString(2,"Arjun"); ps.setString(3,"IT");
-            ps.setDouble(4,43000); ps.setString(5,"2024-01-15"); ps.addBatch();
-            ps.setInt(1,107); ps.setString(2,"Kavya"); ps.setString(3,"HR");
-            ps.setDouble(4,36000); ps.setString(5,"2024-02-10"); ps.addBatch();
-            ps.executeBatch();
-            System.out.println("\\nBatch insert: 2 more records added.");
+-- 6. Find freelancer handling maximum projects
+SELECT Freelancer_ID, COUNT(*) AS Total_Projects
+FROM PROJECT
+GROUP BY Freelancer_ID
+ORDER BY Total_Projects DESC
+LIMIT 1;
 
-            // (e) Update salary of EmpId=2
-            PreparedStatement updatePS = conn.prepareStatement("UPDATE Employee SET Salary = Salary * 1.15 WHERE EmpId = 102");
-            updatePS.executeUpdate();
-            System.out.println("Salary updated for Raj (EmpId 102) by 15%.");
-
-            // (f) Delete EmpId=5
-            conn.createStatement().executeUpdate("DELETE FROM Employee WHERE EmpId = 105");
-            System.out.println("Neha (EmpId 105) deleted.");
-
-            // (g) Select IT employees
-            System.out.println("\\n=== IT Department ===");
-            ResultSet rs2 = conn.createStatement().executeQuery(
-                "SELECT * FROM Employee WHERE Department='IT'");
-            while (rs2.next()) {
-                System.out.println(rs2.getInt(1)+" | "+rs2.getString(2)+" | ₹"+rs2.getDouble(4));
-            }
-        } catch (SQLException e) { e.printStackTrace(); }
-    }
-}`
+-- 7. Display skill-wise average freelancer rating
+SELECT Skill, AVG(Rating)
+FROM FREELANCER
+GROUP BY Skill;`
   },
   {
-    id: 22,
-    title: "Library Book Management using JDBC",
-    practical: "Practical 12 — JDBC",
-    tag: "PreparedStatement · setAutoCommit · commit · rollback",
-    code: `// Practical 12 — Problem 22: Library Book Management using JDBC
-import java.sql.*;
-import java.time.LocalDate;
+    name: "Digital Wallet System",
+    code: `-- Schema: USER(User_ID, User_Name, City), WALLET(Wallet_ID, User_ID, Balance), TRANSACTION(Transaction_ID, Wallet_ID, Amount, Transaction_Type)
+
+-- 1. Display wallets with balance greater than 10000
+SELECT * FROM WALLET WHERE Balance > 10000;
+
+-- 2. Display users from Mumbai
+SELECT * FROM USER WHERE City='Mumbai';
+
+-- 3. Show user name with wallet balance
+SELECT U.User_Name, W.Balance
+FROM USER U
+JOIN WALLET W ON U.User_ID=W.User_ID;
+
+-- 4. Count transactions type-wise
+SELECT Transaction_Type, COUNT(*)
+FROM TRANSACTION
+GROUP BY Transaction_Type;
+
+-- 5. Display credit transactions only
+SELECT * FROM TRANSACTION WHERE Transaction_Type='Credit';
+
+-- 6. Find wallet with highest balance
+SELECT Wallet_ID, MAX(Balance)
+FROM WALLET;
+
+-- 7. Display average transaction amount type-wise
+SELECT Transaction_Type, AVG(Amount)
+FROM TRANSACTION
+GROUP BY Transaction_Type;`
+  },
+  {
+    name: "Telemedicine System",
+    code: `-- Schema: DOCTOR(Doctor_ID, Doctor_Name, Specialization), PATIENT(Patient_ID, Patient_Name, City), CONSULTATION(Consultation_ID, Doctor_ID, Patient_ID, Fees)
+
+-- 1. Display doctors specialized in Cardiology
+SELECT * FROM DOCTOR WHERE Specialization='Cardiology';
+
+-- 2. Display patients from Pune
+SELECT * FROM PATIENT WHERE City='Pune';
+
+-- 3. Show doctor name with patient name
+SELECT D.Doctor_Name, P.Patient_Name
+FROM DOCTOR D
+JOIN CONSULTATION C ON D.Doctor_ID=C.Doctor_ID
+JOIN PATIENT P ON P.Patient_ID=C.Patient_ID;
+
+-- 4. Count consultations doctor-wise
+SELECT Doctor_ID, COUNT(*)
+FROM CONSULTATION
+GROUP BY Doctor_ID;
+
+-- 5. Display consultations with fees greater than 1500
+SELECT * FROM CONSULTATION WHERE Fees > 1500;
+
+-- 6. Find doctor handling maximum consultations
+SELECT Doctor_ID, COUNT(*) AS Total_Consultations
+FROM CONSULTATION
+GROUP BY Doctor_ID
+ORDER BY Total_Consultations DESC
+LIMIT 1;
+
+-- 7. Display specialization-wise average consultation fees
+SELECT Specialization, AVG(Fees)
+FROM DOCTOR D
+JOIN CONSULTATION C ON D.Doctor_ID=C.Doctor_ID
+GROUP BY Specialization;`
+  },
+  {
+    name: "Ride Sharing Application",
+    code: `-- Schema: DRIVER(Driver_ID, Driver_Name, Rating), RIDER(Rider_ID, Rider_Name, City), RIDE(Ride_ID, Driver_ID, Rider_ID, Fare)
+
+-- 1. Display drivers with rating above 4
+SELECT * FROM DRIVER WHERE Rating > 4;
+
+-- 2. Display riders from Chennai
+SELECT * FROM RIDER WHERE City='Chennai';
+
+-- 3. Show driver name with rider name
+SELECT D.Driver_Name, R.Rider_Name
+FROM DRIVER D
+JOIN RIDE RI ON D.Driver_ID=RI.Driver_ID
+JOIN RIDER R ON R.Rider_ID=RI.Rider_ID;
+
+-- 4. Count rides driver-wise
+SELECT Driver_ID, COUNT(*)
+FROM RIDE
+GROUP BY Driver_ID;
+
+-- 5. Display rides with fare greater than 500
+SELECT * FROM RIDE WHERE Fare > 500;
+
+-- 6. Find driver earning maximum fare
+SELECT Driver_ID, SUM(Fare) AS Total_Fare
+FROM RIDE
+GROUP BY Driver_ID
+ORDER BY Total_Fare DESC
+LIMIT 1;
+
+-- 7. Display average fare driver-wise
+SELECT Driver_ID, AVG(Fare)
+FROM RIDE
+GROUP BY Driver_ID;`
+  },
+  {
+    name: "Smart Gym Management System",
+    code: `-- Schema: MEMBER(Member_ID, Member_Name, Plan_Type), TRAINER(Trainer_ID, Trainer_Name, Experience), SESSION(Session_ID, Member_ID, Trainer_ID, Calories_Burned)
+
+-- 1. Display members with Premium plan
+SELECT * FROM MEMBER WHERE Plan_Type='Premium';
+
+-- 2. Display trainers with experience greater than 3 years
+SELECT * FROM TRAINER WHERE Experience > 3;
+
+-- 3. Show member name with trainer name
+SELECT M.Member_Name, T.Trainer_Name
+FROM MEMBER M
+JOIN SESSION S ON M.Member_ID=S.Member_ID
+JOIN TRAINER T ON T.Trainer_ID=S.Trainer_ID;
+
+-- 4. Count members plan-wise
+SELECT Plan_Type, COUNT(*)
+FROM MEMBER
+GROUP BY Plan_Type;
+
+-- 5. Display sessions with calories burned greater than 500
+SELECT * FROM SESSION WHERE Calories_Burned > 500;
+
+-- 6. Find trainer handling maximum sessions
+SELECT Trainer_ID, COUNT(*) AS Total_Sessions
+FROM SESSION
+GROUP BY Trainer_ID
+ORDER BY Total_Sessions DESC
+LIMIT 1;
+
+-- 7. Display average calories burned trainer-wise
+SELECT Trainer_ID, AVG(Calories_Burned)
+FROM SESSION
+GROUP BY Trainer_ID;`
+  }
+];
+
+const mongoData = [
+  {
+    name: "Library Management System",
+    code: `// Collection: books
+// { "book_id": 101, "title": "Database System", "author": "Korth", "category": "Education", "price": 650, "copies": 5 }
+
+// 1. Display all books
+db.books.find();
+
+// 2. Display books with price greater than 500
+db.books.find({price: {$gt: 500}});
+
+// 3. Display books belonging to Education category
+db.books.find({category: "Education"});
+
+// 4. Display only title and author fields
+db.books.find({}, {title:1, author:1, _id:0});
+
+// 5. Count total books
+db.books.countDocuments();
+
+// 6. Update copies of a specific book
+db.books.updateOne({book_id:101}, {$set:{copies:10}});
+
+// 7. Delete books with copies less than 2
+db.books.deleteMany({copies: {$lt:2}});`
+  },
+  {
+    name: "Hospital Management System",
+    code: `// Collection: patients
+// { "patient_id": 201, "patient_name": "Rahul Sharma", "age": 45, "disease": "Diabetes", "city": "Pune" }
+
+// 1. Display all patients
+db.patients.find();
+
+// 2. Display patients with age greater than 40
+db.patients.find({age: {$gt:40}});
+
+// 3. Display patients from Pune
+db.patients.find({city:"Pune"});
+
+// 4. Display only patient name and disease
+db.patients.find({}, {patient_name:1, disease:1, _id:0});
+
+// 5. Count total patients
+db.patients.countDocuments();
+
+// 6. Update disease of a patient
+db.patients.updateOne({patient_id:201}, {$set:{disease:"Cancer"}});
+
+// 7. Delete patients with age less than 18
+db.patients.deleteMany({age: {$lt:18}});`
+  },
+  {
+    name: "Online Shopping System",
+    code: `// Collection: products
+// { "product_id": 301, "product_name": "Laptop", "category": "Electronics", "price": 55000, "stock": 12 }
+
+// 1. Display all products
+db.products.find();
+
+// 2. Display products with price greater than 50000
+db.products.find({price: {$gt:50000}});
+
+// 3. Display products in Electronics category
+db.products.find({category:"Electronics"});
+
+// 4. Display only product name and price
+db.products.find({}, {product_name:1, price:1, _id:0});
+
+// 5. Count total products
+db.products.countDocuments();
+
+// 6. Update stock of a product
+db.products.updateOne({product_id:301}, {$set:{stock:20}});
+
+// 7. Delete products with stock equal to 0
+db.products.deleteMany({stock:0});`
+  },
+  {
+    name: "College Management System",
+    code: `// Collection: students
+// { "student_id": 401, "student_name": "Amit Patil", "branch": "IT", "cgpa": 8.5, "city": "Mumbai" }
+
+// 1. Display all students
+db.students.find();
+
+// 2. Display students with CGPA greater than 8
+db.students.find({cgpa: {$gt:8}});
+
+// 3. Display students from Mumbai
+db.students.find({city:"Mumbai"});
+
+// 4. Display only student name and branch
+db.students.find({}, {student_name:1, branch:1, _id:0});
+
+// 5. Count total students
+db.students.countDocuments();
+
+// 6. Update CGPA of a student
+db.students.updateOne({student_id:401}, {$set:{cgpa:9.1}});
+
+// 7. Delete students with CGPA less than 5
+db.students.deleteMany({cgpa: {$lt:5}});`
+  },
+  {
+    name: "Banking System",
+    code: `// Collection: accounts
+// { "account_no": 5001, "customer_name": "Neha Joshi", "account_type": "Savings", "balance": 85000, "city": "Nashik" }
+
+// 1. Display all accounts
+db.accounts.find();
+
+// 2. Display accounts with balance greater than 50000
+db.accounts.find({balance: {$gt:50000}});
+
+// 3. Display customers from Nashik
+db.accounts.find({city:"Nashik"});
+
+// 4. Display only customer name and balance
+db.accounts.find({}, {customer_name:1, balance:1, _id:0});
+
+// 5. Count total accounts
+db.accounts.countDocuments();
+
+// 6. Update balance of an account
+db.accounts.updateOne({account_no:5001}, {$set:{balance:90000}});
+
+// 7. Delete accounts with balance less than 1000
+db.accounts.deleteMany({balance: {$lt:1000}});`
+  },
+  {
+    name: "Food Delivery Application",
+    code: `// Collection: orders
+// { "order_id": 601, "customer_name": "Rohan", "restaurant_name": "Spice Hub", "amount": 850, "status": "Delivered" }
+
+// 1. Display all orders
+db.orders.find();
+
+// 2. Display orders with amount greater than 500
+db.orders.find({amount: {$gt:500}});
+
+// 3. Display delivered orders
+db.orders.find({status:"Delivered"});
+
+// 4. Display only customer name and amount
+db.orders.find({}, {customer_name:1, amount:1, _id:0});
+
+// 5. Count total orders
+db.orders.countDocuments();
+
+// 6. Update order status
+db.orders.updateOne({order_id:601}, {$set:{status:"Completed"}});
+
+// 7. Delete cancelled orders
+db.orders.deleteMany({status:"Cancelled"});`
+  },
+  {
+    name: "OTT Streaming Platform",
+    code: `// Collection: shows
+// { "show_id": 701, "show_name": "Dark Code", "genre": "Thriller", "rating": 8.9, "language": "English" }
+
+// 1. Display all shows
+db.shows.find();
+
+// 2. Display shows with rating greater than 8
+db.shows.find({rating: {$gt:8}});
+
+// 3. Display Thriller genre shows
+db.shows.find({genre:"Thriller"});
+
+// 4. Display only show name and rating
+db.shows.find({}, {show_name:1, rating:1, _id:0});
+
+// 5. Count total shows
+db.shows.countDocuments();
+
+// 6. Update language of a show
+db.shows.updateOne({show_id:701}, {$set:{language:"Hindi"}});
+
+// 7. Delete shows with rating less than 5
+db.shows.deleteMany({rating: {$lt:5}});`
+  },
+  {
+    name: "Smart Parking System",
+    code: `// Collection: parking
+// { "vehicle_no": "MH14AB1234", "owner_name": "Kiran", "slot_no": 12, "hours": 4, "charges": 200 }
+
+// 1. Display all parking records
+db.parking.find();
+
+// 2. Display records with charges greater than 100
+db.parking.find({charges: {$gt:100}});
+
+// 3. Display records with parking hours greater than 3
+db.parking.find({hours: {$gt:3}});
+
+// 4. Display only owner name and slot number
+db.parking.find({}, {owner_name:1, slot_no:1, _id:0});
+
+// 5. Count total parking records
+db.parking.countDocuments();
+
+// 6. Update parking charges
+db.parking.updateOne({slot_no:12}, {$set:{charges:250}});
+
+// 7. Delete parking records with hours equal to 0
+db.parking.deleteMany({hours:0});`
+  },
+  {
+    name: "Ride Sharing Application",
+    code: `// Collection: rides
+// { "ride_id": 901, "driver_name": "Suresh", "rider_name": "Anjali", "fare": 450, "city": "Pune" }
+
+// 1. Display all rides
+db.rides.find();
+
+// 2. Display rides with fare greater than 300
+db.rides.find({fare: {$gt:300}});
+
+// 3. Display rides from Pune
+db.rides.find({city:"Pune"});
+
+// 4. Display only driver name and fare
+db.rides.find({}, {driver_name:1, fare:1, _id:0});
+
+// 5. Count total rides
+db.rides.countDocuments();
+
+// 6. Update ride fare
+db.rides.updateOne({ride_id:901}, {$set:{fare:500}});
+
+// 7. Delete rides with fare less than 50
+db.rides.deleteMany({fare: {$lt:50}});`
+  },
+  {
+    name: "Smart Gym Management System",
+    code: `// Collection: members
+// { "member_id": 1001, "member_name": "Rahul", "plan_type": "Premium", "trainer": "Akash", "calories_burned": 650 }
+
+// 1. Display all gym members
+db.members.find();
+
+// 2. Display members with calories burned greater than 500
+db.members.find({calories_burned: {$gt:500}});
+
+// 3. Display Premium plan members
+db.members.find({plan_type:"Premium"});
+
+// 4. Display only member name and trainer
+db.members.find({}, {member_name:1, trainer:1, _id:0});
+
+// 5. Count total members
+db.members.countDocuments();
+
+// 6. Update trainer name
+db.members.updateOne({member_id:1001}, {$set:{trainer:"Rohit"}});
+
+// 7. Delete members with calories burned less than 100
+db.members.deleteMany({calories_burned: {$lt:100}});`
+  }
+];
+
+const plsqlData = [
+  {
+    name: "PL/SQL Procedure & Trigger",
+    code: `-- Schema: empp(eid, ename, salary, dept)
+
+-- 1. Create empp table and insert records
+CREATE TABLE empp (
+  eid INT PRIMARY KEY,
+  ename VARCHAR(50),
+  salary DECIMAL(10,2),
+  dept VARCHAR(30)
+);
+
+INSERT INTO empp VALUES (1, 'Alice', 50000, 'IT');
+INSERT INTO empp VALUES (2, 'Bob', 60000, 'HR');
+INSERT INTO empp VALUES (3, 'Charlie', 45000, 'Finance');
+
+-- 2. Create procedure add_employee() to insert employee details
+DELIMITER //
+CREATE PROCEDURE add_employee(IN p_eid INT, IN p_ename VARCHAR(50), IN p_salary DECIMAL(10,2), IN p_dept VARCHAR(30))
+BEGIN
+  INSERT INTO empp(eid, ename, salary, dept) VALUES (p_eid, p_ename, p_salary, p_dept);
+END //
+DELIMITER ;
+
+-- 3. Create trigger to convert employee name into uppercase before insert
+DELIMITER //
+CREATE TRIGGER before_emp_insert
+BEFORE INSERT ON empp
+FOR EACH ROW
+BEGIN
+  SET NEW.ename = UPPER(NEW.ename);
+END //
+DELIMITER ;
+
+-- 4. Call the procedure and verify trigger execution
+CALL add_employee(4, 'diana', 55000, 'Sales');
+
+-- 5. Display all employee records
+SELECT * FROM empp;`
+  },
+  {
+    name: "PL/SQL Procedure & Function",
+    code: `-- Schema: empp(eid, ename, salary, dept)
+
+-- 1. Create procedure emp_by_dept() to display employees of a department
+DELIMITER //
+CREATE PROCEDURE emp_by_dept(IN p_dept VARCHAR(30))
+BEGIN
+  SELECT * FROM empp WHERE dept = p_dept;
+END //
+DELIMITER ;
+
+-- 2. Create function get_salary() to return salary using employee id
+DELIMITER //
+CREATE FUNCTION get_salary(p_eid INT)
+RETURNS DECIMAL(10,2)
+DETERMINISTIC
+BEGIN
+  DECLARE v_salary DECIMAL(10,2);
+  SELECT salary INTO v_salary FROM empp WHERE eid = p_eid;
+  RETURN v_salary;
+END //
+DELIMITER ;
+
+-- 3. Execute both procedure and function
+CALL emp_by_dept('IT');
+SELECT get_salary(1);
+
+-- 4. Display output
+SELECT * FROM empp;`
+  },
+  {
+    name: "PL/SQL Procedure & Loop",
+    code: `-- Schema: empp(eid, ename, salary, dept)
+
+-- 1. Create procedure show_employees() to display all employees
+DELIMITER //
+CREATE PROCEDURE show_employees()
+BEGIN
+  SELECT * FROM empp;
+END //
+DELIMITER ;
+
+-- 2. Create another procedure using WHILE loop to print numbers from 1 to 5
+DELIMITER //
+CREATE PROCEDURE print_numbers()
+BEGIN
+  DECLARE i INT DEFAULT 1;
+  WHILE i <= 5 DO
+    SELECT i AS Number;
+    SET i = i + 1;
+  END WHILE;
+END //
+DELIMITER ;
+
+-- 3. Execute both procedures
+CALL show_employees();
+CALL print_numbers();`
+  },
+  {
+    name: "PL/SQL Function & Loop",
+    code: `-- Schema: empp(eid, ename, salary, dept)
+
+-- 1. Create function get_count() to count employees department-wise
+DELIMITER //
+CREATE FUNCTION get_count(p_dept VARCHAR(30))
+RETURNS INT
+DETERMINISTIC
+BEGIN
+  DECLARE v_count INT;
+  SELECT COUNT(*) INTO v_count FROM empp WHERE dept = p_dept;
+  RETURN v_count;
+END //
+DELIMITER ;
+
+-- 2. Create procedure using LOOP to print numbers from 1 to 5
+DELIMITER //
+CREATE PROCEDURE loop_numbers()
+BEGIN
+  DECLARE i INT DEFAULT 1;
+  myloop: LOOP
+    SELECT i AS Number;
+    SET i = i + 1;
+    IF i > 5 THEN LEAVE myloop; END IF;
+  END LOOP myloop;
+END //
+DELIMITER ;
+
+-- 3. Execute function and loop procedure
+SELECT get_count('IT');
+CALL loop_numbers();`
+  },
+  {
+    name: "PL/SQL Function & Trigger",
+    code: `-- Schema: student(sid, name, marks)
+
+CREATE TABLE student (
+  sid INT PRIMARY KEY,
+  name VARCHAR(50),
+  marks INT
+);
+
+INSERT INTO student VALUES (1, 'Amit', 85);
+INSERT INTO student VALUES (2, 'Priya', 92);
+
+-- 1. Create function to return student marks using student id
+DELIMITER //
+CREATE FUNCTION get_marks(p_sid INT)
+RETURNS INT
+DETERMINISTIC
+BEGIN
+  DECLARE v_marks INT;
+  SELECT marks INTO v_marks FROM student WHERE sid = p_sid;
+  RETURN v_marks;
+END //
+DELIMITER ;
+
+-- 2. Create trigger to restrict marks above 100
+DELIMITER //
+CREATE TRIGGER check_marks
+BEFORE UPDATE ON student
+FOR EACH ROW
+BEGIN
+  IF NEW.marks > 100 THEN
+    SIGNAL SQLSTATE '45000' SET MESSAGE_TEXT = 'Marks cannot exceed 100!';
+  END IF;
+END //
+DELIMITER ;
+
+-- 3. Update student marks and verify trigger
+UPDATE student SET marks = 95 WHERE sid = 1;  -- Allowed
+-- UPDATE student SET marks = 105 WHERE sid = 1;  -- Will raise error
+
+SELECT get_marks(1);
+SELECT * FROM student;`
+  },
+  {
+    name: "PL/SQL Function & Cursor",
+    code: `-- Schema: empp(eid, ename, salary, dept)
+
+-- 1. Create function get_salary() to return salary using employee id
+DELIMITER //
+CREATE FUNCTION get_salary(p_eid INT)
+RETURNS DECIMAL(10,2)
+DETERMINISTIC
+BEGIN
+  DECLARE v_salary DECIMAL(10,2);
+  SELECT salary INTO v_salary FROM empp WHERE eid = p_eid;
+  RETURN v_salary;
+END //
+DELIMITER ;
+
+-- 2. Create cursor procedure to display employee names one by one
+DELIMITER //
+CREATE PROCEDURE show_emp_names()
+BEGIN
+  DECLARE done INT DEFAULT 0;
+  DECLARE v_name VARCHAR(50);
+  DECLARE cur CURSOR FOR SELECT ename FROM empp;
+  DECLARE CONTINUE HANDLER FOR NOT FOUND SET done = 1;
+
+  OPEN cur;
+  read_loop: LOOP
+    FETCH cur INTO v_name;
+    IF done = 1 THEN LEAVE read_loop; END IF;
+    SELECT v_name AS Employee_Name;
+  END LOOP;
+  CLOSE cur;
+END //
+DELIMITER ;
+
+-- 3. Execute both
+SELECT get_salary(1);
+CALL show_emp_names();`
+  },
+  {
+    name: "PL/SQL Procedure & Cursor",
+    code: `-- Schema: employee(id, name, salary)
+
+CREATE TABLE employee (
+  id INT PRIMARY KEY,
+  name VARCHAR(50),
+  salary DECIMAL(10,2)
+);
+
+INSERT INTO employee VALUES (1, 'Ravi', 40000);
+INSERT INTO employee VALUES (2, 'Sita', 35000);
+INSERT INTO employee VALUES (3, 'Mohan', 50000);
+
+-- 1. Create procedure update_salary() using cursor to increase salary by 10%
+DELIMITER //
+CREATE PROCEDURE update_salary()
+BEGIN
+  DECLARE done INT DEFAULT 0;
+  DECLARE v_id INT;
+  DECLARE cur CURSOR FOR SELECT id FROM employee;
+  DECLARE CONTINUE HANDLER FOR NOT FOUND SET done = 1;
+
+  OPEN cur;
+  update_loop: LOOP
+    FETCH cur INTO v_id;
+    IF done = 1 THEN LEAVE update_loop; END IF;
+    UPDATE employee SET salary = salary * 1.10 WHERE id = v_id;
+  END LOOP;
+  CLOSE cur;
+END //
+DELIMITER ;
+
+-- 2. Create procedure show_employees() to display all employee records
+DELIMITER //
+CREATE PROCEDURE show_employees()
+BEGIN
+  SELECT * FROM employee;
+END //
+DELIMITER ;
+
+-- 3. Verify updated salaries
+CALL update_salary();
+CALL show_employees();`
+  },
+  {
+    name: "PL/SQL Cursor & Loop",
+    code: `-- Schema: employee(id, name, salary)
+
+-- 1. Create cursor procedure to display employees with salary greater than 30000
+DELIMITER //
+CREATE PROCEDURE high_salary_employees()
+BEGIN
+  DECLARE done INT DEFAULT 0;
+  DECLARE v_name VARCHAR(50);
+  DECLARE v_salary DECIMAL(10,2);
+  DECLARE cur CURSOR FOR SELECT name, salary FROM employee WHERE salary > 30000;
+  DECLARE CONTINUE HANDLER FOR NOT FOUND SET done = 1;
+
+  OPEN cur;
+  -- 2. Use LOOP inside cursor processing
+  salary_loop: LOOP
+    FETCH cur INTO v_name, v_salary;
+    IF done = 1 THEN LEAVE salary_loop; END IF;
+    SELECT v_name AS Name, v_salary AS Salary;
+  END LOOP;
+  CLOSE cur;
+END //
+DELIMITER ;
+
+-- 3. Execute procedure
+CALL high_salary_employees();`
+  },
+  {
+    name: "PL/SQL Exception Handling & Loop",
+    code: `-- Schema: numbers(a, b)
+
+CREATE TABLE numbers (a INT, b INT);
+INSERT INTO numbers VALUES (10, 2);
+INSERT INTO numbers VALUES (20, 0);
+INSERT INTO numbers VALUES (15, 3);
+
+-- 1. Create procedure divide_numbers() using exception handling
+-- 2. Handle divide-by-zero exception using DECLARE HANDLER
+DELIMITER //
+CREATE PROCEDURE divide_numbers()
+BEGIN
+  DECLARE done INT DEFAULT 0;
+  DECLARE v_a INT;
+  DECLARE v_b INT;
+  DECLARE CONTINUE HANDLER FOR SQLEXCEPTION
+    SELECT 'Error: Division by zero or SQL error!' AS Message;
+
+  DECLARE cur CURSOR FOR SELECT a, b FROM numbers;
+  DECLARE CONTINUE HANDLER FOR NOT FOUND SET done = 1;
+
+  OPEN cur;
+  div_loop: LOOP
+    FETCH cur INTO v_a, v_b;
+    IF done = 1 THEN LEAVE div_loop; END IF;
+    IF v_b = 0 THEN
+      SELECT CONCAT('Cannot divide ', v_a, ' by zero') AS Result;
+    ELSE
+      SELECT CONCAT(v_a, ' / ', v_b, ' = ', v_a/v_b) AS Result;
+    END IF;
+  END LOOP;
+  CLOSE cur;
+END //
+DELIMITER ;
+
+-- 3. Create procedure using WHILE loop to print numbers from 1 to 5
+DELIMITER //
+CREATE PROCEDURE while_numbers()
+BEGIN
+  DECLARE i INT DEFAULT 1;
+  WHILE i <= 5 DO
+    SELECT i AS Number;
+    SET i = i + 1;
+  END WHILE;
+END //
+DELIMITER ;
+
+CALL divide_numbers();
+CALL while_numbers();`
+  },
+  {
+    name: "PL/SQL Procedure & Exception Handling",
+    code: `-- Schema: CUSTOMERS(ID, NAME, AGE, ADDRESS, SALARY)
+
+CREATE TABLE CUSTOMERS (
+  ID INT PRIMARY KEY,
+  NAME VARCHAR(50),
+  AGE INT,
+  ADDRESS VARCHAR(100),
+  SALARY DECIMAL(10,2)
+);
+
+INSERT INTO CUSTOMERS VALUES (1,'Ramesh',32,'Ahmedabad',2000.00);
+INSERT INTO CUSTOMERS VALUES (2,'Khilan',25,'Delhi',1500.00);
+INSERT INTO CUSTOMERS VALUES (3,'Kaushik',23,'Kota',2000.00);
+INSERT INTO CUSTOMERS VALUES (4,'Chaitali',25,'Mumbai',6500.00);
+INSERT INTO CUSTOMERS VALUES (5,'Hardik',27,'Bhopal',8500.00);
+
+-- 1. Create procedure GetCustomerInfo() to display customers with age greater than 25
+DELIMITER //
+CREATE PROCEDURE GetCustomerInfo()
+BEGIN
+  SELECT * FROM CUSTOMERS WHERE AGE > 25;
+END //
+DELIMITER ;
+
+-- 2. Create procedure divide_numbers() with exception handling
+DELIMITER //
+CREATE PROCEDURE divide_numbers(IN a INT, IN b INT)
+BEGIN
+  DECLARE CONTINUE HANDLER FOR SQLEXCEPTION
+    SELECT 'SQL Exception occurred!' AS Error;
+
+  IF b = 0 THEN
+    SELECT 'Error: Cannot divide by zero!' AS Result;
+  ELSE
+    SELECT a/b AS Result;
+  END IF;
+END //
+DELIMITER ;
+
+-- 3. Execute both procedures
+CALL GetCustomerInfo();
+CALL divide_numbers(10, 2);
+CALL divide_numbers(10, 0);`
+  },
+  {
+    name: "PL/SQL Trigger & Cursor",
+    code: `-- Schema: orders(order_id, customer_name), order_count(total_orders)
+
+CREATE TABLE orders (
+  order_id INT PRIMARY KEY,
+  customer_name VARCHAR(50)
+);
+
+CREATE TABLE order_count (
+  total_orders INT DEFAULT 0
+);
+
+INSERT INTO order_count VALUES (3);
+INSERT INTO orders VALUES (1,'Amit');
+INSERT INTO orders VALUES (2,'Priya');
+INSERT INTO orders VALUES (3,'Raj');
+
+-- 1. Create delete trigger to reduce order count automatically after deletion
+DELIMITER //
+CREATE TRIGGER after_order_delete
+AFTER DELETE ON orders
+FOR EACH ROW
+BEGIN
+  UPDATE order_count SET total_orders = total_orders - 1;
+END //
+DELIMITER ;
+
+-- 2. Create cursor procedure to display all customer names one by one
+DELIMITER //
+CREATE PROCEDURE show_customers()
+BEGIN
+  DECLARE done INT DEFAULT 0;
+  DECLARE v_name VARCHAR(50);
+  DECLARE cur CURSOR FOR SELECT customer_name FROM orders;
+  DECLARE CONTINUE HANDLER FOR NOT FOUND SET done = 1;
+
+  OPEN cur;
+  cust_loop: LOOP
+    FETCH cur INTO v_name;
+    IF done = 1 THEN LEAVE cust_loop; END IF;
+    SELECT v_name AS Customer;
+  END LOOP;
+  CLOSE cur;
+END //
+DELIMITER ;
+
+-- 3. Verify trigger and cursor output
+CALL show_customers();
+DELETE FROM orders WHERE order_id = 2;
+SELECT * FROM order_count;`
+  },
+  {
+    name: "PL/SQL Procedure with IN Parameter & Trigger",
+    code: `-- Schema: CUSTOMERS(ID, NAME, AGE, ADDRESS, SALARY)
+
+-- 1. Create procedure GetCustomerInfo(IN CustomerAge INT)
+DELIMITER //
+CREATE PROCEDURE GetCustomerInfo(IN CustomerAge INT)
+BEGIN
+  SELECT * FROM CUSTOMERS WHERE AGE > CustomerAge;
+END //
+DELIMITER ;
+
+-- 2. Create trigger to update timestamp when salary is updated
+ALTER TABLE CUSTOMERS ADD COLUMN updated_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP;
+
+DELIMITER //
+CREATE TRIGGER before_salary_update
+BEFORE UPDATE ON CUSTOMERS
+FOR EACH ROW
+BEGIN
+  IF NEW.SALARY != OLD.SALARY THEN
+    SET NEW.updated_at = NOW();
+  END IF;
+END //
+DELIMITER ;
+
+-- 3. Execute procedure
+CALL GetCustomerInfo(25);
+
+-- Test trigger
+UPDATE CUSTOMERS SET SALARY = 9000 WHERE ID = 1;
+SELECT ID, NAME, SALARY, updated_at FROM CUSTOMERS;`
+  },
+  {
+    name: "PL/SQL Procedure with OUT Parameter & Loop",
+    code: `-- Schema: empp(eid, ename, salary, dept)
+
+-- 1. Create procedure emp_count() with OUT parameter
+DELIMITER //
+CREATE PROCEDURE emp_count(OUT total INT)
+BEGIN
+  SELECT COUNT(*) INTO total FROM empp;
+END //
+DELIMITER ;
+
+-- 2. Create LOOP procedure to print numbers from 1 to 5
+DELIMITER //
+CREATE PROCEDURE loop_print()
+BEGIN
+  DECLARE i INT DEFAULT 1;
+  myloop: LOOP
+    SELECT i AS Number;
+    SET i = i + 1;
+    IF i > 5 THEN LEAVE myloop; END IF;
+  END LOOP myloop;
+END //
+DELIMITER ;
+
+-- 3. Execute both procedures
+CALL emp_count(@total);
+SELECT @total AS Total_Employees;
+CALL loop_print();`
+  },
+  {
+    name: "PL/SQL Procedure with INOUT Parameter & Trigger",
+    code: `-- Schema: empp(eid, ename, salary, dept)
+
+-- 1. Create procedure increase_salary() using INOUT parameter
+DELIMITER //
+CREATE PROCEDURE increase_salary(INOUT p_salary DECIMAL(10,2), IN increment DECIMAL(10,2))
+BEGIN
+  SET p_salary = p_salary + increment;
+END //
+DELIMITER ;
+
+-- 2. Create trigger to prevent salary reduction during update
+DELIMITER //
+CREATE TRIGGER prevent_salary_cut
+BEFORE UPDATE ON empp
+FOR EACH ROW
+BEGIN
+  IF NEW.salary < OLD.salary THEN
+    SIGNAL SQLSTATE '45000' SET MESSAGE_TEXT = 'Salary reduction not allowed!';
+  END IF;
+END //
+DELIMITER ;
+
+-- 3. Verify updated salary
+SET @sal = 50000;
+CALL increase_salary(@sal, 5000);
+SELECT @sal AS Updated_Salary;
+
+-- Test trigger
+UPDATE empp SET salary = 55000 WHERE eid = 1;  -- Allowed
+-- UPDATE empp SET salary = 40000 WHERE eid = 1;  -- Will raise error
+
+SELECT * FROM empp;`
+  },
+  {
+    name: "PL/SQL Cursor & Exception Handling",
+    code: `-- Schema: employee(id, name, salary)
+
+-- 1. Create cursor procedure to display employee names one by one
+-- 2. Add exception handler for cursor end condition
+DELIMITER //
+CREATE PROCEDURE cursor_with_exception()
+BEGIN
+  DECLARE done INT DEFAULT 0;
+  DECLARE v_name VARCHAR(50);
+  DECLARE v_salary DECIMAL(10,2);
+
+  DECLARE cur CURSOR FOR SELECT name, salary FROM employee;
+  DECLARE CONTINUE HANDLER FOR NOT FOUND SET done = 1;
+  DECLARE CONTINUE HANDLER FOR SQLEXCEPTION
+    SELECT 'An SQL exception occurred.' AS Error;
+
+  OPEN cur;
+  emp_loop: LOOP
+    FETCH cur INTO v_name, v_salary;
+    IF done = 1 THEN
+      LEAVE emp_loop;
+    END IF;
+    SELECT v_name AS Employee_Name, v_salary AS Salary;
+  END LOOP emp_loop;
+  CLOSE cur;
+
+  SELECT 'Cursor processing completed.' AS Status;
+END //
+DELIMITER ;
+
+-- 3. Execute procedure
+CALL cursor_with_exception();`
+  }
+];
+
+const jdbcData = [
+  {
+    name: "Library Management System (JDBC)",
+    code: `import java.sql.*;
+import java.util.Scanner;
+
+// Database: MySQL
+// Tables: BOOK(Book_ID, Title, Author, Category, Price), MEMBER(Member_ID, Member_Name, City), ISSUE(Issue_ID, Book_ID, Member_ID, Issue_Date, Return_Date)
 
 public class LibraryJDBC {
-    static final String URL  = "jdbc:mysql://localhost:3306/library_db";
+    static final String URL = "jdbc:mysql://localhost:3306/librarydb";
     static final String USER = "root";
-    static final String PASS = "password"; // change as needed
+    static final String PASS = "password";
 
-    public static void main(String[] args) {
-        try (Connection conn = DriverManager.getConnection(URL, USER, PASS)) {
-            System.out.println("Connected to library_db");
+    public static void main(String[] args) throws Exception {
+        Class.forName("com.mysql.cj.jdbc.Driver");
+        Connection con = DriverManager.getConnection(URL, USER, PASS);
+        Scanner sc = new Scanner(System.in);
+        int choice;
 
-            // (a) Create tables
-            Statement stmt = conn.createStatement();
-            stmt.execute("DROP TABLE IF EXISTS IssuedBooks");
-            stmt.execute("DROP TABLE IF EXISTS Books");
-            stmt.execute("CREATE TABLE Books (BookId VARCHAR(10) PRIMARY KEY, Title VARCHAR(100), " +
-                "Author VARCHAR(100), Category VARCHAR(50), Available INT)");
-            stmt.execute("CREATE TABLE IssuedBooks (IssueId INT AUTO_INCREMENT PRIMARY KEY, " +
-                "BookId VARCHAR(10), StudentName VARCHAR(100), IssueDate DATE, ReturnDate DATE, " +
-                "FOREIGN KEY (BookId) REFERENCES Books(BookId))");
+        do {
+            System.out.println("\\n===== LIBRARY MANAGEMENT SYSTEM =====");
+            System.out.println("1. Add Book");
+            System.out.println("2. Display All Books");
+            System.out.println("3. Search Book by Category");
+            System.out.println("4. Delete Book");
+            System.out.println("5. Add Member");
+            System.out.println("6. Display All Members");
+            System.out.println("7. Issue Book");
+            System.out.println("0. Exit");
+            System.out.print("Enter choice: ");
+            choice = sc.nextInt();
 
-            // (b) Insert 5 books
-            String insertBook = "INSERT INTO Books VALUES (?,?,?,?,?)";
-            PreparedStatement ps = conn.prepareStatement(insertBook);
-            String[][] books = {
-                {"B001","Core Java","Schildt","Technology","1"},
-                {"B002","DBMS","Korth","Technology","1"},
-                {"B003","Fiction","Chetan Bhagat","Fiction","1"},
-                {"B004","OS Concepts","Silberschatz","Technology","1"},
-                {"B005","History of India","Romila Thapar","History","1"}
-            };
-            for (String[] b : books) {
-                ps.setString(1,b[0]); ps.setString(2,b[1]); ps.setString(3,b[2]);
-                ps.setString(4,b[3]); ps.setInt(5,Integer.parseInt(b[4])); ps.executeUpdate();
+            switch (choice) {
+                case 1:
+                    sc.nextLine();
+                    System.out.print("Enter Book ID: "); int bid = sc.nextInt();
+                    sc.nextLine();
+                    System.out.print("Title: "); String title = sc.nextLine();
+                    System.out.print("Author: "); String author = sc.nextLine();
+                    System.out.print("Category: "); String category = sc.nextLine();
+                    System.out.print("Price: "); double price = sc.nextDouble();
+
+                    PreparedStatement ps1 = con.prepareStatement(
+                        "INSERT INTO BOOK VALUES (?,?,?,?,?)");
+                    ps1.setInt(1, bid); ps1.setString(2, title);
+                    ps1.setString(3, author); ps1.setString(4, category);
+                    ps1.setDouble(5, price);
+                    ps1.executeUpdate();
+                    System.out.println("Book added successfully!");
+                    ps1.close();
+                    break;
+
+                case 2:
+                    Statement st2 = con.createStatement();
+                    ResultSet rs2 = st2.executeQuery("SELECT * FROM BOOK");
+                    System.out.println("\\nBook_ID | Title | Author | Category | Price");
+                    System.out.println("------------------------------------------------");
+                    while (rs2.next()) {
+                        System.out.println(rs2.getInt(1) + " | " + rs2.getString(2) + " | " +
+                            rs2.getString(3) + " | " + rs2.getString(4) + " | " + rs2.getDouble(5));
+                    }
+                    rs2.close(); st2.close();
+                    break;
+
+                case 3:
+                    sc.nextLine();
+                    System.out.print("Enter Category: "); String cat = sc.nextLine();
+                    PreparedStatement ps3 = con.prepareStatement(
+                        "SELECT * FROM BOOK WHERE Category=?");
+                    ps3.setString(1, cat);
+                    ResultSet rs3 = ps3.executeQuery();
+                    System.out.println("\\nBooks in category: " + cat);
+                    while (rs3.next()) {
+                        System.out.println(rs3.getInt(1) + " | " + rs3.getString(2) + " | " +
+                            rs3.getString(3) + " | Rs." + rs3.getDouble(5));
+                    }
+                    rs3.close(); ps3.close();
+                    break;
+
+                case 4:
+                    System.out.print("Enter Book ID to delete: "); int delId = sc.nextInt();
+                    PreparedStatement ps4 = con.prepareStatement("DELETE FROM BOOK WHERE Book_ID=?");
+                    ps4.setInt(1, delId);
+                    int rows = ps4.executeUpdate();
+                    System.out.println(rows > 0 ? "Book deleted!" : "Book not found.");
+                    ps4.close();
+                    break;
+
+                case 5:
+                    System.out.print("Member ID: "); int mid = sc.nextInt();
+                    sc.nextLine();
+                    System.out.print("Name: "); String mname = sc.nextLine();
+                    System.out.print("City: "); String city = sc.nextLine();
+                    PreparedStatement ps5 = con.prepareStatement("INSERT INTO MEMBER VALUES(?,?,?)");
+                    ps5.setInt(1, mid); ps5.setString(2, mname); ps5.setString(3, city);
+                    ps5.executeUpdate();
+                    System.out.println("Member added!");
+                    ps5.close();
+                    break;
+
+                case 6:
+                    Statement st6 = con.createStatement();
+                    ResultSet rs6 = st6.executeQuery("SELECT * FROM MEMBER");
+                    System.out.println("\\nMember_ID | Name | City");
+                    while (rs6.next())
+                        System.out.println(rs6.getInt(1) + " | " + rs6.getString(2) + " | " + rs6.getString(3));
+                    rs6.close(); st6.close();
+                    break;
+
+                case 7:
+                    System.out.print("Issue ID: "); int iid = sc.nextInt();
+                    System.out.print("Book ID: "); int ibid = sc.nextInt();
+                    System.out.print("Member ID: "); int imid = sc.nextInt();
+                    sc.nextLine();
+                    System.out.print("Issue Date (YYYY-MM-DD): "); String idate = sc.nextLine();
+                    System.out.print("Return Date (YYYY-MM-DD): "); String rdate = sc.nextLine();
+                    PreparedStatement ps7 = con.prepareStatement("INSERT INTO ISSUE VALUES(?,?,?,?,?)");
+                    ps7.setInt(1,iid); ps7.setInt(2,ibid); ps7.setInt(3,imid);
+                    ps7.setString(4,idate); ps7.setString(5,rdate);
+                    ps7.executeUpdate();
+                    System.out.println("Book issued successfully!");
+                    ps7.close();
+                    break;
             }
-            System.out.println("5 books inserted.");
+        } while (choice != 0);
 
-            // (c) Display all books
-            System.out.println("\\n=== All Books ===");
-            ResultSet rs = stmt.executeQuery("SELECT * FROM Books");
-            while (rs.next())
-                System.out.printf("%-6s %-20s %-15s %-12s %s%n",
-                    rs.getString(1),rs.getString(2),rs.getString(3),rs.getString(4),
-                    rs.getInt(5)==1?"Available":"Issued");
-
-            // (d) Issue a book — transaction
-            conn.setAutoCommit(false);
-            try {
-                PreparedStatement issuePS = conn.prepareStatement(
-                    "INSERT INTO IssuedBooks (BookId, StudentName, IssueDate) VALUES (?,?,?)");
-                issuePS.setString(1,"B001"); issuePS.setString(2,"Asha");
-                issuePS.setDate(3, Date.valueOf(LocalDate.now())); issuePS.executeUpdate();
-                stmt.executeUpdate("UPDATE Books SET Available=0 WHERE BookId='B001'");
-                conn.commit();
-                System.out.println("\\nBook B001 issued to Asha — transaction committed.");
-            } catch (Exception e) { conn.rollback(); System.out.println("Issue failed, rolled back."); }
-
-            // (e) Return a book — transaction
-            conn.setAutoCommit(false);
-            try {
-                PreparedStatement retPS = conn.prepareStatement(
-                    "UPDATE IssuedBooks SET ReturnDate=? WHERE IssueId=1");
-                retPS.setDate(1, Date.valueOf(LocalDate.now())); retPS.executeUpdate();
-                stmt.executeUpdate("UPDATE Books SET Available=1 WHERE BookId='B001'");
-                conn.commit();
-                System.out.println("Book returned — transaction committed.");
-            } catch (Exception e) { conn.rollback(); System.out.println("Return failed, rolled back."); }
-            conn.setAutoCommit(true);
-
-            // (f) Delete a book
-            stmt.executeUpdate("DELETE FROM Books WHERE BookId='B003'");
-            System.out.println("B003 deleted.");
-
-            // (g) Display Technology books
-            System.out.println("\\n=== Technology Books ===");
-            PreparedStatement catPS = conn.prepareStatement("SELECT * FROM Books WHERE Category=?");
-            catPS.setString(1,"Technology");
-            ResultSet rs2 = catPS.executeQuery();
-            while (rs2.next())
-                System.out.println(rs2.getString(1)+" | "+rs2.getString(2)+" | "+rs2.getString(3));
-
-        } catch (SQLException e) { e.printStackTrace(); }
+        con.close();
+        System.out.println("Thank you! Goodbye.");
     }
 }`
   },
   {
-    id: 23,
-    title: "Generic Product Inventory Comparator",
-    practical: "Practical 13 — Java Generics",
-    tag: "Generic Methods · Bounded Wildcards · Type Safety",
-    code: `// Practical 13 — Problem 23: Generic Product Inventory Comparator
-import java.util.*;
+    name: "Hospital Management System (JDBC)",
+    code: `import java.sql.*;
+import java.util.Scanner;
 
-public class GenericInventory {
-    // (a) Generic method checkIdentical
-    static <T> boolean checkIdentical(T[] arr1, T[] arr2) {
-        if (arr1.length != arr2.length) return false;
-        for (int i = 0; i < arr1.length; i++) {
-            if (!arr1[i].equals(arr2[i])) return false;
-        }
-        return true;
-    }
+// Database: MySQL
+// Tables: DOCTOR(Doctor_ID, Doctor_Name, Specialization, Salary), PATIENT(Patient_ID, Patient_Name, Age, City), APPOINTMENT(Appointment_ID, Doctor_ID, Patient_ID, Appointment_Date)
 
-    // (b) Generic method sumByParity
-    static String sumByParity(List<? extends Number> numbers) {
-        long evenSum = 0, oddSum = 0;
-        for (Number n : numbers) {
-            int val = n.intValue();
-            if (val % 2 == 0) evenSum += val;
-            else oddSum += val;
-        }
-        return "Even Sum: " + evenSum + ", Odd Sum: " + oddSum;
-    }
+public class HospitalJDBC {
+    static final String URL = "jdbc:mysql://localhost:3306/hospitaldb";
+    static final String USER = "root";
+    static final String PASS = "password";
 
-    // (c) Generic class Inventory<T>
-    static class Inventory<T> {
-        private List<T> items = new ArrayList<>();
+    public static void main(String[] args) throws Exception {
+        Class.forName("com.mysql.cj.jdbc.Driver");
+        Connection con = DriverManager.getConnection(URL, USER, PASS);
+        Scanner sc = new Scanner(System.in);
+        int choice;
 
-        void add(T item) {
-            items.add(item);
-            System.out.println("Added: " + item);
-        }
+        do {
+            System.out.println("\\n===== HOSPITAL MANAGEMENT SYSTEM =====");
+            System.out.println("1. Add Doctor");
+            System.out.println("2. Display All Doctors");
+            System.out.println("3. Add Patient");
+            System.out.println("4. Display All Patients");
+            System.out.println("5. Book Appointment");
+            System.out.println("6. View Appointments");
+            System.out.println("7. Search Doctor by Specialization");
+            System.out.println("0. Exit");
+            System.out.print("Enter choice: ");
+            choice = sc.nextInt();
 
-        void remove(T item) {
-            if (items.remove(item))
-                System.out.println("Removed: " + item);
-            else
-                System.out.println("Item not found!");
-        }
+            switch (choice) {
+                case 1:
+                    System.out.print("Doctor ID: "); int did = sc.nextInt(); sc.nextLine();
+                    System.out.print("Name: "); String dname = sc.nextLine();
+                    System.out.print("Specialization: "); String spec = sc.nextLine();
+                    System.out.print("Salary: "); double sal = sc.nextDouble();
+                    PreparedStatement ps1 = con.prepareStatement("INSERT INTO DOCTOR VALUES(?,?,?,?)");
+                    ps1.setInt(1,did); ps1.setString(2,dname);
+                    ps1.setString(3,spec); ps1.setDouble(4,sal);
+                    ps1.executeUpdate();
+                    System.out.println("Doctor added!");
+                    ps1.close(); break;
 
-        boolean contains(T item) {
-            return items.contains(item);
-        }
+                case 2:
+                    Statement st2 = con.createStatement();
+                    ResultSet rs2 = st2.executeQuery("SELECT * FROM DOCTOR");
+                    System.out.println("\\nDoctor_ID | Name | Specialization | Salary");
+                    System.out.println("-------------------------------------------");
+                    while (rs2.next())
+                        System.out.println(rs2.getInt(1)+" | "+rs2.getString(2)+" | "+rs2.getString(3)+" | "+rs2.getDouble(4));
+                    rs2.close(); st2.close(); break;
 
-        void display() {
-            System.out.println("Inventory: " + items);
-        }
-    }
+                case 3:
+                    System.out.print("Patient ID: "); int pid = sc.nextInt(); sc.nextLine();
+                    System.out.print("Name: "); String pname = sc.nextLine();
+                    System.out.print("Age: "); int age = sc.nextInt(); sc.nextLine();
+                    System.out.print("City: "); String city = sc.nextLine();
+                    PreparedStatement ps3 = con.prepareStatement("INSERT INTO PATIENT VALUES(?,?,?,?)");
+                    ps3.setInt(1,pid); ps3.setString(2,pname);
+                    ps3.setInt(3,age); ps3.setString(4,city);
+                    ps3.executeUpdate();
+                    System.out.println("Patient added!");
+                    ps3.close(); break;
 
-    public static void main(String[] args) {
-        System.out.println("=== Test (a): checkIdentical ===");
-        Integer[] arr1 = {10, 20, 30};
-        Integer[] arr2 = {10, 20, 30};
-        Integer[] arr3 = {10, 25, 30};
-        System.out.println("arr1=[10,20,30], arr2=[10,20,30] → " + (checkIdentical(arr1, arr2) ? "Identical" : "Not identical"));
-        System.out.println("arr1=[10,20,30], arr3=[10,25,30] → " + (checkIdentical(arr1, arr3) ? "Identical" : "Not identical"));
+                case 4:
+                    Statement st4 = con.createStatement();
+                    ResultSet rs4 = st4.executeQuery("SELECT * FROM PATIENT");
+                    System.out.println("\\nPatient_ID | Name | Age | City");
+                    while (rs4.next())
+                        System.out.println(rs4.getInt(1)+" | "+rs4.getString(2)+" | "+rs4.getInt(3)+" | "+rs4.getString(4));
+                    rs4.close(); st4.close(); break;
 
-        String[] str1 = {"A", "B", "C"};
-        String[] str2 = {"A", "B", "C"};
-        System.out.println("\\nString arrays [A,B,C] vs [A,B,C] → " + (checkIdentical(str1, str2) ? "Identical" : "Not identical"));
+                case 5:
+                    System.out.print("Appointment ID: "); int apid = sc.nextInt();
+                    System.out.print("Doctor ID: "); int apDid = sc.nextInt();
+                    System.out.print("Patient ID: "); int apPid = sc.nextInt(); sc.nextLine();
+                    System.out.print("Date (YYYY-MM-DD): "); String adate = sc.nextLine();
+                    PreparedStatement ps5 = con.prepareStatement("INSERT INTO APPOINTMENT VALUES(?,?,?,?)");
+                    ps5.setInt(1,apid); ps5.setInt(2,apDid); ps5.setInt(3,apPid); ps5.setString(4,adate);
+                    ps5.executeUpdate();
+                    System.out.println("Appointment booked!");
+                    ps5.close(); break;
 
-        Double[] dbl1 = {1.5, 2.5, 3.5};
-        Double[] dbl2 = {1.5, 2.5, 3.5};
-        System.out.println("Double arrays [1.5,2.5,3.5] vs [1.5,2.5,3.5] → " + (checkIdentical(dbl1, dbl2) ? "Identical" : "Not identical"));
+                case 6:
+                    Statement st6 = con.createStatement();
+                    ResultSet rs6 = st6.executeQuery(
+                        "SELECT A.Appointment_ID, D.Doctor_Name, P.Patient_Name, A.Appointment_Date " +
+                        "FROM APPOINTMENT A JOIN DOCTOR D ON A.Doctor_ID=D.Doctor_ID " +
+                        "JOIN PATIENT P ON A.Patient_ID=P.Patient_ID");
+                    System.out.println("\\nApp_ID | Doctor | Patient | Date");
+                    while (rs6.next())
+                        System.out.println(rs6.getInt(1)+" | "+rs6.getString(2)+" | "+rs6.getString(3)+" | "+rs6.getString(4));
+                    rs6.close(); st6.close(); break;
 
-        System.out.println("\\n=== Test (b): sumByParity ===");
-        List<Number> numbers = Arrays.asList(1, 2, 3, 4, 5, 6);
-        System.out.println("Numbers: [1,2,3,4,5,6] → " + sumByParity(numbers));
-
-        System.out.println("\\n=== Test (c): Inventory<T> - Type Safety ===");
-        // (d) Instantiate Inventory<String>
-        Inventory<String> productNames = new Inventory<>();
-        productNames.add("Laptop");
-        productNames.add("Mouse");
-        productNames.add("Keyboard");
-        productNames.display();
-
-        // (d) Instantiate Inventory<Integer>
-        Inventory<Integer> productCodes = new Inventory<>();
-        productCodes.add(1001);
-        productCodes.add(1002);
-        productCodes.add(1003);
-        productCodes.display();
-
-        // (d) Instantiate Inventory<Double>
-        Inventory<Double> prices = new Inventory<>();
-        prices.add(45000.0);
-        prices.add(500.0);
-        prices.add(3500.0);
-        prices.display();
-
-        // (e) Demonstrate type safety
-        System.out.println("\\n=== Type Safety Demo ===");
-        System.out.println("Inventory<String> can hold: productNames.contains(\\"Laptop\\") → " + productNames.contains("Laptop"));
-        // productNames.add(100); // COMPILE ERROR: Cannot add Integer to Inventory<String>
-        System.out.println("// productNames.add(100); - COMPILE TIME ERROR! Cannot add Integer to String Inventory");
+                case 7:
+                    sc.nextLine();
+                    System.out.print("Enter Specialization: "); String sp = sc.nextLine();
+                    PreparedStatement ps7 = con.prepareStatement("SELECT * FROM DOCTOR WHERE Specialization=?");
+                    ps7.setString(1,sp);
+                    ResultSet rs7 = ps7.executeQuery();
+                    while (rs7.next())
+                        System.out.println(rs7.getInt(1)+" | "+rs7.getString(2)+" | "+rs7.getDouble(4));
+                    rs7.close(); ps7.close(); break;
+            }
+        } while (choice != 0);
+        con.close();
     }
 }`
   },
   {
-    id: 24,
-    title: "Generic Student Grade Analyser",
-    practical: "Practical 13 — Java Generics",
-    tag: "Bounded Type Parameters · Comparable · Generic Methods",
-    code: `// Practical 13 — Problem 24: Generic Student Grade Analyser
-import java.util.*;
+    name: "Banking System (JDBC)",
+    code: `import java.sql.*;
+import java.util.Scanner;
 
-public class GradeAnalysis {
-    // (a) Generic method compareRecords
-    static <T> boolean compareRecords(T[] batch1, T[] batch2) {
-        if (batch1.length != batch2.length) return false;
-        for (int i = 0; i < batch1.length; i++) {
-            if (!batch1[i].equals(batch2[i])) return false;
-        }
-        return true;
-    }
+// Database: MySQL
+// Tables: CUSTOMER(Customer_ID, Customer_Name, City), ACCOUNT(Account_No, Customer_ID, Account_Type, Balance), TRANSACTION(Transaction_ID, Account_No, Amount, Transaction_Type)
 
-    // (b) Generic method analyseNumbers
-    static String analyseNumbers(List<? extends Number> marks) {
-        long evenSum = 0, oddSum = 0;
-        for (Number n : marks) {
-            int val = n.intValue();
-            if (val % 2 == 0) evenSum += val;
-            else oddSum += val;
-        }
-        return "Even-valued marks sum: " + evenSum + ", Odd-valued marks sum: " + oddSum;
-    }
+public class BankingJDBC {
+    static final String URL = "jdbc:mysql://localhost:3306/bankdb";
+    static final String USER = "root";
+    static final String PASS = "password";
 
-    // (c) Generic class with bounded type parameter
-    static class GradeBook<T extends Comparable<T>> {
-        private List<T> grades = new ArrayList<>();
+    public static void main(String[] args) throws Exception {
+        Class.forName("com.mysql.cj.jdbc.Driver");
+        Connection con = DriverManager.getConnection(URL, USER, PASS);
+        Scanner sc = new Scanner(System.in);
+        int choice;
 
-        void add(T grade) {
-            grades.add(grade);
-        }
+        do {
+            System.out.println("\\n===== BANKING SYSTEM =====");
+            System.out.println("1. Add Customer");
+            System.out.println("2. Open Account");
+            System.out.println("3. Deposit Amount");
+            System.out.println("4. Withdraw Amount");
+            System.out.println("5. Check Balance");
+            System.out.println("6. View Transaction History");
+            System.out.println("7. Display All Accounts");
+            System.out.println("0. Exit");
+            System.out.print("Enter choice: ");
+            choice = sc.nextInt();
 
-        T getMax() {
-            if (grades.isEmpty()) return null;
-            T max = grades.get(0);
-            for (T g : grades) {
-                if (g.compareTo(max) > 0) max = g;
+            switch (choice) {
+                case 1:
+                    System.out.print("Customer ID: "); int cid = sc.nextInt(); sc.nextLine();
+                    System.out.print("Name: "); String cname = sc.nextLine();
+                    System.out.print("City: "); String city = sc.nextLine();
+                    PreparedStatement ps1 = con.prepareStatement("INSERT INTO CUSTOMER VALUES(?,?,?)");
+                    ps1.setInt(1,cid); ps1.setString(2,cname); ps1.setString(3,city);
+                    ps1.executeUpdate();
+                    System.out.println("Customer added!"); ps1.close(); break;
+
+                case 2:
+                    System.out.print("Account No: "); int accNo = sc.nextInt();
+                    System.out.print("Customer ID: "); int accCid = sc.nextInt(); sc.nextLine();
+                    System.out.print("Account Type (Savings/Current): "); String accType = sc.nextLine();
+                    System.out.print("Initial Balance: "); double bal = sc.nextDouble();
+                    PreparedStatement ps2 = con.prepareStatement("INSERT INTO ACCOUNT VALUES(?,?,?,?)");
+                    ps2.setInt(1,accNo); ps2.setInt(2,accCid); ps2.setString(3,accType); ps2.setDouble(4,bal);
+                    ps2.executeUpdate();
+                    System.out.println("Account opened!"); ps2.close(); break;
+
+                case 3:
+                    System.out.print("Account No: "); int depAcc = sc.nextInt();
+                    System.out.print("Deposit Amount: "); double depAmt = sc.nextDouble();
+                    PreparedStatement ps3 = con.prepareStatement("UPDATE ACCOUNT SET Balance=Balance+? WHERE Account_No=?");
+                    ps3.setDouble(1,depAmt); ps3.setInt(2,depAcc); ps3.executeUpdate();
+                    PreparedStatement ps3t = con.prepareStatement("INSERT INTO TRANSACTION VALUES(NULL,?,?,?)");
+                    ps3t.setInt(1,depAcc); ps3t.setDouble(2,depAmt); ps3t.setString(3,"Credit");
+                    ps3t.executeUpdate();
+                    System.out.println("Amount deposited!"); ps3.close(); ps3t.close(); break;
+
+                case 4:
+                    System.out.print("Account No: "); int witAcc = sc.nextInt();
+                    System.out.print("Withdraw Amount: "); double witAmt = sc.nextDouble();
+                    PreparedStatement checkBal = con.prepareStatement("SELECT Balance FROM ACCOUNT WHERE Account_No=?");
+                    checkBal.setInt(1,witAcc);
+                    ResultSet rsb = checkBal.executeQuery();
+                    if (rsb.next() && rsb.getDouble(1) >= witAmt) {
+                        PreparedStatement ps4 = con.prepareStatement("UPDATE ACCOUNT SET Balance=Balance-? WHERE Account_No=?");
+                        ps4.setDouble(1,witAmt); ps4.setInt(2,witAcc); ps4.executeUpdate();
+                        PreparedStatement ps4t = con.prepareStatement("INSERT INTO TRANSACTION VALUES(NULL,?,?,?)");
+                        ps4t.setInt(1,witAcc); ps4t.setDouble(2,witAmt); ps4t.setString(3,"Debit");
+                        ps4t.executeUpdate();
+                        System.out.println("Withdrawal successful!"); ps4.close(); ps4t.close();
+                    } else { System.out.println("Insufficient balance!"); }
+                    rsb.close(); checkBal.close(); break;
+
+                case 5:
+                    System.out.print("Account No: "); int balAcc = sc.nextInt();
+                    PreparedStatement ps5 = con.prepareStatement("SELECT Balance FROM ACCOUNT WHERE Account_No=?");
+                    ps5.setInt(1,balAcc);
+                    ResultSet rs5 = ps5.executeQuery();
+                    if (rs5.next()) System.out.println("Balance: Rs." + rs5.getDouble(1));
+                    else System.out.println("Account not found.");
+                    rs5.close(); ps5.close(); break;
+
+                case 6:
+                    System.out.print("Account No: "); int histAcc = sc.nextInt();
+                    PreparedStatement ps6 = con.prepareStatement("SELECT * FROM TRANSACTION WHERE Account_No=?");
+                    ps6.setInt(1,histAcc);
+                    ResultSet rs6 = ps6.executeQuery();
+                    System.out.println("\\nTxn_ID | Account | Amount | Type");
+                    while (rs6.next())
+                        System.out.println(rs6.getInt(1)+" | "+rs6.getInt(2)+" | Rs."+rs6.getDouble(3)+" | "+rs6.getString(4));
+                    rs6.close(); ps6.close(); break;
+
+                case 7:
+                    Statement st7 = con.createStatement();
+                    ResultSet rs7 = st7.executeQuery(
+                        "SELECT C.Customer_Name, A.Account_No, A.Account_Type, A.Balance " +
+                        "FROM CUSTOMER C JOIN ACCOUNT A ON C.Customer_ID=A.Customer_ID");
+                    System.out.println("\\nName | Acc No | Type | Balance");
+                    while (rs7.next())
+                        System.out.println(rs7.getString(1)+" | "+rs7.getInt(2)+" | "+rs7.getString(3)+" | Rs."+rs7.getDouble(4));
+                    rs7.close(); st7.close(); break;
             }
-            return max;
-        }
-
-        T getMin() {
-            if (grades.isEmpty()) return null;
-            T min = grades.get(0);
-            for (T g : grades) {
-                if (g.compareTo(min) < 0) min = g;
-            }
-            return min;
-        }
-
-        void displayAll() {
-            System.out.println("Grades: " + grades);
-        }
+        } while (choice != 0);
+        con.close();
     }
+}`
+  },
+  {
+    name: "Student Management System (JDBC)",
+    code: `import java.sql.*;
+import java.util.Scanner;
 
-    // (e) Generic method swap
-    static <T> void swap(T[] arr, int i, int j) {
-        if (i >= 0 && i < arr.length && j >= 0 && j < arr.length) {
-            T temp = arr[i];
-            arr[i] = arr[j];
-            arr[j] = temp;
-        }
-    }
+// Database: MySQL
+// Table: STUDENT(Student_ID, Student_Name, Branch, CGPA, City)
+
+public class StudentJDBC {
+    static final String URL = "jdbc:mysql://localhost:3306/collegedb";
+    static final String USER = "root";
+    static final String PASS = "password";
 
     public static void main(String[] args) {
-        System.out.println("=== Test (a): compareRecords ===");
-        String[] batch1 = {"Asha", "Raj", "Priya"};
-        String[] batch2 = {"Asha", "Raj", "Dev"};
-        String[] batch3 = {"Asha", "Raj", "Priya"};
-        System.out.println("batch1=[Asha,Raj,Priya] vs batch2=[Asha,Raj,Dev] → " + (compareRecords(batch1, batch2) ? "Identical" : "Not identical"));
-        System.out.println("batch1=[Asha,Raj,Priya] vs batch3=[Asha,Raj,Priya] → " + (compareRecords(batch1, batch3) ? "Identical" : "Not identical"));
+        try {
+            Class.forName("com.mysql.cj.jdbc.Driver");
+            Connection con = DriverManager.getConnection(URL, USER, PASS);
 
-        Integer[] roll1 = {101, 102, 103};
-        Integer[] roll2 = {101, 102, 103};
-        System.out.println("\\nRoll numbers [101,102,103] vs [101,102,103] → " + (compareRecords(roll1, roll2) ? "Identical" : "Not identical"));
+            // Create table if not exists
+            Statement st = con.createStatement();
+            st.executeUpdate(
+                "CREATE TABLE IF NOT EXISTS STUDENT (" +
+                "Student_ID INT PRIMARY KEY, Student_Name VARCHAR(50), " +
+                "Branch VARCHAR(30), CGPA DOUBLE, City VARCHAR(30))");
 
-        System.out.println("\\n=== Test (b): analyseNumbers ===");
-        List<Number> marks = Arrays.asList(72, 85, 90, 63, 48, 76);
-        System.out.println("Marks: [72,85,90,63,48,76]");
-        System.out.println(analyseNumbers(marks));
+            Scanner sc = new Scanner(System.in);
+            int choice;
 
-        System.out.println("\\n=== Test (c) & (d): GradeBook<T> ===");
-        // (d) GradeBook<Integer>
-        GradeBook<Integer> intGrades = new GradeBook<>();
-        intGrades.add(85);
-        intGrades.add(72);
-        intGrades.add(91);
-        intGrades.add(63);
-        intGrades.displayAll();
-        System.out.println("Max: " + intGrades.getMax() + ", Min: " + intGrades.getMin());
+            do {
+                System.out.println("\\n===== STUDENT MANAGEMENT SYSTEM =====");
+                System.out.println("1. Add Student");
+                System.out.println("2. Display All Students");
+                System.out.println("3. Search by Branch");
+                System.out.println("4. Update CGPA");
+                System.out.println("5. Delete Student");
+                System.out.println("6. Display Top Students (CGPA > 8)");
+                System.out.println("0. Exit");
+                System.out.print("Enter choice: ");
+                choice = sc.nextInt();
 
-        // (d) GradeBook<Double>
-        GradeBook<Double> doubleGrades = new GradeBook<>();
-        doubleGrades.add(3.8);
-        doubleGrades.add(3.5);
-        doubleGrades.add(3.9);
-        doubleGrades.add(3.2);
-        doubleGrades.displayAll();
-        System.out.println("Max GPA: " + doubleGrades.getMax() + ", Min GPA: " + doubleGrades.getMin());
+                switch (choice) {
+                    case 1:
+                        System.out.print("Student ID: "); int sid = sc.nextInt(); sc.nextLine();
+                        System.out.print("Name: "); String sname = sc.nextLine();
+                        System.out.print("Branch: "); String branch = sc.nextLine();
+                        System.out.print("CGPA: "); double cgpa = sc.nextDouble(); sc.nextLine();
+                        System.out.print("City: "); String city = sc.nextLine();
+                        PreparedStatement ps1 = con.prepareStatement("INSERT INTO STUDENT VALUES(?,?,?,?,?)");
+                        ps1.setInt(1,sid); ps1.setString(2,sname); ps1.setString(3,branch);
+                        ps1.setDouble(4,cgpa); ps1.setString(5,city);
+                        ps1.executeUpdate();
+                        System.out.println("Student added successfully!"); ps1.close(); break;
 
-        System.out.println("\\n=== Test (e): Generic swap method ===");
-        Integer[] intArr = {10, 20, 30, 40};
-        System.out.println("Before swap (Integer): " + Arrays.toString(intArr));
-        swap(intArr, 0, 3);
-        System.out.println("After swap(0,3): " + Arrays.toString(intArr));
+                    case 2:
+                        ResultSet rs2 = st.executeQuery("SELECT * FROM STUDENT ORDER BY Student_ID");
+                        System.out.println("\\nID | Name | Branch | CGPA | City");
+                        System.out.println("--------------------------------------");
+                        while (rs2.next())
+                            System.out.println(rs2.getInt(1)+" | "+rs2.getString(2)+" | "+rs2.getString(3)+" | "+rs2.getDouble(4)+" | "+rs2.getString(5));
+                        rs2.close(); break;
 
-        String[] strArr = {"Apple", "Banana", "Cherry"};
-        System.out.println("\\nBefore swap (String): " + Arrays.toString(strArr));
-        swap(strArr, 0, 2);
-        System.out.println("After swap(0,2): " + Arrays.toString(strArr));
+                    case 3:
+                        sc.nextLine();
+                        System.out.print("Enter Branch: "); String br = sc.nextLine();
+                        PreparedStatement ps3 = con.prepareStatement("SELECT * FROM STUDENT WHERE Branch=?");
+                        ps3.setString(1,br);
+                        ResultSet rs3 = ps3.executeQuery();
+                        System.out.println("\\nStudents in " + br + " branch:");
+                        while (rs3.next())
+                            System.out.println(rs3.getInt(1)+" | "+rs3.getString(2)+" | CGPA: "+rs3.getDouble(4));
+                        rs3.close(); ps3.close(); break;
+
+                    case 4:
+                        System.out.print("Student ID: "); int upId = sc.nextInt();
+                        System.out.print("New CGPA: "); double newCgpa = sc.nextDouble();
+                        PreparedStatement ps4 = con.prepareStatement("UPDATE STUDENT SET CGPA=? WHERE Student_ID=?");
+                        ps4.setDouble(1,newCgpa); ps4.setInt(2,upId);
+                        int rows4 = ps4.executeUpdate();
+                        System.out.println(rows4>0 ? "CGPA updated!" : "Student not found."); ps4.close(); break;
+
+                    case 5:
+                        System.out.print("Student ID to delete: "); int delId = sc.nextInt();
+                        PreparedStatement ps5 = con.prepareStatement("DELETE FROM STUDENT WHERE Student_ID=?");
+                        ps5.setInt(1,delId);
+                        int rows5 = ps5.executeUpdate();
+                        System.out.println(rows5>0 ? "Student deleted!" : "Student not found."); ps5.close(); break;
+
+                    case 6:
+                        ResultSet rs6 = st.executeQuery("SELECT * FROM STUDENT WHERE CGPA>8 ORDER BY CGPA DESC");
+                        System.out.println("\\nTop Students (CGPA > 8.0):");
+                        while (rs6.next())
+                            System.out.println(rs6.getString(2)+" | "+rs6.getString(3)+" | CGPA: "+rs6.getDouble(4));
+                        rs6.close(); break;
+                }
+            } while (choice != 0);
+            con.close();
+        } catch (Exception e) {
+            System.out.println("Error: " + e.getMessage());
+            e.printStackTrace();
+        }
+    }
+}`
+  },
+  {
+    name: "Employee Management System (JDBC)",
+    code: `import java.sql.*;
+import java.util.Scanner;
+
+// Database: MySQL
+// Table: EMPLOYEE(Emp_ID, Emp_Name, Department, Salary)
+
+public class EmployeeJDBC {
+    static final String URL = "jdbc:mysql://localhost:3306/employeedb";
+    static final String USER = "root";
+    static final String PASS = "password";
+
+    public static void main(String[] args) {
+        try {
+            Class.forName("com.mysql.cj.jdbc.Driver");
+            Connection con = DriverManager.getConnection(URL, USER, PASS);
+
+            Statement createSt = con.createStatement();
+            createSt.executeUpdate(
+                "CREATE TABLE IF NOT EXISTS EMPLOYEE (" +
+                "Emp_ID INT PRIMARY KEY, Emp_Name VARCHAR(50), " +
+                "Department VARCHAR(30), Salary DECIMAL(10,2))");
+
+            Scanner sc = new Scanner(System.in);
+            int choice;
+
+            do {
+                System.out.println("\\n===== EMPLOYEE MANAGEMENT SYSTEM =====");
+                System.out.println("1. Add Employee");
+                System.out.println("2. Display All Employees");
+                System.out.println("3. Search by Department");
+                System.out.println("4. Update Salary");
+                System.out.println("5. Delete Employee");
+                System.out.println("6. Display High Earners (Salary > 60000)");
+                System.out.println("7. Department-wise Employee Count");
+                System.out.println("0. Exit");
+                System.out.print("Enter choice: ");
+                choice = sc.nextInt();
+                Statement st = con.createStatement();
+
+                switch (choice) {
+                    case 1:
+                        System.out.print("Emp ID: "); int eid = sc.nextInt(); sc.nextLine();
+                        System.out.print("Name: "); String ename = sc.nextLine();
+                        System.out.print("Department: "); String dept = sc.nextLine();
+                        System.out.print("Salary: "); double sal = sc.nextDouble();
+                        PreparedStatement ps1 = con.prepareStatement("INSERT INTO EMPLOYEE VALUES(?,?,?,?)");
+                        ps1.setInt(1,eid); ps1.setString(2,ename); ps1.setString(3,dept); ps1.setDouble(4,sal);
+                        ps1.executeUpdate();
+                        System.out.println("Employee added!"); ps1.close(); break;
+
+                    case 2:
+                        ResultSet rs2 = st.executeQuery("SELECT * FROM EMPLOYEE ORDER BY Emp_ID");
+                        System.out.println("\\nEmp_ID | Name | Department | Salary");
+                        System.out.println("--------------------------------------");
+                        while (rs2.next())
+                            System.out.println(rs2.getInt(1)+" | "+rs2.getString(2)+" | "+rs2.getString(3)+" | Rs."+rs2.getDouble(4));
+                        rs2.close(); break;
+
+                    case 3:
+                        sc.nextLine();
+                        System.out.print("Department: "); String d = sc.nextLine();
+                        PreparedStatement ps3 = con.prepareStatement("SELECT * FROM EMPLOYEE WHERE Department=?");
+                        ps3.setString(1,d);
+                        ResultSet rs3 = ps3.executeQuery();
+                        System.out.println("\\nEmployees in " + d + ":");
+                        while (rs3.next())
+                            System.out.println(rs3.getInt(1)+" | "+rs3.getString(2)+" | Rs."+rs3.getDouble(4));
+                        rs3.close(); ps3.close(); break;
+
+                    case 4:
+                        System.out.print("Emp ID: "); int uid = sc.nextInt();
+                        System.out.print("New Salary: "); double ns = sc.nextDouble();
+                        PreparedStatement ps4 = con.prepareStatement("UPDATE EMPLOYEE SET Salary=? WHERE Emp_ID=?");
+                        ps4.setDouble(1,ns); ps4.setInt(2,uid);
+                        System.out.println(ps4.executeUpdate()>0 ? "Salary updated!" : "Employee not found.");
+                        ps4.close(); break;
+
+                    case 5:
+                        System.out.print("Emp ID to delete: "); int did = sc.nextInt();
+                        PreparedStatement ps5 = con.prepareStatement("DELETE FROM EMPLOYEE WHERE Emp_ID=?");
+                        ps5.setInt(1,did);
+                        System.out.println(ps5.executeUpdate()>0 ? "Employee deleted!" : "Not found.");
+                        ps5.close(); break;
+
+                    case 6:
+                        ResultSet rs6 = st.executeQuery("SELECT * FROM EMPLOYEE WHERE Salary>60000 ORDER BY Salary DESC");
+                        System.out.println("\\nHigh Earners (Salary > 60,000):");
+                        while (rs6.next())
+                            System.out.println(rs6.getString(2)+" | "+rs6.getString(3)+" | Rs."+rs6.getDouble(4));
+                        rs6.close(); break;
+
+                    case 7:
+                        ResultSet rs7 = st.executeQuery("SELECT Department, COUNT(*) AS Count FROM EMPLOYEE GROUP BY Department");
+                        System.out.println("\\nDepartment | Employee Count");
+                        while (rs7.next())
+                            System.out.println(rs7.getString(1)+" | "+rs7.getInt(2));
+                        rs7.close(); break;
+                }
+                st.close();
+            } while (choice != 0);
+            con.close();
+        } catch (Exception e) {
+            System.out.println("Error: " + e.getMessage());
+        }
     }
 }`
   }
 ];
 
-// Practical section labels
-const sections = {
-  1:  "Practical 02 — Class, Object, Methods, Constructors",
-  3:  "Practical 03 — Java Inheritance",
-  5:  "Practical 04 — Static, Final, Super, This Keyword",
-  7:  "Practical 05 — Polymorphism",
-  9:  "Practical 06 — Abstract Class, Interfaces, Lambda",
-  11: "Practical 07 — Exception Handling",
-  13: "Practical 08 — Java Threads",
-  15: "Practical 09 — Packages and Collections",
-  17: "Practical 10 — File Handling",
-  19: "Practical 11 — Java Swing",
-  21: "Practical 12 — JDBC",
-  23: "Practical 13 — Java Generics"
-};
+// ═══════════════════════════════════════════════════
+//  RENDER
+// ═══════════════════════════════════════════════════
 
-function renderPrograms(list) {
-  const grid = document.getElementById('programGrid');
-  const noResults = document.getElementById('noResults');
-  const counter = document.getElementById('result-count');
-  grid.innerHTML = '';
+function renderSection(data, containerId, countId, prefix) {
+  const container = document.getElementById(containerId);
+  const countEl = document.getElementById(countId);
+  container.innerHTML = '';
+  countEl.textContent = data.length + ' programs';
 
-  if (list.length === 0) {
-    noResults.style.display = 'block';
-    counter.textContent = 'Showing 0 of ' + programs.length;
-    return;
-  }
-  noResults.style.display = 'none';
-  counter.textContent = 'Showing ' + list.length + ' of ' + programs.length;
-
-  let lastSection = '';
-  list.forEach(prog => {
-    const secLabel = sections[prog.id];
-    if (secLabel && secLabel !== lastSection) {
-      lastSection = secLabel;
-      const lbl = document.createElement('div');
-      lbl.className = 'section-label';
-      lbl.textContent = secLabel;
-      grid.appendChild(lbl);
-    }
-
+  data.forEach((item, i) => {
     const card = document.createElement('div');
     card.className = 'card';
-    card.innerHTML = `
-      <div class="card-num">${String(prog.id).padStart(2,'0')}</div>
-      <div class="card-info">
-        <div class="card-title">${prog.title}</div>
-        <span class="card-tag">${prog.tag}</span>
-      </div>
-      <button class="copy-btn" onclick="copyCode(${prog.id}, this)">
-        <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2">
-          <rect x="9" y="9" width="13" height="13" rx="2" ry="2"></rect>
-          <path d="M5 15H4a2 2 0 0 1-2-2V4a2 2 0 0 1 2-2h9a2 2 0 0 1 2 2v1"></path>
-        </svg>
-        Copy Code
-      </button>
-    `;
-    grid.appendChild(card);
+    card.dataset.name = item.name.toLowerCase();
+
+    const left = document.createElement('div');
+    left.className = 'card-left';
+    left.innerHTML = `<span class="card-num">${prefix}${String(i+1).padStart(2,'0')}</span><span class="card-title">${item.name}</span>`;
+
+    const btn = document.createElement('button');
+    btn.className = 'copy-btn';
+    btn.textContent = 'Copy Code';
+    btn.onclick = () => copyCode(item.code, btn);
+
+    card.appendChild(left);
+    card.appendChild(btn);
+    container.appendChild(card);
   });
 }
 
-function copyCode(id, btn) {
-  const prog = programs.find(p => p.id === id);
-  if (!prog) return;
-  navigator.clipboard.writeText(prog.code).then(() => {
+renderSection(sqlData, 'cards-sql', 'count-sql', 'S');
+renderSection(mongoData, 'cards-mongo', 'count-mongo', 'M');
+renderSection(plsqlData, 'cards-plsql', 'count-plsql', 'P');
+renderSection(jdbcData, 'cards-jdbc', 'count-jdbc', 'J');
+
+// ═══════════════════════════════════════════════════
+//  COPY
+// ═══════════════════════════════════════════════════
+
+let toastTimer;
+function copyCode(code, btn) {
+  navigator.clipboard.writeText(code).then(() => {
+    btn.textContent = '✓ Copied!';
     btn.classList.add('copied');
-    btn.innerHTML = `<svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><polyline points="20 6 9 17 4 12"></polyline></svg> Code Copied!`;
     setTimeout(() => {
+      btn.textContent = 'Copy Code';
       btn.classList.remove('copied');
-      btn.innerHTML = `<svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2"><rect x="9" y="9" width="13" height="13" rx="2" ry="2"></rect><path d="M5 15H4a2 2 0 0 1-2-2V4a2 2 0 0 1 2-2h9a2 2 0 0 1 2 2v1"></path></svg> Copy Code`;
     }, 2000);
+    showToast();
+  }).catch(() => {
+    // Fallback for older browsers
+    const ta = document.createElement('textarea');
+    ta.value = code;
+    ta.style.position = 'fixed';
+    ta.style.opacity = '0';
+    document.body.appendChild(ta);
+    ta.select();
+    document.execCommand('copy');
+    document.body.removeChild(ta);
+    btn.textContent = '✓ Copied!';
+    btn.classList.add('copied');
+    setTimeout(() => { btn.textContent = 'Copy Code'; btn.classList.remove('copied'); }, 2000);
+    showToast();
   });
 }
 
-function filterPrograms() {
-  const q = document.getElementById('search').value.toLowerCase().trim();
-  const filtered = q
-    ? programs.filter(p =>
-        p.title.toLowerCase().includes(q) ||
-        p.tag.toLowerCase().includes(q) ||
-        p.practical.toLowerCase().includes(q))
-    : programs;
-  renderPrograms(filtered);
+function showToast() {
+  const toast = document.getElementById('toast');
+  toast.classList.add('show');
+  clearTimeout(toastTimer);
+  toastTimer = setTimeout(() => toast.classList.remove('show'), 2200);
 }
 
-// Initial render
-renderPrograms(programs);
+// ═══════════════════════════════════════════════════
+//  SEARCH
+// ═══════════════════════════════════════════════════
+
+document.getElementById('searchInput').addEventListener('input', function() {
+  const q = this.value.toLowerCase().trim();
+  let totalVisible = 0;
+
+  ['sql', 'mongo', 'plsql', 'jdbc'].forEach(sec => {
+    const cards = document.querySelectorAll(`#cards-${sec} .card`);
+    let visible = 0;
+    cards.forEach(card => {
+      const match = !q || card.dataset.name.includes(q);
+      card.style.display = match ? '' : 'none';
+      if (match) visible++;
+    });
+    totalVisible += visible;
+    document.getElementById(`section-${sec}`).classList.toggle('hidden', visible === 0);
+    document.getElementById(`count-${sec}`).textContent = visible + ' programs';
+  });
+
+  document.getElementById('noResults').style.display = totalVisible === 0 ? 'block' : 'none';
+});
 </script>
 </body>
-</html>`
+</html>
+
+
