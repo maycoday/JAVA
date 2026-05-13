@@ -66,6 +66,35 @@
     margin-bottom: 14px;
   }
 
+  /* ── MODULE TABS ── */
+  .module-tabs {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 10px;
+    margin-top: 14px;
+  }
+  .module-tab {
+    border: 1px solid #3a3a3a;
+    background: #202020;
+    color: #c9c9c9;
+    padding: 8px 14px;
+    border-radius: 999px;
+    font-family: 'Space Mono', monospace;
+    font-size: 0.72rem;
+    cursor: pointer;
+    transition: transform 0.15s, background 0.18s, color 0.18s, border-color 0.18s;
+  }
+  .module-tab:hover {
+    transform: translateY(-1px);
+    border-color: #5b5b5b;
+    color: #fff;
+  }
+  .module-tab.active {
+    background: #fff;
+    color: #111;
+    border-color: #fff;
+  }
+
   /* ── SEARCH ── */
   .search-wrap {
     position: relative;
@@ -243,6 +272,13 @@
   <div class="header-inner">
     <h1>📚 DBMS Practicals – Solution Hub</h1>
     <p>Click "Copy Code" on any program to instantly copy the solution to clipboard</p>
+    <div class="module-tabs" role="tablist" aria-label="Module selector">
+      <button class="module-tab active" type="button" data-module="all" aria-selected="true">All</button>
+      <button class="module-tab" type="button" data-module="sql" aria-selected="false">SQL</button>
+      <button class="module-tab" type="button" data-module="mongo" aria-selected="false">MongoDB</button>
+      <button class="module-tab" type="button" data-module="plsql" aria-selected="false">PL/SQL</button>
+      <button class="module-tab" type="button" data-module="jdbc" aria-selected="false">JDBC</button>
+    </div>
     <div class="search-wrap">
       <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
         <circle cx="11" cy="11" r="8"/><path d="m21 21-4.35-4.35"/>
@@ -2723,25 +2759,50 @@ function showToast() {
 //  SEARCH
 // ═══════════════════════════════════════════════════
 
-document.getElementById('searchInput').addEventListener('input', function() {
-  const q = this.value.toLowerCase().trim();
+const sections = ['sql', 'mongo', 'plsql', 'jdbc'];
+const moduleTabs = document.querySelectorAll('.module-tab');
+let activeModule = 'all';
+
+function applyFilters() {
+  const q = document.getElementById('searchInput').value.toLowerCase().trim();
   let totalVisible = 0;
 
-  ['sql', 'mongo', 'plsql', 'jdbc'].forEach(sec => {
+  sections.forEach(sec => {
+    const section = document.getElementById(`section-${sec}`);
     const cards = document.querySelectorAll(`#cards-${sec} .card`);
     let visible = 0;
+
     cards.forEach(card => {
-      const match = !q || card.dataset.name.includes(q);
+      const matchesQuery = !q || card.dataset.name.includes(q);
+      const matchesModule = activeModule === 'all' || activeModule === sec;
+      const match = matchesQuery && matchesModule;
       card.style.display = match ? '' : 'none';
       if (match) visible++;
     });
+
     totalVisible += visible;
-    document.getElementById(`section-${sec}`).classList.toggle('hidden', visible === 0);
+    section.classList.toggle('hidden', activeModule !== 'all' && activeModule !== sec);
     document.getElementById(`count-${sec}`).textContent = visible + ' programs';
   });
 
   document.getElementById('noResults').style.display = totalVisible === 0 ? 'block' : 'none';
+}
+
+moduleTabs.forEach(tab => {
+  tab.addEventListener('click', () => {
+    activeModule = tab.dataset.module;
+    moduleTabs.forEach(btn => {
+      const isActive = btn === tab;
+      btn.classList.toggle('active', isActive);
+      btn.setAttribute('aria-selected', String(isActive));
+    });
+    applyFilters();
+  });
 });
+
+document.getElementById('searchInput').addEventListener('input', applyFilters);
+
+applyFilters();
 </script>
 </body>
 </html>
