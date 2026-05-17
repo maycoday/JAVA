@@ -1,2810 +1,1887 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-<meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>DBMS Practicals – Solution Hub</title>
-<link href="https://fonts.googleapis.com/css2?family=Space+Mono:wght@400;700&family=DM+Sans:wght@300;400;500;600&display=swap" rel="stylesheet">
-<style>
-  :root {
-    --bg: #f5f4f0;
-    --surface: #ffffff;
-    --border: #e2e0d8;
-    --text: #1a1917;
-    --muted: #7a7870;
-    --sql-accent: #2563eb;
-    --sql-light: #eff6ff;
-    --sql-border: #bfdbfe;
-    --mongo-accent: #16a34a;
-    --mongo-light: #f0fdf4;
-    --mongo-border: #bbf7d0;
-    --plsql-accent: #9333ea;
-    --plsql-light: #faf5ff;
-    --plsql-border: #e9d5ff;
-    --jdbc-accent: #ea580c;
-    --jdbc-light: #fff7ed;
-    --jdbc-border: #fed7aa;
-    --copied: #16a34a;
-    --radius: 10px;
-    --shadow: 0 1px 3px rgba(0,0,0,0.07), 0 2px 8px rgba(0,0,0,0.05);
-  }
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>ADSL Practical Codes Library</title>
+  <style>
+    * { box-sizing: border-box; margin: 0; padding: 0; }
 
-  * { box-sizing: border-box; margin: 0; padding: 0; }
+    body {
+      font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+      background: #f7f8fa;
+      color: #222;
+      min-height: 100vh;
+    }
 
-  body {
-    font-family: 'DM Sans', sans-serif;
-    background: var(--bg);
-    color: var(--text);
-    min-height: 100vh;
-    padding: 0 0 60px 0;
-  }
+    header {
+      background: #fff;
+      border-bottom: 2px solid #e5e7eb;
+      padding: 28px 24px 18px;
+      text-align: center;
+      position: sticky;
+      top: 0;
+      z-index: 100;
+      box-shadow: 0 2px 8px rgba(0,0,0,0.06);
+    }
 
-  /* ── HEADER ── */
-  header {
-    background: var(--text);
-    color: #fff;
-    padding: 28px 24px 22px;
-    position: sticky;
-    top: 0;
-    z-index: 100;
-    box-shadow: 0 2px 12px rgba(0,0,0,0.15);
-  }
-  .header-inner {
-    max-width: 860px;
-    margin: 0 auto;
-  }
-  header h1 {
-    font-family: 'Space Mono', monospace;
-    font-size: clamp(1.1rem, 3vw, 1.45rem);
-    letter-spacing: -0.02em;
-    margin-bottom: 4px;
-  }
-  header p {
-    font-size: 0.8rem;
-    color: #a0a0a0;
-    font-weight: 300;
-    margin-bottom: 14px;
-  }
+    header .badge {
+      display: inline-block;
+      font-size: 11px;
+      font-weight: 600;
+      letter-spacing: 1.5px;
+      text-transform: uppercase;
+      color: #6b7280;
+      margin-bottom: 6px;
+    }
 
-  /* ── MODULE TABS ── */
-  .module-tabs {
-    display: flex;
-    flex-wrap: wrap;
-    gap: 10px;
-    margin-top: 14px;
-  }
-  .module-tab {
-    border: 1px solid #3a3a3a;
-    background: #202020;
-    color: #c9c9c9;
-    padding: 8px 14px;
-    border-radius: 999px;
-    font-family: 'Space Mono', monospace;
-    font-size: 0.72rem;
-    cursor: pointer;
-    transition: transform 0.15s, background 0.18s, color 0.18s, border-color 0.18s;
-  }
-  .module-tab:hover {
-    transform: translateY(-1px);
-    border-color: #5b5b5b;
-    color: #fff;
-  }
-  .module-tab.active {
-    background: #fff;
-    color: #111;
-    border-color: #fff;
-  }
+    header h1 {
+      font-size: 1.6rem;
+      font-weight: 700;
+      color: #111;
+      letter-spacing: -0.3px;
+    }
 
-  /* ── SEARCH ── */
-  .search-wrap {
-    position: relative;
-    max-width: 420px;
-  }
-  .search-wrap svg {
-    position: absolute;
-    left: 12px;
-    top: 50%;
-    transform: translateY(-50%);
-    color: #888;
-    pointer-events: none;
-    width: 16px; height: 16px;
-  }
-  #searchInput {
-    width: 100%;
-    padding: 9px 12px 9px 36px;
-    border-radius: 8px;
-    border: 1.5px solid #3a3a3a;
-    background: #2a2a2a;
-    color: #fff;
-    font-family: 'DM Sans', sans-serif;
-    font-size: 0.88rem;
-    outline: none;
-    transition: border-color 0.2s;
-  }
-  #searchInput::placeholder { color: #777; }
-  #searchInput:focus { border-color: #666; }
+    header h1 span { color: #2563eb; }
 
-  /* ── MAIN ── */
-  main {
-    max-width: 860px;
-    margin: 0 auto;
-    padding: 32px 16px 0;
-  }
+    header p.subtitle {
+      font-size: 13px;
+      color: #9ca3af;
+      margin-top: 4px;
+    }
 
-  /* ── SECTION ── */
-  .section { margin-bottom: 40px; }
+    .search-wrap {
+      margin: 0 auto;
+      margin-top: 14px;
+      max-width: 480px;
+      position: relative;
+    }
 
-  .section-header {
-    display: flex;
-    align-items: center;
-    gap: 10px;
-    margin-bottom: 16px;
-    padding-bottom: 10px;
-    border-bottom: 2px solid var(--border);
-  }
-  .section-badge {
-    font-family: 'Space Mono', monospace;
-    font-size: 0.65rem;
-    font-weight: 700;
-    padding: 4px 10px;
-    border-radius: 20px;
-    letter-spacing: 0.06em;
-    text-transform: uppercase;
-  }
-  .section-title {
-    font-size: 1.05rem;
-    font-weight: 600;
-    color: var(--text);
-  }
-  .section-count {
-    margin-left: auto;
-    font-size: 0.75rem;
-    color: var(--muted);
-    font-family: 'Space Mono', monospace;
-  }
+    .search-wrap input {
+      width: 100%;
+      padding: 10px 16px 10px 40px;
+      border: 1.5px solid #d1d5db;
+      border-radius: 8px;
+      font-size: 14px;
+      outline: none;
+      background: #f9fafb;
+      transition: border-color 0.2s;
+    }
 
-  /* Section colour variants */
-  .sql-section .section-header { border-color: var(--sql-border); }
-  .sql-section .section-badge { background: var(--sql-light); color: var(--sql-accent); }
-  .mongo-section .section-header { border-color: var(--mongo-border); }
-  .mongo-section .section-badge { background: var(--mongo-light); color: var(--mongo-accent); }
-  .plsql-section .section-header { border-color: var(--plsql-border); }
-  .plsql-section .section-badge { background: var(--plsql-light); color: var(--plsql-accent); }
-  .jdbc-section .section-header { border-color: var(--jdbc-border); }
-  .jdbc-section .section-badge { background: var(--jdbc-light); color: var(--jdbc-accent); }
+    .search-wrap input:focus { border-color: #2563eb; background: #fff; }
 
-  /* ── CARD ── */
-  .card {
-    background: var(--surface);
-    border: 1.5px solid var(--border);
-    border-radius: var(--radius);
-    display: flex;
-    align-items: center;
-    justify-content: space-between;
-    padding: 14px 16px;
-    margin-bottom: 8px;
-    transition: box-shadow 0.18s, border-color 0.18s, transform 0.15s;
-    box-shadow: var(--shadow);
-  }
-  .card:hover { box-shadow: 0 3px 16px rgba(0,0,0,0.09); transform: translateY(-1px); }
-  .card-left { display: flex; align-items: center; gap: 12px; }
-  .card-num {
-    font-family: 'Space Mono', monospace;
-    font-size: 0.7rem;
-    color: var(--muted);
-    min-width: 26px;
-  }
-  .card-title { font-size: 0.9rem; font-weight: 500; }
+    .search-wrap .icon {
+      position: absolute;
+      left: 13px;
+      top: 50%;
+      transform: translateY(-50%);
+      color: #9ca3af;
+      font-size: 15px;
+    }
 
-  /* ── COPY BUTTON ── */
-  .copy-btn {
-    background: none;
-    border: 1.5px solid var(--border);
-    padding: 6px 14px;
-    border-radius: 6px;
-    font-family: 'Space Mono', monospace;
-    font-size: 0.7rem;
-    cursor: pointer;
-    color: var(--muted);
-    transition: all 0.18s;
-    white-space: nowrap;
-    flex-shrink: 0;
-  }
-  .copy-btn:hover {
-    background: var(--text);
-    color: #fff;
-    border-color: var(--text);
-  }
-  .copy-btn.copied {
-    background: var(--copied);
-    color: #fff;
-    border-color: var(--copied);
-  }
+    .container {
+      max-width: 860px;
+      margin: 28px auto;
+      padding: 0 16px 48px;
+    }
 
-  /* Section-specific btn hover */
-  .sql-section .copy-btn:hover { background: var(--sql-accent); border-color: var(--sql-accent); }
-  .mongo-section .copy-btn:hover { background: var(--mongo-accent); border-color: var(--mongo-accent); }
-  .plsql-section .copy-btn:hover { background: var(--plsql-accent); border-color: var(--plsql-accent); }
-  .jdbc-section .copy-btn:hover { background: var(--jdbc-accent); border-color: var(--jdbc-accent); }
+    .count-label {
+      font-size: 13px;
+      color: #6b7280;
+      margin-bottom: 14px;
+      font-weight: 500;
+    }
 
-  /* ── NO RESULTS ── */
-  #noResults {
-    text-align: center;
-    padding: 48px 0;
-    color: var(--muted);
-    display: none;
-  }
-  #noResults svg { width: 40px; height: 40px; margin-bottom: 12px; opacity: 0.4; }
-  #noResults p { font-size: 0.9rem; }
+    .card {
+      background: #fff;
+      border: 1.5px solid #e5e7eb;
+      border-radius: 10px;
+      padding: 16px 20px;
+      margin-bottom: 10px;
+      display: flex;
+      align-items: center;
+      gap: 14px;
+      transition: box-shadow 0.18s, border-color 0.18s;
+    }
 
-  /* ── TOAST ── */
-  #toast {
-    position: fixed;
-    bottom: 28px;
-    left: 50%;
-    transform: translateX(-50%) translateY(80px);
-    background: #1a1917;
-    color: #fff;
-    padding: 10px 22px;
-    border-radius: 8px;
-    font-size: 0.82rem;
-    font-family: 'Space Mono', monospace;
-    pointer-events: none;
-    transition: transform 0.3s cubic-bezier(.34,1.56,.64,1), opacity 0.3s;
-    opacity: 0;
-    z-index: 9999;
-    box-shadow: 0 4px 20px rgba(0,0,0,0.2);
-  }
-  #toast.show { transform: translateX(-50%) translateY(0); opacity: 1; }
+    .card:hover {
+      box-shadow: 0 4px 16px rgba(37,99,235,0.08);
+      border-color: #bfdbfe;
+    }
 
-  /* ── EMPTY SECTION ── */
-  .section.hidden { display: none; }
+    .num {
+      min-width: 34px;
+      height: 34px;
+      background: #eff6ff;
+      color: #2563eb;
+      font-weight: 700;
+      font-size: 13px;
+      border-radius: 7px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      flex-shrink: 0;
+    }
 
-  @media (max-width: 480px) {
-    .card { flex-wrap: wrap; gap: 10px; }
-    .copy-btn { width: 100%; text-align: center; }
-  }
-</style>
+    .card-info { flex: 1; min-width: 0; }
+
+    .card-info .topic {
+      font-size: 11px;
+      font-weight: 600;
+      letter-spacing: 0.8px;
+      text-transform: uppercase;
+      color: #9ca3af;
+      margin-bottom: 2px;
+    }
+
+    .card-info .name {
+      font-size: 15px;
+      font-weight: 600;
+      color: #111;
+      white-space: nowrap;
+      overflow: hidden;
+      text-overflow: ellipsis;
+    }
+
+    .copy-btn {
+      padding: 8px 18px;
+      background: #2563eb;
+      color: #fff;
+      border: none;
+      border-radius: 7px;
+      font-size: 13px;
+      font-weight: 600;
+      cursor: pointer;
+      transition: background 0.18s, transform 0.12s;
+      white-space: nowrap;
+      flex-shrink: 0;
+      position: relative;
+    }
+
+    .copy-btn:hover { background: #1d4ed8; transform: translateY(-1px); }
+    .copy-btn:active { transform: translateY(0px); }
+
+    .copy-btn.success {
+      background: #16a34a;
+    }
+
+    .no-results {
+      text-align: center;
+      padding: 60px 0;
+      color: #9ca3af;
+      font-size: 15px;
+    }
+
+    @media (max-width: 540px) {
+      header h1 { font-size: 1.2rem; }
+      .card { flex-wrap: wrap; gap: 10px; }
+      .card-info .name { white-space: normal; }
+      .copy-btn { width: 100%; }
+    }
+  </style>
 </head>
 <body>
 
 <header>
-  <div class="header-inner">
-    <h1>📚 DBMS Practicals – Solution Hub</h1>
-    <p>Click "Copy Code" on any program to instantly copy the solution to clipboard</p>
-    <div class="module-tabs" role="tablist" aria-label="Module selector">
-      <button class="module-tab active" type="button" data-module="all" aria-selected="true">All</button>
-      <button class="module-tab" type="button" data-module="sql" aria-selected="false">SQL</button>
-      <button class="module-tab" type="button" data-module="mongo" aria-selected="false">MongoDB</button>
-      <button class="module-tab" type="button" data-module="plsql" aria-selected="false">PL/SQL</button>
-      <button class="module-tab" type="button" data-module="jdbc" aria-selected="false">JDBC</button>
-    </div>
-    <div class="search-wrap">
-      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
-        <circle cx="11" cy="11" r="8"/><path d="m21 21-4.35-4.35"/>
-      </svg>
-      <input type="text" id="searchInput" placeholder="Search programs..." autocomplete="off">
-    </div>
+  <div class="badge">MIT Academy of Engineering, Pune · IT Dept · 2025–26</div>
+  <h1>📚 ADSL <span>Practical Codes</span> Library</h1>
+  <p class="subtitle">Advance Data Structures Lab (2308219L) · 22 Programs</p>
+  <div class="search-wrap">
+    <span class="icon">🔍</span>
+    <input type="text" id="searchBox" placeholder="Search programs by name or topic..." oninput="filterPrograms()" />
   </div>
 </header>
 
-<main>
-
-<!-- ══════════════════════════════════
-     SQL SECTION
-══════════════════════════════════ -->
-<div class="section sql-section" id="section-sql">
-  <div class="section-header">
-    <span class="section-badge">SQL</span>
-    <span class="section-title">SQL Select Queries</span>
-    <span class="section-count" id="count-sql"></span>
-  </div>
-  <div class="cards" id="cards-sql"></div>
+<div class="container">
+  <div class="count-label" id="countLabel">Showing all 22 programs</div>
+  <div id="programList"></div>
 </div>
-
-<!-- ══════════════════════════════════
-     MONGODB SECTION
-══════════════════════════════════ -->
-<div class="section mongo-section" id="section-mongo">
-  <div class="section-header">
-    <span class="section-badge">MongoDB</span>
-    <span class="section-title">MongoDB Queries</span>
-    <span class="section-count" id="count-mongo"></span>
-  </div>
-  <div class="cards" id="cards-mongo"></div>
-</div>
-
-<!-- ══════════════════════════════════
-     PL/SQL SECTION
-══════════════════════════════════ -->
-<div class="section plsql-section" id="section-plsql">
-  <div class="section-header">
-    <span class="section-badge">PL/SQL</span>
-    <span class="section-title">PL/SQL Procedures, Functions & Triggers</span>
-    <span class="section-count" id="count-plsql"></span>
-  </div>
-  <div class="cards" id="cards-plsql"></div>
-</div>
-
-<!-- ══════════════════════════════════
-     JDBC SECTION
-══════════════════════════════════ -->
-<div class="section jdbc-section" id="section-jdbc">
-  <div class="section-header">
-    <span class="section-badge">JDBC</span>
-    <span class="section-title">JDBC – Java + Database</span>
-    <span class="section-count" id="count-jdbc"></span>
-  </div>
-  <div class="cards" id="cards-jdbc"></div>
-</div>
-
-<div id="noResults">
-  <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5">
-    <circle cx="11" cy="11" r="8"/><path d="m21 21-4.35-4.35"/>
-    <path d="M8 11h6M11 8v6" stroke-dasharray="2 2"/>
-  </svg>
-  <p>No programs found matching your search.</p>
-</div>
-
-</main>
-<div id="toast">✓ Code Copied!</div>
 
 <script>
-// ═══════════════════════════════════════════════════
-//  DATA
-// ═══════════════════════════════════════════════════
-
-const sqlData = [
+// ─────────────────────────────────────────────
+//  ALL PROGRAM DATA — names + full C++ code
+// ─────────────────────────────────────────────
+const programs = [
   {
-    name: "Library Management System",
-    code: `-- Schema: BOOK(Book_ID, Title, Author, Category, Price), MEMBER(Member_ID, Member_Name, City), ISSUE(Issue_ID, Book_ID, Member_ID, Issue_Date, Return_Date)
-
--- 1. Display all books with price greater than 500
-SELECT * FROM BOOK WHERE Price > 500;
-
--- 2. Display member details from Pune city
-SELECT * FROM MEMBER WHERE City='Pune';
-
--- 3. Show book title and member name for issued books
-SELECT B.Title, M.Member_Name
-FROM BOOK B
-JOIN ISSUE I ON B.Book_ID=I.Book_ID
-JOIN MEMBER M ON M.Member_ID=I.Member_ID;
-
--- 4. Count total books in each category
-SELECT Category, COUNT(*)
-FROM BOOK
-GROUP BY Category;
-
--- 5. Display members who issued books after '2026-01-01'
-SELECT DISTINCT M.Member_Name
-FROM MEMBER M
-JOIN ISSUE I ON M.Member_ID=I.Member_ID
-WHERE Issue_Date > '2026-01-01';
-
--- 6. Display the member who issued maximum books
-SELECT M.Member_Name, COUNT(*) AS Total_Books
-FROM MEMBER M
-JOIN ISSUE I ON M.Member_ID=I.Member_ID
-GROUP BY M.Member_Name
-ORDER BY Total_Books DESC
-LIMIT 1;
-
--- 7. Display category-wise average price of books having average price greater than 400
-SELECT Category, AVG(Price)
-FROM BOOK
-GROUP BY Category
-HAVING AVG(Price) > 400;`
-  },
-  {
-    name: "Hospital Management System",
-    code: `-- Schema: DOCTOR(Doctor_ID, Doctor_Name, Specialization, Salary), PATIENT(Patient_ID, Patient_Name, Age, City), APPOINTMENT(Appointment_ID, Doctor_ID, Patient_ID, Appointment_Date)
-
--- 1. Display all doctors with salary greater than 80000
-SELECT * FROM DOCTOR WHERE Salary > 80000;
-
--- 2. Display patient details whose age is above 50
-SELECT * FROM PATIENT WHERE Age > 50;
-
--- 3. Show doctor name and patient name for appointments
-SELECT D.Doctor_Name, P.Patient_Name
-FROM DOCTOR D
-JOIN APPOINTMENT A ON D.Doctor_ID=A.Doctor_ID
-JOIN PATIENT P ON P.Patient_ID=A.Patient_ID;
-
--- 4. Count total doctors specialization-wise
-SELECT Specialization, COUNT(*)
-FROM DOCTOR
-GROUP BY Specialization;
-
--- 5. Display appointments after '2026-03-01'
-SELECT * FROM APPOINTMENT
-WHERE Appointment_Date > '2026-03-01';
-
--- 6. Find the doctor handling maximum appointments
-SELECT D.Doctor_Name, COUNT(*) AS Total_Appointments
-FROM DOCTOR D
-JOIN APPOINTMENT A ON D.Doctor_ID=A.Doctor_ID
-GROUP BY D.Doctor_Name
-ORDER BY Total_Appointments DESC
-LIMIT 1;
-
--- 7. Display specialization-wise average salary greater than 70000
-SELECT Specialization, AVG(Salary)
-FROM DOCTOR
-GROUP BY Specialization
-HAVING AVG(Salary) > 70000;`
-  },
-  {
-    name: "Online Shopping System",
-    code: `-- Schema: CUSTOMER(Customer_ID, Customer_Name, City), PRODUCT(Product_ID, Product_Name, Category, Price), ORDERS(Order_ID, Customer_ID, Product_ID, Quantity, Order_Date)
-
--- 1. Display products with price less than 1000
-SELECT * FROM PRODUCT WHERE Price < 1000;
-
--- 2. Display customers from Mumbai
-SELECT * FROM CUSTOMER WHERE City='Mumbai';
-
--- 3. Show customer name and product name for all orders
-SELECT C.Customer_Name, P.Product_Name
-FROM CUSTOMER C
-JOIN ORDERS O ON C.Customer_ID=O.Customer_ID
-JOIN PRODUCT P ON P.Product_ID=O.Product_ID;
-
--- 4. Count products category-wise
-SELECT Category, COUNT(*)
-FROM PRODUCT
-GROUP BY Category;
-
--- 5. Display orders placed in April 2026
-SELECT * FROM ORDERS
-WHERE MONTH(Order_Date)=4 AND YEAR(Order_Date)=2026;
-
--- 6. Find the customer who placed maximum orders
-SELECT C.Customer_Name, COUNT(*) AS Total_Orders
-FROM CUSTOMER C
-JOIN ORDERS O ON C.Customer_ID=O.Customer_ID
-GROUP BY C.Customer_Name
-ORDER BY Total_Orders DESC
-LIMIT 1;
-
--- 7. Display category-wise maximum product price
-SELECT Category, MAX(Price)
-FROM PRODUCT
-GROUP BY Category;`
-  },
-  {
-    name: "College Management System",
-    code: `-- Schema: STUDENT(Student_ID, Student_Name, Branch, CGPA), FACULTY(Faculty_ID, Faculty_Name, Department), COURSE(Course_ID, Course_Name, Faculty_ID)
-
--- 1. Display students with CGPA greater than 8
-SELECT * FROM STUDENT WHERE CGPA > 8;
-
--- 2. Display faculty from IT department
-SELECT * FROM FACULTY WHERE Department='IT';
-
--- 3. Show course name with faculty name
-SELECT C.Course_Name, F.Faculty_Name
-FROM COURSE C
-JOIN FACULTY F ON C.Faculty_ID=F.Faculty_ID;
-
--- 4. Count students branch-wise
-SELECT Branch, COUNT(*)
-FROM STUDENT
-GROUP BY Branch;
-
--- 5. Display students sorted by CGPA descending
-SELECT * FROM STUDENT
-ORDER BY CGPA DESC;
-
--- 6. Find the branch having maximum students
-SELECT Branch, COUNT(*) AS Total_Students
-FROM STUDENT
-GROUP BY Branch
-ORDER BY Total_Students DESC
-LIMIT 1;
-
--- 7. Display average CGPA branch-wise having average CGPA above 7
-SELECT Branch, AVG(CGPA)
-FROM STUDENT
-GROUP BY Branch
-HAVING AVG(CGPA) > 7;`
-  },
-  {
-    name: "Banking System",
-    code: `-- Schema: CUSTOMER(Customer_ID, Customer_Name, City), ACCOUNT(Account_No, Customer_ID, Account_Type, Balance), TRANSACTION(Transaction_ID, Account_No, Amount, Transaction_Type)
-
--- 1. Display accounts with balance greater than 50000
-SELECT * FROM ACCOUNT WHERE Balance > 50000;
-
--- 2. Display customers from Nashik
-SELECT * FROM CUSTOMER WHERE City='Nashik';
-
--- 3. Show customer name with account type
-SELECT C.Customer_Name, A.Account_Type
-FROM CUSTOMER C
-JOIN ACCOUNT A ON C.Customer_ID=A.Customer_ID;
-
--- 4. Count accounts type-wise
-SELECT Account_Type, COUNT(*)
-FROM ACCOUNT
-GROUP BY Account_Type;
-
--- 5. Display debit transactions only
-SELECT * FROM TRANSACTION
-WHERE Transaction_Type='Debit';
-
--- 6. Find the customer having highest balance
-SELECT C.Customer_Name, MAX(A.Balance)
-FROM CUSTOMER C
-JOIN ACCOUNT A ON C.Customer_ID=A.Customer_ID;
-
--- 7. Display account type-wise average balance greater than 30000
-SELECT Account_Type, AVG(Balance)
-FROM ACCOUNT
-GROUP BY Account_Type
-HAVING AVG(Balance) > 30000;`
-  },
-  {
-    name: "Employee Payroll System",
-    code: `-- Schema: EMPLOYEE(Emp_ID, Emp_Name, Department, Salary), PROJECT(Project_ID, Project_Name, Budget), WORKS_ON(Emp_ID, Project_ID, Hours)
-
--- 1. Display employees with salary above 60000
-SELECT * FROM EMPLOYEE WHERE Salary > 60000;
-
--- 2. Display projects with budget greater than 100000
-SELECT * FROM PROJECT WHERE Budget > 100000;
-
--- 3. Show employee name with project name
-SELECT E.Emp_Name, P.Project_Name
-FROM EMPLOYEE E
-JOIN WORKS_ON W ON E.Emp_ID=W.Emp_ID
-JOIN PROJECT P ON P.Project_ID=W.Project_ID;
-
--- 4. Count employees department-wise
-SELECT Department, COUNT(*)
-FROM EMPLOYEE
-GROUP BY Department;
-
--- 5. Display employees sorted by salary descending
-SELECT * FROM EMPLOYEE
-ORDER BY Salary DESC;
-
--- 6. Find the department with highest average salary
-SELECT Department, AVG(Salary) AS Avg_Salary
-FROM EMPLOYEE
-GROUP BY Department
-ORDER BY Avg_Salary DESC
-LIMIT 1;
-
--- 7. Display employees working on more than one project
-SELECT Emp_ID, COUNT(Project_ID)
-FROM WORKS_ON
-GROUP BY Emp_ID
-HAVING COUNT(Project_ID) > 1;`
-  },
-  {
-    name: "Railway Reservation System",
-    code: `-- Schema: TRAIN(Train_ID, Train_Name, Source, Destination), PASSENGER(Passenger_ID, Passenger_Name, Age), RESERVATION(Reservation_ID, Train_ID, Passenger_ID, Journey_Date)
-
--- 1. Display trains starting from Pune
-SELECT * FROM TRAIN WHERE Source='Pune';
-
--- 2. Display passengers whose age is greater than 60
-SELECT * FROM PASSENGER WHERE Age > 60;
-
--- 3. Show passenger name with train name
-SELECT P.Passenger_Name, T.Train_Name
-FROM PASSENGER P
-JOIN RESERVATION R ON P.Passenger_ID=R.Passenger_ID
-JOIN TRAIN T ON T.Train_ID=R.Train_ID;
-
--- 4. Count reservations train-wise
-SELECT Train_ID, COUNT(*)
-FROM RESERVATION
-GROUP BY Train_ID;
-
--- 5. Display reservations after '2026-02-01'
-SELECT * FROM RESERVATION
-WHERE Journey_Date > '2026-02-01';
-
--- 6. Find the train with maximum reservations
-SELECT Train_ID, COUNT(*) AS Total_Reservations
-FROM RESERVATION
-GROUP BY Train_ID
-ORDER BY Total_Reservations DESC
-LIMIT 1;
-
--- 7. Display source-wise total trains
-SELECT Source, COUNT(*)
-FROM TRAIN
-GROUP BY Source;`
-  },
-  {
-    name: "Hotel Management System",
-    code: `-- Schema: ROOM(Room_No, Room_Type, Charges), CUSTOMER(Customer_ID, Customer_Name, City), BOOKING(Booking_ID, Room_No, Customer_ID, CheckIn_Date)
-
--- 1. Display rooms with charges greater than 3000
-SELECT * FROM ROOM WHERE Charges > 3000;
-
--- 2. Display customers from Delhi
-SELECT * FROM CUSTOMER WHERE City='Delhi';
-
--- 3. Show customer name with room type
-SELECT C.Customer_Name, R.Room_Type
-FROM CUSTOMER C
-JOIN BOOKING B ON C.Customer_ID=B.Customer_ID
-JOIN ROOM R ON R.Room_No=B.Room_No;
-
--- 4. Count rooms type-wise
-SELECT Room_Type, COUNT(*)
-FROM ROOM
-GROUP BY Room_Type;
-
--- 5. Display bookings in May 2026
-SELECT * FROM BOOKING
-WHERE MONTH(CheckIn_Date)=5;
-
--- 6. Find the most booked room type
-SELECT R.Room_Type, COUNT(*) AS Total_Bookings
-FROM ROOM R
-JOIN BOOKING B ON R.Room_No=B.Room_No
-GROUP BY R.Room_Type
-ORDER BY Total_Bookings DESC
-LIMIT 1;
-
--- 7. Display average room charges type-wise
-SELECT Room_Type, AVG(Charges)
-FROM ROOM
-GROUP BY Room_Type;`
-  },
-  {
-    name: "University Examination System",
-    code: `-- Schema: STUDENT(Student_ID, Student_Name, Branch), SUBJECT(Subject_ID, Subject_Name, Credits), RESULT(Student_ID, Subject_ID, Marks)
-
--- 1. Display students from Computer branch
-SELECT * FROM STUDENT WHERE Branch='Computer';
-
--- 2. Display subjects with credits greater than 3
-SELECT * FROM SUBJECT WHERE Credits > 3;
-
--- 3. Show student name with subject name
-SELECT S.Student_Name, SU.Subject_Name
-FROM STUDENT S
-JOIN RESULT R ON S.Student_ID=R.Student_ID
-JOIN SUBJECT SU ON SU.Subject_ID=R.Subject_ID;
-
--- 4. Count students branch-wise
-SELECT Branch, COUNT(*)
-FROM STUDENT
-GROUP BY Branch;
-
--- 5. Display students scoring above 75 marks
-SELECT * FROM RESULT WHERE Marks > 75;
-
--- 6. Find the topper student
-SELECT Student_ID, SUM(Marks) AS Total
-FROM RESULT
-GROUP BY Student_ID
-ORDER BY Total DESC
-LIMIT 1;
-
--- 7. Display average marks subject-wise greater than 70
-SELECT Subject_ID, AVG(Marks)
-FROM RESULT
-GROUP BY Subject_ID
-HAVING AVG(Marks) > 70;`
-  },
-  {
-    name: "Inventory Management System",
-    code: `-- Schema: PRODUCT(Product_ID, Product_Name, Stock, Price), SUPPLIER(Supplier_ID, Supplier_Name, City), SUPPLY(Product_ID, Supplier_ID, Quantity)
-
--- 1. Display products with stock less than 20
-SELECT * FROM PRODUCT WHERE Stock < 20;
-
--- 2. Display suppliers from Chennai
-SELECT * FROM SUPPLIER WHERE City='Chennai';
-
--- 3. Show product name with supplier name
-SELECT P.Product_Name, S.Supplier_Name
-FROM PRODUCT P
-JOIN SUPPLY SU ON P.Product_ID=SU.Product_ID
-JOIN SUPPLIER S ON S.Supplier_ID=SU.Supplier_ID;
-
--- 4. Count products supplier-wise
-SELECT Supplier_ID, COUNT(*)
-FROM SUPPLY
-GROUP BY Supplier_ID;
-
--- 5. Display products with price between 500 and 2000
-SELECT * FROM PRODUCT
-WHERE Price BETWEEN 500 AND 2000;
-
--- 6. Find supplier supplying maximum quantity
-SELECT Supplier_ID, SUM(Quantity) AS Total_Qty
-FROM SUPPLY
-GROUP BY Supplier_ID
-ORDER BY Total_Qty DESC
-LIMIT 1;
-
--- 7. Display average product price greater than 1000
-SELECT AVG(Price)
-FROM PRODUCT
-HAVING AVG(Price) > 1000;`
-  },
-  {
-    name: "Movie Ticket Booking System",
-    code: `-- Schema: MOVIE(Movie_ID, Movie_Name, Genre, Rating), CUSTOMER(Customer_ID, Customer_Name, City), BOOKING(Booking_ID, Movie_ID, Customer_ID, Seats)
-
--- 1. Display movies with rating above 8
-SELECT * FROM MOVIE WHERE Rating > 8;
-
--- 2. Display customers from Hyderabad
-SELECT * FROM CUSTOMER WHERE City='Hyderabad';
-
--- 3. Show movie name with customer name
-SELECT M.Movie_Name, C.Customer_Name
-FROM MOVIE M
-JOIN BOOKING B ON M.Movie_ID=B.Movie_ID
-JOIN CUSTOMER C ON C.Customer_ID=B.Customer_ID;
-
--- 4. Count movies genre-wise
-SELECT Genre, COUNT(*)
-FROM MOVIE
-GROUP BY Genre;
-
--- 5. Display bookings with seats greater than 4
-SELECT * FROM BOOKING WHERE Seats > 4;
-
--- 6. Find movie with maximum bookings
-SELECT Movie_ID, COUNT(*) AS Total_Bookings
-FROM BOOKING
-GROUP BY Movie_ID
-ORDER BY Total_Bookings DESC
-LIMIT 1;
-
--- 7. Display average rating genre-wise
-SELECT Genre, AVG(Rating)
-FROM MOVIE
-GROUP BY Genre;`
-  },
-  {
-    name: "Sports Club Management System",
-    code: `-- Schema: PLAYER(Player_ID, Player_Name, Sport, Age), COACH(Coach_ID, Coach_Name, Experience), TRAINING(Player_ID, Coach_ID, Hours)
-
--- 1. Display players older than 25
-SELECT * FROM PLAYER WHERE Age > 25;
-
--- 2. Display coaches with experience greater than 10 years
-SELECT * FROM COACH WHERE Experience > 10;
-
--- 3. Show player name with coach name
-SELECT P.Player_Name, C.Coach_Name
-FROM PLAYER P
-JOIN TRAINING T ON P.Player_ID=T.Player_ID
-JOIN COACH C ON C.Coach_ID=T.Coach_ID;
-
--- 4. Count players sport-wise
-SELECT Sport, COUNT(*)
-FROM PLAYER
-GROUP BY Sport;
-
--- 5. Display players sorted by age descending
-SELECT * FROM PLAYER ORDER BY Age DESC;
-
--- 6. Find coach training maximum players
-SELECT Coach_ID, COUNT(Player_ID) AS Total_Players
-FROM TRAINING
-GROUP BY Coach_ID
-ORDER BY Total_Players DESC
-LIMIT 1;
-
--- 7. Display sport-wise average age of players
-SELECT Sport, AVG(Age)
-FROM PLAYER
-GROUP BY Sport;`
-  },
-  {
-    name: "Airline Reservation System",
-    code: `-- Schema: FLIGHT(Flight_ID, Flight_Name, Source, Destination), PASSENGER(Passenger_ID, Passenger_Name, Passport_No), TICKET(Ticket_ID, Flight_ID, Passenger_ID, Fare)
-
--- 1. Display flights from Mumbai
-SELECT * FROM FLIGHT WHERE Source='Mumbai';
-
--- 2. Display passengers whose fare is greater than 10000
-SELECT * FROM TICKET WHERE Fare > 10000;
-
--- 3. Show passenger name with flight name
-SELECT P.Passenger_Name, F.Flight_Name
-FROM PASSENGER P
-JOIN TICKET T ON P.Passenger_ID=T.Passenger_ID
-JOIN FLIGHT F ON F.Flight_ID=T.Flight_ID;
-
--- 4. Count flights source-wise
-SELECT Source, COUNT(*)
-FROM FLIGHT
-GROUP BY Source;
-
--- 5. Display tickets with fare between 5000 and 15000
-SELECT * FROM TICKET
-WHERE Fare BETWEEN 5000 AND 15000;
-
--- 6. Find flight generating maximum revenue
-SELECT Flight_ID, SUM(Fare) AS Revenue
-FROM TICKET
-GROUP BY Flight_ID
-ORDER BY Revenue DESC
-LIMIT 1;
-
--- 7. Display average fare flight-wise
-SELECT Flight_ID, AVG(Fare)
-FROM TICKET
-GROUP BY Flight_ID;`
-  },
-  {
-    name: "E-Learning Platform",
-    code: `-- Schema: STUDENT(Student_ID, Student_Name, Course), INSTRUCTOR(Instructor_ID, Instructor_Name, Expertise), ENROLLMENT(Student_ID, Instructor_ID, Completion_Percentage)
-
--- 1. Display students enrolled in Java course
-SELECT * FROM STUDENT WHERE Course='Java';
-
--- 2. Display instructors with expertise in Python
-SELECT * FROM INSTRUCTOR WHERE Expertise='Python';
-
--- 3. Show student name with instructor name
-SELECT S.Student_Name, I.Instructor_Name
-FROM STUDENT S
-JOIN ENROLLMENT E ON S.Student_ID=E.Student_ID
-JOIN INSTRUCTOR I ON I.Instructor_ID=E.Instructor_ID;
-
--- 4. Count students course-wise
-SELECT Course, COUNT(*)
-FROM STUDENT
-GROUP BY Course;
-
--- 5. Display students with completion percentage above 80
-SELECT * FROM ENROLLMENT
-WHERE Completion_Percentage > 80;
-
--- 6. Find instructor teaching maximum students
-SELECT Instructor_ID, COUNT(Student_ID) AS Total_Students
-FROM ENROLLMENT
-GROUP BY Instructor_ID
-ORDER BY Total_Students DESC
-LIMIT 1;
-
--- 7. Display average completion percentage instructor-wise
-SELECT Instructor_ID, AVG(Completion_Percentage)
-FROM ENROLLMENT
-GROUP BY Instructor_ID;`
-  },
-  {
-    name: "Vehicle Service Management System",
-    code: `-- Schema: VEHICLE(Vehicle_ID, Owner_Name, Vehicle_Type), MECHANIC(Mechanic_ID, Mechanic_Name, Experience), SERVICE(Service_ID, Vehicle_ID, Mechanic_ID, Service_Cost)
-
--- 1. Display vehicles of type Car
-SELECT * FROM VEHICLE WHERE Vehicle_Type='Car';
-
--- 2. Display mechanics with experience greater than 5 years
-SELECT * FROM MECHANIC WHERE Experience > 5;
-
--- 3. Show owner name with mechanic name
-SELECT V.Owner_Name, M.Mechanic_Name
-FROM VEHICLE V
-JOIN SERVICE S ON V.Vehicle_ID=S.Vehicle_ID
-JOIN MECHANIC M ON M.Mechanic_ID=S.Mechanic_ID;
-
--- 4. Count vehicles type-wise
-SELECT Vehicle_Type, COUNT(*)
-FROM VEHICLE
-GROUP BY Vehicle_Type;
-
--- 5. Display services with cost greater than 5000
-SELECT * FROM SERVICE WHERE Service_Cost > 5000;
-
--- 6. Find mechanic handling maximum services
-SELECT Mechanic_ID, COUNT(*) AS Total_Services
-FROM SERVICE
-GROUP BY Mechanic_ID
-ORDER BY Total_Services DESC
-LIMIT 1;
-
--- 7. Display average service cost mechanic-wise greater than 3000
-SELECT Mechanic_ID, AVG(Service_Cost)
-FROM SERVICE
-GROUP BY Mechanic_ID
-HAVING AVG(Service_Cost) > 3000;`
-  },
-  {
-    name: "Food Delivery Application",
-    code: `-- Schema: CUSTOMER(Customer_ID, Customer_Name, City), RESTAURANT(Restaurant_ID, Restaurant_Name, Rating), ORDERS(Order_ID, Customer_ID, Restaurant_ID, Amount)
-
--- 1. Display restaurants with rating above 4
-SELECT * FROM RESTAURANT WHERE Rating > 4;
-
--- 2. Display customers from Bangalore
-SELECT * FROM CUSTOMER WHERE City='Bangalore';
-
--- 3. Show customer name with restaurant name
-SELECT C.Customer_Name, R.Restaurant_Name
-FROM CUSTOMER C
-JOIN ORDERS O ON C.Customer_ID=O.Customer_ID
-JOIN RESTAURANT R ON R.Restaurant_ID=O.Restaurant_ID;
-
--- 4. Count total orders restaurant-wise
-SELECT Restaurant_ID, COUNT(*)
-FROM ORDERS
-GROUP BY Restaurant_ID;
-
--- 5. Display orders with amount greater than 1000
-SELECT * FROM ORDERS WHERE Amount > 1000;
-
--- 6. Find restaurant receiving maximum orders
-SELECT Restaurant_ID, COUNT(*) AS Total_Orders
-FROM ORDERS
-GROUP BY Restaurant_ID
-ORDER BY Total_Orders DESC
-LIMIT 1;
-
--- 7. Display average order amount restaurant-wise greater than 500
-SELECT Restaurant_ID, AVG(Amount)
-FROM ORDERS
-GROUP BY Restaurant_ID
-HAVING AVG(Amount) > 500;`
-  },
-  {
-    name: "OTT Streaming Platform",
-    code: `-- Schema: USER(User_ID, User_Name, Subscription_Type), SHOWS(Show_ID, Show_Name, Genre, Rating), WATCH_HISTORY(User_ID, Show_ID, Watch_Time)
-
--- 1. Display shows with rating greater than 8
-SELECT * FROM SHOWS WHERE Rating > 8;
-
--- 2. Display users having Premium subscription
-SELECT * FROM USER WHERE Subscription_Type='Premium';
-
--- 3. Show user name with watched show name
-SELECT U.User_Name, S.Show_Name
-FROM USER U
-JOIN WATCH_HISTORY W ON U.User_ID=W.User_ID
-JOIN SHOWS S ON S.Show_ID=W.Show_ID;
-
--- 4. Count shows genre-wise
-SELECT Genre, COUNT(*)
-FROM SHOWS
-GROUP BY Genre;
-
--- 5. Display watch history with watch time greater than 2 hours
-SELECT * FROM WATCH_HISTORY WHERE Watch_Time > 2;
-
--- 6. Find most watched show
-SELECT Show_ID, COUNT(*) AS Total_Views
-FROM WATCH_HISTORY
-GROUP BY Show_ID
-ORDER BY Total_Views DESC
-LIMIT 1;
-
--- 7. Display average show rating genre-wise
-SELECT Genre, AVG(Rating)
-FROM SHOWS
-GROUP BY Genre;`
-  },
-  {
-    name: "Smart Parking System",
-    code: `-- Schema: VEHICLE(Vehicle_ID, Owner_Name, Vehicle_Type), PARKING_SLOT(Slot_ID, Floor_No, Charges), PARKING_RECORD(Record_ID, Vehicle_ID, Slot_ID, Hours)
-
--- 1. Display parking slots with charges greater than 100
-SELECT * FROM PARKING_SLOT WHERE Charges > 100;
-
--- 2. Display vehicles of type Bike
-SELECT * FROM VEHICLE WHERE Vehicle_Type='Bike';
-
--- 3. Show owner name with slot number
-SELECT V.Owner_Name, P.Slot_ID
-FROM VEHICLE V
-JOIN PARKING_RECORD R ON V.Vehicle_ID=R.Vehicle_ID
-JOIN PARKING_SLOT P ON P.Slot_ID=R.Slot_ID;
-
--- 4. Count parking slots floor-wise
-SELECT Floor_No, COUNT(*)
-FROM PARKING_SLOT
-GROUP BY Floor_No;
-
--- 5. Display parking records with hours greater than 5
-SELECT * FROM PARKING_RECORD WHERE Hours > 5;
-
--- 6. Find slot used maximum times
-SELECT Slot_ID, COUNT(*) AS Usage_Count
-FROM PARKING_RECORD
-GROUP BY Slot_ID
-ORDER BY Usage_Count DESC
-LIMIT 1;
-
--- 7. Display average parking hours slot-wise
-SELECT Slot_ID, AVG(Hours)
-FROM PARKING_RECORD
-GROUP BY Slot_ID;`
-  },
-  {
-    name: "Online Examination Portal",
-    code: `-- Schema: STUDENT(Student_ID, Student_Name, Course), EXAM(Exam_ID, Subject_Name, Total_Marks), RESULT(Student_ID, Exam_ID, Marks_Obtained)
-
--- 1. Display exams with total marks greater than 50
-SELECT * FROM EXAM WHERE Total_Marks > 50;
-
--- 2. Display students enrolled in AI course
-SELECT * FROM STUDENT WHERE Course='AI';
-
--- 3. Show student name with subject name
-SELECT S.Student_Name, E.Subject_Name
-FROM STUDENT S
-JOIN RESULT R ON S.Student_ID=R.Student_ID
-JOIN EXAM E ON E.Exam_ID=R.Exam_ID;
-
--- 4. Count students course-wise
-SELECT Course, COUNT(*)
-FROM STUDENT
-GROUP BY Course;
-
--- 5. Display students scoring above 80
-SELECT * FROM RESULT WHERE Marks_Obtained > 80;
-
--- 6. Find student obtaining highest marks
-SELECT Student_ID, SUM(Marks_Obtained) AS Total
-FROM RESULT
-GROUP BY Student_ID
-ORDER BY Total DESC
-LIMIT 1;
-
--- 7. Display subject-wise average marks greater than 70
-SELECT Exam_ID, AVG(Marks_Obtained)
-FROM RESULT
-GROUP BY Exam_ID
-HAVING AVG(Marks_Obtained) > 70;`
-  },
-  {
-    name: "EV Charging Station System",
-    code: `-- Schema: VEHICLE(Vehicle_ID, Owner_Name, Battery_Capacity), STATION(Station_ID, Station_Name, Location), CHARGING_SESSION(Session_ID, Vehicle_ID, Station_ID, Units_Consumed)
-
--- 1. Display vehicles with battery capacity greater than 50
-SELECT * FROM VEHICLE WHERE Battery_Capacity > 50;
-
--- 2. Display charging stations located in Pune
-SELECT * FROM STATION WHERE Location='Pune';
-
--- 3. Show owner name with station name
-SELECT V.Owner_Name, S.Station_Name
-FROM VEHICLE V
-JOIN CHARGING_SESSION C ON V.Vehicle_ID=C.Vehicle_ID
-JOIN STATION S ON S.Station_ID=C.Station_ID;
-
--- 4. Count charging sessions station-wise
-SELECT Station_ID, COUNT(*)
-FROM CHARGING_SESSION
-GROUP BY Station_ID;
-
--- 5. Display sessions with units consumed greater than 30
-SELECT * FROM CHARGING_SESSION WHERE Units_Consumed > 30;
-
--- 6. Find station with highest total units consumed
-SELECT Station_ID, SUM(Units_Consumed) AS Total_Units
-FROM CHARGING_SESSION
-GROUP BY Station_ID
-ORDER BY Total_Units DESC
-LIMIT 1;
-
--- 7. Display average units consumed station-wise
-SELECT Station_ID, AVG(Units_Consumed)
-FROM CHARGING_SESSION
-GROUP BY Station_ID;`
-  },
-  {
-    name: "Freelancing Marketplace",
-    code: `-- Schema: FREELANCER(Freelancer_ID, Freelancer_Name, Skill, Rating), CLIENT(Client_ID, Client_Name, Country), PROJECT(Project_ID, Freelancer_ID, Client_ID, Budget)
-
--- 1. Display freelancers with rating above 4.5
-SELECT * FROM FREELANCER WHERE Rating > 4.5;
-
--- 2. Display clients from USA
-SELECT * FROM CLIENT WHERE Country='USA';
-
--- 3. Show freelancer name with client name
-SELECT F.Freelancer_Name, C.Client_Name
-FROM FREELANCER F
-JOIN PROJECT P ON F.Freelancer_ID=P.Freelancer_ID
-JOIN CLIENT C ON C.Client_ID=P.Client_ID;
-
--- 4. Count freelancers skill-wise
-SELECT Skill, COUNT(*)
-FROM FREELANCER
-GROUP BY Skill;
-
--- 5. Display projects with budget greater than 50000
-SELECT * FROM PROJECT WHERE Budget > 50000;
-
--- 6. Find freelancer handling maximum projects
-SELECT Freelancer_ID, COUNT(*) AS Total_Projects
-FROM PROJECT
-GROUP BY Freelancer_ID
-ORDER BY Total_Projects DESC
-LIMIT 1;
-
--- 7. Display skill-wise average freelancer rating
-SELECT Skill, AVG(Rating)
-FROM FREELANCER
-GROUP BY Skill;`
-  },
-  {
-    name: "Digital Wallet System",
-    code: `-- Schema: USER(User_ID, User_Name, City), WALLET(Wallet_ID, User_ID, Balance), TRANSACTION(Transaction_ID, Wallet_ID, Amount, Transaction_Type)
-
--- 1. Display wallets with balance greater than 10000
-SELECT * FROM WALLET WHERE Balance > 10000;
-
--- 2. Display users from Mumbai
-SELECT * FROM USER WHERE City='Mumbai';
-
--- 3. Show user name with wallet balance
-SELECT U.User_Name, W.Balance
-FROM USER U
-JOIN WALLET W ON U.User_ID=W.User_ID;
-
--- 4. Count transactions type-wise
-SELECT Transaction_Type, COUNT(*)
-FROM TRANSACTION
-GROUP BY Transaction_Type;
-
--- 5. Display credit transactions only
-SELECT * FROM TRANSACTION WHERE Transaction_Type='Credit';
-
--- 6. Find wallet with highest balance
-SELECT Wallet_ID, MAX(Balance)
-FROM WALLET;
-
--- 7. Display average transaction amount type-wise
-SELECT Transaction_Type, AVG(Amount)
-FROM TRANSACTION
-GROUP BY Transaction_Type;`
-  },
-  {
-    name: "Telemedicine System",
-    code: `-- Schema: DOCTOR(Doctor_ID, Doctor_Name, Specialization), PATIENT(Patient_ID, Patient_Name, City), CONSULTATION(Consultation_ID, Doctor_ID, Patient_ID, Fees)
-
--- 1. Display doctors specialized in Cardiology
-SELECT * FROM DOCTOR WHERE Specialization='Cardiology';
-
--- 2. Display patients from Pune
-SELECT * FROM PATIENT WHERE City='Pune';
-
--- 3. Show doctor name with patient name
-SELECT D.Doctor_Name, P.Patient_Name
-FROM DOCTOR D
-JOIN CONSULTATION C ON D.Doctor_ID=C.Doctor_ID
-JOIN PATIENT P ON P.Patient_ID=C.Patient_ID;
-
--- 4. Count consultations doctor-wise
-SELECT Doctor_ID, COUNT(*)
-FROM CONSULTATION
-GROUP BY Doctor_ID;
-
--- 5. Display consultations with fees greater than 1500
-SELECT * FROM CONSULTATION WHERE Fees > 1500;
-
--- 6. Find doctor handling maximum consultations
-SELECT Doctor_ID, COUNT(*) AS Total_Consultations
-FROM CONSULTATION
-GROUP BY Doctor_ID
-ORDER BY Total_Consultations DESC
-LIMIT 1;
-
--- 7. Display specialization-wise average consultation fees
-SELECT Specialization, AVG(Fees)
-FROM DOCTOR D
-JOIN CONSULTATION C ON D.Doctor_ID=C.Doctor_ID
-GROUP BY Specialization;`
-  },
-  {
-    name: "Ride Sharing Application",
-    code: `-- Schema: DRIVER(Driver_ID, Driver_Name, Rating), RIDER(Rider_ID, Rider_Name, City), RIDE(Ride_ID, Driver_ID, Rider_ID, Fare)
-
--- 1. Display drivers with rating above 4
-SELECT * FROM DRIVER WHERE Rating > 4;
-
--- 2. Display riders from Chennai
-SELECT * FROM RIDER WHERE City='Chennai';
-
--- 3. Show driver name with rider name
-SELECT D.Driver_Name, R.Rider_Name
-FROM DRIVER D
-JOIN RIDE RI ON D.Driver_ID=RI.Driver_ID
-JOIN RIDER R ON R.Rider_ID=RI.Rider_ID;
-
--- 4. Count rides driver-wise
-SELECT Driver_ID, COUNT(*)
-FROM RIDE
-GROUP BY Driver_ID;
-
--- 5. Display rides with fare greater than 500
-SELECT * FROM RIDE WHERE Fare > 500;
-
--- 6. Find driver earning maximum fare
-SELECT Driver_ID, SUM(Fare) AS Total_Fare
-FROM RIDE
-GROUP BY Driver_ID
-ORDER BY Total_Fare DESC
-LIMIT 1;
-
--- 7. Display average fare driver-wise
-SELECT Driver_ID, AVG(Fare)
-FROM RIDE
-GROUP BY Driver_ID;`
-  },
-  {
-    name: "Smart Gym Management System",
-    code: `-- Schema: MEMBER(Member_ID, Member_Name, Plan_Type), TRAINER(Trainer_ID, Trainer_Name, Experience), SESSION(Session_ID, Member_ID, Trainer_ID, Calories_Burned)
-
--- 1. Display members with Premium plan
-SELECT * FROM MEMBER WHERE Plan_Type='Premium';
-
--- 2. Display trainers with experience greater than 3 years
-SELECT * FROM TRAINER WHERE Experience > 3;
-
--- 3. Show member name with trainer name
-SELECT M.Member_Name, T.Trainer_Name
-FROM MEMBER M
-JOIN SESSION S ON M.Member_ID=S.Member_ID
-JOIN TRAINER T ON T.Trainer_ID=S.Trainer_ID;
-
--- 4. Count members plan-wise
-SELECT Plan_Type, COUNT(*)
-FROM MEMBER
-GROUP BY Plan_Type;
-
--- 5. Display sessions with calories burned greater than 500
-SELECT * FROM SESSION WHERE Calories_Burned > 500;
-
--- 6. Find trainer handling maximum sessions
-SELECT Trainer_ID, COUNT(*) AS Total_Sessions
-FROM SESSION
-GROUP BY Trainer_ID
-ORDER BY Total_Sessions DESC
-LIMIT 1;
-
--- 7. Display average calories burned trainer-wise
-SELECT Trainer_ID, AVG(Calories_Burned)
-FROM SESSION
-GROUP BY Trainer_ID;`
-  }
-];
-
-const mongoData = [
-  {
-    name: "Library Management System",
-    code: `// Collection: books
-// { "book_id": 101, "title": "Database System", "author": "Korth", "category": "Education", "price": 650, "copies": 5 }
-
-// 1. Display all books
-db.books.find();
-
-// 2. Display books with price greater than 500
-db.books.find({price: {$gt: 500}});
-
-// 3. Display books belonging to Education category
-db.books.find({category: "Education"});
-
-// 4. Display only title and author fields
-db.books.find({}, {title:1, author:1, _id:0});
-
-// 5. Count total books
-db.books.countDocuments();
-
-// 6. Update copies of a specific book
-db.books.updateOne({book_id:101}, {$set:{copies:10}});
-
-// 7. Delete books with copies less than 2
-db.books.deleteMany({copies: {$lt:2}});`
-  },
-  {
-    name: "Hospital Management System",
-    code: `// Collection: patients
-// { "patient_id": 201, "patient_name": "Rahul Sharma", "age": 45, "disease": "Diabetes", "city": "Pune" }
-
-// 1. Display all patients
-db.patients.find();
-
-// 2. Display patients with age greater than 40
-db.patients.find({age: {$gt:40}});
-
-// 3. Display patients from Pune
-db.patients.find({city:"Pune"});
-
-// 4. Display only patient name and disease
-db.patients.find({}, {patient_name:1, disease:1, _id:0});
-
-// 5. Count total patients
-db.patients.countDocuments();
-
-// 6. Update disease of a patient
-db.patients.updateOne({patient_id:201}, {$set:{disease:"Cancer"}});
-
-// 7. Delete patients with age less than 18
-db.patients.deleteMany({age: {$lt:18}});`
-  },
-  {
-    name: "Online Shopping System",
-    code: `// Collection: products
-// { "product_id": 301, "product_name": "Laptop", "category": "Electronics", "price": 55000, "stock": 12 }
-
-// 1. Display all products
-db.products.find();
-
-// 2. Display products with price greater than 50000
-db.products.find({price: {$gt:50000}});
-
-// 3. Display products in Electronics category
-db.products.find({category:"Electronics"});
-
-// 4. Display only product name and price
-db.products.find({}, {product_name:1, price:1, _id:0});
-
-// 5. Count total products
-db.products.countDocuments();
-
-// 6. Update stock of a product
-db.products.updateOne({product_id:301}, {$set:{stock:20}});
-
-// 7. Delete products with stock equal to 0
-db.products.deleteMany({stock:0});`
-  },
-  {
-    name: "College Management System",
-    code: `// Collection: students
-// { "student_id": 401, "student_name": "Amit Patil", "branch": "IT", "cgpa": 8.5, "city": "Mumbai" }
-
-// 1. Display all students
-db.students.find();
-
-// 2. Display students with CGPA greater than 8
-db.students.find({cgpa: {$gt:8}});
-
-// 3. Display students from Mumbai
-db.students.find({city:"Mumbai"});
-
-// 4. Display only student name and branch
-db.students.find({}, {student_name:1, branch:1, _id:0});
-
-// 5. Count total students
-db.students.countDocuments();
-
-// 6. Update CGPA of a student
-db.students.updateOne({student_id:401}, {$set:{cgpa:9.1}});
-
-// 7. Delete students with CGPA less than 5
-db.students.deleteMany({cgpa: {$lt:5}});`
-  },
-  {
-    name: "Banking System",
-    code: `// Collection: accounts
-// { "account_no": 5001, "customer_name": "Neha Joshi", "account_type": "Savings", "balance": 85000, "city": "Nashik" }
-
-// 1. Display all accounts
-db.accounts.find();
-
-// 2. Display accounts with balance greater than 50000
-db.accounts.find({balance: {$gt:50000}});
-
-// 3. Display customers from Nashik
-db.accounts.find({city:"Nashik"});
-
-// 4. Display only customer name and balance
-db.accounts.find({}, {customer_name:1, balance:1, _id:0});
-
-// 5. Count total accounts
-db.accounts.countDocuments();
-
-// 6. Update balance of an account
-db.accounts.updateOne({account_no:5001}, {$set:{balance:90000}});
-
-// 7. Delete accounts with balance less than 1000
-db.accounts.deleteMany({balance: {$lt:1000}});`
-  },
-  {
-    name: "Food Delivery Application",
-    code: `// Collection: orders
-// { "order_id": 601, "customer_name": "Rohan", "restaurant_name": "Spice Hub", "amount": 850, "status": "Delivered" }
-
-// 1. Display all orders
-db.orders.find();
-
-// 2. Display orders with amount greater than 500
-db.orders.find({amount: {$gt:500}});
-
-// 3. Display delivered orders
-db.orders.find({status:"Delivered"});
-
-// 4. Display only customer name and amount
-db.orders.find({}, {customer_name:1, amount:1, _id:0});
-
-// 5. Count total orders
-db.orders.countDocuments();
-
-// 6. Update order status
-db.orders.updateOne({order_id:601}, {$set:{status:"Completed"}});
-
-// 7. Delete cancelled orders
-db.orders.deleteMany({status:"Cancelled"});`
-  },
-  {
-    name: "OTT Streaming Platform",
-    code: `// Collection: shows
-// { "show_id": 701, "show_name": "Dark Code", "genre": "Thriller", "rating": 8.9, "language": "English" }
-
-// 1. Display all shows
-db.shows.find();
-
-// 2. Display shows with rating greater than 8
-db.shows.find({rating: {$gt:8}});
-
-// 3. Display Thriller genre shows
-db.shows.find({genre:"Thriller"});
-
-// 4. Display only show name and rating
-db.shows.find({}, {show_name:1, rating:1, _id:0});
-
-// 5. Count total shows
-db.shows.countDocuments();
-
-// 6. Update language of a show
-db.shows.updateOne({show_id:701}, {$set:{language:"Hindi"}});
-
-// 7. Delete shows with rating less than 5
-db.shows.deleteMany({rating: {$lt:5}});`
-  },
-  {
-    name: "Smart Parking System",
-    code: `// Collection: parking
-// { "vehicle_no": "MH14AB1234", "owner_name": "Kiran", "slot_no": 12, "hours": 4, "charges": 200 }
-
-// 1. Display all parking records
-db.parking.find();
-
-// 2. Display records with charges greater than 100
-db.parking.find({charges: {$gt:100}});
-
-// 3. Display records with parking hours greater than 3
-db.parking.find({hours: {$gt:3}});
-
-// 4. Display only owner name and slot number
-db.parking.find({}, {owner_name:1, slot_no:1, _id:0});
-
-// 5. Count total parking records
-db.parking.countDocuments();
-
-// 6. Update parking charges
-db.parking.updateOne({slot_no:12}, {$set:{charges:250}});
-
-// 7. Delete parking records with hours equal to 0
-db.parking.deleteMany({hours:0});`
-  },
-  {
-    name: "Ride Sharing Application",
-    code: `// Collection: rides
-// { "ride_id": 901, "driver_name": "Suresh", "rider_name": "Anjali", "fare": 450, "city": "Pune" }
-
-// 1. Display all rides
-db.rides.find();
-
-// 2. Display rides with fare greater than 300
-db.rides.find({fare: {$gt:300}});
-
-// 3. Display rides from Pune
-db.rides.find({city:"Pune"});
-
-// 4. Display only driver name and fare
-db.rides.find({}, {driver_name:1, fare:1, _id:0});
-
-// 5. Count total rides
-db.rides.countDocuments();
-
-// 6. Update ride fare
-db.rides.updateOne({ride_id:901}, {$set:{fare:500}});
-
-// 7. Delete rides with fare less than 50
-db.rides.deleteMany({fare: {$lt:50}});`
-  },
-  {
-    name: "Smart Gym Management System",
-    code: `// Collection: members
-// { "member_id": 1001, "member_name": "Rahul", "plan_type": "Premium", "trainer": "Akash", "calories_burned": 650 }
-
-// 1. Display all gym members
-db.members.find();
-
-// 2. Display members with calories burned greater than 500
-db.members.find({calories_burned: {$gt:500}});
-
-// 3. Display Premium plan members
-db.members.find({plan_type:"Premium"});
-
-// 4. Display only member name and trainer
-db.members.find({}, {member_name:1, trainer:1, _id:0});
-
-// 5. Count total members
-db.members.countDocuments();
-
-// 6. Update trainer name
-db.members.updateOne({member_id:1001}, {$set:{trainer:"Rohit"}});
-
-// 7. Delete members with calories burned less than 100
-db.members.deleteMany({calories_burned: {$lt:100}});`
-  }
-];
-
-const plsqlData = [
-  {
-    name: "PL/SQL Procedure & Trigger",
-    code: `-- Schema: empp(eid, ename, salary, dept)
-
--- 1. Create empp table and insert records
-CREATE TABLE empp (
-  eid INT PRIMARY KEY,
-  ename VARCHAR(50),
-  salary DECIMAL(10,2),
-  dept VARCHAR(30)
-);
-
-INSERT INTO empp VALUES (1, 'Alice', 50000, 'IT');
-INSERT INTO empp VALUES (2, 'Bob', 60000, 'HR');
-INSERT INTO empp VALUES (3, 'Charlie', 45000, 'Finance');
-
--- 2. Create procedure add_employee() to insert employee details
-DELIMITER //
-CREATE PROCEDURE add_employee(IN p_eid INT, IN p_ename VARCHAR(50), IN p_salary DECIMAL(10,2), IN p_dept VARCHAR(30))
-BEGIN
-  INSERT INTO empp(eid, ename, salary, dept) VALUES (p_eid, p_ename, p_salary, p_dept);
-END //
-DELIMITER ;
-
--- 3. Create trigger to convert employee name into uppercase before insert
-DELIMITER //
-CREATE TRIGGER before_emp_insert
-BEFORE INSERT ON empp
-FOR EACH ROW
-BEGIN
-  SET NEW.ename = UPPER(NEW.ename);
-END //
-DELIMITER ;
-
--- 4. Call the procedure and verify trigger execution
-CALL add_employee(4, 'diana', 55000, 'Sales');
-
--- 5. Display all employee records
-SELECT * FROM empp;`
-  },
-  {
-    name: "PL/SQL Procedure & Function",
-    code: `-- Schema: empp(eid, ename, salary, dept)
-
--- 1. Create procedure emp_by_dept() to display employees of a department
-DELIMITER //
-CREATE PROCEDURE emp_by_dept(IN p_dept VARCHAR(30))
-BEGIN
-  SELECT * FROM empp WHERE dept = p_dept;
-END //
-DELIMITER ;
-
--- 2. Create function get_salary() to return salary using employee id
-DELIMITER //
-CREATE FUNCTION get_salary(p_eid INT)
-RETURNS DECIMAL(10,2)
-DETERMINISTIC
-BEGIN
-  DECLARE v_salary DECIMAL(10,2);
-  SELECT salary INTO v_salary FROM empp WHERE eid = p_eid;
-  RETURN v_salary;
-END //
-DELIMITER ;
-
--- 3. Execute both procedure and function
-CALL emp_by_dept('IT');
-SELECT get_salary(1);
-
--- 4. Display output
-SELECT * FROM empp;`
-  },
-  {
-    name: "PL/SQL Procedure & Loop",
-    code: `-- Schema: empp(eid, ename, salary, dept)
-
--- 1. Create procedure show_employees() to display all employees
-DELIMITER //
-CREATE PROCEDURE show_employees()
-BEGIN
-  SELECT * FROM empp;
-END //
-DELIMITER ;
-
--- 2. Create another procedure using WHILE loop to print numbers from 1 to 5
-DELIMITER //
-CREATE PROCEDURE print_numbers()
-BEGIN
-  DECLARE i INT DEFAULT 1;
-  WHILE i <= 5 DO
-    SELECT i AS Number;
-    SET i = i + 1;
-  END WHILE;
-END //
-DELIMITER ;
-
--- 3. Execute both procedures
-CALL show_employees();
-CALL print_numbers();`
-  },
-  {
-    name: "PL/SQL Function & Loop",
-    code: `-- Schema: empp(eid, ename, salary, dept)
-
--- 1. Create function get_count() to count employees department-wise
-DELIMITER //
-CREATE FUNCTION get_count(p_dept VARCHAR(30))
-RETURNS INT
-DETERMINISTIC
-BEGIN
-  DECLARE v_count INT;
-  SELECT COUNT(*) INTO v_count FROM empp WHERE dept = p_dept;
-  RETURN v_count;
-END //
-DELIMITER ;
-
--- 2. Create procedure using LOOP to print numbers from 1 to 5
-DELIMITER //
-CREATE PROCEDURE loop_numbers()
-BEGIN
-  DECLARE i INT DEFAULT 1;
-  myloop: LOOP
-    SELECT i AS Number;
-    SET i = i + 1;
-    IF i > 5 THEN LEAVE myloop; END IF;
-  END LOOP myloop;
-END //
-DELIMITER ;
-
--- 3. Execute function and loop procedure
-SELECT get_count('IT');
-CALL loop_numbers();`
-  },
-  {
-    name: "PL/SQL Function & Trigger",
-    code: `-- Schema: student(sid, name, marks)
-
-CREATE TABLE student (
-  sid INT PRIMARY KEY,
-  name VARCHAR(50),
-  marks INT
-);
-
-INSERT INTO student VALUES (1, 'Amit', 85);
-INSERT INTO student VALUES (2, 'Priya', 92);
-
--- 1. Create function to return student marks using student id
-DELIMITER //
-CREATE FUNCTION get_marks(p_sid INT)
-RETURNS INT
-DETERMINISTIC
-BEGIN
-  DECLARE v_marks INT;
-  SELECT marks INTO v_marks FROM student WHERE sid = p_sid;
-  RETURN v_marks;
-END //
-DELIMITER ;
-
--- 2. Create trigger to restrict marks above 100
-DELIMITER //
-CREATE TRIGGER check_marks
-BEFORE UPDATE ON student
-FOR EACH ROW
-BEGIN
-  IF NEW.marks > 100 THEN
-    SIGNAL SQLSTATE '45000' SET MESSAGE_TEXT = 'Marks cannot exceed 100!';
-  END IF;
-END //
-DELIMITER ;
-
--- 3. Update student marks and verify trigger
-UPDATE student SET marks = 95 WHERE sid = 1;  -- Allowed
--- UPDATE student SET marks = 105 WHERE sid = 1;  -- Will raise error
-
-SELECT get_marks(1);
-SELECT * FROM student;`
-  },
-  {
-    name: "PL/SQL Function & Cursor",
-    code: `-- Schema: empp(eid, ename, salary, dept)
-
--- 1. Create function get_salary() to return salary using employee id
-DELIMITER //
-CREATE FUNCTION get_salary(p_eid INT)
-RETURNS DECIMAL(10,2)
-DETERMINISTIC
-BEGIN
-  DECLARE v_salary DECIMAL(10,2);
-  SELECT salary INTO v_salary FROM empp WHERE eid = p_eid;
-  RETURN v_salary;
-END //
-DELIMITER ;
-
--- 2. Create cursor procedure to display employee names one by one
-DELIMITER //
-CREATE PROCEDURE show_emp_names()
-BEGIN
-  DECLARE done INT DEFAULT 0;
-  DECLARE v_name VARCHAR(50);
-  DECLARE cur CURSOR FOR SELECT ename FROM empp;
-  DECLARE CONTINUE HANDLER FOR NOT FOUND SET done = 1;
-
-  OPEN cur;
-  read_loop: LOOP
-    FETCH cur INTO v_name;
-    IF done = 1 THEN LEAVE read_loop; END IF;
-    SELECT v_name AS Employee_Name;
-  END LOOP;
-  CLOSE cur;
-END //
-DELIMITER ;
-
--- 3. Execute both
-SELECT get_salary(1);
-CALL show_emp_names();`
-  },
-  {
-    name: "PL/SQL Procedure & Cursor",
-    code: `-- Schema: employee(id, name, salary)
-
-CREATE TABLE employee (
-  id INT PRIMARY KEY,
-  name VARCHAR(50),
-  salary DECIMAL(10,2)
-);
-
-INSERT INTO employee VALUES (1, 'Ravi', 40000);
-INSERT INTO employee VALUES (2, 'Sita', 35000);
-INSERT INTO employee VALUES (3, 'Mohan', 50000);
-
--- 1. Create procedure update_salary() using cursor to increase salary by 10%
-DELIMITER //
-CREATE PROCEDURE update_salary()
-BEGIN
-  DECLARE done INT DEFAULT 0;
-  DECLARE v_id INT;
-  DECLARE cur CURSOR FOR SELECT id FROM employee;
-  DECLARE CONTINUE HANDLER FOR NOT FOUND SET done = 1;
-
-  OPEN cur;
-  update_loop: LOOP
-    FETCH cur INTO v_id;
-    IF done = 1 THEN LEAVE update_loop; END IF;
-    UPDATE employee SET salary = salary * 1.10 WHERE id = v_id;
-  END LOOP;
-  CLOSE cur;
-END //
-DELIMITER ;
-
--- 2. Create procedure show_employees() to display all employee records
-DELIMITER //
-CREATE PROCEDURE show_employees()
-BEGIN
-  SELECT * FROM employee;
-END //
-DELIMITER ;
-
--- 3. Verify updated salaries
-CALL update_salary();
-CALL show_employees();`
-  },
-  {
-    name: "PL/SQL Cursor & Loop",
-    code: `-- Schema: employee(id, name, salary)
-
--- 1. Create cursor procedure to display employees with salary greater than 30000
-DELIMITER //
-CREATE PROCEDURE high_salary_employees()
-BEGIN
-  DECLARE done INT DEFAULT 0;
-  DECLARE v_name VARCHAR(50);
-  DECLARE v_salary DECIMAL(10,2);
-  DECLARE cur CURSOR FOR SELECT name, salary FROM employee WHERE salary > 30000;
-  DECLARE CONTINUE HANDLER FOR NOT FOUND SET done = 1;
-
-  OPEN cur;
-  -- 2. Use LOOP inside cursor processing
-  salary_loop: LOOP
-    FETCH cur INTO v_name, v_salary;
-    IF done = 1 THEN LEAVE salary_loop; END IF;
-    SELECT v_name AS Name, v_salary AS Salary;
-  END LOOP;
-  CLOSE cur;
-END //
-DELIMITER ;
-
--- 3. Execute procedure
-CALL high_salary_employees();`
-  },
-  {
-    name: "PL/SQL Exception Handling & Loop",
-    code: `-- Schema: numbers(a, b)
-
-CREATE TABLE numbers (a INT, b INT);
-INSERT INTO numbers VALUES (10, 2);
-INSERT INTO numbers VALUES (20, 0);
-INSERT INTO numbers VALUES (15, 3);
-
--- 1. Create procedure divide_numbers() using exception handling
--- 2. Handle divide-by-zero exception using DECLARE HANDLER
-DELIMITER //
-CREATE PROCEDURE divide_numbers()
-BEGIN
-  DECLARE done INT DEFAULT 0;
-  DECLARE v_a INT;
-  DECLARE v_b INT;
-  DECLARE CONTINUE HANDLER FOR SQLEXCEPTION
-    SELECT 'Error: Division by zero or SQL error!' AS Message;
-
-  DECLARE cur CURSOR FOR SELECT a, b FROM numbers;
-  DECLARE CONTINUE HANDLER FOR NOT FOUND SET done = 1;
-
-  OPEN cur;
-  div_loop: LOOP
-    FETCH cur INTO v_a, v_b;
-    IF done = 1 THEN LEAVE div_loop; END IF;
-    IF v_b = 0 THEN
-      SELECT CONCAT('Cannot divide ', v_a, ' by zero') AS Result;
-    ELSE
-      SELECT CONCAT(v_a, ' / ', v_b, ' = ', v_a/v_b) AS Result;
-    END IF;
-  END LOOP;
-  CLOSE cur;
-END //
-DELIMITER ;
-
--- 3. Create procedure using WHILE loop to print numbers from 1 to 5
-DELIMITER //
-CREATE PROCEDURE while_numbers()
-BEGIN
-  DECLARE i INT DEFAULT 1;
-  WHILE i <= 5 DO
-    SELECT i AS Number;
-    SET i = i + 1;
-  END WHILE;
-END //
-DELIMITER ;
-
-CALL divide_numbers();
-CALL while_numbers();`
-  },
-  {
-    name: "PL/SQL Procedure & Exception Handling",
-    code: `-- Schema: CUSTOMERS(ID, NAME, AGE, ADDRESS, SALARY)
-
-CREATE TABLE CUSTOMERS (
-  ID INT PRIMARY KEY,
-  NAME VARCHAR(50),
-  AGE INT,
-  ADDRESS VARCHAR(100),
-  SALARY DECIMAL(10,2)
-);
-
-INSERT INTO CUSTOMERS VALUES (1,'Ramesh',32,'Ahmedabad',2000.00);
-INSERT INTO CUSTOMERS VALUES (2,'Khilan',25,'Delhi',1500.00);
-INSERT INTO CUSTOMERS VALUES (3,'Kaushik',23,'Kota',2000.00);
-INSERT INTO CUSTOMERS VALUES (4,'Chaitali',25,'Mumbai',6500.00);
-INSERT INTO CUSTOMERS VALUES (5,'Hardik',27,'Bhopal',8500.00);
-
--- 1. Create procedure GetCustomerInfo() to display customers with age greater than 25
-DELIMITER //
-CREATE PROCEDURE GetCustomerInfo()
-BEGIN
-  SELECT * FROM CUSTOMERS WHERE AGE > 25;
-END //
-DELIMITER ;
-
--- 2. Create procedure divide_numbers() with exception handling
-DELIMITER //
-CREATE PROCEDURE divide_numbers(IN a INT, IN b INT)
-BEGIN
-  DECLARE CONTINUE HANDLER FOR SQLEXCEPTION
-    SELECT 'SQL Exception occurred!' AS Error;
-
-  IF b = 0 THEN
-    SELECT 'Error: Cannot divide by zero!' AS Result;
-  ELSE
-    SELECT a/b AS Result;
-  END IF;
-END //
-DELIMITER ;
-
--- 3. Execute both procedures
-CALL GetCustomerInfo();
-CALL divide_numbers(10, 2);
-CALL divide_numbers(10, 0);`
-  },
-  {
-    name: "PL/SQL Trigger & Cursor",
-    code: `-- Schema: orders(order_id, customer_name), order_count(total_orders)
-
-CREATE TABLE orders (
-  order_id INT PRIMARY KEY,
-  customer_name VARCHAR(50)
-);
-
-CREATE TABLE order_count (
-  total_orders INT DEFAULT 0
-);
-
-INSERT INTO order_count VALUES (3);
-INSERT INTO orders VALUES (1,'Amit');
-INSERT INTO orders VALUES (2,'Priya');
-INSERT INTO orders VALUES (3,'Raj');
-
--- 1. Create delete trigger to reduce order count automatically after deletion
-DELIMITER //
-CREATE TRIGGER after_order_delete
-AFTER DELETE ON orders
-FOR EACH ROW
-BEGIN
-  UPDATE order_count SET total_orders = total_orders - 1;
-END //
-DELIMITER ;
-
--- 2. Create cursor procedure to display all customer names one by one
-DELIMITER //
-CREATE PROCEDURE show_customers()
-BEGIN
-  DECLARE done INT DEFAULT 0;
-  DECLARE v_name VARCHAR(50);
-  DECLARE cur CURSOR FOR SELECT customer_name FROM orders;
-  DECLARE CONTINUE HANDLER FOR NOT FOUND SET done = 1;
-
-  OPEN cur;
-  cust_loop: LOOP
-    FETCH cur INTO v_name;
-    IF done = 1 THEN LEAVE cust_loop; END IF;
-    SELECT v_name AS Customer;
-  END LOOP;
-  CLOSE cur;
-END //
-DELIMITER ;
-
--- 3. Verify trigger and cursor output
-CALL show_customers();
-DELETE FROM orders WHERE order_id = 2;
-SELECT * FROM order_count;`
-  },
-  {
-    name: "PL/SQL Procedure with IN Parameter & Trigger",
-    code: `-- Schema: CUSTOMERS(ID, NAME, AGE, ADDRESS, SALARY)
-
--- 1. Create procedure GetCustomerInfo(IN CustomerAge INT)
-DELIMITER //
-CREATE PROCEDURE GetCustomerInfo(IN CustomerAge INT)
-BEGIN
-  SELECT * FROM CUSTOMERS WHERE AGE > CustomerAge;
-END //
-DELIMITER ;
-
--- 2. Create trigger to update timestamp when salary is updated
-ALTER TABLE CUSTOMERS ADD COLUMN updated_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP;
-
-DELIMITER //
-CREATE TRIGGER before_salary_update
-BEFORE UPDATE ON CUSTOMERS
-FOR EACH ROW
-BEGIN
-  IF NEW.SALARY != OLD.SALARY THEN
-    SET NEW.updated_at = NOW();
-  END IF;
-END //
-DELIMITER ;
-
--- 3. Execute procedure
-CALL GetCustomerInfo(25);
-
--- Test trigger
-UPDATE CUSTOMERS SET SALARY = 9000 WHERE ID = 1;
-SELECT ID, NAME, SALARY, updated_at FROM CUSTOMERS;`
-  },
-  {
-    name: "PL/SQL Procedure with OUT Parameter & Loop",
-    code: `-- Schema: empp(eid, ename, salary, dept)
-
--- 1. Create procedure emp_count() with OUT parameter
-DELIMITER //
-CREATE PROCEDURE emp_count(OUT total INT)
-BEGIN
-  SELECT COUNT(*) INTO total FROM empp;
-END //
-DELIMITER ;
-
--- 2. Create LOOP procedure to print numbers from 1 to 5
-DELIMITER //
-CREATE PROCEDURE loop_print()
-BEGIN
-  DECLARE i INT DEFAULT 1;
-  myloop: LOOP
-    SELECT i AS Number;
-    SET i = i + 1;
-    IF i > 5 THEN LEAVE myloop; END IF;
-  END LOOP myloop;
-END //
-DELIMITER ;
-
--- 3. Execute both procedures
-CALL emp_count(@total);
-SELECT @total AS Total_Employees;
-CALL loop_print();`
-  },
-  {
-    name: "PL/SQL Procedure with INOUT Parameter & Trigger",
-    code: `-- Schema: empp(eid, ename, salary, dept)
-
--- 1. Create procedure increase_salary() using INOUT parameter
-DELIMITER //
-CREATE PROCEDURE increase_salary(INOUT p_salary DECIMAL(10,2), IN increment DECIMAL(10,2))
-BEGIN
-  SET p_salary = p_salary + increment;
-END //
-DELIMITER ;
-
--- 2. Create trigger to prevent salary reduction during update
-DELIMITER //
-CREATE TRIGGER prevent_salary_cut
-BEFORE UPDATE ON empp
-FOR EACH ROW
-BEGIN
-  IF NEW.salary < OLD.salary THEN
-    SIGNAL SQLSTATE '45000' SET MESSAGE_TEXT = 'Salary reduction not allowed!';
-  END IF;
-END //
-DELIMITER ;
-
--- 3. Verify updated salary
-SET @sal = 50000;
-CALL increase_salary(@sal, 5000);
-SELECT @sal AS Updated_Salary;
-
--- Test trigger
-UPDATE empp SET salary = 55000 WHERE eid = 1;  -- Allowed
--- UPDATE empp SET salary = 40000 WHERE eid = 1;  -- Will raise error
-
-SELECT * FROM empp;`
-  },
-  {
-    name: "PL/SQL Cursor & Exception Handling",
-    code: `-- Schema: employee(id, name, salary)
-
--- 1. Create cursor procedure to display employee names one by one
--- 2. Add exception handler for cursor end condition
-DELIMITER //
-CREATE PROCEDURE cursor_with_exception()
-BEGIN
-  DECLARE done INT DEFAULT 0;
-  DECLARE v_name VARCHAR(50);
-  DECLARE v_salary DECIMAL(10,2);
-
-  DECLARE cur CURSOR FOR SELECT name, salary FROM employee;
-  DECLARE CONTINUE HANDLER FOR NOT FOUND SET done = 1;
-  DECLARE CONTINUE HANDLER FOR SQLEXCEPTION
-    SELECT 'An SQL exception occurred.' AS Error;
-
-  OPEN cur;
-  emp_loop: LOOP
-    FETCH cur INTO v_name, v_salary;
-    IF done = 1 THEN
-      LEAVE emp_loop;
-    END IF;
-    SELECT v_name AS Employee_Name, v_salary AS Salary;
-  END LOOP emp_loop;
-  CLOSE cur;
-
-  SELECT 'Cursor processing completed.' AS Status;
-END //
-DELIMITER ;
-
--- 3. Execute procedure
-CALL cursor_with_exception();`
-  }
-];
-
-const jdbcData = [
-  {
-    name: "Library Management System (JDBC)",
-    code: `import java.sql.*;
-import java.util.Scanner;
-
-// Database: MySQL
-// Tables: BOOK(Book_ID, Title, Author, Category, Price), MEMBER(Member_ID, Member_Name, City), ISSUE(Issue_ID, Book_ID, Member_ID, Issue_Date, Return_Date)
-
-public class LibraryJDBC {
-    static final String URL = "jdbc:mysql://localhost:3306/librarydb";
-    static final String USER = "root";
-    static final String PASS = "password";
-
-    public static void main(String[] args) throws Exception {
-        Class.forName("com.mysql.cj.jdbc.Driver");
-        Connection con = DriverManager.getConnection(URL, USER, PASS);
-        Scanner sc = new Scanner(System.in);
-        int choice;
-
-        do {
-            System.out.println("\\n===== LIBRARY MANAGEMENT SYSTEM =====");
-            System.out.println("1. Add Book");
-            System.out.println("2. Display All Books");
-            System.out.println("3. Search Book by Category");
-            System.out.println("4. Delete Book");
-            System.out.println("5. Add Member");
-            System.out.println("6. Display All Members");
-            System.out.println("7. Issue Book");
-            System.out.println("0. Exit");
-            System.out.print("Enter choice: ");
-            choice = sc.nextInt();
-
-            switch (choice) {
-                case 1:
-                    sc.nextLine();
-                    System.out.print("Enter Book ID: "); int bid = sc.nextInt();
-                    sc.nextLine();
-                    System.out.print("Title: "); String title = sc.nextLine();
-                    System.out.print("Author: "); String author = sc.nextLine();
-                    System.out.print("Category: "); String category = sc.nextLine();
-                    System.out.print("Price: "); double price = sc.nextDouble();
-
-                    PreparedStatement ps1 = con.prepareStatement(
-                        "INSERT INTO BOOK VALUES (?,?,?,?,?)");
-                    ps1.setInt(1, bid); ps1.setString(2, title);
-                    ps1.setString(3, author); ps1.setString(4, category);
-                    ps1.setDouble(5, price);
-                    ps1.executeUpdate();
-                    System.out.println("Book added successfully!");
-                    ps1.close();
-                    break;
-
-                case 2:
-                    Statement st2 = con.createStatement();
-                    ResultSet rs2 = st2.executeQuery("SELECT * FROM BOOK");
-                    System.out.println("\\nBook_ID | Title | Author | Category | Price");
-                    System.out.println("------------------------------------------------");
-                    while (rs2.next()) {
-                        System.out.println(rs2.getInt(1) + " | " + rs2.getString(2) + " | " +
-                            rs2.getString(3) + " | " + rs2.getString(4) + " | " + rs2.getDouble(5));
-                    }
-                    rs2.close(); st2.close();
-                    break;
-
-                case 3:
-                    sc.nextLine();
-                    System.out.print("Enter Category: "); String cat = sc.nextLine();
-                    PreparedStatement ps3 = con.prepareStatement(
-                        "SELECT * FROM BOOK WHERE Category=?");
-                    ps3.setString(1, cat);
-                    ResultSet rs3 = ps3.executeQuery();
-                    System.out.println("\\nBooks in category: " + cat);
-                    while (rs3.next()) {
-                        System.out.println(rs3.getInt(1) + " | " + rs3.getString(2) + " | " +
-                            rs3.getString(3) + " | Rs." + rs3.getDouble(5));
-                    }
-                    rs3.close(); ps3.close();
-                    break;
-
-                case 4:
-                    System.out.print("Enter Book ID to delete: "); int delId = sc.nextInt();
-                    PreparedStatement ps4 = con.prepareStatement("DELETE FROM BOOK WHERE Book_ID=?");
-                    ps4.setInt(1, delId);
-                    int rows = ps4.executeUpdate();
-                    System.out.println(rows > 0 ? "Book deleted!" : "Book not found.");
-                    ps4.close();
-                    break;
-
-                case 5:
-                    System.out.print("Member ID: "); int mid = sc.nextInt();
-                    sc.nextLine();
-                    System.out.print("Name: "); String mname = sc.nextLine();
-                    System.out.print("City: "); String city = sc.nextLine();
-                    PreparedStatement ps5 = con.prepareStatement("INSERT INTO MEMBER VALUES(?,?,?)");
-                    ps5.setInt(1, mid); ps5.setString(2, mname); ps5.setString(3, city);
-                    ps5.executeUpdate();
-                    System.out.println("Member added!");
-                    ps5.close();
-                    break;
-
-                case 6:
-                    Statement st6 = con.createStatement();
-                    ResultSet rs6 = st6.executeQuery("SELECT * FROM MEMBER");
-                    System.out.println("\\nMember_ID | Name | City");
-                    while (rs6.next())
-                        System.out.println(rs6.getInt(1) + " | " + rs6.getString(2) + " | " + rs6.getString(3));
-                    rs6.close(); st6.close();
-                    break;
-
-                case 7:
-                    System.out.print("Issue ID: "); int iid = sc.nextInt();
-                    System.out.print("Book ID: "); int ibid = sc.nextInt();
-                    System.out.print("Member ID: "); int imid = sc.nextInt();
-                    sc.nextLine();
-                    System.out.print("Issue Date (YYYY-MM-DD): "); String idate = sc.nextLine();
-                    System.out.print("Return Date (YYYY-MM-DD): "); String rdate = sc.nextLine();
-                    PreparedStatement ps7 = con.prepareStatement("INSERT INTO ISSUE VALUES(?,?,?,?,?)");
-                    ps7.setInt(1,iid); ps7.setInt(2,ibid); ps7.setInt(3,imid);
-                    ps7.setString(4,idate); ps7.setString(5,rdate);
-                    ps7.executeUpdate();
-                    System.out.println("Book issued successfully!");
-                    ps7.close();
-                    break;
-            }
-        } while (choice != 0);
-
-        con.close();
-        System.out.println("Thank you! Goodbye.");
+    no: 1,
+    topic: "BST",
+    name: "Library Book Cataloging System",
+    code: `#include<iostream>
+#include<queue>
+#include<stack>
+using namespace std;
+
+struct Node {
+    int isbn;
+    Node *left, *right;
+    Node(int val) : isbn(val), left(nullptr), right(nullptr) {}
+};
+
+class BST {
+    Node* root;
+public:
+    BST() : root(nullptr) {}
+
+    Node* insert(Node* node, int val) {
+        if (!node) return new Node(val);
+        if (val < node->isbn) node->left = insert(node->left, val);
+        else if (val > node->isbn) node->right = insert(node->right, val);
+        return node;
     }
-}`
-  },
-  {
-    name: "Hospital Management System (JDBC)",
-    code: `import java.sql.*;
-import java.util.Scanner;
+    void insert(int val) { root = insert(root, val); }
 
-// Database: MySQL
-// Tables: DOCTOR(Doctor_ID, Doctor_Name, Specialization, Salary), PATIENT(Patient_ID, Patient_Name, Age, City), APPOINTMENT(Appointment_ID, Doctor_ID, Patient_ID, Appointment_Date)
-
-public class HospitalJDBC {
-    static final String URL = "jdbc:mysql://localhost:3306/hospitaldb";
-    static final String USER = "root";
-    static final String PASS = "password";
-
-    public static void main(String[] args) throws Exception {
-        Class.forName("com.mysql.cj.jdbc.Driver");
-        Connection con = DriverManager.getConnection(URL, USER, PASS);
-        Scanner sc = new Scanner(System.in);
-        int choice;
-
-        do {
-            System.out.println("\\n===== HOSPITAL MANAGEMENT SYSTEM =====");
-            System.out.println("1. Add Doctor");
-            System.out.println("2. Display All Doctors");
-            System.out.println("3. Add Patient");
-            System.out.println("4. Display All Patients");
-            System.out.println("5. Book Appointment");
-            System.out.println("6. View Appointments");
-            System.out.println("7. Search Doctor by Specialization");
-            System.out.println("0. Exit");
-            System.out.print("Enter choice: ");
-            choice = sc.nextInt();
-
-            switch (choice) {
-                case 1:
-                    System.out.print("Doctor ID: "); int did = sc.nextInt(); sc.nextLine();
-                    System.out.print("Name: "); String dname = sc.nextLine();
-                    System.out.print("Specialization: "); String spec = sc.nextLine();
-                    System.out.print("Salary: "); double sal = sc.nextDouble();
-                    PreparedStatement ps1 = con.prepareStatement("INSERT INTO DOCTOR VALUES(?,?,?,?)");
-                    ps1.setInt(1,did); ps1.setString(2,dname);
-                    ps1.setString(3,spec); ps1.setDouble(4,sal);
-                    ps1.executeUpdate();
-                    System.out.println("Doctor added!");
-                    ps1.close(); break;
-
-                case 2:
-                    Statement st2 = con.createStatement();
-                    ResultSet rs2 = st2.executeQuery("SELECT * FROM DOCTOR");
-                    System.out.println("\\nDoctor_ID | Name | Specialization | Salary");
-                    System.out.println("-------------------------------------------");
-                    while (rs2.next())
-                        System.out.println(rs2.getInt(1)+" | "+rs2.getString(2)+" | "+rs2.getString(3)+" | "+rs2.getDouble(4));
-                    rs2.close(); st2.close(); break;
-
-                case 3:
-                    System.out.print("Patient ID: "); int pid = sc.nextInt(); sc.nextLine();
-                    System.out.print("Name: "); String pname = sc.nextLine();
-                    System.out.print("Age: "); int age = sc.nextInt(); sc.nextLine();
-                    System.out.print("City: "); String city = sc.nextLine();
-                    PreparedStatement ps3 = con.prepareStatement("INSERT INTO PATIENT VALUES(?,?,?,?)");
-                    ps3.setInt(1,pid); ps3.setString(2,pname);
-                    ps3.setInt(3,age); ps3.setString(4,city);
-                    ps3.executeUpdate();
-                    System.out.println("Patient added!");
-                    ps3.close(); break;
-
-                case 4:
-                    Statement st4 = con.createStatement();
-                    ResultSet rs4 = st4.executeQuery("SELECT * FROM PATIENT");
-                    System.out.println("\\nPatient_ID | Name | Age | City");
-                    while (rs4.next())
-                        System.out.println(rs4.getInt(1)+" | "+rs4.getString(2)+" | "+rs4.getInt(3)+" | "+rs4.getString(4));
-                    rs4.close(); st4.close(); break;
-
-                case 5:
-                    System.out.print("Appointment ID: "); int apid = sc.nextInt();
-                    System.out.print("Doctor ID: "); int apDid = sc.nextInt();
-                    System.out.print("Patient ID: "); int apPid = sc.nextInt(); sc.nextLine();
-                    System.out.print("Date (YYYY-MM-DD): "); String adate = sc.nextLine();
-                    PreparedStatement ps5 = con.prepareStatement("INSERT INTO APPOINTMENT VALUES(?,?,?,?)");
-                    ps5.setInt(1,apid); ps5.setInt(2,apDid); ps5.setInt(3,apPid); ps5.setString(4,adate);
-                    ps5.executeUpdate();
-                    System.out.println("Appointment booked!");
-                    ps5.close(); break;
-
-                case 6:
-                    Statement st6 = con.createStatement();
-                    ResultSet rs6 = st6.executeQuery(
-                        "SELECT A.Appointment_ID, D.Doctor_Name, P.Patient_Name, A.Appointment_Date " +
-                        "FROM APPOINTMENT A JOIN DOCTOR D ON A.Doctor_ID=D.Doctor_ID " +
-                        "JOIN PATIENT P ON A.Patient_ID=P.Patient_ID");
-                    System.out.println("\\nApp_ID | Doctor | Patient | Date");
-                    while (rs6.next())
-                        System.out.println(rs6.getInt(1)+" | "+rs6.getString(2)+" | "+rs6.getString(3)+" | "+rs6.getString(4));
-                    rs6.close(); st6.close(); break;
-
-                case 7:
-                    sc.nextLine();
-                    System.out.print("Enter Specialization: "); String sp = sc.nextLine();
-                    PreparedStatement ps7 = con.prepareStatement("SELECT * FROM DOCTOR WHERE Specialization=?");
-                    ps7.setString(1,sp);
-                    ResultSet rs7 = ps7.executeQuery();
-                    while (rs7.next())
-                        System.out.println(rs7.getInt(1)+" | "+rs7.getString(2)+" | "+rs7.getDouble(4));
-                    rs7.close(); ps7.close(); break;
-            }
-        } while (choice != 0);
-        con.close();
+    // Recursive Traversals
+    void inorder(Node* n) {
+        if (!n) return;
+        inorder(n->left); cout << n->isbn << " "; inorder(n->right);
     }
-}`
-  },
-  {
-    name: "Banking System (JDBC)",
-    code: `import java.sql.*;
-import java.util.Scanner;
-
-// Database: MySQL
-// Tables: CUSTOMER(Customer_ID, Customer_Name, City), ACCOUNT(Account_No, Customer_ID, Account_Type, Balance), TRANSACTION(Transaction_ID, Account_No, Amount, Transaction_Type)
-
-public class BankingJDBC {
-    static final String URL = "jdbc:mysql://localhost:3306/bankdb";
-    static final String USER = "root";
-    static final String PASS = "password";
-
-    public static void main(String[] args) throws Exception {
-        Class.forName("com.mysql.cj.jdbc.Driver");
-        Connection con = DriverManager.getConnection(URL, USER, PASS);
-        Scanner sc = new Scanner(System.in);
-        int choice;
-
-        do {
-            System.out.println("\\n===== BANKING SYSTEM =====");
-            System.out.println("1. Add Customer");
-            System.out.println("2. Open Account");
-            System.out.println("3. Deposit Amount");
-            System.out.println("4. Withdraw Amount");
-            System.out.println("5. Check Balance");
-            System.out.println("6. View Transaction History");
-            System.out.println("7. Display All Accounts");
-            System.out.println("0. Exit");
-            System.out.print("Enter choice: ");
-            choice = sc.nextInt();
-
-            switch (choice) {
-                case 1:
-                    System.out.print("Customer ID: "); int cid = sc.nextInt(); sc.nextLine();
-                    System.out.print("Name: "); String cname = sc.nextLine();
-                    System.out.print("City: "); String city = sc.nextLine();
-                    PreparedStatement ps1 = con.prepareStatement("INSERT INTO CUSTOMER VALUES(?,?,?)");
-                    ps1.setInt(1,cid); ps1.setString(2,cname); ps1.setString(3,city);
-                    ps1.executeUpdate();
-                    System.out.println("Customer added!"); ps1.close(); break;
-
-                case 2:
-                    System.out.print("Account No: "); int accNo = sc.nextInt();
-                    System.out.print("Customer ID: "); int accCid = sc.nextInt(); sc.nextLine();
-                    System.out.print("Account Type (Savings/Current): "); String accType = sc.nextLine();
-                    System.out.print("Initial Balance: "); double bal = sc.nextDouble();
-                    PreparedStatement ps2 = con.prepareStatement("INSERT INTO ACCOUNT VALUES(?,?,?,?)");
-                    ps2.setInt(1,accNo); ps2.setInt(2,accCid); ps2.setString(3,accType); ps2.setDouble(4,bal);
-                    ps2.executeUpdate();
-                    System.out.println("Account opened!"); ps2.close(); break;
-
-                case 3:
-                    System.out.print("Account No: "); int depAcc = sc.nextInt();
-                    System.out.print("Deposit Amount: "); double depAmt = sc.nextDouble();
-                    PreparedStatement ps3 = con.prepareStatement("UPDATE ACCOUNT SET Balance=Balance+? WHERE Account_No=?");
-                    ps3.setDouble(1,depAmt); ps3.setInt(2,depAcc); ps3.executeUpdate();
-                    PreparedStatement ps3t = con.prepareStatement("INSERT INTO TRANSACTION VALUES(NULL,?,?,?)");
-                    ps3t.setInt(1,depAcc); ps3t.setDouble(2,depAmt); ps3t.setString(3,"Credit");
-                    ps3t.executeUpdate();
-                    System.out.println("Amount deposited!"); ps3.close(); ps3t.close(); break;
-
-                case 4:
-                    System.out.print("Account No: "); int witAcc = sc.nextInt();
-                    System.out.print("Withdraw Amount: "); double witAmt = sc.nextDouble();
-                    PreparedStatement checkBal = con.prepareStatement("SELECT Balance FROM ACCOUNT WHERE Account_No=?");
-                    checkBal.setInt(1,witAcc);
-                    ResultSet rsb = checkBal.executeQuery();
-                    if (rsb.next() && rsb.getDouble(1) >= witAmt) {
-                        PreparedStatement ps4 = con.prepareStatement("UPDATE ACCOUNT SET Balance=Balance-? WHERE Account_No=?");
-                        ps4.setDouble(1,witAmt); ps4.setInt(2,witAcc); ps4.executeUpdate();
-                        PreparedStatement ps4t = con.prepareStatement("INSERT INTO TRANSACTION VALUES(NULL,?,?,?)");
-                        ps4t.setInt(1,witAcc); ps4t.setDouble(2,witAmt); ps4t.setString(3,"Debit");
-                        ps4t.executeUpdate();
-                        System.out.println("Withdrawal successful!"); ps4.close(); ps4t.close();
-                    } else { System.out.println("Insufficient balance!"); }
-                    rsb.close(); checkBal.close(); break;
-
-                case 5:
-                    System.out.print("Account No: "); int balAcc = sc.nextInt();
-                    PreparedStatement ps5 = con.prepareStatement("SELECT Balance FROM ACCOUNT WHERE Account_No=?");
-                    ps5.setInt(1,balAcc);
-                    ResultSet rs5 = ps5.executeQuery();
-                    if (rs5.next()) System.out.println("Balance: Rs." + rs5.getDouble(1));
-                    else System.out.println("Account not found.");
-                    rs5.close(); ps5.close(); break;
-
-                case 6:
-                    System.out.print("Account No: "); int histAcc = sc.nextInt();
-                    PreparedStatement ps6 = con.prepareStatement("SELECT * FROM TRANSACTION WHERE Account_No=?");
-                    ps6.setInt(1,histAcc);
-                    ResultSet rs6 = ps6.executeQuery();
-                    System.out.println("\\nTxn_ID | Account | Amount | Type");
-                    while (rs6.next())
-                        System.out.println(rs6.getInt(1)+" | "+rs6.getInt(2)+" | Rs."+rs6.getDouble(3)+" | "+rs6.getString(4));
-                    rs6.close(); ps6.close(); break;
-
-                case 7:
-                    Statement st7 = con.createStatement();
-                    ResultSet rs7 = st7.executeQuery(
-                        "SELECT C.Customer_Name, A.Account_No, A.Account_Type, A.Balance " +
-                        "FROM CUSTOMER C JOIN ACCOUNT A ON C.Customer_ID=A.Customer_ID");
-                    System.out.println("\\nName | Acc No | Type | Balance");
-                    while (rs7.next())
-                        System.out.println(rs7.getString(1)+" | "+rs7.getInt(2)+" | "+rs7.getString(3)+" | Rs."+rs7.getDouble(4));
-                    rs7.close(); st7.close(); break;
-            }
-        } while (choice != 0);
-        con.close();
+    void preorder(Node* n) {
+        if (!n) return;
+        cout << n->isbn << " "; preorder(n->left); preorder(n->right);
     }
-}`
-  },
-  {
-    name: "Student Management System (JDBC)",
-    code: `import java.sql.*;
-import java.util.Scanner;
+    void postorder(Node* n) {
+        if (!n) return;
+        postorder(n->left); postorder(n->right); cout << n->isbn << " ";
+    }
 
-// Database: MySQL
-// Table: STUDENT(Student_ID, Student_Name, Branch, CGPA, City)
-
-public class StudentJDBC {
-    static final String URL = "jdbc:mysql://localhost:3306/collegedb";
-    static final String USER = "root";
-    static final String PASS = "password";
-
-    public static void main(String[] args) {
-        try {
-            Class.forName("com.mysql.cj.jdbc.Driver");
-            Connection con = DriverManager.getConnection(URL, USER, PASS);
-
-            // Create table if not exists
-            Statement st = con.createStatement();
-            st.executeUpdate(
-                "CREATE TABLE IF NOT EXISTS STUDENT (" +
-                "Student_ID INT PRIMARY KEY, Student_Name VARCHAR(50), " +
-                "Branch VARCHAR(30), CGPA DOUBLE, City VARCHAR(30))");
-
-            Scanner sc = new Scanner(System.in);
-            int choice;
-
-            do {
-                System.out.println("\\n===== STUDENT MANAGEMENT SYSTEM =====");
-                System.out.println("1. Add Student");
-                System.out.println("2. Display All Students");
-                System.out.println("3. Search by Branch");
-                System.out.println("4. Update CGPA");
-                System.out.println("5. Delete Student");
-                System.out.println("6. Display Top Students (CGPA > 8)");
-                System.out.println("0. Exit");
-                System.out.print("Enter choice: ");
-                choice = sc.nextInt();
-
-                switch (choice) {
-                    case 1:
-                        System.out.print("Student ID: "); int sid = sc.nextInt(); sc.nextLine();
-                        System.out.print("Name: "); String sname = sc.nextLine();
-                        System.out.print("Branch: "); String branch = sc.nextLine();
-                        System.out.print("CGPA: "); double cgpa = sc.nextDouble(); sc.nextLine();
-                        System.out.print("City: "); String city = sc.nextLine();
-                        PreparedStatement ps1 = con.prepareStatement("INSERT INTO STUDENT VALUES(?,?,?,?,?)");
-                        ps1.setInt(1,sid); ps1.setString(2,sname); ps1.setString(3,branch);
-                        ps1.setDouble(4,cgpa); ps1.setString(5,city);
-                        ps1.executeUpdate();
-                        System.out.println("Student added successfully!"); ps1.close(); break;
-
-                    case 2:
-                        ResultSet rs2 = st.executeQuery("SELECT * FROM STUDENT ORDER BY Student_ID");
-                        System.out.println("\\nID | Name | Branch | CGPA | City");
-                        System.out.println("--------------------------------------");
-                        while (rs2.next())
-                            System.out.println(rs2.getInt(1)+" | "+rs2.getString(2)+" | "+rs2.getString(3)+" | "+rs2.getDouble(4)+" | "+rs2.getString(5));
-                        rs2.close(); break;
-
-                    case 3:
-                        sc.nextLine();
-                        System.out.print("Enter Branch: "); String br = sc.nextLine();
-                        PreparedStatement ps3 = con.prepareStatement("SELECT * FROM STUDENT WHERE Branch=?");
-                        ps3.setString(1,br);
-                        ResultSet rs3 = ps3.executeQuery();
-                        System.out.println("\\nStudents in " + br + " branch:");
-                        while (rs3.next())
-                            System.out.println(rs3.getInt(1)+" | "+rs3.getString(2)+" | CGPA: "+rs3.getDouble(4));
-                        rs3.close(); ps3.close(); break;
-
-                    case 4:
-                        System.out.print("Student ID: "); int upId = sc.nextInt();
-                        System.out.print("New CGPA: "); double newCgpa = sc.nextDouble();
-                        PreparedStatement ps4 = con.prepareStatement("UPDATE STUDENT SET CGPA=? WHERE Student_ID=?");
-                        ps4.setDouble(1,newCgpa); ps4.setInt(2,upId);
-                        int rows4 = ps4.executeUpdate();
-                        System.out.println(rows4>0 ? "CGPA updated!" : "Student not found."); ps4.close(); break;
-
-                    case 5:
-                        System.out.print("Student ID to delete: "); int delId = sc.nextInt();
-                        PreparedStatement ps5 = con.prepareStatement("DELETE FROM STUDENT WHERE Student_ID=?");
-                        ps5.setInt(1,delId);
-                        int rows5 = ps5.executeUpdate();
-                        System.out.println(rows5>0 ? "Student deleted!" : "Student not found."); ps5.close(); break;
-
-                    case 6:
-                        ResultSet rs6 = st.executeQuery("SELECT * FROM STUDENT WHERE CGPA>8 ORDER BY CGPA DESC");
-                        System.out.println("\\nTop Students (CGPA > 8.0):");
-                        while (rs6.next())
-                            System.out.println(rs6.getString(2)+" | "+rs6.getString(3)+" | CGPA: "+rs6.getDouble(4));
-                        rs6.close(); break;
-                }
-            } while (choice != 0);
-            con.close();
-        } catch (Exception e) {
-            System.out.println("Error: " + e.getMessage());
-            e.printStackTrace();
+    // Non-Recursive Inorder
+    void inorderNR() {
+        stack<Node*> s; Node* curr = root;
+        while (curr || !s.empty()) {
+            while (curr) { s.push(curr); curr = curr->left; }
+            curr = s.top(); s.pop();
+            cout << curr->isbn << " ";
+            curr = curr->right;
         }
     }
+
+    // Non-Recursive Preorder
+    void preorderNR() {
+        if (!root) return;
+        stack<Node*> s; s.push(root);
+        while (!s.empty()) {
+            Node* n = s.top(); s.pop();
+            cout << n->isbn << " ";
+            if (n->right) s.push(n->right);
+            if (n->left) s.push(n->left);
+        }
+    }
+
+    // Non-Recursive Postorder
+    void postorderNR() {
+        if (!root) return;
+        stack<Node*> s1, s2; s1.push(root);
+        while (!s1.empty()) {
+            Node* n = s1.top(); s1.pop(); s2.push(n);
+            if (n->left) s1.push(n->left);
+            if (n->right) s1.push(n->right);
+        }
+        while (!s2.empty()) { cout << s2.top()->isbn << " "; s2.pop(); }
+    }
+
+    // Level Order
+    void levelOrder() {
+        if (!root) return;
+        queue<Node*> q; q.push(root);
+        while (!q.empty()) {
+            int sz = q.size();
+            while (sz--) {
+                Node* n = q.front(); q.pop();
+                cout << n->isbn << " ";
+                if (n->left) q.push(n->left);
+                if (n->right) q.push(n->right);
+            }
+            cout << endl;
+        }
+    }
+
+    bool search(int val) {
+        Node* curr = root;
+        while (curr) {
+            if (curr->isbn == val) return true;
+            curr = (val < curr->isbn) ? curr->left : curr->right;
+        }
+        return false;
+    }
+
+    Node* findMin(Node* n) {
+        while (n->left) n = n->left;
+        return n;
+    }
+
+    Node* deleteNode(Node* n, int val) {
+        if (!n) return nullptr;
+        if (val < n->isbn) n->left = deleteNode(n->left, val);
+        else if (val > n->isbn) n->right = deleteNode(n->right, val);
+        else {
+            if (!n->left) { Node* t = n->right; delete n; return t; }
+            if (!n->right) { Node* t = n->left; delete n; return t; }
+            Node* min = findMin(n->right);
+            n->isbn = min->isbn;
+            n->right = deleteNode(n->right, min->isbn);
+        }
+        return n;
+    }
+    void deleteNode(int val) { root = deleteNode(root, val); }
+
+    void display() {
+        cout << "Inorder (Recursive):     "; inorder(root); cout << endl;
+        cout << "Preorder (Recursive):    "; preorder(root); cout << endl;
+        cout << "Postorder (Recursive):   "; postorder(root); cout << endl;
+        cout << "Inorder (Non-Recursive): "; inorderNR(); cout << endl;
+        cout << "Preorder (Non-Recursive):"; preorderNR(); cout << endl;
+        cout << "Postorder (Non-Recursive):"; postorderNR(); cout << endl;
+        cout << "Level-wise:" << endl; levelOrder();
+    }
+};
+
+int main() {
+    BST tree;
+    int isbns[] = {45, 30, 60, 20, 35, 55, 70};
+    for (int x : isbns) tree.insert(x);
+
+    cout << "=== Before Deletion ===" << endl;
+    tree.display();
+
+    cout << "\\nSearch 35: " << (tree.search(35) ? "Found" : "Not Found") << endl;
+
+    tree.deleteNode(30);
+    cout << "\\n=== After Deleting 30 ===" << endl;
+    tree.display();
+    return 0;
 }`
   },
   {
-    name: "Employee Management System (JDBC)",
-    code: `import java.sql.*;
-import java.util.Scanner;
+    no: 2,
+    topic: "BST",
+    name: "Student Marks Management Portal",
+    code: `#include<iostream>
+#include<queue>
+#include<stack>
+using namespace std;
 
-// Database: MySQL
-// Table: EMPLOYEE(Emp_ID, Emp_Name, Department, Salary)
+struct Node {
+    int roll;
+    Node *left, *right;
+    Node(int v) : roll(v), left(nullptr), right(nullptr) {}
+};
 
-public class EmployeeJDBC {
-    static final String URL = "jdbc:mysql://localhost:3306/employeedb";
-    static final String USER = "root";
-    static final String PASS = "password";
+class BST {
+    Node* root;
+public:
+    BST() : root(nullptr) {}
+    Node* insert(Node* n, int v) {
+        if (!n) return new Node(v);
+        if (v < n->roll) n->left = insert(n->left, v);
+        else if (v > n->roll) n->right = insert(n->right, v);
+        return n;
+    }
+    void insert(int v) { root = insert(root, v); }
 
-    public static void main(String[] args) {
-        try {
-            Class.forName("com.mysql.cj.jdbc.Driver");
-            Connection con = DriverManager.getConnection(URL, USER, PASS);
+    void inorder(Node* n) { if (!n) return; inorder(n->left); cout<<n->roll<<" "; inorder(n->right); }
+    void preorder(Node* n) { if (!n) return; cout<<n->roll<<" "; preorder(n->left); preorder(n->right); }
+    void postorder(Node* n) { if (!n) return; postorder(n->left); postorder(n->right); cout<<n->roll<<" "; }
 
-            Statement createSt = con.createStatement();
-            createSt.executeUpdate(
-                "CREATE TABLE IF NOT EXISTS EMPLOYEE (" +
-                "Emp_ID INT PRIMARY KEY, Emp_Name VARCHAR(50), " +
-                "Department VARCHAR(30), Salary DECIMAL(10,2))");
-
-            Scanner sc = new Scanner(System.in);
-            int choice;
-
-            do {
-                System.out.println("\\n===== EMPLOYEE MANAGEMENT SYSTEM =====");
-                System.out.println("1. Add Employee");
-                System.out.println("2. Display All Employees");
-                System.out.println("3. Search by Department");
-                System.out.println("4. Update Salary");
-                System.out.println("5. Delete Employee");
-                System.out.println("6. Display High Earners (Salary > 60000)");
-                System.out.println("7. Department-wise Employee Count");
-                System.out.println("0. Exit");
-                System.out.print("Enter choice: ");
-                choice = sc.nextInt();
-                Statement st = con.createStatement();
-
-                switch (choice) {
-                    case 1:
-                        System.out.print("Emp ID: "); int eid = sc.nextInt(); sc.nextLine();
-                        System.out.print("Name: "); String ename = sc.nextLine();
-                        System.out.print("Department: "); String dept = sc.nextLine();
-                        System.out.print("Salary: "); double sal = sc.nextDouble();
-                        PreparedStatement ps1 = con.prepareStatement("INSERT INTO EMPLOYEE VALUES(?,?,?,?)");
-                        ps1.setInt(1,eid); ps1.setString(2,ename); ps1.setString(3,dept); ps1.setDouble(4,sal);
-                        ps1.executeUpdate();
-                        System.out.println("Employee added!"); ps1.close(); break;
-
-                    case 2:
-                        ResultSet rs2 = st.executeQuery("SELECT * FROM EMPLOYEE ORDER BY Emp_ID");
-                        System.out.println("\\nEmp_ID | Name | Department | Salary");
-                        System.out.println("--------------------------------------");
-                        while (rs2.next())
-                            System.out.println(rs2.getInt(1)+" | "+rs2.getString(2)+" | "+rs2.getString(3)+" | Rs."+rs2.getDouble(4));
-                        rs2.close(); break;
-
-                    case 3:
-                        sc.nextLine();
-                        System.out.print("Department: "); String d = sc.nextLine();
-                        PreparedStatement ps3 = con.prepareStatement("SELECT * FROM EMPLOYEE WHERE Department=?");
-                        ps3.setString(1,d);
-                        ResultSet rs3 = ps3.executeQuery();
-                        System.out.println("\\nEmployees in " + d + ":");
-                        while (rs3.next())
-                            System.out.println(rs3.getInt(1)+" | "+rs3.getString(2)+" | Rs."+rs3.getDouble(4));
-                        rs3.close(); ps3.close(); break;
-
-                    case 4:
-                        System.out.print("Emp ID: "); int uid = sc.nextInt();
-                        System.out.print("New Salary: "); double ns = sc.nextDouble();
-                        PreparedStatement ps4 = con.prepareStatement("UPDATE EMPLOYEE SET Salary=? WHERE Emp_ID=?");
-                        ps4.setDouble(1,ns); ps4.setInt(2,uid);
-                        System.out.println(ps4.executeUpdate()>0 ? "Salary updated!" : "Employee not found.");
-                        ps4.close(); break;
-
-                    case 5:
-                        System.out.print("Emp ID to delete: "); int did = sc.nextInt();
-                        PreparedStatement ps5 = con.prepareStatement("DELETE FROM EMPLOYEE WHERE Emp_ID=?");
-                        ps5.setInt(1,did);
-                        System.out.println(ps5.executeUpdate()>0 ? "Employee deleted!" : "Not found.");
-                        ps5.close(); break;
-
-                    case 6:
-                        ResultSet rs6 = st.executeQuery("SELECT * FROM EMPLOYEE WHERE Salary>60000 ORDER BY Salary DESC");
-                        System.out.println("\\nHigh Earners (Salary > 60,000):");
-                        while (rs6.next())
-                            System.out.println(rs6.getString(2)+" | "+rs6.getString(3)+" | Rs."+rs6.getDouble(4));
-                        rs6.close(); break;
-
-                    case 7:
-                        ResultSet rs7 = st.executeQuery("SELECT Department, COUNT(*) AS Count FROM EMPLOYEE GROUP BY Department");
-                        System.out.println("\\nDepartment | Employee Count");
-                        while (rs7.next())
-                            System.out.println(rs7.getString(1)+" | "+rs7.getInt(2));
-                        rs7.close(); break;
-                }
-                st.close();
-            } while (choice != 0);
-            con.close();
-        } catch (Exception e) {
-            System.out.println("Error: " + e.getMessage());
+    void inorderNR() {
+        stack<Node*> s; Node* c = root;
+        while (c || !s.empty()) {
+            while (c) { s.push(c); c = c->left; }
+            c = s.top(); s.pop(); cout << c->roll << " "; c = c->right;
         }
     }
+    void preorderNR() {
+        if (!root) return;
+        stack<Node*> s; s.push(root);
+        while (!s.empty()) {
+            Node* n = s.top(); s.pop(); cout << n->roll << " ";
+            if (n->right) s.push(n->right);
+            if (n->left) s.push(n->left);
+        }
+    }
+    void postorderNR() {
+        stack<Node*> s1, s2; s1.push(root);
+        while (!s1.empty()) {
+            Node* n = s1.top(); s1.pop(); s2.push(n);
+            if (n->left) s1.push(n->left);
+            if (n->right) s1.push(n->right);
+        }
+        while (!s2.empty()) { cout << s2.top()->roll << " "; s2.pop(); }
+    }
+    void levelOrder() {
+        queue<Node*> q; q.push(root);
+        while (!q.empty()) {
+            int sz = q.size();
+            while (sz--) {
+                Node* n = q.front(); q.pop(); cout << n->roll << " ";
+                if (n->left) q.push(n->left);
+                if (n->right) q.push(n->right);
+            }
+            cout << endl;
+        }
+    }
+    Node* findMin(Node* n) { while (n->left) n = n->left; return n; }
+    Node* del(Node* n, int v) {
+        if (!n) return nullptr;
+        if (v < n->roll) n->left = del(n->left, v);
+        else if (v > n->roll) n->right = del(n->right, v);
+        else {
+            if (!n->left) { Node* t = n->right; delete n; return t; }
+            if (!n->right) { Node* t = n->left; delete n; return t; }
+            Node* m = findMin(n->right); n->roll = m->roll; n->right = del(n->right, m->roll);
+        }
+        return n;
+    }
+    void del(int v) { root = del(root, v); }
+
+    void display() {
+        cout << "Inorder (R):   "; inorder(root); cout << endl;
+        cout << "Preorder (R):  "; preorder(root); cout << endl;
+        cout << "Postorder (R): "; postorder(root); cout << endl;
+        cout << "Inorder (NR):  "; inorderNR(); cout << endl;
+        cout << "Preorder (NR): "; preorderNR(); cout << endl;
+        cout << "Postorder (NR):"; postorderNR(); cout << endl;
+        cout << "Level Order:" << endl; levelOrder();
+    }
+};
+
+int main() {
+    BST tree;
+    int rolls[] = {101, 78, 130, 65, 90, 120, 145};
+    for (int r : rolls) tree.insert(r);
+    cout << "=== Before Deletion ===" << endl;
+    tree.display();
+    tree.del(78);
+    cout << "\\n=== After Deleting 78 ===" << endl;
+    tree.display();
+    return 0;
 }`
-  }
-];
+  },
+  {
+    no: 3,
+    topic: "BST",
+    name: "Employee ID Search Engine",
+    code: `#include<iostream>
+#include<queue>
+#include<stack>
+using namespace std;
 
-// ═══════════════════════════════════════════════════
-//  RENDER
-// ═══════════════════════════════════════════════════
+struct Node {
+    int id;
+    Node *left, *right;
+    Node(int v) : id(v), left(nullptr), right(nullptr) {}
+};
 
-function renderSection(data, containerId, countId, prefix) {
-  const container = document.getElementById(containerId);
-  const countEl = document.getElementById(countId);
-  container.innerHTML = '';
-  countEl.textContent = data.length + ' programs';
+class BST {
+    Node* root;
+public:
+    BST() : root(nullptr) {}
+    Node* insert(Node* n, int v) {
+        if (!n) return new Node(v);
+        if (v < n->id) n->left = insert(n->left, v);
+        else if (v > n->id) n->right = insert(n->right, v);
+        return n;
+    }
+    void insert(int v) { root = insert(root, v); }
 
-  data.forEach((item, i) => {
-    const card = document.createElement('div');
-    card.className = 'card';
-    card.dataset.name = item.name.toLowerCase();
+    void inorder(Node* n) { if (!n) return; inorder(n->left); cout<<n->id<<" "; inorder(n->right); }
+    void preorder(Node* n) { if (!n) return; cout<<n->id<<" "; preorder(n->left); preorder(n->right); }
+    void postorder(Node* n) { if (!n) return; postorder(n->left); postorder(n->right); cout<<n->id<<" "; }
 
-    const left = document.createElement('div');
-    left.className = 'card-left';
-    left.innerHTML = `<span class="card-num">${prefix}${String(i+1).padStart(2,'0')}</span><span class="card-title">${item.name}</span>`;
+    void inorderNR() {
+        stack<Node*> s; Node* c = root;
+        while (c || !s.empty()) {
+            while (c) { s.push(c); c = c->left; }
+            c = s.top(); s.pop(); cout << c->id << " "; c = c->right;
+        }
+    }
+    void preorderNR() {
+        stack<Node*> s; s.push(root);
+        while (!s.empty()) {
+            Node* n = s.top(); s.pop(); cout << n->id << " ";
+            if (n->right) s.push(n->right);
+            if (n->left) s.push(n->left);
+        }
+    }
+    void postorderNR() {
+        stack<Node*> s1, s2; s1.push(root);
+        while (!s1.empty()) {
+            Node* n = s1.top(); s1.pop(); s2.push(n);
+            if (n->left) s1.push(n->left);
+            if (n->right) s1.push(n->right);
+        }
+        while (!s2.empty()) { cout << s2.top()->id << " "; s2.pop(); }
+    }
+    void levelOrder() {
+        queue<Node*> q; q.push(root);
+        while (!q.empty()) {
+            int sz = q.size();
+            while (sz--) {
+                Node* n = q.front(); q.pop(); cout << n->id << " ";
+                if (n->left) q.push(n->left);
+                if (n->right) q.push(n->right);
+            }
+            cout << endl;
+        }
+    }
+    bool search(int v) {
+        Node* c = root;
+        while (c) {
+            if (c->id == v) return true;
+            c = (v < c->id) ? c->left : c->right;
+        }
+        return false;
+    }
+    Node* findMin(Node* n) { while (n->left) n = n->left; return n; }
+    Node* del(Node* n, int v) {
+        if (!n) return nullptr;
+        if (v < n->id) n->left = del(n->left, v);
+        else if (v > n->id) n->right = del(n->right, v);
+        else {
+            if (!n->left) { Node* t = n->right; delete n; return t; }
+            if (!n->right) { Node* t = n->left; delete n; return t; }
+            Node* m = findMin(n->right); n->id = m->id; n->right = del(n->right, m->id);
+        }
+        return n;
+    }
+    void del(int v) { root = del(root, v); }
 
-    const btn = document.createElement('button');
-    btn.className = 'copy-btn';
-    btn.textContent = 'Copy Code';
-    btn.onclick = () => copyCode(item.code, btn);
+    void display() {
+        cout << "Inorder (Sorted IDs): "; inorder(root); cout << endl;
+        cout << "Preorder (R):         "; preorder(root); cout << endl;
+        cout << "Postorder (R):        "; postorder(root); cout << endl;
+        cout << "Inorder (NR):         "; inorderNR(); cout << endl;
+        cout << "Preorder (NR):        "; preorderNR(); cout << endl;
+        cout << "Postorder (NR):       "; postorderNR(); cout << endl;
+        cout << "Level-wise (Org Chart):" << endl; levelOrder();
+    }
+};
 
-    card.appendChild(left);
-    card.appendChild(btn);
-    container.appendChild(card);
-  });
+int main() {
+    BST tree;
+    int ids[] = {5001, 3200, 7000, 2100, 4500, 6200, 8000};
+    for (int x : ids) tree.insert(x);
+    cout << "=== Employee BST ===" << endl;
+    tree.display();
+    cout << "\\nSearch 4500: " << (tree.search(4500) ? "Found" : "Not Found") << endl;
+    tree.del(3200);
+    cout << "\\n=== After Deleting 3200 ===" << endl;
+    tree.display();
+    return 0;
+}`
+  },
+  {
+    no: 4,
+    topic: "BST",
+    name: "Online Product Price Tracker",
+    code: `#include<iostream>
+#include<queue>
+#include<stack>
+using namespace std;
+
+struct Node {
+    int code;
+    Node *left, *right;
+    Node(int v) : code(v), left(nullptr), right(nullptr) {}
+};
+
+class BST {
+    Node* root;
+public:
+    BST() : root(nullptr) {}
+    Node* insert(Node* n, int v) {
+        if (!n) return new Node(v);
+        if (v < n->code) n->left = insert(n->left, v);
+        else if (v > n->code) n->right = insert(n->right, v);
+        return n;
+    }
+    void insert(int v) { root = insert(root, v); }
+
+    void inorder(Node* n) { if (!n) return; inorder(n->left); cout<<n->code<<" "; inorder(n->right); }
+    void preorder(Node* n) { if (!n) return; cout<<n->code<<" "; preorder(n->left); preorder(n->right); }
+    void postorder(Node* n) { if (!n) return; postorder(n->left); postorder(n->right); cout<<n->code<<" "; }
+
+    void inorderNR() {
+        stack<Node*> s; Node* c = root;
+        while (c || !s.empty()) {
+            while (c) { s.push(c); c = c->left; }
+            c = s.top(); s.pop(); cout << c->code << " "; c = c->right;
+        }
+    }
+    void preorderNR() {
+        stack<Node*> s; s.push(root);
+        while (!s.empty()) {
+            Node* n = s.top(); s.pop(); cout << n->code << " ";
+            if (n->right) s.push(n->right);
+            if (n->left) s.push(n->left);
+        }
+    }
+    void postorderNR() {
+        stack<Node*> s1, s2; s1.push(root);
+        while (!s1.empty()) {
+            Node* n = s1.top(); s1.pop(); s2.push(n);
+            if (n->left) s1.push(n->left);
+            if (n->right) s1.push(n->right);
+        }
+        while (!s2.empty()) { cout << s2.top()->code << " "; s2.pop(); }
+    }
+    void levelOrder() {
+        queue<Node*> q; q.push(root);
+        while (!q.empty()) {
+            int sz = q.size();
+            while (sz--) {
+                Node* n = q.front(); q.pop(); cout << n->code << " ";
+                if (n->left) q.push(n->left);
+                if (n->right) q.push(n->right);
+            }
+            cout << endl;
+        }
+    }
+    Node* findMin(Node* n) { while (n->left) n = n->left; return n; }
+    Node* del(Node* n, int v) {
+        if (!n) return nullptr;
+        if (v < n->code) n->left = del(n->left, v);
+        else if (v > n->code) n->right = del(n->right, v);
+        else {
+            if (!n->left) { Node* t = n->right; delete n; return t; }
+            if (!n->right) { Node* t = n->left; delete n; return t; }
+            Node* m = findMin(n->right); n->code = m->code; n->right = del(n->right, m->code);
+        }
+        return n;
+    }
+    void del(int v) { root = del(root, v); }
+
+    void display() {
+        cout << "Ascending Order (Inorder):   "; inorder(root); cout << endl;
+        cout << "Preorder (R):                "; preorder(root); cout << endl;
+        cout << "Postorder (R):               "; postorder(root); cout << endl;
+        cout << "Inorder (NR):                "; inorderNR(); cout << endl;
+        cout << "Preorder (NR):               "; preorderNR(); cout << endl;
+        cout << "Postorder (NR):              "; postorderNR(); cout << endl;
+        cout << "Dashboard Level-wise:" << endl; levelOrder();
+    }
+};
+
+int main() {
+    BST tree;
+    int codes[] = {302, 150, 450, 100, 250, 400, 500};
+    for (int x : codes) tree.insert(x);
+    cout << "=== Product Price Tracker ===" << endl;
+    tree.display();
+    tree.del(150);
+    cout << "\\n=== After Removing Code 150 ===" << endl;
+    tree.display();
+    return 0;
+}`
+  },
+  {
+    no: 5,
+    topic: "Threaded Binary Tree",
+    name: "Airline Flight Schedule System",
+    code: `#include<iostream>
+using namespace std;
+
+struct TBTNode {
+    int flight;
+    TBTNode *left, *right;
+    bool lThread, rThread;
+    TBTNode(int v) : flight(v), left(nullptr), right(nullptr), lThread(false), rThread(false) {}
+};
+
+class TBT {
+    TBTNode* root;
+public:
+    TBT() : root(nullptr) {}
+
+    TBTNode* inorderSuccessor(TBTNode* n) {
+        if (n->rThread) return n->right;
+        n = n->right;
+        while (!n->lThread) n = n->left;
+        return n;
+    }
+
+    void insert(int val) {
+        TBTNode* nn = new TBTNode(val);
+        if (!root) { root = nn; nn->lThread = nn->rThread = true; return; }
+        TBTNode* curr = root, *par = nullptr;
+        bool goLeft = false;
+        while (true) {
+            par = curr;
+            if (val < curr->flight) {
+                if (curr->lThread) { goLeft = true; break; }
+                curr = curr->left;
+            } else {
+                if (curr->rThread) { goLeft = false; break; }
+                curr = curr->right;
+            }
+        }
+        if (goLeft) {
+            nn->left = par->left; nn->lThread = true;
+            nn->right = par; nn->rThread = true;
+            par->left = nn; par->lThread = false;
+        } else {
+            nn->right = par->right; nn->rThread = true;
+            nn->left = par; nn->lThread = true;
+            par->right = nn; par->rThread = false;
+        }
+    }
+
+    void inorderNR() {
+        TBTNode* curr = root;
+        while (!curr->lThread) curr = curr->left;
+        while (curr) {
+            cout << curr->flight << " ";
+            if (curr->rThread) curr = curr->right;
+            else {
+                curr = curr->right;
+                while (curr && !curr->lThread) curr = curr->left;
+            }
+        }
+        cout << endl;
+    }
+
+    void preorder(TBTNode* n) {
+        if (!n) return;
+        cout << n->flight << " ";
+        if (!n->lThread) preorder(n->left);
+        if (!n->rThread) preorder(n->right);
+    }
+
+    void displayThreads() {
+        TBTNode* curr = root;
+        while (!curr->lThread) curr = curr->left;
+        cout << "Node | LThread | RThread" << endl;
+        cout << "-------------------------" << endl;
+        while (curr) {
+            cout << curr->flight << "    |  " << curr->lThread << "       |  " << curr->rThread << endl;
+            if (curr->rThread) curr = curr->right;
+            else {
+                curr = curr->right;
+                while (curr && !curr->lThread) curr = curr->left;
+            }
+        }
+    }
+
+    void display() {
+        cout << "Inorder (Non-Recursive via Threads): "; inorderNR();
+        cout << "Preorder (Recursive): "; preorder(root); cout << endl;
+        cout << "\\nThread Table:" << endl; displayThreads();
+    }
+};
+
+int main() {
+    TBT tree;
+    int flights[] = {202, 105, 310, 80, 150, 275, 400};
+    for (int f : flights) tree.insert(f);
+    cout << "=== Airline Flight Schedule (TBT) ===" << endl;
+    tree.display();
+    return 0;
+}`
+  },
+  {
+    no: 6,
+    topic: "Threaded Binary Tree",
+    name: "Hospital Patient Queue Management",
+    code: `#include<iostream>
+using namespace std;
+
+struct TBTNode {
+    int token;
+    TBTNode *left, *right;
+    bool lThread, rThread;
+    TBTNode(int v) : token(v), left(nullptr), right(nullptr), lThread(true), rThread(true) {}
+};
+
+class TBT {
+    TBTNode* root;
+public:
+    TBT() : root(nullptr) {}
+
+    void insert(int val) {
+        TBTNode* nn = new TBTNode(val);
+        if (!root) { root = nn; return; }
+        TBTNode* curr = root, *par = nullptr;
+        bool goLeft = false;
+        while (true) {
+            par = curr;
+            if (val < curr->token) {
+                if (curr->lThread) { goLeft = true; break; }
+                curr = curr->left;
+            } else {
+                if (curr->rThread) { goLeft = false; break; }
+                curr = curr->right;
+            }
+        }
+        if (goLeft) {
+            nn->left = par->left; nn->right = par;
+            par->left = nn; par->lThread = false;
+        } else {
+            nn->right = par->right; nn->left = par;
+            par->right = nn; par->rThread = false;
+        }
+    }
+
+    void inorderNR() {
+        TBTNode* curr = root;
+        while (!curr->lThread) curr = curr->left;
+        while (curr) {
+            cout << curr->token << " ";
+            if (curr->rThread) curr = curr->right;
+            else {
+                curr = curr->right;
+                while (curr && !curr->lThread) curr = curr->left;
+            }
+        }
+        cout << endl;
+    }
+
+    void preorder(TBTNode* n) {
+        if (!n) return;
+        cout << n->token << " ";
+        if (!n->lThread) preorder(n->left);
+        if (!n->rThread) preorder(n->right);
+    }
+
+    void postorder(TBTNode* n) {
+        if (!n) return;
+        if (!n->lThread) postorder(n->left);
+        if (!n->rThread) postorder(n->right);
+        cout << n->token << " ";
+    }
+};
+
+int main() {
+    TBT tree;
+    int tokens[] = {15, 8, 22, 4, 12, 19, 30};
+    for (int t : tokens) tree.insert(t);
+    cout << "=== Hospital Patient Queue (TBT) ===" << endl;
+    cout << "Inorder NR (Threads): "; tree.inorderNR();
+    TBT tree2; for (int t : tokens) tree2.insert(t);
+    cout << "Preorder (Recursive): "; tree2.preorder(nullptr); cout << endl;
+    cout << "(Note: Recursive traversal from root)" << endl;
+    return 0;
+}`
+  },
+  {
+    no: 7,
+    topic: "Threaded Binary Tree",
+    name: "Railway Reservation Seat Numbering",
+    code: `#include<iostream>
+using namespace std;
+
+struct Node {
+    int seat;
+    Node *left, *right;
+    bool lThread, rThread;
+    Node(int v) : seat(v), left(nullptr), right(nullptr), lThread(true), rThread(true) {}
+};
+
+class TBT {
+    Node* root;
+public:
+    TBT() : root(nullptr) {}
+    void insert(int val) {
+        Node* nn = new Node(val);
+        if (!root) { root = nn; return; }
+        Node* curr = root, *par = nullptr; bool gl = false;
+        while (true) {
+            par = curr;
+            if (val < curr->seat) {
+                if (curr->lThread) { gl = true; break; }
+                curr = curr->left;
+            } else {
+                if (curr->rThread) { gl = false; break; }
+                curr = curr->right;
+            }
+        }
+        if (gl) {
+            nn->left = par->left; nn->right = par;
+            par->left = nn; par->lThread = false;
+        } else {
+            nn->right = par->right; nn->left = par;
+            par->right = nn; par->rThread = false;
+        }
+    }
+
+    void inorderNR() {
+        Node* c = root;
+        while (!c->lThread) c = c->left;
+        while (c) {
+            cout << c->seat << " ";
+            if (c->rThread) c = c->right;
+            else { c = c->right; while (c && !c->lThread) c = c->left; }
+        }
+        cout << endl;
+    }
+    void preorder(Node* n) {
+        if (!n) return;
+        cout << n->seat << " ";
+        if (!n->lThread) preorder(n->left);
+        if (!n->rThread) preorder(n->right);
+    }
+    void postorder(Node* n) {
+        if (!n) return;
+        if (!n->lThread) postorder(n->left);
+        if (!n->rThread) postorder(n->right);
+        cout << n->seat << " ";
+    }
+    void showFlags() {
+        Node* c = root;
+        while (!c->lThread) c = c->left;
+        cout << "Seat | LThread | RThread" << endl;
+        while (c) {
+            cout << c->seat << "    |    " << c->lThread << "    |    " << c->rThread << endl;
+            if (c->rThread) c = c->right;
+            else { c = c->right; while (c && !c->lThread) c = c->left; }
+        }
+    }
+};
+
+int main() {
+    TBT tree;
+    int seats[] = {42, 21, 63, 14, 35, 56, 77};
+    for (int s : seats) tree.insert(s);
+    cout << "=== Railway Seat TBT ===" << endl;
+    cout << "Inorder NR: "; tree.inorderNR();
+    cout << "Preorder R: "; tree.preorder(nullptr);
+    cout << endl;
+    cout << "\\nThread Flags:" << endl;
+    tree.showFlags();
+    return 0;
+}`
+  },
+  {
+    no: 8,
+    topic: "Threaded Binary Tree",
+    name: "Inventory Control in Warehouse",
+    code: `#include<iostream>
+using namespace std;
+
+struct Node {
+    int code;
+    Node *left, *right;
+    bool lThread, rThread;
+    Node(int v) : code(v), left(nullptr), right(nullptr), lThread(true), rThread(true) {}
+};
+
+class TBT {
+    Node* root;
+public:
+    TBT() : root(nullptr) {}
+    void insert(int val) {
+        Node* nn = new Node(val);
+        if (!root) { root = nn; return; }
+        Node* curr = root, *par = nullptr; bool gl = false;
+        while (true) {
+            par = curr;
+            if (val < curr->code) {
+                if (curr->lThread) { gl = true; break; }
+                curr = curr->left;
+            } else {
+                if (curr->rThread) { gl = false; break; }
+                curr = curr->right;
+            }
+        }
+        if (gl) {
+            nn->left = par->left; nn->right = par;
+            par->left = nn; par->lThread = false;
+        } else {
+            nn->right = par->right; nn->left = par;
+            par->right = nn; par->rThread = false;
+        }
+    }
+
+    void inorderNR() {
+        Node* c = root;
+        while (!c->lThread) c = c->left;
+        while (c) {
+            cout << c->code << " ";
+            if (c->rThread) c = c->right;
+            else { c = c->right; while (c && !c->lThread) c = c->left; }
+        }
+        cout << endl;
+    }
+    void preorder(Node* n) {
+        if (!n) return;
+        cout << n->code << " ";
+        if (!n->lThread) preorder(n->left);
+        if (!n->rThread) preorder(n->right);
+    }
+    void postorder(Node* n) {
+        if (!n) return;
+        if (!n->lThread) postorder(n->left);
+        if (!n->rThread) postorder(n->right);
+        cout << n->code << " ";
+    }
+};
+
+int main() {
+    TBT tree;
+    int codes[] = {1050, 720, 1380, 600, 900, 1200, 1500};
+    for (int c : codes) tree.insert(c);
+    cout << "=== Warehouse Inventory TBT ===" << endl;
+    cout << "Sorted Items (Inorder NR): "; tree.inorderNR();
+    cout << "Preorder (Recursive):      "; tree.preorder(nullptr); cout << endl;
+    cout << "Postorder (Recursive):     "; tree.postorder(nullptr); cout << endl;
+    return 0;
+}`
+  },
+  {
+    no: 9,
+    topic: "AVL Tree",
+    name: "Banking Transaction Ledger",
+    code: `#include<iostream>
+#include<stack>
+using namespace std;
+
+struct Node {
+    int id, height;
+    Node *left, *right;
+    Node(int v) : id(v), height(1), left(nullptr), right(nullptr) {}
+};
+
+int height(Node* n) { return n ? n->height : 0; }
+int bf(Node* n) { return n ? height(n->left) - height(n->right) : 0; }
+void updH(Node* n) { if (n) n->height = 1 + max(height(n->left), height(n->right)); }
+
+Node* rotR(Node* y) {
+    Node* x = y->left, *T = x->right;
+    x->right = y; y->left = T;
+    updH(y); updH(x);
+    cout << "LL Rotation at " << y->id << endl;
+    return x;
+}
+Node* rotL(Node* x) {
+    Node* y = x->right, *T = y->left;
+    y->left = x; x->right = T;
+    updH(x); updH(y);
+    cout << "RR Rotation at " << x->id << endl;
+    return y;
 }
 
-renderSection(sqlData, 'cards-sql', 'count-sql', 'S');
-renderSection(mongoData, 'cards-mongo', 'count-mongo', 'M');
-renderSection(plsqlData, 'cards-plsql', 'count-plsql', 'P');
-renderSection(jdbcData, 'cards-jdbc', 'count-jdbc', 'J');
+Node* insert(Node* n, int v) {
+    if (!n) return new Node(v);
+    if (v < n->id) n->left = insert(n->left, v);
+    else if (v > n->id) n->right = insert(n->right, v);
+    else return n;
+    updH(n);
+    int b = bf(n);
+    if (b > 1 && v < n->left->id) return rotR(n);
+    if (b < -1 && v > n->right->id) return rotL(n);
+    if (b > 1 && v > n->left->id) { n->left = rotL(n->left); return rotR(n); }
+    if (b < -1 && v < n->right->id) { n->right = rotR(n->right); return rotL(n); }
+    return n;
+}
 
-// ═══════════════════════════════════════════════════
-//  COPY
-// ═══════════════════════════════════════════════════
+void inorder(Node* n) { if (!n) return; inorder(n->left); cout<<n->id<<"(bf="<<bf(n)<<") "; inorder(n->right); }
+void preorder(Node* n) { if (!n) return; cout<<n->id<<" "; preorder(n->left); preorder(n->right); }
+void postorder(Node* n) { if (!n) return; postorder(n->left); postorder(n->right); cout<<n->id<<" "; }
+void inorderNR(Node* root) {
+    stack<Node*> s; Node* c = root;
+    while (c || !s.empty()) {
+        while (c) { s.push(c); c = c->left; }
+        c = s.top(); s.pop(); cout << c->id << " "; c = c->right;
+    }
+    cout << endl;
+}
 
-let toastTimer;
-function copyCode(code, btn) {
-  navigator.clipboard.writeText(code).then(() => {
+int main() {
+    Node* root = nullptr;
+    int ids[] = {10, 20, 30, 40, 50, 25};
+    for (int x : ids) { cout << "Inserting " << x << ": "; root = insert(root, x); }
+    cout << "\\nInorder (Sorted Txn IDs): "; inorder(root); cout << endl;
+    cout << "Preorder:  "; preorder(root); cout << endl;
+    cout << "Postorder: "; postorder(root); cout << endl;
+    cout << "Inorder NR: "; inorderNR(root);
+    return 0;
+}`
+  },
+  {
+    no: 10,
+    topic: "AVL Tree",
+    name: "E-Learning Course Rating System",
+    code: `#include<iostream>
+#include<stack>
+using namespace std;
+
+struct Node {
+    int rating, height;
+    Node *left, *right;
+    Node(int v) : rating(v), height(1), left(nullptr), right(nullptr) {}
+};
+
+int h(Node* n) { return n ? n->height : 0; }
+int bf(Node* n) { return n ? h(n->left) - h(n->right) : 0; }
+void upd(Node* n) { if (n) n->height = 1 + max(h(n->left), h(n->right)); }
+
+Node* rotR(Node* y) {
+    Node* x = y->left; Node* T = x->right;
+    x->right = y; y->left = T; upd(y); upd(x);
+    cout << "LL Rotation at " << y->rating << endl; return x;
+}
+Node* rotL(Node* x) {
+    Node* y = x->right; Node* T = y->left;
+    y->left = x; x->right = T; upd(x); upd(y);
+    cout << "RR Rotation at " << x->rating << endl; return y;
+}
+
+Node* insert(Node* n, int v) {
+    if (!n) return new Node(v);
+    if (v < n->rating) n->left = insert(n->left, v);
+    else if (v > n->rating) n->right = insert(n->right, v);
+    else return n;
+    upd(n); int b = bf(n);
+    if (b > 1 && v < n->left->rating) return rotR(n);
+    if (b < -1 && v > n->right->rating) return rotL(n);
+    if (b > 1 && v > n->left->rating) { n->left = rotL(n->left); return rotR(n); }
+    if (b < -1 && v < n->right->rating) { n->right = rotR(n->right); return rotL(n); }
+    return n;
+}
+
+void inorder(Node* n) { if (!n) return; inorder(n->left); cout<<n->rating<<" "; inorder(n->right); }
+void preorder(Node* n) { if (!n) return; cout<<n->rating<<" "; preorder(n->left); preorder(n->right); }
+void postorder(Node* n) { if (!n) return; postorder(n->left); postorder(n->right); cout<<n->rating<<" "; }
+void inorderNR(Node* root) {
+    stack<Node*> s; Node* c = root;
+    while (c || !s.empty()) { while (c) { s.push(c); c = c->left; } c = s.top(); s.pop(); cout<<c->rating<<" "; c = c->right; }
+    cout << endl;
+}
+
+int main() {
+    Node* root = nullptr;
+    int ratings[] = {85, 70, 90, 65, 75, 95, 60};
+    for (int r : ratings) { cout << "Insert " << r << ": "; root = insert(root, r); }
+    cout << "\\nAscending Ratings (Inorder R): "; inorder(root); cout << endl;
+    cout << "Preorder R:  "; preorder(root); cout << endl;
+    cout << "Postorder R: "; postorder(root); cout << endl;
+    cout << "Inorder NR:  "; inorderNR(root);
+    return 0;
+}`
+  },
+  {
+    no: 11,
+    topic: "AVL Tree",
+    name: "Stock Price Index Management",
+    code: `#include<iostream>
+#include<stack>
+using namespace std;
+
+struct Node {
+    int price, height;
+    Node *left, *right;
+    Node(int v) : price(v), height(1), left(nullptr), right(nullptr) {}
+};
+
+int h(Node* n) { return n ? n->height : 0; }
+int bf(Node* n) { return n ? h(n->left) - h(n->right) : 0; }
+void upd(Node* n) { if (n) n->height = 1 + max(h(n->left), h(n->right)); }
+
+Node* rotR(Node* y) { Node* x=y->left; Node* T=x->right; x->right=y; y->left=T; upd(y); upd(x); return x; }
+Node* rotL(Node* x) { Node* y=x->right; Node* T=y->left; y->left=x; x->right=T; upd(x); upd(y); return y; }
+
+Node* insertAVL(Node* n, int v) {
+    if (!n) return new Node(v);
+    if (v < n->price) n->left = insertAVL(n->left, v);
+    else if (v > n->price) n->right = insertAVL(n->right, v);
+    else return n;
+    upd(n); int b = bf(n);
+    if (b>1 && v<n->left->price) return rotR(n);
+    if (b<-1 && v>n->right->price) return rotL(n);
+    if (b>1 && v>n->left->price) { n->left=rotL(n->left); return rotR(n); }
+    if (b<-1 && v<n->right->price) { n->right=rotR(n->right); return rotL(n); }
+    return n;
+}
+
+// Simple BST insert (no balancing) for comparison
+struct BSTNode { int price; BSTNode *left, *right; BSTNode(int v):price(v),left(nullptr),right(nullptr){} };
+BSTNode* insertBST(BSTNode* n, int v) {
+    if (!n) return new BSTNode(v);
+    if (v < n->price) n->left=insertBST(n->left,v);
+    else n->right=insertBST(n->right,v);
+    return n;
+}
+int bstH(BSTNode* n) { if(!n) return 0; return 1+max(bstH(n->left),bstH(n->right)); }
+
+void inorder(Node* n) { if (!n) return; inorder(n->left); cout<<n->price<<" "; inorder(n->right); }
+void preorder(Node* n) { if (!n) return; cout<<n->price<<" "; preorder(n->left); preorder(n->right); }
+void postorder(Node* n) { if (!n) return; postorder(n->left); postorder(n->right); cout<<n->price<<" "; }
+void inorderNR(Node* root) {
+    stack<Node*> s; Node* c=root;
+    while(c||!s.empty()){while(c){s.push(c);c=c->left;}c=s.top();s.pop();cout<<c->price<<" ";c=c->right;}
+    cout<<endl;
+}
+
+int main() {
+    Node* avlRoot = nullptr;
+    BSTNode* bstRoot = nullptr;
+    int prices[] = {100, 200, 150, 300, 250, 175, 225};
+    for (int p : prices) { avlRoot = insertAVL(avlRoot, p); bstRoot = insertBST(bstRoot, p); }
+    cout << "=== Stock Price Index ===" << endl;
+    cout << "Sorted Prices (Inorder R): "; inorder(avlRoot); cout << endl;
+    cout << "Preorder R:  "; preorder(avlRoot); cout << endl;
+    cout << "Postorder R: "; postorder(avlRoot); cout << endl;
+    cout << "Inorder NR:  "; inorderNR(avlRoot);
+    cout << "\\nAVL Height: " << h(avlRoot) << endl;
+    cout << "BST Height: " << bstH(bstRoot) << endl;
+    return 0;
+}`
+  },
+  {
+    no: 12,
+    topic: "AVL Tree",
+    name: "Hospital Patient Priority Index",
+    code: `#include<iostream>
+#include<stack>
+using namespace std;
+
+struct Node {
+    int priority, height;
+    Node *left, *right;
+    Node(int v) : priority(v), height(1), left(nullptr), right(nullptr) {}
+};
+
+int h(Node* n) { return n ? n->height : 0; }
+int bf(Node* n) { return n ? h(n->left)-h(n->right) : 0; }
+void upd(Node* n) { if(n) n->height=1+max(h(n->left),h(n->right)); }
+
+Node* rotR(Node* y) { Node* x=y->left; Node* T=x->right; x->right=y; y->left=T; upd(y); upd(x); cout<<"LL Rot at "<<y->priority<<endl; return x; }
+Node* rotL(Node* x) { Node* y=x->right; Node* T=y->left; y->left=x; x->right=T; upd(x); upd(y); cout<<"RR Rot at "<<x->priority<<endl; return y; }
+
+Node* insert(Node* n, int v) {
+    if (!n) return new Node(v);
+    if (v < n->priority) n->left=insert(n->left,v);
+    else if (v > n->priority) n->right=insert(n->right,v);
+    else return n;
+    upd(n); int b=bf(n);
+    if(b>1&&v<n->left->priority) return rotR(n);
+    if(b<-1&&v>n->right->priority) return rotL(n);
+    if(b>1&&v>n->left->priority){n->left=rotL(n->left);return rotR(n);}
+    if(b<-1&&v<n->right->priority){n->right=rotR(n->right);return rotL(n);}
+    return n;
+}
+
+void inorder(Node* n) { if(!n)return; inorder(n->left); cout<<n->priority<<"(bf="<<bf(n)<<") "; inorder(n->right); }
+void preorder(Node* n) { if(!n)return; cout<<n->priority<<" "; preorder(n->left); preorder(n->right); }
+void postorder(Node* n) { if(!n)return; postorder(n->left); postorder(n->right); cout<<n->priority<<" "; }
+void aboveThreshold(Node* n, int t) { if(!n)return; if(n->priority>t) cout<<n->priority<<" "; aboveThreshold(n->left,t); aboveThreshold(n->right,t); }
+
+int main() {
+    Node* root = nullptr;
+    int scores[] = {55, 30, 70, 20, 40, 65, 80};
+    for (int s : scores) { cout<<"Insert "<<s<<": "; root=insert(root,s); }
+    cout << "\\nInorder (with bf): "; inorder(root); cout<<endl;
+    cout << "Preorder:  "; preorder(root); cout<<endl;
+    cout << "Postorder: "; postorder(root); cout<<endl;
+    cout << "\\nPatients with priority > 50: "; aboveThreshold(root, 50); cout<<endl;
+    return 0;
+}`
+  },
+  {
+    no: 13,
+    topic: "Graph - MST",
+    name: "City Road Network Planning",
+    code: `#include<iostream>
+#include<climits>
+#include<algorithm>
+using namespace std;
+
+const int V = 7;
+string names[] = {"A","B","C","D","E","F","G"};
+
+// Prim's Algorithm
+void prims(int graph[][V]) {
+    int parent[V], key[V]; bool inMST[V];
+    for (int i=0;i<V;i++){key[i]=INT_MAX;inMST[i]=false;}
+    key[0]=0; parent[0]=-1;
+    for (int cnt=0;cnt<V-1;cnt++) {
+        int u=-1;
+        for (int v=0;v<V;v++) if(!inMST[v]&&(u==-1||key[v]<key[u])) u=v;
+        inMST[u]=true;
+        for (int v=0;v<V;v++)
+            if (graph[u][v]&&!inMST[v]&&graph[u][v]<key[v]) { parent[v]=u; key[v]=graph[u][v]; }
+    }
+    int total=0;
+    cout<<"Prim's MST:" << endl;
+    for (int i=1;i<V;i++) { cout<<names[parent[i]]<<" - "<<names[i]<<" : "<<graph[i][parent[i]]<<endl; total+=graph[i][parent[i]]; }
+    cout<<"Total Cost: "<<total<<endl;
+}
+
+// Kruskal's Algorithm
+struct Edge { int u,v,w; };
+int parent[V], rankArr[V];
+int find(int x){return parent[x]==x?x:parent[x]=find(parent[x]);}
+void unite(int x,int y){int px=find(x),py=find(y);if(rankArr[px]<rankArr[py])swap(px,py);parent[py]=px;if(rankArr[px]==rankArr[py])rankArr[px]++;}
+
+void kruskals(int graph[][V]) {
+    vector<Edge> edges;
+    for(int i=0;i<V;i++) for(int j=i+1;j<V;j++) if(graph[i][j]) edges.push_back({i,j,graph[i][j]});
+    sort(edges.begin(),edges.end(),[](Edge a,Edge b){return a.w<b.w;});
+    for(int i=0;i<V;i++){parent[i]=i;rankArr[i]=0;}
+    int total=0;
+    cout<<"Kruskal's MST:"<<endl;
+    for (auto& e:edges) {
+        if(find(e.u)!=find(e.v)){unite(e.u,e.v);cout<<names[e.u]<<" - "<<names[e.v]<<" : "<<e.w<<endl;total+=e.w;}
+    }
+    cout<<"Total Cost: "<<total<<endl;
+}
+
+int main() {
+    int graph[V][V] = {
+        {0,4,3,0,0,0,0},
+        {4,0,1,2,0,0,0},
+        {3,1,0,4,0,0,0},
+        {0,2,4,0,2,0,0},
+        {0,0,0,2,0,6,5},
+        {0,0,0,0,6,0,3},
+        {0,0,0,0,5,3,0}
+    };
+    prims(graph);
+    cout<<endl;
+    kruskals(graph);
+    return 0;
+}`
+  },
+  {
+    no: 14,
+    topic: "Graph - MST",
+    name: "Telecom Optical Fiber Laying",
+    code: `#include<iostream>
+#include<climits>
+#include<algorithm>
+using namespace std;
+const int V=6;
+string towers[]={"T1","T2","T3","T4","T5","T6"};
+
+void prims(int g[][V]){
+    int parent[V],key[V];bool inMST[V];
+    for(int i=0;i<V;i++){key[i]=INT_MAX;inMST[i]=false;}
+    key[0]=0;parent[0]=-1;
+    for(int cnt=0;cnt<V-1;cnt++){
+        int u=-1;
+        for(int v=0;v<V;v++) if(!inMST[v]&&(u==-1||key[v]<key[u]))u=v;
+        inMST[u]=true;
+        for(int v=0;v<V;v++) if(g[u][v]&&!inMST[v]&&g[u][v]<key[v]){parent[v]=u;key[v]=g[u][v];}
+    }
+    int tot=0;
+    cout<<"Prim's MST (Fiber Cable):"<<endl;
+    for(int i=1;i<V;i++){cout<<towers[parent[i]]<<" - "<<towers[i]<<" : "<<g[i][parent[i]]<<" km"<<endl;tot+=g[i][parent[i]];}
+    cout<<"Total Cable: "<<tot<<" km"<<endl;
+}
+
+struct Edge{int u,v,w;};
+int par[V],rnk[V];
+int find(int x){return par[x]==x?x:par[x]=find(par[x]);}
+void unite(int a,int b){int pa=find(a),pb=find(b);if(rnk[pa]<rnk[pb])swap(pa,pb);par[pb]=pa;if(rnk[pa]==rnk[pb])rnk[pa]++;}
+
+void kruskals(int g[][V]){
+    vector<Edge> edges;
+    for(int i=0;i<V;i++) for(int j=i+1;j<V;j++) if(g[i][j]) edges.push_back({i,j,g[i][j]});
+    sort(edges.begin(),edges.end(),[](Edge a,Edge b){return a.w<b.w;});
+    for(int i=0;i<V;i++){par[i]=i;rnk[i]=0;}
+    int tot=0;
+    cout<<"Kruskal's MST (Fiber Cable):"<<endl;
+    for(auto& e:edges) if(find(e.u)!=find(e.v)){unite(e.u,e.v);cout<<towers[e.u]<<" - "<<towers[e.v]<<" : "<<e.w<<" km"<<endl;tot+=e.w;}
+    cout<<"Total Cable: "<<tot<<" km"<<endl;
+}
+
+int main(){
+    int g[V][V]={{0,2,6,0,0,0},{2,0,4,5,0,0},{6,4,0,3,0,0},{0,5,3,0,6,8},{0,0,0,6,0,4},{0,0,0,8,4,0}};
+    prims(g);cout<<endl;
+    kruskals(g);
+    return 0;
+}`
+  },
+  {
+    no: 15,
+    topic: "Graph - MST",
+    name: "Electric Grid Distribution Planning",
+    code: `#include<iostream>
+#include<climits>
+#include<algorithm>
+using namespace std;
+const int V=8;
+string subs[]={"S1","S2","S3","S4","S5","S6","S7","S8"};
+
+void prims(int g[][V]){
+    int parent[V],key[V];bool inMST[V];
+    for(int i=0;i<V;i++){key[i]=INT_MAX;inMST[i]=false;}
+    key[0]=0;parent[0]=-1;
+    for(int cnt=0;cnt<V-1;cnt++){
+        int u=-1;
+        for(int v=0;v<V;v++) if(!inMST[v]&&(u==-1||key[v]<key[u]))u=v;
+        inMST[u]=true;
+        for(int v=0;v<V;v++) if(g[u][v]&&!inMST[v]&&g[u][v]<key[v]){parent[v]=u;key[v]=g[u][v];}
+    }
+    int tot=0;
+    cout<<"Prim's MST (from S1):"<<endl;
+    for(int i=1;i<V;i++){cout<<subs[parent[i]]<<" - "<<subs[i]<<" : "<<g[i][parent[i]]<<endl;tot+=g[i][parent[i]];}
+    cout<<"Total Cost: "<<tot<<endl;
+}
+
+struct Edge{int u,v,w;};
+int par[V],rnk[V];
+int find(int x){return par[x]==x?x:par[x]=find(par[x]);}
+void unite(int a,int b){int pa=find(a),pb=find(b);if(rnk[pa]<rnk[pb])swap(pa,pb);par[pb]=pa;if(rnk[pa]==rnk[pb])rnk[pa]++;}
+
+void kruskals(int g[][V]){
+    vector<Edge> edges;
+    for(int i=0;i<V;i++) for(int j=i+1;j<V;j++) if(g[i][j]) edges.push_back({i,j,g[i][j]});
+    sort(edges.begin(),edges.end(),[](Edge a,Edge b){return a.w<b.w;});
+    for(int i=0;i<V;i++){par[i]=i;rnk[i]=0;}
+    int tot=0,step=1;
+    cout<<"Kruskal's MST (with Cycle Detection):"<<endl;
+    for(auto& e:edges){
+        if(find(e.u)!=find(e.v)){unite(e.u,e.v);cout<<"Step "<<step++<<": "<<subs[e.u]<<" - "<<subs[e.v]<<" ("<<e.w<<")"<<endl;tot+=e.w;}
+        else cout<<"Cycle detected: "<<subs[e.u]<<" - "<<subs[e.v]<<" skipped"<<endl;
+    }
+    cout<<"Total Cost: "<<tot<<endl;
+}
+
+int main(){
+    int g[V][V]={
+        {0,4,0,0,0,0,8,0},{4,0,8,0,0,0,11,0},{0,8,0,7,0,4,0,2},
+        {0,0,7,0,9,14,0,0},{0,0,0,9,0,10,0,0},{0,0,4,14,10,0,2,0},
+        {8,11,0,0,0,2,0,1},{0,0,2,0,0,0,1,0}
+    };
+    prims(g);cout<<endl;
+    kruskals(g);
+    return 0;
+}`
+  },
+  {
+    no: 16,
+    topic: "Graph - MST",
+    name: "Campus Network Cable Layout",
+    code: `#include<iostream>
+#include<climits>
+#include<algorithm>
+using namespace std;
+const int V=5;
+string bldg[]={"Admin","CS","IT","ENTC","Mech"};
+
+void prims(int g[][V]){
+    int parent[V],key[V];bool inMST[V];
+    for(int i=0;i<V;i++){key[i]=INT_MAX;inMST[i]=false;}
+    key[0]=0;parent[0]=-1;
+    for(int cnt=0;cnt<V-1;cnt++){
+        int u=-1;
+        for(int v=0;v<V;v++) if(!inMST[v]&&(u==-1||key[v]<key[u]))u=v;
+        inMST[u]=true;
+        for(int v=0;v<V;v++) if(g[u][v]&&!inMST[v]&&g[u][v]<key[v]){parent[v]=u;key[v]=g[u][v];}
+    }
+    int tot=0;
+    cout<<"Prim's MST:"<<endl;
+    for(int i=1;i<V;i++){cout<<bldg[parent[i]]<<" - "<<bldg[i]<<" : "<<g[i][parent[i]]<<"m"<<endl;tot+=g[i][parent[i]];}
+    cout<<"Total Cable: "<<tot<<"m"<<endl;
+}
+
+struct Edge{int u,v,w;};
+int par[V],rnk[V];
+int find(int x){return par[x]==x?x:par[x]=find(par[x]);}
+void unite(int a,int b){int pa=find(a),pb=find(b);if(rnk[pa]<rnk[pb])swap(pa,pb);par[pb]=pa;if(rnk[pa]==rnk[pb])rnk[pa]++;}
+
+void kruskals(int g[][V]){
+    vector<Edge> edges;
+    for(int i=0;i<V;i++) for(int j=i+1;j<V;j++) if(g[i][j]) edges.push_back({i,j,g[i][j]});
+    sort(edges.begin(),edges.end(),[](Edge a,Edge b){return a.w<b.w;});
+    for(int i=0;i<V;i++){par[i]=i;rnk[i]=0;}
+    int tot=0;
+    cout<<"Kruskal's MST (No Cycles):"<<endl;
+    for(auto& e:edges) if(find(e.u)!=find(e.v)){unite(e.u,e.v);cout<<bldg[e.u]<<" - "<<bldg[e.v]<<" : "<<e.w<<"m"<<endl;tot+=e.w;}
+    cout<<"Total Cable: "<<tot<<"m"<<endl;
+}
+
+int main(){
+    int g[V][V]={{0,20,15,0,0},{20,0,10,30,0},{15,10,0,25,40},{0,30,25,0,35},{0,0,40,35,0}};
+    prims(g);cout<<endl;
+    kruskals(g);
+    return 0;
+}`
+  },
+  {
+    no: 17,
+    topic: "Heap Sort",
+    name: "Online Job Application Ranking",
+    code: `#include<iostream>
+using namespace std;
+
+void heapify(int arr[], int n, int i) {
+    int largest = i, l = 2*i+1, r = 2*i+2;
+    if (l < n && arr[l] > arr[largest]) largest = l;
+    if (r < n && arr[r] > arr[largest]) largest = r;
+    if (largest != i) {
+        swap(arr[i], arr[largest]);
+        cout << "Heapify at index " << i << ": ";
+        for (int k=0;k<n;k++) cout<<arr[k]<<" "; cout<<endl;
+        heapify(arr, n, largest);
+    }
+}
+
+void heapSort(int arr[], int n) {
+    // Build max heap
+    for (int i=n/2-1;i>=0;i--) heapify(arr,n,i);
+    cout << "After buildHeap: ";
+    for (int k=0;k<n;k++) cout<<arr[k]<<" "; cout<<endl<<endl;
+    // Extract elements
+    for (int i=n-1;i>0;i--) {
+        swap(arr[0], arr[i]);
+        cout << "Extracted " << arr[i] << " | Heap: ";
+        for (int k=0;k<i;k++) cout<<arr[k]<<" "; cout<<endl;
+        heapify(arr, i, 0);
+    }
+}
+
+int main() {
+    int scores[] = {78, 45, 92, 33, 67, 88, 55, 71};
+    int n = sizeof(scores)/sizeof(scores[0]);
+
+    cout << "Original Scores: ";
+    for (int s:scores) cout<<s<<" "; cout<<endl<<endl;
+
+    // Ascending order
+    int asc[8]; for(int i=0;i<n;i++) asc[i]=scores[i];
+    cout << "=== Heap Sort (Ascending) ===" << endl;
+    heapSort(asc, n);
+    cout << "Ascending:  "; for(int x:asc) cout<<x<<" "; cout<<endl;
+
+    // Descending (reverse asc)
+    cout << "Descending: ";
+    for (int i=n-1;i>=0;i--) cout<<asc[i]<<" "; cout<<endl;
+    return 0;
+}`
+  },
+  {
+    no: 18,
+    topic: "Heap Sort",
+    name: "Hospital Emergency Patient Triage",
+    code: `#include<iostream>
+using namespace std;
+
+void heapify(int arr[], int n, int i) {
+    int largest=i, l=2*i+1, r=2*i+2;
+    if(l<n&&arr[l]>arr[largest]) largest=l;
+    if(r<n&&arr[r]>arr[largest]) largest=r;
+    if(largest!=i){swap(arr[i],arr[largest]);heapify(arr,n,largest);}
+}
+
+void heapSort(int arr[], int n) {
+    for(int i=n/2-1;i>=0;i--) heapify(arr,n,i);
+    cout<<"Max-Heap Built: ";
+    for(int k=0;k<n;k++) cout<<arr[k]<<" "; cout<<endl;
+    for(int i=n-1;i>0;i--){
+        swap(arr[0],arr[i]);
+        cout<<"Extracted "<<arr[i]<<" | Remaining heap: ";
+        for(int k=0;k<i;k++) cout<<arr[k]<<" "; cout<<endl;
+        heapify(arr,i,0);
+    }
+}
+
+int main(){
+    int scores[]={60,85,40,95,70,55,30,75};
+    int n=sizeof(scores)/sizeof(scores[0]);
+    cout<<"Urgency Scores: ";
+    for(int s:scores)cout<<s<<" ";cout<<endl<<endl;
+
+    int arr[8];for(int i=0;i<n;i++)arr[i]=scores[i];
+    cout<<"=== Heap Sort Steps ===" << endl;
+    heapSort(arr,n);
+
+    cout<<"\nMost Urgent First (Descending): ";
+    for(int i=n-1;i>=0;i--) cout<<arr[i]<<" ";cout<<endl;
+    cout<<"Least Urgent First (Ascending): ";
+    for(int i=0;i<n;i++) cout<<arr[i]<<" ";cout<<endl;
+    return 0;
+}`
+  },
+  {
+    no: 19,
+    topic: "Heap Sort",
+    name: "Sports Tournament Leaderboard",
+    code: `#include<iostream>
+using namespace std;
+
+void heapify(int arr[], int n, int i) {
+    int largest=i,l=2*i+1,r=2*i+2;
+    if(l<n&&arr[l]>arr[largest])largest=l;
+    if(r<n&&arr[r]>arr[largest])largest=r;
+    if(largest!=i){swap(arr[i],arr[largest]);heapify(arr,n,largest);}
+}
+
+void heapSort(int arr[], int n){
+    for(int i=n/2-1;i>=0;i--) heapify(arr,n,i);
+    cout<<"Max-Heap: ";for(int k=0;k<n;k++)cout<<arr[k]<<" ";cout<<endl;
+    for(int i=n-1;i>0;i--){swap(arr[0],arr[i]);heapify(arr,i,0);}
+}
+
+// Bubble Sort for comparison
+void bubbleSort(int arr[], int n){
+    int steps=0;
+    for(int i=0;i<n-1;i++) for(int j=0;j<n-i-1;j++){steps++;if(arr[j]>arr[j+1])swap(arr[j],arr[j+1]);}
+    cout<<"Bubble Sort comparisons: "<<steps<<endl;
+}
+
+int main(){
+    int scores[]={88,72,95,64,80,91,77,58};
+    int n=sizeof(scores)/sizeof(scores[0]);
+    cout<<"Player Scores: ";for(int s:scores)cout<<s<<" ";cout<<endl<<endl;
+
+    int hs[8],bs[8];
+    for(int i=0;i<n;i++){hs[i]=scores[i];bs[i]=scores[i];}
+
+    cout<<"=== Heap Sort ===" << endl;
+    heapSort(hs,n);
+    cout<<"Highest to Lowest: ";for(int i=n-1;i>=0;i--)cout<<hs[i]<<" ";cout<<endl;
+    cout<<"Lowest to Highest: ";for(int i=0;i<n;i++)cout<<hs[i]<<" ";cout<<endl;
+
+    cout<<"\n=== Complexity Analysis ===" << endl;
+    bubbleSort(bs,n);
+    cout<<"Heap Sort: O(n log n) | Bubble Sort: O(n^2)"<<endl;
+    return 0;
+}`
+  },
+  {
+    no: 20,
+    topic: "Heap Sort",
+    name: "College Merit List Generation",
+    code: `#include<iostream>
+using namespace std;
+
+void heapify(int arr[], int n, int i){
+    int largest=i,l=2*i+1,r=2*i+2;
+    if(l<n&&arr[l]>arr[largest])largest=l;
+    if(r<n&&arr[r]>arr[largest])largest=r;
+    if(largest!=i){swap(arr[i],arr[largest]);heapify(arr,n,largest);}
+}
+
+void heapSort(int arr[], int n){
+    for(int i=n/2-1;i>=0;i--) heapify(arr,n,i);
+    cout<<"Heap after buildHeap: ";for(int k=0;k<n;k++)cout<<arr[k]<<" ";cout<<endl<<endl;
+    for(int i=n-1;i>0;i--){
+        swap(arr[0],arr[i]);
+        heapify(arr,i,0);
+        if((n-1-i)%3==2){
+            cout<<"After "<<(n-i)<<" extractions: ";
+            for(int k=0;k<i;k++)cout<<arr[k]<<" ";cout<<endl;
+        }
+    }
+}
+
+int main(){
+    int scores[]={720,640,785,590,680,750,615,700};
+    int n=sizeof(scores)/sizeof(scores[0]);
+    cout<<"Applicant Scores: ";for(int s:scores)cout<<s<<" ";cout<<endl<<endl;
+
+    int arr[8];for(int i=0;i<n;i++)arr[i]=scores[i];
+    heapSort(arr,n);
+
+    cout<<"\n=== Merit List (Highest First) ===" << endl;
+    for(int i=n-1;i>=0;i--)cout<<arr[i]<<" ";cout<<endl;
+    cout<<"\n=== Reverse List (Lowest First) ===" << endl;
+    for(int i=0;i<n;i++)cout<<arr[i]<<" ";cout<<endl;
+
+    cout<<"\nAdvantage: Heap Sort is O(n log n) and in-place — better than Bubble/Selection Sort"<<endl;
+    return 0;
+}`
+  },
+  {
+    no: 21,
+    topic: "Probabilistic DS",
+    name: "Web Cache & Spam URL Filter using Bloom Filter",
+    code: `#include<iostream>
+#include<string>
+#include<bitset>
+#include<vector>
+using namespace std;
+
+const int M = 100; // bit array size
+
+// 3 hash functions
+int hash1(const string& s) {
+    int h=0; for(char c:s) h=(h*31+c)%M; return h;
+}
+int hash2(const string& s) {
+    int h=7; for(char c:s) h=(h*13+c)%M; return h;
+}
+int hash3(const string& s) {
+    int h=17; for(char c:s) h=(h*37+c)%M; return h;
+}
+
+bitset<M> bloomFilter;
+
+void insertURL(const string& url) {
+    bloomFilter.set(hash1(url));
+    bloomFilter.set(hash2(url));
+    bloomFilter.set(hash3(url));
+    cout << "Inserted: " << url << endl;
+}
+
+bool queryURL(const string& url) {
+    return bloomFilter.test(hash1(url)) &&
+           bloomFilter.test(hash2(url)) &&
+           bloomFilter.test(hash3(url));
+}
+
+// Count-Min Sketch
+const int ROWS=3, COLS=20;
+int cms[ROWS][COLS]={};
+
+int cmsHash(const string& s, int row) {
+    int h=row*31+7; for(char c:s) h=(h*17+c)%COLS; return abs(h)%COLS;
+}
+
+void cmsInsert(const string& domain) {
+    for(int i=0;i<ROWS;i++) cms[i][cmsHash(domain,i)]++;
+}
+
+int cmsQuery(const string& domain) {
+    int minVal=INT_MAX;
+    for(int i=0;i<ROWS;i++) minVal=min(minVal,cms[i][cmsHash(domain,i)]);
+    return minVal;
+}
+
+int main(){
+    vector<string> malicious={"evil.com","spam.net","phish.org","hack.io","bad.xyz","malware.tk","scam.biz","fake.info","virus.cc","danger.pw"};
+    cout<<"=== Inserting Malicious URLs ===" << endl;
+    for(auto& u:malicious) insertURL(u);
+
+    vector<string> queries={"evil.com","safe.com","phish.org","google.com","hack.io"};
+    cout<<"\n=== Query Results ===" << endl;
+    for(auto& q:queries)
+        cout<<q<<" -> "<<(queryURL(q)?"Possibly Malicious":"Definitely Not Malicious")<<endl;
+
+    cout<<"\n=== Count-Min Sketch (Domain Frequency) ===" << endl;
+    string clicks[]={"google.com","amazon.in","google.com","google.com","amazon.in","flipkart.com"};
+    for(auto& d:clicks) cmsInsert(d);
+    cout<<"google.com frequency: "<<cmsQuery("google.com")<<endl;
+    cout<<"amazon.in frequency: "<<cmsQuery("amazon.in")<<endl;
+    cout<<"flipkart.com frequency: "<<cmsQuery("flipkart.com")<<endl;
+
+    cout<<"\nFalse Positive Demo: "; string fp="notmalicious.com";
+    insertURL("evil2.com"); // cause potential collision
+    cout<<fp<<" -> "<<(queryURL(fp)?"Possibly Malicious (FALSE POSITIVE!)":"Definitely Not Malicious")<<endl;
+    return 0;
+}`
+  },
+  {
+    no: 22,
+    topic: "Probabilistic DS",
+    name: "E-Commerce Product Recommendation & Click Tracker",
+    code: `#include<iostream>
+#include<string>
+#include<bitset>
+#include<climits>
+using namespace std;
+
+const int M=200;
+bitset<M> bloomFilter;
+
+int h1(const string& s){int h=0;for(char c:s)h=(h*31+c)%M;return abs(h);}
+int h2(const string& s){int h=7;for(char c:s)h=(h*17+c)%M;return abs(h);}
+int h3(const string& s){int h=11;for(char c:s)h=(h*37+c)%M;return abs(h);}
+
+void bfInsert(const string& pid){bloomFilter.set(h1(pid));bloomFilter.set(h2(pid));bloomFilter.set(h3(pid));}
+bool bfQuery(const string& pid){return bloomFilter.test(h1(pid))&&bloomFilter.test(h2(pid))&&bloomFilter.test(h3(pid));}
+
+// Count-Min Sketch
+const int D=3,W=20;
+int cms[D][W]={};
+int cmHash(const string& s,int row){int h=row*11+3;for(char c:s)h=(h*19+c)%W;return abs(h)%W;}
+void cmInsert(const string& pid){for(int i=0;i<D;i++)cms[i][cmHash(pid,i)]++;}
+int cmQuery(const string& pid){int mn=INT_MAX;for(int i=0;i<D;i++)mn=min(mn,cms[i][cmHash(pid,i)]);return mn;}
+
+int main(){
+    string viewed[]={"P001","P002","P003","P004","P005","P006","P007","P008","P009","P010"};
+    cout<<"=== Inserting Viewed Products ===" << endl;
+    for(auto& p:viewed){bfInsert(p);cout<<"Viewed: "<<p<<endl;}
+
+    string queries[]={"P001","P005","P011","P003","P015","P010"};
+    cout<<"\n=== Bloom Filter Queries ===" << endl;
+    for(auto& q:queries)
+        cout<<q<<" -> "<<(bfQuery(q)?"Seen Before":"Not Seen (safe to recommend)")<<endl;
+
+    cout<<"\n=== Count-Min Sketch Click Tracking ===" << endl;
+    string clicks[]={"P001","P002","P001","P003","P001","P002","P004","P003","P001","P005"};
+    for(auto& c:clicks)cmInsert(c);
+    string trackQ[]={"P001","P002","P003","P004","P005"};
+    for(auto& t:trackQ)cout<<t<<" estimated clicks: "<<cmQuery(t)<<endl;
+
+    cout<<"\n=== Space Analysis ===" << endl;
+    cout<<"Bloom Filter: "<<M/8<<" bytes for ~"<<M<<" bit array"<<endl;
+    cout<<"Count-Min Sketch: "<<D*W*4<<" bytes"<<endl;
+    cout<<"Exact HashMap (1M products): ~24 MB"<<endl;
+    cout<<"Probabilistic structures: ~"<<(M/8+D*W*4)<<" bytes total"<<endl;
+    return 0;
+}`
+  }
+];
+
+// ─────────────────────────────────────────────
+//  RENDER
+// ─────────────────────────────────────────────
+function render(list) {
+  const container = document.getElementById('programList');
+  const countLabel = document.getElementById('countLabel');
+
+  if (list.length === 0) {
+    container.innerHTML = `<div class="no-results">😕 No programs found matching your search.</div>`;
+    countLabel.textContent = 'No results found';
+    return;
+  }
+
+  countLabel.textContent = `Showing ${list.length} of ${programs.length} programs`;
+
+  container.innerHTML = list.map(p => `
+    <div class="card">
+      <div class="num">${p.no}</div>
+      <div class="card-info">
+        <div class="topic">${p.topic}</div>
+        <div class="name">${p.name}</div>
+      </div>
+      <button class="copy-btn" id="btn-${p.no}" onclick="copyCode(${p.no})">Copy Code</button>
+    </div>
+  `).join('');
+}
+
+function copyCode(no) {
+  const prog = programs.find(p => p.no === no);
+  if (!prog) return;
+
+  navigator.clipboard.writeText(prog.code).then(() => {
+    const btn = document.getElementById('btn-' + no);
     btn.textContent = '✓ Copied!';
-    btn.classList.add('copied');
+    btn.classList.add('success');
     setTimeout(() => {
       btn.textContent = 'Copy Code';
-      btn.classList.remove('copied');
-    }, 2000);
-    showToast();
+      btn.classList.remove('success');
+    }, 1800);
   }).catch(() => {
     // Fallback for older browsers
-    const ta = document.createElement('textarea');
-    ta.value = code;
-    ta.style.position = 'fixed';
-    ta.style.opacity = '0';
-    document.body.appendChild(ta);
-    ta.select();
+    const el = document.createElement('textarea');
+    el.value = prog.code;
+    document.body.appendChild(el);
+    el.select();
     document.execCommand('copy');
-    document.body.removeChild(ta);
+    document.body.removeChild(el);
+    const btn = document.getElementById('btn-' + no);
     btn.textContent = '✓ Copied!';
-    btn.classList.add('copied');
-    setTimeout(() => { btn.textContent = 'Copy Code'; btn.classList.remove('copied'); }, 2000);
-    showToast();
+    btn.classList.add('success');
+    setTimeout(() => { btn.textContent = 'Copy Code'; btn.classList.remove('success'); }, 1800);
   });
 }
 
-function showToast() {
-  const toast = document.getElementById('toast');
-  toast.classList.add('show');
-  clearTimeout(toastTimer);
-  toastTimer = setTimeout(() => toast.classList.remove('show'), 2200);
+function filterPrograms() {
+  const q = document.getElementById('searchBox').value.toLowerCase().trim();
+  if (!q) { render(programs); return; }
+  const filtered = programs.filter(p =>
+    p.name.toLowerCase().includes(q) ||
+    p.topic.toLowerCase().includes(q) ||
+    String(p.no).includes(q)
+  );
+  render(filtered);
 }
 
-// ═══════════════════════════════════════════════════
-//  SEARCH
-// ═══════════════════════════════════════════════════
-
-const sections = ['sql', 'mongo', 'plsql', 'jdbc'];
-const moduleTabs = document.querySelectorAll('.module-tab');
-let activeModule = 'all';
-
-function applyFilters() {
-  const q = document.getElementById('searchInput').value.toLowerCase().trim();
-  let totalVisible = 0;
-
-  sections.forEach(sec => {
-    const section = document.getElementById(`section-${sec}`);
-    const cards = document.querySelectorAll(`#cards-${sec} .card`);
-    let visible = 0;
-
-    cards.forEach(card => {
-      const matchesQuery = !q || card.dataset.name.includes(q);
-      const matchesModule = activeModule === 'all' || activeModule === sec;
-      const match = matchesQuery && matchesModule;
-      card.style.display = match ? '' : 'none';
-      if (match) visible++;
-    });
-
-    totalVisible += visible;
-    section.classList.toggle('hidden', activeModule !== 'all' && activeModule !== sec);
-    document.getElementById(`count-${sec}`).textContent = visible + ' programs';
-  });
-
-  document.getElementById('noResults').style.display = totalVisible === 0 ? 'block' : 'none';
-}
-
-moduleTabs.forEach(tab => {
-  tab.addEventListener('click', () => {
-    activeModule = tab.dataset.module;
-    moduleTabs.forEach(btn => {
-      const isActive = btn === tab;
-      btn.classList.toggle('active', isActive);
-      btn.setAttribute('aria-selected', String(isActive));
-    });
-    applyFilters();
-  });
-});
-
-document.getElementById('searchInput').addEventListener('input', applyFilters);
-
-applyFilters();
+// Initial render
+render(programs);
 </script>
 </body>
 </html>
-
-
+`
