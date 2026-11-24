@@ -13,7 +13,7 @@
   <header class="site-header" id="topHeader">
     <div class="header-inner container">
       <div class="brand-group">
-        <a href="#home" class="brand-link" id="logoLink">
+        <a href="#home" class="brand-link" id="logoLink" onclick="navigateToHome(); return false;">
           <div class="brand-icon">
             <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
               <rect x="2" y="2" width="20" height="8" rx="2" ry="2"></rect>
@@ -80,8 +80,63 @@
     <!-- HOME VIEW -->
     <div id="homeView" class="view-section active-view">
 
+      <!-- Hero Section -->
+      <!-- <section class="hero-section">
+        <div class="container hero-container">
+          <div class="academic-badge">
+            <span class="badge-dot"></span>
+            Academic Laboratory Reference · B.Tech IT &amp; Computer Engineering
+          </div>
+          <h1 class="hero-title">Computer Networks <span>Practical Hub</span></h1>
+          <p class="hero-subtitle">
+            Complete practical implementations, ready-to-copy C++ programs, and step-by-step execution guides for laboratory coursework.
+          </p> -->
 
-   
+          <!-- Metrics Badges -->
+          <!-- <div class="stats-grid">
+            <div class="stat-card">
+              <span class="stat-number">7</span>
+              <span class="stat-label">Total Practicals</span>
+            </div>
+            <div class="stat-card">
+              <span class="stat-number">16</span>
+              <span class="stat-label">C++ Implementations</span>
+            </div>
+            <div class="stat-card">
+              <span class="stat-number">C++17</span>
+              <span class="stat-label">Language Standard</span>
+            </div>
+            <div class="stat-card">
+              <span class="stat-number">MinGW g++</span>
+              <span class="stat-label">Target Compiler</span>
+            </div>
+          </div> -->
+
+          <!-- Hero Search & Filter Box -->
+          <!-- <div class="hero-search-container">
+            <div class="search-bar-wrap">
+              <svg class="search-bar-icon" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                <circle cx="11" cy="11" r="8"></circle>
+                <line x1="21" y1="21" x2="16.65" y2="16.65"></line>
+              </svg>
+              <input type="text" id="mainSearchInput" class="main-search-input" placeholder="Search by practical title, algorithm (CRC, Hamming, Dijkstra, Socket, Stop &amp; Wait)..." oninput="handleSearch(this.value)" />
+              <button class="clear-search-btn" id="clearSearchBtn" onclick="clearSearch()" style="display:none;" title="Clear search">✕</button>
+            </div> -->
+
+            <!-- Category Filter Pills -->
+            <!-- <div class="filter-pills" id="filterPillsContainer">
+              <button class="filter-pill active" data-filter="all" onclick="setCategoryFilter('all', this)">All (7)</button>
+              <button class="filter-pill" data-filter="hardware" onclick="setCategoryFilter('hardware', this)">Hardware &amp; LAN</button>
+              <button class="filter-pill" data-filter="simulation" onclick="setCategoryFilter('simulation', this)">Packet Tracer</button>
+              <button class="filter-pill" data-filter="error" onclick="setCategoryFilter('error', this)">Error Control</button>
+              <button class="filter-pill" data-filter="sliding-window" onclick="setCategoryFilter('sliding-window', this)">Sliding Window</button>
+              <button class="filter-pill" data-filter="subnet" onclick="setCategoryFilter('subnet', this)">Subnetting</button>
+              <button class="filter-pill" data-filter="routing" onclick="setCategoryFilter('routing', this)">Routing</button>
+              <button class="filter-pill" data-filter="sockets" onclick="setCategoryFilter('sockets', this)">Winsock Sockets</button>
+            </div>
+          </div>
+        </div>
+      </section> -->
 
       <!-- Practicals Grid Section -->
       <section class="practicals-section" id="practicalsSection">
@@ -104,82 +159,6 @@
             <h3 class="empty-title">No matching practicals or algorithms found</h3>
             <p class="empty-text">Try searching with different terms like "CRC", "Dijkstra", "Hamming", "TCP", or "Subnet".</p>
             <button class="btn btn-secondary" onclick="clearSearch()">Reset Search</button>
-          </div>
-        </div>
-      </section>
-
-      <!-- Quick Reference Summary Section -->
-      <section class="summary-section">
-        <div class="container">
-          <div class="summary-card">
-            <div class="summary-header">
-              <h3 class="summary-title">Practical Curriculum Overview</h3>
-              <span class="summary-pill">MinGW g++ (Windows 10/11)</span>
-            </div>
-            <div class="summary-table-wrap">
-              <table class="academic-table">
-                <thead>
-                  <tr>
-                    <th>Practical</th>
-                    <th>Lab Practical Title</th>
-                    <th>Type</th>
-                    <th>Implementations</th>
-                    <th>Action</th>
-                  </tr>
-                </thead>
-                <tbody>
-                  <tr>
-                    <td><strong>PR-01</strong></td>
-                    <td>Setup of Wired LAN</td>
-                    <td><span class="type-badge hardware">Hardware &amp; Wireshark</span></td>
-                    <td>Step-by-step T568B &amp; ICMP Analysis</td>
-                    <td><button class="table-link-btn" onclick="openPractical(1)">View Guide →</button></td>
-                  </tr>
-                  <tr>
-                    <td><strong>PR-02</strong></td>
-                    <td>Cisco Packet Tracer</td>
-                    <td><span class="type-badge sim">Topology &amp; Subnetting</span></td>
-                    <td>5 Topologies + VLSM Subnetting</td>
-                    <td><button class="table-link-btn" onclick="openPractical(2)">View Guide →</button></td>
-                  </tr>
-                  <tr>
-                    <td><strong>PR-03</strong></td>
-                    <td>Single Bit Error Detection and Correction</td>
-                    <td><span class="type-badge cpp">C++ Programming</span></td>
-                    <td>4 Codes (Parity, CRC, Hamming, Combined)</td>
-                    <td><button class="table-link-btn" onclick="openPractical(3)">Open Code →</button></td>
-                  </tr>
-                  <tr>
-                    <td><strong>PR-04</strong></td>
-                    <td>Sliding Window Mechanism</td>
-                    <td><span class="type-badge cpp">C++ Programming</span></td>
-                    <td>4 Codes (Stop&amp;Wait, GBN, SR, Combined)</td>
-                    <td><button class="table-link-btn" onclick="openPractical(4)">Open Code →</button></td>
-                  </tr>
-                  <tr>
-                    <td><strong>PR-05</strong></td>
-                    <td>Subnet Calculator</td>
-                    <td><span class="type-badge cpp">C++ Programming</span></td>
-                    <td>1 Standalone (/31, /32 edge cases handled)</td>
-                    <td><button class="table-link-btn" onclick="openPractical(5)">Open Code →</button></td>
-                  </tr>
-                  <tr>
-                    <td><strong>PR-06</strong></td>
-                    <td>Routing Algorithms</td>
-                    <td><span class="type-badge cpp">C++ Programming</span></td>
-                    <td>3 Codes (Distance Vector, Dijkstra, Combined)</td>
-                    <td><button class="table-link-btn" onclick="openPractical(6)">Open Code →</button></td>
-                  </tr>
-                  <tr>
-                    <td><strong>PR-07</strong></td>
-                    <td>Socket Programming</td>
-                    <td><span class="type-badge cpp">C++ Winsock2</span></td>
-                    <td>4 Codes (TCP/UDP Client-Server) + Wireshark</td>
-                    <td><button class="table-link-btn" onclick="openPractical(7)">Open Code →</button></td>
-                  </tr>
-                </tbody>
-              </table>
-            </div>
           </div>
         </div>
       </section>
@@ -217,41 +196,6 @@
     </div><!-- /detailView -->
 
   </main>
-
-  <!-- Academic Footer -->
-  <footer class="site-footer">
-    <div class="container footer-container">
-      <div class="footer-left">
-        <div class="footer-brand">CN Practical Hub</div>
-        <p class="footer-desc">Academic reference portal for Computer Networks Laboratory (B.Tech Information Technology &amp; Computer Engineering).</p>
-      </div>
-      <div class="footer-links">
-        <div class="footer-col">
-          <span class="col-title">Practicals</span>
-          <a href="javascript:void(0)" onclick="openPractical(1)">PR-01: Wired LAN</a>
-          <a href="javascript:void(0)" onclick="openPractical(2)">PR-02: Packet Tracer</a>
-          <a href="javascript:void(0)" onclick="openPractical(3)">PR-03: Error Control</a>
-          <a href="javascript:void(0)" onclick="openPractical(4)">PR-04: Sliding Window</a>
-        </div>
-        <div class="footer-col">
-          <span class="col-title">Implementations</span>
-          <a href="javascript:void(0)" onclick="openPractical(5)">PR-05: Subnet Calculator</a>
-          <a href="javascript:void(0)" onclick="openPractical(6)">PR-06: Routing Algorithms</a>
-          <a href="javascript:void(0)" onclick="openPractical(7)">PR-07: Socket Programming</a>
-        </div>
-        <div class="footer-col">
-          <span class="col-title">Compiler &amp; Environment</span>
-          <span class="footer-info">MinGW g++ (x86_64)</span>
-          <span class="footer-info">Windows 10 / 11</span>
-          <span class="footer-info">Winsock2 (-lws2_32)</span>
-        </div>
-      </div>
-    </div>
-    <div class="footer-bottom container">
-      <p>© 2026 CN Practical Hub · Designed for Academic &amp; Laboratory Excellence</p>
-      <p class="footer-note">All implementations are tested, standalone, compilable C++ source files.</p>
-    </div>
-  </footer>
 
   <!-- Floating Scroll-To-Top Button -->
   <button id="scrollToTopBtn" class="scroll-top-btn" onclick="scrollToTop()" title="Scroll to top">

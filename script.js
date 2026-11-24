@@ -120,13 +120,21 @@ const practicalsData = [
     type: "simulation",
     shortDesc: "Comprehensive Packet Tracer simulation covering five standard physical & logical topologies (Bus, Star, Ring, Mesh, Tree) with visual diagrams and a practical VLSM subnetting design with inter-VLAN routing.",
     topics: ["Bus Topology", "Star Topology", "Ring Topology", "Mesh Topology", "Tree Topology", "VLSM Subnetting", "Packet Tracer CLI"],
-    implCount: "5 Topologies + Subnetting Lab",
+    implCount: "5 Topologies (.pkt Files) + Subnetting Lab",
     aim: "To design, simulate, and analyze five standard local network topologies (Bus, Star, Ring, Mesh, Tree) in Cisco Packet Tracer, configure device interfaces, verify packet delivery via ICMP simulations, and implement a departmental IP subnetting scheme.",
     hasCode: false,
     tracerContent: {
+      repoUrl: "https://github.com/VIRAJ-JAYASINGHE/Network-Topologies",
+      allZipPath: "assets/packet-tracer/Network_Topologies_All.zip",
+      allZipSize: "247 KB",
       topologies: [
         {
           name: "Star Topology",
+          fileName: "Star_topology.pkt",
+          fileSize: "51.2 KB",
+          filePath: "assets/packet-tracer/Star_topology.pkt",
+          repoUrl: "https://github.com/VIRAJ-JAYASINGHE/Network-Topologies/blob/main/Star_topology.pkt",
+          briefDesc: "Cisco 2960 switch-centered star layout with 4 radial PCs.",
           devices: "1x Cisco 2960-24TT Switch, 4x Generic End PCs (PC0, PC1, PC2, PC3)",
           cables: "Copper Straight-Through Cables connected from PC FastEthernet0 to Switch FastEthernet0/1 through 0/4",
           ipScheme: "Network 192.168.1.0/24. PC0: 192.168.1.10, PC1: 192.168.1.11, PC2: 192.168.1.12, PC3: 192.168.1.13. Mask: 255.255.255.0",
@@ -153,6 +161,11 @@ const practicalsData = [
         },
         {
           name: "Bus Topology",
+          fileName: "Bus_topology.pkt",
+          fileSize: "47.9 KB",
+          filePath: "assets/packet-tracer/Bus_topology.pkt",
+          repoUrl: "https://github.com/VIRAJ-JAYASINGHE/Network-Topologies/blob/main/Bus_topology.pkt",
+          briefDesc: "Simulated multi-drop shared coaxial backbone network with terminators.",
           devices: "4x Generic PCs, 3x Generic Hubs/Repeater nodes (or daisy-chained switches emulating multi-drop coaxial bus), terminators",
           cables: "Copper Cross-over cables linking consecutive backbone hubs; Straight-Through cables linking drop lines to workstations",
           ipScheme: "Network 192.168.2.0/24. PC0: 192.168.2.1, PC1: 192.168.2.2, PC2: 192.168.2.3, PC3: 192.168.2.4",
@@ -180,6 +193,11 @@ const practicalsData = [
         },
         {
           name: "Ring Topology",
+          fileName: "Ring_topology.pkt",
+          fileSize: "47.7 KB",
+          filePath: "assets/packet-tracer/Ring_topology.pkt",
+          repoUrl: "https://github.com/VIRAJ-JAYASINGHE/Network-Topologies/blob/main/Ring_topology.pkt",
+          briefDesc: "Closed-loop ring with Spanning Tree Protocol (STP) automatic failover.",
           devices: "4x Cisco 2960 Switches or 1941 Routers arranged in a closed loop, 4x End Host PCs",
           cables: "Copper Cross-over cables between switches (e.g. Sw0-Sw1, Sw1-Sw2, Sw2-Sw3, Sw3-Sw0); Straight-Through to PCs",
           ipScheme: "Subnet 192.168.3.0/24 (for switch-based VLAN) or point-to-point /30 subnets if router-based ring.",
@@ -202,6 +220,11 @@ const practicalsData = [
         },
         {
           name: "Mesh Topology (Full Mesh)",
+          fileName: "Mesh_topology.pkt",
+          fileSize: "47.8 KB",
+          filePath: "assets/packet-tracer/Mesh_topology.pkt",
+          repoUrl: "https://github.com/VIRAJ-JAYASINGHE/Network-Topologies/blob/main/Mesh_topology.pkt",
+          briefDesc: "Fully meshed router network with dedicated serial point-to-point links.",
           devices: "4x Cisco 1941 Routers (each equipped with HWIC-2T Serial WAN interface cards) or 4x Multi-interface Workstations",
           cables: "Serial DTE/DCE cables connecting every node to every other node: N(N-1)/2 = 4(3)/2 = 6 dedicated physical links",
           ipScheme: "Point-to-point /30 subnets: 10.0.12.0/30 (R1-R2), 10.0.13.0/30 (R1-R3), 10.0.14.0/30 (R1-R4), 10.0.23.0/30 (R2-R3), 10.0.24.0/30 (R2-R4), 10.0.34.0/30 (R3-R4)",
@@ -228,6 +251,11 @@ const practicalsData = [
         },
         {
           name: "Tree Topology (Hierarchical)",
+          fileName: "Tree_topology.pkt",
+          fileSize: "51.6 KB",
+          filePath: "assets/packet-tracer/Tree_topology.pkt",
+          repoUrl: "https://github.com/VIRAJ-JAYASINGHE/Network-Topologies/blob/main/Tree_topology.pkt",
+          briefDesc: "Hierarchical Core -> Distribution -> Access multi-tier campus network.",
           devices: "1x Core Switch (3560-24PS), 2x Distribution Switches (2960), 4x Access PCs",
           cables: "Gigabit Ethernet uplinks from Distribution to Core; FastEthernet downlinks to end stations",
           ipScheme: "Core Root: 192.168.0.0/16. Dept A Branch: 192.168.10.0/24. Dept B Branch: 192.168.20.0/24",
@@ -2750,22 +2778,16 @@ function renderPracticalsGrid(filterCategory = 'all', searchQuery = '') {
   }
 
   gridContainer.innerHTML = filtered.map(p => {
-    const topicsHtml = p.topics.map(t => `<span class="topic-tag">${t}</span>`).join('');
-
     return `
       <div class="practical-card" id="card-${p.id}">
-        <div class="card-top">
-          <div class="card-header-meta">
-            <span class="practical-id-badge">${p.number}</span>
+        <div class="card-left">
+          <span class="practical-id-badge">${p.number}</span>
+          <div class="card-title-wrap">
+            <h3 class="card-title">${p.title}</h3>
             <span class="practical-category-pill">${p.categoryLabel}</span>
           </div>
-          <h3 class="card-title">${p.title}</h3>
-          <p class="card-desc">${p.shortDesc}</p>
-          <div class="card-topics-list">
-            ${topicsHtml}
-          </div>
         </div>
-        <div class="card-footer">
+        <div class="card-right">
           <span class="impl-count">
             <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
               <polyline points="16 18 22 12 16 6"></polyline>
@@ -3089,17 +3111,45 @@ function renderPractical02(p) {
 
   const topologiesHtml = content.topologies.map((topo, idx) => `
     <div class="content-section-card" id="topo-${idx}">
-      <h3 class="card-section-title">
-        <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
-          <circle cx="12" cy="12" r="3"></circle>
-          <path d="M19.4 15a1.65 1.65 0 0 0 .33 1.82l.06.06a2 2 0 0 1 0 2.83 2 2 0 0 1-2.83 0l-.06-.06a1.65 1.65 0 0 0-1.82-.33 1.65 1.65 0 0 0-1 1.51V21a2 2 0 0 1-2 2 2 2 0 0 1-2-2v-.09A1.65 1.65 0 0 0 9 19.4a1.65 1.65 0 0 0-1.82.33l-.06.06a2 2 0 0 1-2.83 0 2 2 0 0 1 0-2.83l.06-.06a1.65 1.65 0 0 0 .33-1.82 1.65 1.65 0 0 0-1.51-1H3a2 2 0 0 1-2-2 2 2 0 0 1 2-2h.09A1.65 1.65 0 0 0 4.6 9a1.65 1.65 0 0 0-.33-1.82l-.06-.06a2 2 0 0 1 0-2.83 2 2 0 0 1 2.83 0l.06.06a1.65 1.65 0 0 0 1.82.33H9a1.65 1.65 0 0 0 1-1.51V3a2 2 0 0 1 2-2 2 2 0 0 1 2 2v.09a1.65 1.65 0 0 0 1 1.51 1.65 1.65 0 0 0 1.82-.33l.06-.06a2 2 0 0 1 2.83 0 2 2 0 0 1 0 2.83l-.06.06a1.65 1.65 0 0 0-.33 1.82V9a1.65 1.65 0 0 0 1.51 1H21a2 2 0 0 1 2 2 2 2 0 0 1-2 2h-.09a1.65 1.65 0 0 0-1.51 1z"></path>
-        </svg>
-        ${topo.name} Simulation
-      </h3>
+      <div style="display:flex; align-items:center; justify-content:space-between; flex-wrap:wrap; gap:12px; margin-bottom:12px;">
+        <h3 class="card-section-title" style="margin-bottom:0;">
+          <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+            <circle cx="12" cy="12" r="3"></circle>
+            <path d="M19.4 15a1.65 1.65 0 0 0 .33 1.82l.06.06a2 2 0 0 1 0 2.83 2 2 0 0 1-2.83 0l-.06-.06a1.65 1.65 0 0 0-1.82-.33 1.65 1.65 0 0 0-1 1.51V21a2 2 0 0 1-2 2 2 2 0 0 1-2-2v-.09A1.65 1.65 0 0 0 9 19.4a1.65 1.65 0 0 0-1.82.33l-.06.06a2 2 0 0 1-2.83 0 2 2 0 0 1 0-2.83l.06-.06a1.65 1.65 0 0 0 .33-1.82 1.65 1.65 0 0 0-1.51-1H3a2 2 0 0 1-2-2 2 2 0 0 1 2-2h.09A1.65 1.65 0 0 0 4.6 9a1.65 1.65 0 0 0-.33-1.82l-.06-.06a2 2 0 0 1 0-2.83 2 2 0 0 1 2.83 0l.06.06a1.65 1.65 0 0 0 1.82.33H9a1.65 1.65 0 0 0 1-1.51V3a2 2 0 0 1 2-2 2 2 0 0 1 2 2v.09a1.65 1.65 0 0 0 1 1.51 1.65 1.65 0 0 0 1.82-.33l.06-.06a2 2 0 0 1 2.83 0 2 2 0 0 1 0 2.83l-.06.06a1.65 1.65 0 0 0-.33 1.82V9a1.65 1.65 0 0 0 1.51 1H21a2 2 0 0 1 2 2 2 2 0 0 1-2 2h-.09a1.65 1.65 0 0 0-1.51 1z"></path>
+          </svg>
+          ${topo.name} Simulation
+        </h3>
+        <a href="${topo.filePath}" download="${topo.fileName}" class="btn-download-pkt">
+          <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+            <path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"></path>
+            <polyline points="7 10 12 15 17 10"></polyline>
+            <line x1="12" y1="15" x2="12" y2="3"></line>
+          </svg>
+          Download ${topo.fileName} (${topo.fileSize})
+        </a>
+      </div>
+
+      <div class="pkt-action-bar">
+        <div class="pkt-file-meta">
+          <div class="pkt-icon-badge">PKT</div>
+          <div class="pkt-details">
+            <span class="pkt-filename">${topo.fileName}</span>
+            <span class="pkt-filesize">${topo.fileSize} · ${topo.briefDesc}</span>
+          </div>
+        </div>
+        <div style="display:flex; align-items:center; gap:8px;">
+          <a href="${topo.filePath}" download="${topo.fileName}" class="btn-download-pkt">
+            Download File
+          </a>
+          <a href="${topo.repoUrl}" target="_blank" rel="noopener noreferrer" class="sample-copy-btn">
+            GitHub Source ↗
+          </a>
+        </div>
+      </div>
 
       <div class="diagram-container">
         ${topo.diagramSvg}
-        <span class="diagram-caption">Figure 2.${idx + 1}: Logical &amp; Physical Connectivity Diagram for ${topo.name}</span>
+        <span class="diagram-caption">Figure 2.${idx + 1}: Connectivity Diagram for ${topo.name}</span>
       </div>
 
       <div style="margin-top: 18px;">
@@ -3138,6 +3188,25 @@ function renderPractical02(p) {
     </tr>
   `).join('');
 
+  const fileRowsHtml = content.topologies.map(t => `
+    <tr>
+      <td><span class="type-badge sim">PKT</span> <strong>${t.name}</strong></td>
+      <td><code>${t.fileName}</code></td>
+      <td>${t.fileSize}</td>
+      <td>${t.briefDesc}</td>
+      <td>
+        <a href="${t.filePath}" download="${t.fileName}" class="table-link-btn" style="text-decoration:none; display:inline-flex; align-items:center; gap:4px;">
+          <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+            <path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"></path>
+            <polyline points="7 10 12 15 17 10"></polyline>
+            <line x1="12" y1="15" x2="12" y2="3"></line>
+          </svg>
+          Download .pkt
+        </a>
+      </td>
+    </tr>
+  `).join('');
+
   return `
     <div class="practical-header-block">
       <div class="practical-header-top">
@@ -3150,13 +3219,59 @@ function renderPractical02(p) {
       </div>
     </div>
 
+    <!-- Packet Tracer Files Hub Banner -->
+    <div class="pkt-hub-banner">
+      <div class="pkt-hub-info">
+        <div class="pkt-hub-badge">✓ Verified Lab Files Available Offline</div>
+        <h3 class="pkt-hub-title">Cisco Packet Tracer (.pkt) Topology Files</h3>
+        <p class="pkt-hub-desc">
+          Actual simulation files retrieved from repository <code>VIRAJ-JAYASINGHE/Network-Topologies</code> on GitHub. Stored locally in <code>assets/packet-tracer/</code>. You can download each file individually or download the entire collection as a single archive.
+        </p>
+      </div>
+      <a href="${content.allZipPath}" download="Network_Topologies_All.zip" class="btn-download-all">
+        <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5">
+          <path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"></path>
+          <polyline points="7 10 12 15 17 10"></polyline>
+          <line x1="12" y1="15" x2="12" y2="3"></line>
+        </svg>
+        Download All Topologies (.ZIP — ${content.allZipSize})
+      </a>
+    </div>
+
+    <!-- Files Quick Table -->
+    <div class="content-section-card" style="margin-bottom: 24px;">
+      <h3 class="card-section-title">
+        <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+          <path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"></path>
+          <polyline points="14 2 14 8 20 8"></polyline>
+        </svg>
+        Topology Files Index &amp; Direct Downloads
+      </h3>
+      <div class="summary-table-wrap">
+        <table class="academic-table">
+          <thead>
+            <tr>
+              <th>Topology</th>
+              <th>Filename</th>
+              <th>Size</th>
+              <th>Description</th>
+              <th>Action</th>
+            </tr>
+          </thead>
+          <tbody>
+            ${fileRowsHtml}
+          </tbody>
+        </table>
+      </div>
+    </div>
+
     <!-- Section A: Topologies -->
     <div style="margin-bottom: 24px;">
       <h2 style="font-size: 1.35rem; font-weight:700; color:var(--text-primary); margin-bottom: 6px;">
         Part A: Network Topologies Implementation
       </h2>
       <p style="font-size: 0.88rem; color:var(--text-muted); margin-bottom: 18px;">
-        Step-by-step device connection, IP addressing, and ICMP ping verification for five fundamental topologies.
+        Step-by-step device connection, IP addressing, ICMP ping verification, and direct .pkt downloads for each layout.
       </p>
       ${topologiesHtml}
     </div>
