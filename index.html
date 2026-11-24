@@ -2,1886 +2,272 @@
 <html lang="en">
 <head>
   <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
-  <title>ADSL Practical Codes Library</title>
-  <style>
-    * { box-sizing: border-box; margin: 0; padding: 0; }
-
-    body {
-      font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
-      background: #f7f8fa;
-      color: #222;
-      min-height: 100vh;
-    }
-
-    header {
-      background: #fff;
-      border-bottom: 2px solid #e5e7eb;
-      padding: 28px 24px 18px;
-      text-align: center;
-      position: sticky;
-      top: 0;
-      z-index: 100;
-      box-shadow: 0 2px 8px rgba(0,0,0,0.06);
-    }
-
-    header .badge {
-      display: inline-block;
-      font-size: 11px;
-      font-weight: 600;
-      letter-spacing: 1.5px;
-      text-transform: uppercase;
-      color: #6b7280;
-      margin-bottom: 6px;
-    }
-
-    header h1 {
-      font-size: 1.6rem;
-      font-weight: 700;
-      color: #111;
-      letter-spacing: -0.3px;
-    }
-
-    header h1 span { color: #2563eb; }
-
-    header p.subtitle {
-      font-size: 13px;
-      color: #9ca3af;
-      margin-top: 4px;
-    }
-
-    .search-wrap {
-      margin: 0 auto;
-      margin-top: 14px;
-      max-width: 480px;
-      position: relative;
-    }
-
-    .search-wrap input {
-      width: 100%;
-      padding: 10px 16px 10px 40px;
-      border: 1.5px solid #d1d5db;
-      border-radius: 8px;
-      font-size: 14px;
-      outline: none;
-      background: #f9fafb;
-      transition: border-color 0.2s;
-    }
-
-    .search-wrap input:focus { border-color: #2563eb; background: #fff; }
-
-    .search-wrap .icon {
-      position: absolute;
-      left: 13px;
-      top: 50%;
-      transform: translateY(-50%);
-      color: #9ca3af;
-      font-size: 15px;
-    }
-
-    .container {
-      max-width: 860px;
-      margin: 28px auto;
-      padding: 0 16px 48px;
-    }
-
-    .count-label {
-      font-size: 13px;
-      color: #6b7280;
-      margin-bottom: 14px;
-      font-weight: 500;
-    }
-
-    .card {
-      background: #fff;
-      border: 1.5px solid #e5e7eb;
-      border-radius: 10px;
-      padding: 16px 20px;
-      margin-bottom: 10px;
-      display: flex;
-      align-items: center;
-      gap: 14px;
-      transition: box-shadow 0.18s, border-color 0.18s;
-    }
-
-    .card:hover {
-      box-shadow: 0 4px 16px rgba(37,99,235,0.08);
-      border-color: #bfdbfe;
-    }
-
-    .num {
-      min-width: 34px;
-      height: 34px;
-      background: #eff6ff;
-      color: #2563eb;
-      font-weight: 700;
-      font-size: 13px;
-      border-radius: 7px;
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      flex-shrink: 0;
-    }
-
-    .card-info { flex: 1; min-width: 0; }
-
-    .card-info .topic {
-      font-size: 11px;
-      font-weight: 600;
-      letter-spacing: 0.8px;
-      text-transform: uppercase;
-      color: #9ca3af;
-      margin-bottom: 2px;
-    }
-
-    .card-info .name {
-      font-size: 15px;
-      font-weight: 600;
-      color: #111;
-      white-space: nowrap;
-      overflow: hidden;
-      text-overflow: ellipsis;
-    }
-
-    .copy-btn {
-      padding: 8px 18px;
-      background: #2563eb;
-      color: #fff;
-      border: none;
-      border-radius: 7px;
-      font-size: 13px;
-      font-weight: 600;
-      cursor: pointer;
-      transition: background 0.18s, transform 0.12s;
-      white-space: nowrap;
-      flex-shrink: 0;
-      position: relative;
-    }
-
-    .copy-btn:hover { background: #1d4ed8; transform: translateY(-1px); }
-    .copy-btn:active { transform: translateY(0px); }
-
-    .copy-btn.success {
-      background: #16a34a;
-    }
-
-    .no-results {
-      text-align: center;
-      padding: 60px 0;
-      color: #9ca3af;
-      font-size: 15px;
-    }
-
-    @media (max-width: 540px) {
-      header h1 { font-size: 1.2rem; }
-      .card { flex-wrap: wrap; gap: 10px; }
-      .card-info .name { white-space: normal; }
-      .copy-btn { width: 100%; }
-    }
-  </style>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <meta name="description" content="CN Practical Hub - Academic laboratory practical reference portal for B.Tech IT & Computer Engineering students. Complete working C++ implementations, ready-to-copy code and execution guides." />
+  <title>CN Practical Hub — Computer Networks Laboratory</title>
+  <link rel="stylesheet" href="style.css" />
 </head>
 <body>
 
-<header>
-  <div class="badge">MIT Academy of Engineering, Pune · IT Dept · 2025–26</div>
-  <h1>📚 ADSL <span>Practical Codes</span> Library</h1>
-  <p class="subtitle">Advance Data Structures Lab (2308219L) · 22 Programs</p>
-  <div class="search-wrap">
-    <span class="icon">🔍</span>
-    <input type="text" id="searchBox" placeholder="Search programs by name or topic..." oninput="filterPrograms()" />
-  </div>
-</header>
-
-<div class="container">
-  <div class="count-label" id="countLabel">Showing all 22 programs</div>
-  <div id="programList"></div>
-</div>
-
-<script>
-// ─────────────────────────────────────────────
-//  ALL PROGRAM DATA — names + full C++ code
-// ─────────────────────────────────────────────
-const programs = [
-  {
-    no: 1,
-    topic: "BST",
-    name: "Library Book Cataloging System",
-    code: `#include<iostream>
-#include<queue>
-#include<stack>
-using namespace std;
-
-struct Node {
-    int isbn;
-    Node *left, *right;
-    Node(int val) : isbn(val), left(nullptr), right(nullptr) {}
-};
-
-class BST {
-    Node* root;
-public:
-    BST() : root(nullptr) {}
-
-    Node* insert(Node* node, int val) {
-        if (!node) return new Node(val);
-        if (val < node->isbn) node->left = insert(node->left, val);
-        else if (val > node->isbn) node->right = insert(node->right, val);
-        return node;
-    }
-    void insert(int val) { root = insert(root, val); }
-
-    // Recursive Traversals
-    void inorder(Node* n) {
-        if (!n) return;
-        inorder(n->left); cout << n->isbn << " "; inorder(n->right);
-    }
-    void preorder(Node* n) {
-        if (!n) return;
-        cout << n->isbn << " "; preorder(n->left); preorder(n->right);
-    }
-    void postorder(Node* n) {
-        if (!n) return;
-        postorder(n->left); postorder(n->right); cout << n->isbn << " ";
-    }
-
-    // Non-Recursive Inorder
-    void inorderNR() {
-        stack<Node*> s; Node* curr = root;
-        while (curr || !s.empty()) {
-            while (curr) { s.push(curr); curr = curr->left; }
-            curr = s.top(); s.pop();
-            cout << curr->isbn << " ";
-            curr = curr->right;
-        }
-    }
-
-    // Non-Recursive Preorder
-    void preorderNR() {
-        if (!root) return;
-        stack<Node*> s; s.push(root);
-        while (!s.empty()) {
-            Node* n = s.top(); s.pop();
-            cout << n->isbn << " ";
-            if (n->right) s.push(n->right);
-            if (n->left) s.push(n->left);
-        }
-    }
-
-    // Non-Recursive Postorder
-    void postorderNR() {
-        if (!root) return;
-        stack<Node*> s1, s2; s1.push(root);
-        while (!s1.empty()) {
-            Node* n = s1.top(); s1.pop(); s2.push(n);
-            if (n->left) s1.push(n->left);
-            if (n->right) s1.push(n->right);
-        }
-        while (!s2.empty()) { cout << s2.top()->isbn << " "; s2.pop(); }
-    }
-
-    // Level Order
-    void levelOrder() {
-        if (!root) return;
-        queue<Node*> q; q.push(root);
-        while (!q.empty()) {
-            int sz = q.size();
-            while (sz--) {
-                Node* n = q.front(); q.pop();
-                cout << n->isbn << " ";
-                if (n->left) q.push(n->left);
-                if (n->right) q.push(n->right);
-            }
-            cout << endl;
-        }
-    }
-
-    bool search(int val) {
-        Node* curr = root;
-        while (curr) {
-            if (curr->isbn == val) return true;
-            curr = (val < curr->isbn) ? curr->left : curr->right;
-        }
-        return false;
-    }
-
-    Node* findMin(Node* n) {
-        while (n->left) n = n->left;
-        return n;
-    }
-
-    Node* deleteNode(Node* n, int val) {
-        if (!n) return nullptr;
-        if (val < n->isbn) n->left = deleteNode(n->left, val);
-        else if (val > n->isbn) n->right = deleteNode(n->right, val);
-        else {
-            if (!n->left) { Node* t = n->right; delete n; return t; }
-            if (!n->right) { Node* t = n->left; delete n; return t; }
-            Node* min = findMin(n->right);
-            n->isbn = min->isbn;
-            n->right = deleteNode(n->right, min->isbn);
-        }
-        return n;
-    }
-    void deleteNode(int val) { root = deleteNode(root, val); }
-
-    void display() {
-        cout << "Inorder (Recursive):     "; inorder(root); cout << endl;
-        cout << "Preorder (Recursive):    "; preorder(root); cout << endl;
-        cout << "Postorder (Recursive):   "; postorder(root); cout << endl;
-        cout << "Inorder (Non-Recursive): "; inorderNR(); cout << endl;
-        cout << "Preorder (Non-Recursive):"; preorderNR(); cout << endl;
-        cout << "Postorder (Non-Recursive):"; postorderNR(); cout << endl;
-        cout << "Level-wise:" << endl; levelOrder();
-    }
-};
-
-int main() {
-    BST tree;
-    int isbns[] = {45, 30, 60, 20, 35, 55, 70};
-    for (int x : isbns) tree.insert(x);
-
-    cout << "=== Before Deletion ===" << endl;
-    tree.display();
-
-    cout << "\\nSearch 35: " << (tree.search(35) ? "Found" : "Not Found") << endl;
-
-    tree.deleteNode(30);
-    cout << "\\n=== After Deleting 30 ===" << endl;
-    tree.display();
-    return 0;
-}`
-  },
-  {
-    no: 2,
-    topic: "BST",
-    name: "Student Marks Management Portal",
-    code: `#include<iostream>
-#include<queue>
-#include<stack>
-using namespace std;
-
-struct Node {
-    int roll;
-    Node *left, *right;
-    Node(int v) : roll(v), left(nullptr), right(nullptr) {}
-};
-
-class BST {
-    Node* root;
-public:
-    BST() : root(nullptr) {}
-    Node* insert(Node* n, int v) {
-        if (!n) return new Node(v);
-        if (v < n->roll) n->left = insert(n->left, v);
-        else if (v > n->roll) n->right = insert(n->right, v);
-        return n;
-    }
-    void insert(int v) { root = insert(root, v); }
-
-    void inorder(Node* n) { if (!n) return; inorder(n->left); cout<<n->roll<<" "; inorder(n->right); }
-    void preorder(Node* n) { if (!n) return; cout<<n->roll<<" "; preorder(n->left); preorder(n->right); }
-    void postorder(Node* n) { if (!n) return; postorder(n->left); postorder(n->right); cout<<n->roll<<" "; }
-
-    void inorderNR() {
-        stack<Node*> s; Node* c = root;
-        while (c || !s.empty()) {
-            while (c) { s.push(c); c = c->left; }
-            c = s.top(); s.pop(); cout << c->roll << " "; c = c->right;
-        }
-    }
-    void preorderNR() {
-        if (!root) return;
-        stack<Node*> s; s.push(root);
-        while (!s.empty()) {
-            Node* n = s.top(); s.pop(); cout << n->roll << " ";
-            if (n->right) s.push(n->right);
-            if (n->left) s.push(n->left);
-        }
-    }
-    void postorderNR() {
-        stack<Node*> s1, s2; s1.push(root);
-        while (!s1.empty()) {
-            Node* n = s1.top(); s1.pop(); s2.push(n);
-            if (n->left) s1.push(n->left);
-            if (n->right) s1.push(n->right);
-        }
-        while (!s2.empty()) { cout << s2.top()->roll << " "; s2.pop(); }
-    }
-    void levelOrder() {
-        queue<Node*> q; q.push(root);
-        while (!q.empty()) {
-            int sz = q.size();
-            while (sz--) {
-                Node* n = q.front(); q.pop(); cout << n->roll << " ";
-                if (n->left) q.push(n->left);
-                if (n->right) q.push(n->right);
-            }
-            cout << endl;
-        }
-    }
-    Node* findMin(Node* n) { while (n->left) n = n->left; return n; }
-    Node* del(Node* n, int v) {
-        if (!n) return nullptr;
-        if (v < n->roll) n->left = del(n->left, v);
-        else if (v > n->roll) n->right = del(n->right, v);
-        else {
-            if (!n->left) { Node* t = n->right; delete n; return t; }
-            if (!n->right) { Node* t = n->left; delete n; return t; }
-            Node* m = findMin(n->right); n->roll = m->roll; n->right = del(n->right, m->roll);
-        }
-        return n;
-    }
-    void del(int v) { root = del(root, v); }
-
-    void display() {
-        cout << "Inorder (R):   "; inorder(root); cout << endl;
-        cout << "Preorder (R):  "; preorder(root); cout << endl;
-        cout << "Postorder (R): "; postorder(root); cout << endl;
-        cout << "Inorder (NR):  "; inorderNR(); cout << endl;
-        cout << "Preorder (NR): "; preorderNR(); cout << endl;
-        cout << "Postorder (NR):"; postorderNR(); cout << endl;
-        cout << "Level Order:" << endl; levelOrder();
-    }
-};
-
-int main() {
-    BST tree;
-    int rolls[] = {101, 78, 130, 65, 90, 120, 145};
-    for (int r : rolls) tree.insert(r);
-    cout << "=== Before Deletion ===" << endl;
-    tree.display();
-    tree.del(78);
-    cout << "\\n=== After Deleting 78 ===" << endl;
-    tree.display();
-    return 0;
-}`
-  },
-  {
-    no: 3,
-    topic: "BST",
-    name: "Employee ID Search Engine",
-    code: `#include<iostream>
-#include<queue>
-#include<stack>
-using namespace std;
-
-struct Node {
-    int id;
-    Node *left, *right;
-    Node(int v) : id(v), left(nullptr), right(nullptr) {}
-};
-
-class BST {
-    Node* root;
-public:
-    BST() : root(nullptr) {}
-    Node* insert(Node* n, int v) {
-        if (!n) return new Node(v);
-        if (v < n->id) n->left = insert(n->left, v);
-        else if (v > n->id) n->right = insert(n->right, v);
-        return n;
-    }
-    void insert(int v) { root = insert(root, v); }
-
-    void inorder(Node* n) { if (!n) return; inorder(n->left); cout<<n->id<<" "; inorder(n->right); }
-    void preorder(Node* n) { if (!n) return; cout<<n->id<<" "; preorder(n->left); preorder(n->right); }
-    void postorder(Node* n) { if (!n) return; postorder(n->left); postorder(n->right); cout<<n->id<<" "; }
-
-    void inorderNR() {
-        stack<Node*> s; Node* c = root;
-        while (c || !s.empty()) {
-            while (c) { s.push(c); c = c->left; }
-            c = s.top(); s.pop(); cout << c->id << " "; c = c->right;
-        }
-    }
-    void preorderNR() {
-        stack<Node*> s; s.push(root);
-        while (!s.empty()) {
-            Node* n = s.top(); s.pop(); cout << n->id << " ";
-            if (n->right) s.push(n->right);
-            if (n->left) s.push(n->left);
-        }
-    }
-    void postorderNR() {
-        stack<Node*> s1, s2; s1.push(root);
-        while (!s1.empty()) {
-            Node* n = s1.top(); s1.pop(); s2.push(n);
-            if (n->left) s1.push(n->left);
-            if (n->right) s1.push(n->right);
-        }
-        while (!s2.empty()) { cout << s2.top()->id << " "; s2.pop(); }
-    }
-    void levelOrder() {
-        queue<Node*> q; q.push(root);
-        while (!q.empty()) {
-            int sz = q.size();
-            while (sz--) {
-                Node* n = q.front(); q.pop(); cout << n->id << " ";
-                if (n->left) q.push(n->left);
-                if (n->right) q.push(n->right);
-            }
-            cout << endl;
-        }
-    }
-    bool search(int v) {
-        Node* c = root;
-        while (c) {
-            if (c->id == v) return true;
-            c = (v < c->id) ? c->left : c->right;
-        }
-        return false;
-    }
-    Node* findMin(Node* n) { while (n->left) n = n->left; return n; }
-    Node* del(Node* n, int v) {
-        if (!n) return nullptr;
-        if (v < n->id) n->left = del(n->left, v);
-        else if (v > n->id) n->right = del(n->right, v);
-        else {
-            if (!n->left) { Node* t = n->right; delete n; return t; }
-            if (!n->right) { Node* t = n->left; delete n; return t; }
-            Node* m = findMin(n->right); n->id = m->id; n->right = del(n->right, m->id);
-        }
-        return n;
-    }
-    void del(int v) { root = del(root, v); }
-
-    void display() {
-        cout << "Inorder (Sorted IDs): "; inorder(root); cout << endl;
-        cout << "Preorder (R):         "; preorder(root); cout << endl;
-        cout << "Postorder (R):        "; postorder(root); cout << endl;
-        cout << "Inorder (NR):         "; inorderNR(); cout << endl;
-        cout << "Preorder (NR):        "; preorderNR(); cout << endl;
-        cout << "Postorder (NR):       "; postorderNR(); cout << endl;
-        cout << "Level-wise (Org Chart):" << endl; levelOrder();
-    }
-};
-
-int main() {
-    BST tree;
-    int ids[] = {5001, 3200, 7000, 2100, 4500, 6200, 8000};
-    for (int x : ids) tree.insert(x);
-    cout << "=== Employee BST ===" << endl;
-    tree.display();
-    cout << "\\nSearch 4500: " << (tree.search(4500) ? "Found" : "Not Found") << endl;
-    tree.del(3200);
-    cout << "\\n=== After Deleting 3200 ===" << endl;
-    tree.display();
-    return 0;
-}`
-  },
-  {
-    no: 4,
-    topic: "BST",
-    name: "Online Product Price Tracker",
-    code: `#include<iostream>
-#include<queue>
-#include<stack>
-using namespace std;
-
-struct Node {
-    int code;
-    Node *left, *right;
-    Node(int v) : code(v), left(nullptr), right(nullptr) {}
-};
-
-class BST {
-    Node* root;
-public:
-    BST() : root(nullptr) {}
-    Node* insert(Node* n, int v) {
-        if (!n) return new Node(v);
-        if (v < n->code) n->left = insert(n->left, v);
-        else if (v > n->code) n->right = insert(n->right, v);
-        return n;
-    }
-    void insert(int v) { root = insert(root, v); }
-
-    void inorder(Node* n) { if (!n) return; inorder(n->left); cout<<n->code<<" "; inorder(n->right); }
-    void preorder(Node* n) { if (!n) return; cout<<n->code<<" "; preorder(n->left); preorder(n->right); }
-    void postorder(Node* n) { if (!n) return; postorder(n->left); postorder(n->right); cout<<n->code<<" "; }
-
-    void inorderNR() {
-        stack<Node*> s; Node* c = root;
-        while (c || !s.empty()) {
-            while (c) { s.push(c); c = c->left; }
-            c = s.top(); s.pop(); cout << c->code << " "; c = c->right;
-        }
-    }
-    void preorderNR() {
-        stack<Node*> s; s.push(root);
-        while (!s.empty()) {
-            Node* n = s.top(); s.pop(); cout << n->code << " ";
-            if (n->right) s.push(n->right);
-            if (n->left) s.push(n->left);
-        }
-    }
-    void postorderNR() {
-        stack<Node*> s1, s2; s1.push(root);
-        while (!s1.empty()) {
-            Node* n = s1.top(); s1.pop(); s2.push(n);
-            if (n->left) s1.push(n->left);
-            if (n->right) s1.push(n->right);
-        }
-        while (!s2.empty()) { cout << s2.top()->code << " "; s2.pop(); }
-    }
-    void levelOrder() {
-        queue<Node*> q; q.push(root);
-        while (!q.empty()) {
-            int sz = q.size();
-            while (sz--) {
-                Node* n = q.front(); q.pop(); cout << n->code << " ";
-                if (n->left) q.push(n->left);
-                if (n->right) q.push(n->right);
-            }
-            cout << endl;
-        }
-    }
-    Node* findMin(Node* n) { while (n->left) n = n->left; return n; }
-    Node* del(Node* n, int v) {
-        if (!n) return nullptr;
-        if (v < n->code) n->left = del(n->left, v);
-        else if (v > n->code) n->right = del(n->right, v);
-        else {
-            if (!n->left) { Node* t = n->right; delete n; return t; }
-            if (!n->right) { Node* t = n->left; delete n; return t; }
-            Node* m = findMin(n->right); n->code = m->code; n->right = del(n->right, m->code);
-        }
-        return n;
-    }
-    void del(int v) { root = del(root, v); }
-
-    void display() {
-        cout << "Ascending Order (Inorder):   "; inorder(root); cout << endl;
-        cout << "Preorder (R):                "; preorder(root); cout << endl;
-        cout << "Postorder (R):               "; postorder(root); cout << endl;
-        cout << "Inorder (NR):                "; inorderNR(); cout << endl;
-        cout << "Preorder (NR):               "; preorderNR(); cout << endl;
-        cout << "Postorder (NR):              "; postorderNR(); cout << endl;
-        cout << "Dashboard Level-wise:" << endl; levelOrder();
-    }
-};
-
-int main() {
-    BST tree;
-    int codes[] = {302, 150, 450, 100, 250, 400, 500};
-    for (int x : codes) tree.insert(x);
-    cout << "=== Product Price Tracker ===" << endl;
-    tree.display();
-    tree.del(150);
-    cout << "\\n=== After Removing Code 150 ===" << endl;
-    tree.display();
-    return 0;
-}`
-  },
-  {
-    no: 5,
-    topic: "Threaded Binary Tree",
-    name: "Airline Flight Schedule System",
-    code: `#include<iostream>
-using namespace std;
-
-struct TBTNode {
-    int flight;
-    TBTNode *left, *right;
-    bool lThread, rThread;
-    TBTNode(int v) : flight(v), left(nullptr), right(nullptr), lThread(false), rThread(false) {}
-};
-
-class TBT {
-    TBTNode* root;
-public:
-    TBT() : root(nullptr) {}
-
-    TBTNode* inorderSuccessor(TBTNode* n) {
-        if (n->rThread) return n->right;
-        n = n->right;
-        while (!n->lThread) n = n->left;
-        return n;
-    }
-
-    void insert(int val) {
-        TBTNode* nn = new TBTNode(val);
-        if (!root) { root = nn; nn->lThread = nn->rThread = true; return; }
-        TBTNode* curr = root, *par = nullptr;
-        bool goLeft = false;
-        while (true) {
-            par = curr;
-            if (val < curr->flight) {
-                if (curr->lThread) { goLeft = true; break; }
-                curr = curr->left;
-            } else {
-                if (curr->rThread) { goLeft = false; break; }
-                curr = curr->right;
-            }
-        }
-        if (goLeft) {
-            nn->left = par->left; nn->lThread = true;
-            nn->right = par; nn->rThread = true;
-            par->left = nn; par->lThread = false;
-        } else {
-            nn->right = par->right; nn->rThread = true;
-            nn->left = par; nn->lThread = true;
-            par->right = nn; par->rThread = false;
-        }
-    }
-
-    void inorderNR() {
-        TBTNode* curr = root;
-        while (!curr->lThread) curr = curr->left;
-        while (curr) {
-            cout << curr->flight << " ";
-            if (curr->rThread) curr = curr->right;
-            else {
-                curr = curr->right;
-                while (curr && !curr->lThread) curr = curr->left;
-            }
-        }
-        cout << endl;
-    }
-
-    void preorder(TBTNode* n) {
-        if (!n) return;
-        cout << n->flight << " ";
-        if (!n->lThread) preorder(n->left);
-        if (!n->rThread) preorder(n->right);
-    }
-
-    void displayThreads() {
-        TBTNode* curr = root;
-        while (!curr->lThread) curr = curr->left;
-        cout << "Node | LThread | RThread" << endl;
-        cout << "-------------------------" << endl;
-        while (curr) {
-            cout << curr->flight << "    |  " << curr->lThread << "       |  " << curr->rThread << endl;
-            if (curr->rThread) curr = curr->right;
-            else {
-                curr = curr->right;
-                while (curr && !curr->lThread) curr = curr->left;
-            }
-        }
-    }
-
-    void display() {
-        cout << "Inorder (Non-Recursive via Threads): "; inorderNR();
-        cout << "Preorder (Recursive): "; preorder(root); cout << endl;
-        cout << "\\nThread Table:" << endl; displayThreads();
-    }
-};
-
-int main() {
-    TBT tree;
-    int flights[] = {202, 105, 310, 80, 150, 275, 400};
-    for (int f : flights) tree.insert(f);
-    cout << "=== Airline Flight Schedule (TBT) ===" << endl;
-    tree.display();
-    return 0;
-}`
-  },
-  {
-    no: 6,
-    topic: "Threaded Binary Tree",
-    name: "Hospital Patient Queue Management",
-    code: `#include<iostream>
-using namespace std;
-
-struct TBTNode {
-    int token;
-    TBTNode *left, *right;
-    bool lThread, rThread;
-    TBTNode(int v) : token(v), left(nullptr), right(nullptr), lThread(true), rThread(true) {}
-};
-
-class TBT {
-    TBTNode* root;
-public:
-    TBT() : root(nullptr) {}
-
-    void insert(int val) {
-        TBTNode* nn = new TBTNode(val);
-        if (!root) { root = nn; return; }
-        TBTNode* curr = root, *par = nullptr;
-        bool goLeft = false;
-        while (true) {
-            par = curr;
-            if (val < curr->token) {
-                if (curr->lThread) { goLeft = true; break; }
-                curr = curr->left;
-            } else {
-                if (curr->rThread) { goLeft = false; break; }
-                curr = curr->right;
-            }
-        }
-        if (goLeft) {
-            nn->left = par->left; nn->right = par;
-            par->left = nn; par->lThread = false;
-        } else {
-            nn->right = par->right; nn->left = par;
-            par->right = nn; par->rThread = false;
-        }
-    }
-
-    void inorderNR() {
-        TBTNode* curr = root;
-        while (!curr->lThread) curr = curr->left;
-        while (curr) {
-            cout << curr->token << " ";
-            if (curr->rThread) curr = curr->right;
-            else {
-                curr = curr->right;
-                while (curr && !curr->lThread) curr = curr->left;
-            }
-        }
-        cout << endl;
-    }
-
-    void preorder(TBTNode* n) {
-        if (!n) return;
-        cout << n->token << " ";
-        if (!n->lThread) preorder(n->left);
-        if (!n->rThread) preorder(n->right);
-    }
-
-    void postorder(TBTNode* n) {
-        if (!n) return;
-        if (!n->lThread) postorder(n->left);
-        if (!n->rThread) postorder(n->right);
-        cout << n->token << " ";
-    }
-};
-
-int main() {
-    TBT tree;
-    int tokens[] = {15, 8, 22, 4, 12, 19, 30};
-    for (int t : tokens) tree.insert(t);
-    cout << "=== Hospital Patient Queue (TBT) ===" << endl;
-    cout << "Inorder NR (Threads): "; tree.inorderNR();
-    TBT tree2; for (int t : tokens) tree2.insert(t);
-    cout << "Preorder (Recursive): "; tree2.preorder(nullptr); cout << endl;
-    cout << "(Note: Recursive traversal from root)" << endl;
-    return 0;
-}`
-  },
-  {
-    no: 7,
-    topic: "Threaded Binary Tree",
-    name: "Railway Reservation Seat Numbering",
-    code: `#include<iostream>
-using namespace std;
-
-struct Node {
-    int seat;
-    Node *left, *right;
-    bool lThread, rThread;
-    Node(int v) : seat(v), left(nullptr), right(nullptr), lThread(true), rThread(true) {}
-};
-
-class TBT {
-    Node* root;
-public:
-    TBT() : root(nullptr) {}
-    void insert(int val) {
-        Node* nn = new Node(val);
-        if (!root) { root = nn; return; }
-        Node* curr = root, *par = nullptr; bool gl = false;
-        while (true) {
-            par = curr;
-            if (val < curr->seat) {
-                if (curr->lThread) { gl = true; break; }
-                curr = curr->left;
-            } else {
-                if (curr->rThread) { gl = false; break; }
-                curr = curr->right;
-            }
-        }
-        if (gl) {
-            nn->left = par->left; nn->right = par;
-            par->left = nn; par->lThread = false;
-        } else {
-            nn->right = par->right; nn->left = par;
-            par->right = nn; par->rThread = false;
-        }
-    }
-
-    void inorderNR() {
-        Node* c = root;
-        while (!c->lThread) c = c->left;
-        while (c) {
-            cout << c->seat << " ";
-            if (c->rThread) c = c->right;
-            else { c = c->right; while (c && !c->lThread) c = c->left; }
-        }
-        cout << endl;
-    }
-    void preorder(Node* n) {
-        if (!n) return;
-        cout << n->seat << " ";
-        if (!n->lThread) preorder(n->left);
-        if (!n->rThread) preorder(n->right);
-    }
-    void postorder(Node* n) {
-        if (!n) return;
-        if (!n->lThread) postorder(n->left);
-        if (!n->rThread) postorder(n->right);
-        cout << n->seat << " ";
-    }
-    void showFlags() {
-        Node* c = root;
-        while (!c->lThread) c = c->left;
-        cout << "Seat | LThread | RThread" << endl;
-        while (c) {
-            cout << c->seat << "    |    " << c->lThread << "    |    " << c->rThread << endl;
-            if (c->rThread) c = c->right;
-            else { c = c->right; while (c && !c->lThread) c = c->left; }
-        }
-    }
-};
-
-int main() {
-    TBT tree;
-    int seats[] = {42, 21, 63, 14, 35, 56, 77};
-    for (int s : seats) tree.insert(s);
-    cout << "=== Railway Seat TBT ===" << endl;
-    cout << "Inorder NR: "; tree.inorderNR();
-    cout << "Preorder R: "; tree.preorder(nullptr);
-    cout << endl;
-    cout << "\\nThread Flags:" << endl;
-    tree.showFlags();
-    return 0;
-}`
-  },
-  {
-    no: 8,
-    topic: "Threaded Binary Tree",
-    name: "Inventory Control in Warehouse",
-    code: `#include<iostream>
-using namespace std;
-
-struct Node {
-    int code;
-    Node *left, *right;
-    bool lThread, rThread;
-    Node(int v) : code(v), left(nullptr), right(nullptr), lThread(true), rThread(true) {}
-};
-
-class TBT {
-    Node* root;
-public:
-    TBT() : root(nullptr) {}
-    void insert(int val) {
-        Node* nn = new Node(val);
-        if (!root) { root = nn; return; }
-        Node* curr = root, *par = nullptr; bool gl = false;
-        while (true) {
-            par = curr;
-            if (val < curr->code) {
-                if (curr->lThread) { gl = true; break; }
-                curr = curr->left;
-            } else {
-                if (curr->rThread) { gl = false; break; }
-                curr = curr->right;
-            }
-        }
-        if (gl) {
-            nn->left = par->left; nn->right = par;
-            par->left = nn; par->lThread = false;
-        } else {
-            nn->right = par->right; nn->left = par;
-            par->right = nn; par->rThread = false;
-        }
-    }
-
-    void inorderNR() {
-        Node* c = root;
-        while (!c->lThread) c = c->left;
-        while (c) {
-            cout << c->code << " ";
-            if (c->rThread) c = c->right;
-            else { c = c->right; while (c && !c->lThread) c = c->left; }
-        }
-        cout << endl;
-    }
-    void preorder(Node* n) {
-        if (!n) return;
-        cout << n->code << " ";
-        if (!n->lThread) preorder(n->left);
-        if (!n->rThread) preorder(n->right);
-    }
-    void postorder(Node* n) {
-        if (!n) return;
-        if (!n->lThread) postorder(n->left);
-        if (!n->rThread) postorder(n->right);
-        cout << n->code << " ";
-    }
-};
-
-int main() {
-    TBT tree;
-    int codes[] = {1050, 720, 1380, 600, 900, 1200, 1500};
-    for (int c : codes) tree.insert(c);
-    cout << "=== Warehouse Inventory TBT ===" << endl;
-    cout << "Sorted Items (Inorder NR): "; tree.inorderNR();
-    cout << "Preorder (Recursive):      "; tree.preorder(nullptr); cout << endl;
-    cout << "Postorder (Recursive):     "; tree.postorder(nullptr); cout << endl;
-    return 0;
-}`
-  },
-  {
-    no: 9,
-    topic: "AVL Tree",
-    name: "Banking Transaction Ledger",
-    code: `#include<iostream>
-#include<stack>
-using namespace std;
-
-struct Node {
-    int id, height;
-    Node *left, *right;
-    Node(int v) : id(v), height(1), left(nullptr), right(nullptr) {}
-};
-
-int height(Node* n) { return n ? n->height : 0; }
-int bf(Node* n) { return n ? height(n->left) - height(n->right) : 0; }
-void updH(Node* n) { if (n) n->height = 1 + max(height(n->left), height(n->right)); }
-
-Node* rotR(Node* y) {
-    Node* x = y->left, *T = x->right;
-    x->right = y; y->left = T;
-    updH(y); updH(x);
-    cout << "LL Rotation at " << y->id << endl;
-    return x;
-}
-Node* rotL(Node* x) {
-    Node* y = x->right, *T = y->left;
-    y->left = x; x->right = T;
-    updH(x); updH(y);
-    cout << "RR Rotation at " << x->id << endl;
-    return y;
-}
-
-Node* insert(Node* n, int v) {
-    if (!n) return new Node(v);
-    if (v < n->id) n->left = insert(n->left, v);
-    else if (v > n->id) n->right = insert(n->right, v);
-    else return n;
-    updH(n);
-    int b = bf(n);
-    if (b > 1 && v < n->left->id) return rotR(n);
-    if (b < -1 && v > n->right->id) return rotL(n);
-    if (b > 1 && v > n->left->id) { n->left = rotL(n->left); return rotR(n); }
-    if (b < -1 && v < n->right->id) { n->right = rotR(n->right); return rotL(n); }
-    return n;
-}
-
-void inorder(Node* n) { if (!n) return; inorder(n->left); cout<<n->id<<"(bf="<<bf(n)<<") "; inorder(n->right); }
-void preorder(Node* n) { if (!n) return; cout<<n->id<<" "; preorder(n->left); preorder(n->right); }
-void postorder(Node* n) { if (!n) return; postorder(n->left); postorder(n->right); cout<<n->id<<" "; }
-void inorderNR(Node* root) {
-    stack<Node*> s; Node* c = root;
-    while (c || !s.empty()) {
-        while (c) { s.push(c); c = c->left; }
-        c = s.top(); s.pop(); cout << c->id << " "; c = c->right;
-    }
-    cout << endl;
-}
-
-int main() {
-    Node* root = nullptr;
-    int ids[] = {10, 20, 30, 40, 50, 25};
-    for (int x : ids) { cout << "Inserting " << x << ": "; root = insert(root, x); }
-    cout << "\\nInorder (Sorted Txn IDs): "; inorder(root); cout << endl;
-    cout << "Preorder:  "; preorder(root); cout << endl;
-    cout << "Postorder: "; postorder(root); cout << endl;
-    cout << "Inorder NR: "; inorderNR(root);
-    return 0;
-}`
-  },
-  {
-    no: 10,
-    topic: "AVL Tree",
-    name: "E-Learning Course Rating System",
-    code: `#include<iostream>
-#include<stack>
-using namespace std;
-
-struct Node {
-    int rating, height;
-    Node *left, *right;
-    Node(int v) : rating(v), height(1), left(nullptr), right(nullptr) {}
-};
-
-int h(Node* n) { return n ? n->height : 0; }
-int bf(Node* n) { return n ? h(n->left) - h(n->right) : 0; }
-void upd(Node* n) { if (n) n->height = 1 + max(h(n->left), h(n->right)); }
-
-Node* rotR(Node* y) {
-    Node* x = y->left; Node* T = x->right;
-    x->right = y; y->left = T; upd(y); upd(x);
-    cout << "LL Rotation at " << y->rating << endl; return x;
-}
-Node* rotL(Node* x) {
-    Node* y = x->right; Node* T = y->left;
-    y->left = x; x->right = T; upd(x); upd(y);
-    cout << "RR Rotation at " << x->rating << endl; return y;
-}
-
-Node* insert(Node* n, int v) {
-    if (!n) return new Node(v);
-    if (v < n->rating) n->left = insert(n->left, v);
-    else if (v > n->rating) n->right = insert(n->right, v);
-    else return n;
-    upd(n); int b = bf(n);
-    if (b > 1 && v < n->left->rating) return rotR(n);
-    if (b < -1 && v > n->right->rating) return rotL(n);
-    if (b > 1 && v > n->left->rating) { n->left = rotL(n->left); return rotR(n); }
-    if (b < -1 && v < n->right->rating) { n->right = rotR(n->right); return rotL(n); }
-    return n;
-}
-
-void inorder(Node* n) { if (!n) return; inorder(n->left); cout<<n->rating<<" "; inorder(n->right); }
-void preorder(Node* n) { if (!n) return; cout<<n->rating<<" "; preorder(n->left); preorder(n->right); }
-void postorder(Node* n) { if (!n) return; postorder(n->left); postorder(n->right); cout<<n->rating<<" "; }
-void inorderNR(Node* root) {
-    stack<Node*> s; Node* c = root;
-    while (c || !s.empty()) { while (c) { s.push(c); c = c->left; } c = s.top(); s.pop(); cout<<c->rating<<" "; c = c->right; }
-    cout << endl;
-}
-
-int main() {
-    Node* root = nullptr;
-    int ratings[] = {85, 70, 90, 65, 75, 95, 60};
-    for (int r : ratings) { cout << "Insert " << r << ": "; root = insert(root, r); }
-    cout << "\\nAscending Ratings (Inorder R): "; inorder(root); cout << endl;
-    cout << "Preorder R:  "; preorder(root); cout << endl;
-    cout << "Postorder R: "; postorder(root); cout << endl;
-    cout << "Inorder NR:  "; inorderNR(root);
-    return 0;
-}`
-  },
-  {
-    no: 11,
-    topic: "AVL Tree",
-    name: "Stock Price Index Management",
-    code: `#include<iostream>
-#include<stack>
-using namespace std;
-
-struct Node {
-    int price, height;
-    Node *left, *right;
-    Node(int v) : price(v), height(1), left(nullptr), right(nullptr) {}
-};
-
-int h(Node* n) { return n ? n->height : 0; }
-int bf(Node* n) { return n ? h(n->left) - h(n->right) : 0; }
-void upd(Node* n) { if (n) n->height = 1 + max(h(n->left), h(n->right)); }
-
-Node* rotR(Node* y) { Node* x=y->left; Node* T=x->right; x->right=y; y->left=T; upd(y); upd(x); return x; }
-Node* rotL(Node* x) { Node* y=x->right; Node* T=y->left; y->left=x; x->right=T; upd(x); upd(y); return y; }
-
-Node* insertAVL(Node* n, int v) {
-    if (!n) return new Node(v);
-    if (v < n->price) n->left = insertAVL(n->left, v);
-    else if (v > n->price) n->right = insertAVL(n->right, v);
-    else return n;
-    upd(n); int b = bf(n);
-    if (b>1 && v<n->left->price) return rotR(n);
-    if (b<-1 && v>n->right->price) return rotL(n);
-    if (b>1 && v>n->left->price) { n->left=rotL(n->left); return rotR(n); }
-    if (b<-1 && v<n->right->price) { n->right=rotR(n->right); return rotL(n); }
-    return n;
-}
-
-// Simple BST insert (no balancing) for comparison
-struct BSTNode { int price; BSTNode *left, *right; BSTNode(int v):price(v),left(nullptr),right(nullptr){} };
-BSTNode* insertBST(BSTNode* n, int v) {
-    if (!n) return new BSTNode(v);
-    if (v < n->price) n->left=insertBST(n->left,v);
-    else n->right=insertBST(n->right,v);
-    return n;
-}
-int bstH(BSTNode* n) { if(!n) return 0; return 1+max(bstH(n->left),bstH(n->right)); }
-
-void inorder(Node* n) { if (!n) return; inorder(n->left); cout<<n->price<<" "; inorder(n->right); }
-void preorder(Node* n) { if (!n) return; cout<<n->price<<" "; preorder(n->left); preorder(n->right); }
-void postorder(Node* n) { if (!n) return; postorder(n->left); postorder(n->right); cout<<n->price<<" "; }
-void inorderNR(Node* root) {
-    stack<Node*> s; Node* c=root;
-    while(c||!s.empty()){while(c){s.push(c);c=c->left;}c=s.top();s.pop();cout<<c->price<<" ";c=c->right;}
-    cout<<endl;
-}
-
-int main() {
-    Node* avlRoot = nullptr;
-    BSTNode* bstRoot = nullptr;
-    int prices[] = {100, 200, 150, 300, 250, 175, 225};
-    for (int p : prices) { avlRoot = insertAVL(avlRoot, p); bstRoot = insertBST(bstRoot, p); }
-    cout << "=== Stock Price Index ===" << endl;
-    cout << "Sorted Prices (Inorder R): "; inorder(avlRoot); cout << endl;
-    cout << "Preorder R:  "; preorder(avlRoot); cout << endl;
-    cout << "Postorder R: "; postorder(avlRoot); cout << endl;
-    cout << "Inorder NR:  "; inorderNR(avlRoot);
-    cout << "\\nAVL Height: " << h(avlRoot) << endl;
-    cout << "BST Height: " << bstH(bstRoot) << endl;
-    return 0;
-}`
-  },
-  {
-    no: 12,
-    topic: "AVL Tree",
-    name: "Hospital Patient Priority Index",
-    code: `#include<iostream>
-#include<stack>
-using namespace std;
-
-struct Node {
-    int priority, height;
-    Node *left, *right;
-    Node(int v) : priority(v), height(1), left(nullptr), right(nullptr) {}
-};
-
-int h(Node* n) { return n ? n->height : 0; }
-int bf(Node* n) { return n ? h(n->left)-h(n->right) : 0; }
-void upd(Node* n) { if(n) n->height=1+max(h(n->left),h(n->right)); }
-
-Node* rotR(Node* y) { Node* x=y->left; Node* T=x->right; x->right=y; y->left=T; upd(y); upd(x); cout<<"LL Rot at "<<y->priority<<endl; return x; }
-Node* rotL(Node* x) { Node* y=x->right; Node* T=y->left; y->left=x; x->right=T; upd(x); upd(y); cout<<"RR Rot at "<<x->priority<<endl; return y; }
-
-Node* insert(Node* n, int v) {
-    if (!n) return new Node(v);
-    if (v < n->priority) n->left=insert(n->left,v);
-    else if (v > n->priority) n->right=insert(n->right,v);
-    else return n;
-    upd(n); int b=bf(n);
-    if(b>1&&v<n->left->priority) return rotR(n);
-    if(b<-1&&v>n->right->priority) return rotL(n);
-    if(b>1&&v>n->left->priority){n->left=rotL(n->left);return rotR(n);}
-    if(b<-1&&v<n->right->priority){n->right=rotR(n->right);return rotL(n);}
-    return n;
-}
-
-void inorder(Node* n) { if(!n)return; inorder(n->left); cout<<n->priority<<"(bf="<<bf(n)<<") "; inorder(n->right); }
-void preorder(Node* n) { if(!n)return; cout<<n->priority<<" "; preorder(n->left); preorder(n->right); }
-void postorder(Node* n) { if(!n)return; postorder(n->left); postorder(n->right); cout<<n->priority<<" "; }
-void aboveThreshold(Node* n, int t) { if(!n)return; if(n->priority>t) cout<<n->priority<<" "; aboveThreshold(n->left,t); aboveThreshold(n->right,t); }
-
-int main() {
-    Node* root = nullptr;
-    int scores[] = {55, 30, 70, 20, 40, 65, 80};
-    for (int s : scores) { cout<<"Insert "<<s<<": "; root=insert(root,s); }
-    cout << "\\nInorder (with bf): "; inorder(root); cout<<endl;
-    cout << "Preorder:  "; preorder(root); cout<<endl;
-    cout << "Postorder: "; postorder(root); cout<<endl;
-    cout << "\\nPatients with priority > 50: "; aboveThreshold(root, 50); cout<<endl;
-    return 0;
-}`
-  },
-  {
-    no: 13,
-    topic: "Graph - MST",
-    name: "City Road Network Planning",
-    code: `#include<iostream>
-#include<climits>
-#include<algorithm>
-using namespace std;
-
-const int V = 7;
-string names[] = {"A","B","C","D","E","F","G"};
-
-// Prim's Algorithm
-void prims(int graph[][V]) {
-    int parent[V], key[V]; bool inMST[V];
-    for (int i=0;i<V;i++){key[i]=INT_MAX;inMST[i]=false;}
-    key[0]=0; parent[0]=-1;
-    for (int cnt=0;cnt<V-1;cnt++) {
-        int u=-1;
-        for (int v=0;v<V;v++) if(!inMST[v]&&(u==-1||key[v]<key[u])) u=v;
-        inMST[u]=true;
-        for (int v=0;v<V;v++)
-            if (graph[u][v]&&!inMST[v]&&graph[u][v]<key[v]) { parent[v]=u; key[v]=graph[u][v]; }
-    }
-    int total=0;
-    cout<<"Prim's MST:" << endl;
-    for (int i=1;i<V;i++) { cout<<names[parent[i]]<<" - "<<names[i]<<" : "<<graph[i][parent[i]]<<endl; total+=graph[i][parent[i]]; }
-    cout<<"Total Cost: "<<total<<endl;
-}
-
-// Kruskal's Algorithm
-struct Edge { int u,v,w; };
-int parent[V], rankArr[V];
-int find(int x){return parent[x]==x?x:parent[x]=find(parent[x]);}
-void unite(int x,int y){int px=find(x),py=find(y);if(rankArr[px]<rankArr[py])swap(px,py);parent[py]=px;if(rankArr[px]==rankArr[py])rankArr[px]++;}
-
-void kruskals(int graph[][V]) {
-    vector<Edge> edges;
-    for(int i=0;i<V;i++) for(int j=i+1;j<V;j++) if(graph[i][j]) edges.push_back({i,j,graph[i][j]});
-    sort(edges.begin(),edges.end(),[](Edge a,Edge b){return a.w<b.w;});
-    for(int i=0;i<V;i++){parent[i]=i;rankArr[i]=0;}
-    int total=0;
-    cout<<"Kruskal's MST:"<<endl;
-    for (auto& e:edges) {
-        if(find(e.u)!=find(e.v)){unite(e.u,e.v);cout<<names[e.u]<<" - "<<names[e.v]<<" : "<<e.w<<endl;total+=e.w;}
-    }
-    cout<<"Total Cost: "<<total<<endl;
-}
-
-int main() {
-    int graph[V][V] = {
-        {0,4,3,0,0,0,0},
-        {4,0,1,2,0,0,0},
-        {3,1,0,4,0,0,0},
-        {0,2,4,0,2,0,0},
-        {0,0,0,2,0,6,5},
-        {0,0,0,0,6,0,3},
-        {0,0,0,0,5,3,0}
-    };
-    prims(graph);
-    cout<<endl;
-    kruskals(graph);
-    return 0;
-}`
-  },
-  {
-    no: 14,
-    topic: "Graph - MST",
-    name: "Telecom Optical Fiber Laying",
-    code: `#include<iostream>
-#include<climits>
-#include<algorithm>
-using namespace std;
-const int V=6;
-string towers[]={"T1","T2","T3","T4","T5","T6"};
-
-void prims(int g[][V]){
-    int parent[V],key[V];bool inMST[V];
-    for(int i=0;i<V;i++){key[i]=INT_MAX;inMST[i]=false;}
-    key[0]=0;parent[0]=-1;
-    for(int cnt=0;cnt<V-1;cnt++){
-        int u=-1;
-        for(int v=0;v<V;v++) if(!inMST[v]&&(u==-1||key[v]<key[u]))u=v;
-        inMST[u]=true;
-        for(int v=0;v<V;v++) if(g[u][v]&&!inMST[v]&&g[u][v]<key[v]){parent[v]=u;key[v]=g[u][v];}
-    }
-    int tot=0;
-    cout<<"Prim's MST (Fiber Cable):"<<endl;
-    for(int i=1;i<V;i++){cout<<towers[parent[i]]<<" - "<<towers[i]<<" : "<<g[i][parent[i]]<<" km"<<endl;tot+=g[i][parent[i]];}
-    cout<<"Total Cable: "<<tot<<" km"<<endl;
-}
-
-struct Edge{int u,v,w;};
-int par[V],rnk[V];
-int find(int x){return par[x]==x?x:par[x]=find(par[x]);}
-void unite(int a,int b){int pa=find(a),pb=find(b);if(rnk[pa]<rnk[pb])swap(pa,pb);par[pb]=pa;if(rnk[pa]==rnk[pb])rnk[pa]++;}
-
-void kruskals(int g[][V]){
-    vector<Edge> edges;
-    for(int i=0;i<V;i++) for(int j=i+1;j<V;j++) if(g[i][j]) edges.push_back({i,j,g[i][j]});
-    sort(edges.begin(),edges.end(),[](Edge a,Edge b){return a.w<b.w;});
-    for(int i=0;i<V;i++){par[i]=i;rnk[i]=0;}
-    int tot=0;
-    cout<<"Kruskal's MST (Fiber Cable):"<<endl;
-    for(auto& e:edges) if(find(e.u)!=find(e.v)){unite(e.u,e.v);cout<<towers[e.u]<<" - "<<towers[e.v]<<" : "<<e.w<<" km"<<endl;tot+=e.w;}
-    cout<<"Total Cable: "<<tot<<" km"<<endl;
-}
-
-int main(){
-    int g[V][V]={{0,2,6,0,0,0},{2,0,4,5,0,0},{6,4,0,3,0,0},{0,5,3,0,6,8},{0,0,0,6,0,4},{0,0,0,8,4,0}};
-    prims(g);cout<<endl;
-    kruskals(g);
-    return 0;
-}`
-  },
-  {
-    no: 15,
-    topic: "Graph - MST",
-    name: "Electric Grid Distribution Planning",
-    code: `#include<iostream>
-#include<climits>
-#include<algorithm>
-using namespace std;
-const int V=8;
-string subs[]={"S1","S2","S3","S4","S5","S6","S7","S8"};
-
-void prims(int g[][V]){
-    int parent[V],key[V];bool inMST[V];
-    for(int i=0;i<V;i++){key[i]=INT_MAX;inMST[i]=false;}
-    key[0]=0;parent[0]=-1;
-    for(int cnt=0;cnt<V-1;cnt++){
-        int u=-1;
-        for(int v=0;v<V;v++) if(!inMST[v]&&(u==-1||key[v]<key[u]))u=v;
-        inMST[u]=true;
-        for(int v=0;v<V;v++) if(g[u][v]&&!inMST[v]&&g[u][v]<key[v]){parent[v]=u;key[v]=g[u][v];}
-    }
-    int tot=0;
-    cout<<"Prim's MST (from S1):"<<endl;
-    for(int i=1;i<V;i++){cout<<subs[parent[i]]<<" - "<<subs[i]<<" : "<<g[i][parent[i]]<<endl;tot+=g[i][parent[i]];}
-    cout<<"Total Cost: "<<tot<<endl;
-}
-
-struct Edge{int u,v,w;};
-int par[V],rnk[V];
-int find(int x){return par[x]==x?x:par[x]=find(par[x]);}
-void unite(int a,int b){int pa=find(a),pb=find(b);if(rnk[pa]<rnk[pb])swap(pa,pb);par[pb]=pa;if(rnk[pa]==rnk[pb])rnk[pa]++;}
-
-void kruskals(int g[][V]){
-    vector<Edge> edges;
-    for(int i=0;i<V;i++) for(int j=i+1;j<V;j++) if(g[i][j]) edges.push_back({i,j,g[i][j]});
-    sort(edges.begin(),edges.end(),[](Edge a,Edge b){return a.w<b.w;});
-    for(int i=0;i<V;i++){par[i]=i;rnk[i]=0;}
-    int tot=0,step=1;
-    cout<<"Kruskal's MST (with Cycle Detection):"<<endl;
-    for(auto& e:edges){
-        if(find(e.u)!=find(e.v)){unite(e.u,e.v);cout<<"Step "<<step++<<": "<<subs[e.u]<<" - "<<subs[e.v]<<" ("<<e.w<<")"<<endl;tot+=e.w;}
-        else cout<<"Cycle detected: "<<subs[e.u]<<" - "<<subs[e.v]<<" skipped"<<endl;
-    }
-    cout<<"Total Cost: "<<tot<<endl;
-}
-
-int main(){
-    int g[V][V]={
-        {0,4,0,0,0,0,8,0},{4,0,8,0,0,0,11,0},{0,8,0,7,0,4,0,2},
-        {0,0,7,0,9,14,0,0},{0,0,0,9,0,10,0,0},{0,0,4,14,10,0,2,0},
-        {8,11,0,0,0,2,0,1},{0,0,2,0,0,0,1,0}
-    };
-    prims(g);cout<<endl;
-    kruskals(g);
-    return 0;
-}`
-  },
-  {
-    no: 16,
-    topic: "Graph - MST",
-    name: "Campus Network Cable Layout",
-    code: `#include<iostream>
-#include<climits>
-#include<algorithm>
-using namespace std;
-const int V=5;
-string bldg[]={"Admin","CS","IT","ENTC","Mech"};
-
-void prims(int g[][V]){
-    int parent[V],key[V];bool inMST[V];
-    for(int i=0;i<V;i++){key[i]=INT_MAX;inMST[i]=false;}
-    key[0]=0;parent[0]=-1;
-    for(int cnt=0;cnt<V-1;cnt++){
-        int u=-1;
-        for(int v=0;v<V;v++) if(!inMST[v]&&(u==-1||key[v]<key[u]))u=v;
-        inMST[u]=true;
-        for(int v=0;v<V;v++) if(g[u][v]&&!inMST[v]&&g[u][v]<key[v]){parent[v]=u;key[v]=g[u][v];}
-    }
-    int tot=0;
-    cout<<"Prim's MST:"<<endl;
-    for(int i=1;i<V;i++){cout<<bldg[parent[i]]<<" - "<<bldg[i]<<" : "<<g[i][parent[i]]<<"m"<<endl;tot+=g[i][parent[i]];}
-    cout<<"Total Cable: "<<tot<<"m"<<endl;
-}
-
-struct Edge{int u,v,w;};
-int par[V],rnk[V];
-int find(int x){return par[x]==x?x:par[x]=find(par[x]);}
-void unite(int a,int b){int pa=find(a),pb=find(b);if(rnk[pa]<rnk[pb])swap(pa,pb);par[pb]=pa;if(rnk[pa]==rnk[pb])rnk[pa]++;}
-
-void kruskals(int g[][V]){
-    vector<Edge> edges;
-    for(int i=0;i<V;i++) for(int j=i+1;j<V;j++) if(g[i][j]) edges.push_back({i,j,g[i][j]});
-    sort(edges.begin(),edges.end(),[](Edge a,Edge b){return a.w<b.w;});
-    for(int i=0;i<V;i++){par[i]=i;rnk[i]=0;}
-    int tot=0;
-    cout<<"Kruskal's MST (No Cycles):"<<endl;
-    for(auto& e:edges) if(find(e.u)!=find(e.v)){unite(e.u,e.v);cout<<bldg[e.u]<<" - "<<bldg[e.v]<<" : "<<e.w<<"m"<<endl;tot+=e.w;}
-    cout<<"Total Cable: "<<tot<<"m"<<endl;
-}
-
-int main(){
-    int g[V][V]={{0,20,15,0,0},{20,0,10,30,0},{15,10,0,25,40},{0,30,25,0,35},{0,0,40,35,0}};
-    prims(g);cout<<endl;
-    kruskals(g);
-    return 0;
-}`
-  },
-  {
-    no: 17,
-    topic: "Heap Sort",
-    name: "Online Job Application Ranking",
-    code: `#include<iostream>
-using namespace std;
-
-void heapify(int arr[], int n, int i) {
-    int largest = i, l = 2*i+1, r = 2*i+2;
-    if (l < n && arr[l] > arr[largest]) largest = l;
-    if (r < n && arr[r] > arr[largest]) largest = r;
-    if (largest != i) {
-        swap(arr[i], arr[largest]);
-        cout << "Heapify at index " << i << ": ";
-        for (int k=0;k<n;k++) cout<<arr[k]<<" "; cout<<endl;
-        heapify(arr, n, largest);
-    }
-}
-
-void heapSort(int arr[], int n) {
-    // Build max heap
-    for (int i=n/2-1;i>=0;i--) heapify(arr,n,i);
-    cout << "After buildHeap: ";
-    for (int k=0;k<n;k++) cout<<arr[k]<<" "; cout<<endl<<endl;
-    // Extract elements
-    for (int i=n-1;i>0;i--) {
-        swap(arr[0], arr[i]);
-        cout << "Extracted " << arr[i] << " | Heap: ";
-        for (int k=0;k<i;k++) cout<<arr[k]<<" "; cout<<endl;
-        heapify(arr, i, 0);
-    }
-}
-
-int main() {
-    int scores[] = {78, 45, 92, 33, 67, 88, 55, 71};
-    int n = sizeof(scores)/sizeof(scores[0]);
-
-    cout << "Original Scores: ";
-    for (int s:scores) cout<<s<<" "; cout<<endl<<endl;
-
-    // Ascending order
-    int asc[8]; for(int i=0;i<n;i++) asc[i]=scores[i];
-    cout << "=== Heap Sort (Ascending) ===" << endl;
-    heapSort(asc, n);
-    cout << "Ascending:  "; for(int x:asc) cout<<x<<" "; cout<<endl;
-
-    // Descending (reverse asc)
-    cout << "Descending: ";
-    for (int i=n-1;i>=0;i--) cout<<asc[i]<<" "; cout<<endl;
-    return 0;
-}`
-  },
-  {
-    no: 18,
-    topic: "Heap Sort",
-    name: "Hospital Emergency Patient Triage",
-    code: `#include<iostream>
-using namespace std;
-
-void heapify(int arr[], int n, int i) {
-    int largest=i, l=2*i+1, r=2*i+2;
-    if(l<n&&arr[l]>arr[largest]) largest=l;
-    if(r<n&&arr[r]>arr[largest]) largest=r;
-    if(largest!=i){swap(arr[i],arr[largest]);heapify(arr,n,largest);}
-}
-
-void heapSort(int arr[], int n) {
-    for(int i=n/2-1;i>=0;i--) heapify(arr,n,i);
-    cout<<"Max-Heap Built: ";
-    for(int k=0;k<n;k++) cout<<arr[k]<<" "; cout<<endl;
-    for(int i=n-1;i>0;i--){
-        swap(arr[0],arr[i]);
-        cout<<"Extracted "<<arr[i]<<" | Remaining heap: ";
-        for(int k=0;k<i;k++) cout<<arr[k]<<" "; cout<<endl;
-        heapify(arr,i,0);
-    }
-}
-
-int main(){
-    int scores[]={60,85,40,95,70,55,30,75};
-    int n=sizeof(scores)/sizeof(scores[0]);
-    cout<<"Urgency Scores: ";
-    for(int s:scores)cout<<s<<" ";cout<<endl<<endl;
-
-    int arr[8];for(int i=0;i<n;i++)arr[i]=scores[i];
-    cout<<"=== Heap Sort Steps ===" << endl;
-    heapSort(arr,n);
-
-    cout<<"\nMost Urgent First (Descending): ";
-    for(int i=n-1;i>=0;i--) cout<<arr[i]<<" ";cout<<endl;
-    cout<<"Least Urgent First (Ascending): ";
-    for(int i=0;i<n;i++) cout<<arr[i]<<" ";cout<<endl;
-    return 0;
-}`
-  },
-  {
-    no: 19,
-    topic: "Heap Sort",
-    name: "Sports Tournament Leaderboard",
-    code: `#include<iostream>
-using namespace std;
-
-void heapify(int arr[], int n, int i) {
-    int largest=i,l=2*i+1,r=2*i+2;
-    if(l<n&&arr[l]>arr[largest])largest=l;
-    if(r<n&&arr[r]>arr[largest])largest=r;
-    if(largest!=i){swap(arr[i],arr[largest]);heapify(arr,n,largest);}
-}
-
-void heapSort(int arr[], int n){
-    for(int i=n/2-1;i>=0;i--) heapify(arr,n,i);
-    cout<<"Max-Heap: ";for(int k=0;k<n;k++)cout<<arr[k]<<" ";cout<<endl;
-    for(int i=n-1;i>0;i--){swap(arr[0],arr[i]);heapify(arr,i,0);}
-}
-
-// Bubble Sort for comparison
-void bubbleSort(int arr[], int n){
-    int steps=0;
-    for(int i=0;i<n-1;i++) for(int j=0;j<n-i-1;j++){steps++;if(arr[j]>arr[j+1])swap(arr[j],arr[j+1]);}
-    cout<<"Bubble Sort comparisons: "<<steps<<endl;
-}
-
-int main(){
-    int scores[]={88,72,95,64,80,91,77,58};
-    int n=sizeof(scores)/sizeof(scores[0]);
-    cout<<"Player Scores: ";for(int s:scores)cout<<s<<" ";cout<<endl<<endl;
-
-    int hs[8],bs[8];
-    for(int i=0;i<n;i++){hs[i]=scores[i];bs[i]=scores[i];}
-
-    cout<<"=== Heap Sort ===" << endl;
-    heapSort(hs,n);
-    cout<<"Highest to Lowest: ";for(int i=n-1;i>=0;i--)cout<<hs[i]<<" ";cout<<endl;
-    cout<<"Lowest to Highest: ";for(int i=0;i<n;i++)cout<<hs[i]<<" ";cout<<endl;
-
-    cout<<"\n=== Complexity Analysis ===" << endl;
-    bubbleSort(bs,n);
-    cout<<"Heap Sort: O(n log n) | Bubble Sort: O(n^2)"<<endl;
-    return 0;
-}`
-  },
-  {
-    no: 20,
-    topic: "Heap Sort",
-    name: "College Merit List Generation",
-    code: `#include<iostream>
-using namespace std;
-
-void heapify(int arr[], int n, int i){
-    int largest=i,l=2*i+1,r=2*i+2;
-    if(l<n&&arr[l]>arr[largest])largest=l;
-    if(r<n&&arr[r]>arr[largest])largest=r;
-    if(largest!=i){swap(arr[i],arr[largest]);heapify(arr,n,largest);}
-}
-
-void heapSort(int arr[], int n){
-    for(int i=n/2-1;i>=0;i--) heapify(arr,n,i);
-    cout<<"Heap after buildHeap: ";for(int k=0;k<n;k++)cout<<arr[k]<<" ";cout<<endl<<endl;
-    for(int i=n-1;i>0;i--){
-        swap(arr[0],arr[i]);
-        heapify(arr,i,0);
-        if((n-1-i)%3==2){
-            cout<<"After "<<(n-i)<<" extractions: ";
-            for(int k=0;k<i;k++)cout<<arr[k]<<" ";cout<<endl;
-        }
-    }
-}
-
-int main(){
-    int scores[]={720,640,785,590,680,750,615,700};
-    int n=sizeof(scores)/sizeof(scores[0]);
-    cout<<"Applicant Scores: ";for(int s:scores)cout<<s<<" ";cout<<endl<<endl;
-
-    int arr[8];for(int i=0;i<n;i++)arr[i]=scores[i];
-    heapSort(arr,n);
-
-    cout<<"\n=== Merit List (Highest First) ===" << endl;
-    for(int i=n-1;i>=0;i--)cout<<arr[i]<<" ";cout<<endl;
-    cout<<"\n=== Reverse List (Lowest First) ===" << endl;
-    for(int i=0;i<n;i++)cout<<arr[i]<<" ";cout<<endl;
-
-    cout<<"\nAdvantage: Heap Sort is O(n log n) and in-place — better than Bubble/Selection Sort"<<endl;
-    return 0;
-}`
-  },
-  {
-    no: 21,
-    topic: "Probabilistic DS",
-    name: "Web Cache & Spam URL Filter using Bloom Filter",
-    code: `#include<iostream>
-#include<string>
-#include<bitset>
-#include<vector>
-using namespace std;
-
-const int M = 100; // bit array size
-
-// 3 hash functions
-int hash1(const string& s) {
-    int h=0; for(char c:s) h=(h*31+c)%M; return h;
-}
-int hash2(const string& s) {
-    int h=7; for(char c:s) h=(h*13+c)%M; return h;
-}
-int hash3(const string& s) {
-    int h=17; for(char c:s) h=(h*37+c)%M; return h;
-}
-
-bitset<M> bloomFilter;
-
-void insertURL(const string& url) {
-    bloomFilter.set(hash1(url));
-    bloomFilter.set(hash2(url));
-    bloomFilter.set(hash3(url));
-    cout << "Inserted: " << url << endl;
-}
-
-bool queryURL(const string& url) {
-    return bloomFilter.test(hash1(url)) &&
-           bloomFilter.test(hash2(url)) &&
-           bloomFilter.test(hash3(url));
-}
-
-// Count-Min Sketch
-const int ROWS=3, COLS=20;
-int cms[ROWS][COLS]={};
-
-int cmsHash(const string& s, int row) {
-    int h=row*31+7; for(char c:s) h=(h*17+c)%COLS; return abs(h)%COLS;
-}
-
-void cmsInsert(const string& domain) {
-    for(int i=0;i<ROWS;i++) cms[i][cmsHash(domain,i)]++;
-}
-
-int cmsQuery(const string& domain) {
-    int minVal=INT_MAX;
-    for(int i=0;i<ROWS;i++) minVal=min(minVal,cms[i][cmsHash(domain,i)]);
-    return minVal;
-}
-
-int main(){
-    vector<string> malicious={"evil.com","spam.net","phish.org","hack.io","bad.xyz","malware.tk","scam.biz","fake.info","virus.cc","danger.pw"};
-    cout<<"=== Inserting Malicious URLs ===" << endl;
-    for(auto& u:malicious) insertURL(u);
-
-    vector<string> queries={"evil.com","safe.com","phish.org","google.com","hack.io"};
-    cout<<"\n=== Query Results ===" << endl;
-    for(auto& q:queries)
-        cout<<q<<" -> "<<(queryURL(q)?"Possibly Malicious":"Definitely Not Malicious")<<endl;
-
-    cout<<"\n=== Count-Min Sketch (Domain Frequency) ===" << endl;
-    string clicks[]={"google.com","amazon.in","google.com","google.com","amazon.in","flipkart.com"};
-    for(auto& d:clicks) cmsInsert(d);
-    cout<<"google.com frequency: "<<cmsQuery("google.com")<<endl;
-    cout<<"amazon.in frequency: "<<cmsQuery("amazon.in")<<endl;
-    cout<<"flipkart.com frequency: "<<cmsQuery("flipkart.com")<<endl;
-
-    cout<<"\nFalse Positive Demo: "; string fp="notmalicious.com";
-    insertURL("evil2.com"); // cause potential collision
-    cout<<fp<<" -> "<<(queryURL(fp)?"Possibly Malicious (FALSE POSITIVE!)":"Definitely Not Malicious")<<endl;
-    return 0;
-}`
-  },
-  {
-    no: 22,
-    topic: "Probabilistic DS",
-    name: "E-Commerce Product Recommendation & Click Tracker",
-    code: `#include<iostream>
-#include<string>
-#include<bitset>
-#include<climits>
-using namespace std;
-
-const int M=200;
-bitset<M> bloomFilter;
-
-int h1(const string& s){int h=0;for(char c:s)h=(h*31+c)%M;return abs(h);}
-int h2(const string& s){int h=7;for(char c:s)h=(h*17+c)%M;return abs(h);}
-int h3(const string& s){int h=11;for(char c:s)h=(h*37+c)%M;return abs(h);}
-
-void bfInsert(const string& pid){bloomFilter.set(h1(pid));bloomFilter.set(h2(pid));bloomFilter.set(h3(pid));}
-bool bfQuery(const string& pid){return bloomFilter.test(h1(pid))&&bloomFilter.test(h2(pid))&&bloomFilter.test(h3(pid));}
-
-// Count-Min Sketch
-const int D=3,W=20;
-int cms[D][W]={};
-int cmHash(const string& s,int row){int h=row*11+3;for(char c:s)h=(h*19+c)%W;return abs(h)%W;}
-void cmInsert(const string& pid){for(int i=0;i<D;i++)cms[i][cmHash(pid,i)]++;}
-int cmQuery(const string& pid){int mn=INT_MAX;for(int i=0;i<D;i++)mn=min(mn,cms[i][cmHash(pid,i)]);return mn;}
-
-int main(){
-    string viewed[]={"P001","P002","P003","P004","P005","P006","P007","P008","P009","P010"};
-    cout<<"=== Inserting Viewed Products ===" << endl;
-    for(auto& p:viewed){bfInsert(p);cout<<"Viewed: "<<p<<endl;}
-
-    string queries[]={"P001","P005","P011","P003","P015","P010"};
-    cout<<"\n=== Bloom Filter Queries ===" << endl;
-    for(auto& q:queries)
-        cout<<q<<" -> "<<(bfQuery(q)?"Seen Before":"Not Seen (safe to recommend)")<<endl;
-
-    cout<<"\n=== Count-Min Sketch Click Tracking ===" << endl;
-    string clicks[]={"P001","P002","P001","P003","P001","P002","P004","P003","P001","P005"};
-    for(auto& c:clicks)cmInsert(c);
-    string trackQ[]={"P001","P002","P003","P004","P005"};
-    for(auto& t:trackQ)cout<<t<<" estimated clicks: "<<cmQuery(t)<<endl;
-
-    cout<<"\n=== Space Analysis ===" << endl;
-    cout<<"Bloom Filter: "<<M/8<<" bytes for ~"<<M<<" bit array"<<endl;
-    cout<<"Count-Min Sketch: "<<D*W*4<<" bytes"<<endl;
-    cout<<"Exact HashMap (1M products): ~24 MB"<<endl;
-    cout<<"Probabilistic structures: ~"<<(M/8+D*W*4)<<" bytes total"<<endl;
-    return 0;
-}`
-  }
-];
-
-// ─────────────────────────────────────────────
-//  RENDER
-// ─────────────────────────────────────────────
-function render(list) {
-  const container = document.getElementById('programList');
-  const countLabel = document.getElementById('countLabel');
-
-  if (list.length === 0) {
-    container.innerHTML = `<div class="no-results">😕 No programs found matching your search.</div>`;
-    countLabel.textContent = 'No results found';
-    return;
-  }
-
-  countLabel.textContent = `Showing ${list.length} of ${programs.length} programs`;
-
-  container.innerHTML = list.map(p => `
-    <div class="card">
-      <div class="num">${p.no}</div>
-      <div class="card-info">
-        <div class="topic">${p.topic}</div>
-        <div class="name">${p.name}</div>
+  <!-- Sticky Header -->
+  <header class="site-header" id="topHeader">
+    <div class="header-inner container">
+      <div class="brand-group">
+        <a href="#home" class="brand-link" id="logoLink">
+          <div class="brand-icon">
+            <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+              <rect x="2" y="2" width="20" height="8" rx="2" ry="2"></rect>
+              <rect x="2" y="14" width="20" height="8" rx="2" ry="2"></rect>
+              <line x1="6" y1="6" x2="6.01" y2="6"></line>
+              <line x1="6" y1="18" x2="6.01" y2="18"></line>
+            </svg>
+          </div>
+          <div class="brand-text">
+            <span class="brand-title">CN Practical Hub</span>
+            <span class="brand-sub">Computer Networks Laboratory</span>
+          </div>
+        </a>
       </div>
-      <button class="copy-btn" id="btn-${p.no}" onclick="copyCode(${p.no})">Copy Code</button>
+
+      <nav class="nav-links" id="mainNav">
+        <button class="nav-btn active" id="navHomeBtn" onclick="navigateToHome()">
+          <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+            <path d="M3 9l9-7 9 7v11a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2z"></path>
+            <polyline points="9 22 9 12 15 12 15 22"></polyline>
+          </svg>
+          Home
+        </button>
+        <button class="nav-btn" id="navAllBtn" onclick="scrollToPracticals()">
+          <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+            <line x1="8" y1="6" x2="21" y2="6"></line>
+            <line x1="8" y1="12" x2="21" y2="12"></line>
+            <line x1="8" y1="18" x2="21" y2="18"></line>
+            <line x1="3" y1="6" x2="3.01" y2="6"></line>
+            <line x1="3" y1="12" x2="3.01" y2="12"></line>
+            <line x1="3" y1="18" x2="3.01" y2="18"></line>
+          </svg>
+          All Practicals
+        </button>
+      </nav>
+
+      <div class="header-actions">
+        <div class="header-search-wrap">
+          <svg class="search-icon-sm" width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+            <circle cx="11" cy="11" r="8"></circle>
+            <line x1="21" y1="21" x2="16.65" y2="16.65"></line>
+          </svg>
+          <input type="text" id="quickSearchInput" class="header-search-input" placeholder="Search practicals... (Press /)" oninput="handleQuickSearch(this.value)" />
+        </div>
+        <div class="practical-quick-select-wrap">
+          <select id="quickJumpSelect" class="quick-jump-select" onchange="handleQuickJump(this.value)">
+            <option value="">Jump to Practical...</option>
+            <option value="1">PR-01: Setup of Wired LAN</option>
+            <option value="2">PR-02: Cisco Packet Tracer</option>
+            <option value="3">PR-03: Single Bit Error Detection &amp; Correction</option>
+            <option value="4">PR-04: Sliding Window Mechanism</option>
+            <option value="5">PR-05: Subnet Calculator</option>
+            <option value="6">PR-06: Routing Algorithms</option>
+            <option value="7">PR-07: Socket Programming</option>
+          </select>
+        </div>
+      </div>
     </div>
-  `).join('');
-}
+  </header>
 
-function copyCode(no) {
-  const prog = programs.find(p => p.no === no);
-  if (!prog) return;
+  <!-- Main Content Area -->
+  <main class="site-main">
 
-  navigator.clipboard.writeText(prog.code).then(() => {
-    const btn = document.getElementById('btn-' + no);
-    btn.textContent = '✓ Copied!';
-    btn.classList.add('success');
-    setTimeout(() => {
-      btn.textContent = 'Copy Code';
-      btn.classList.remove('success');
-    }, 1800);
-  }).catch(() => {
-    // Fallback for older browsers
-    const el = document.createElement('textarea');
-    el.value = prog.code;
-    document.body.appendChild(el);
-    el.select();
-    document.execCommand('copy');
-    document.body.removeChild(el);
-    const btn = document.getElementById('btn-' + no);
-    btn.textContent = '✓ Copied!';
-    btn.classList.add('success');
-    setTimeout(() => { btn.textContent = 'Copy Code'; btn.classList.remove('success'); }, 1800);
-  });
-}
+    <!-- HOME VIEW -->
+    <div id="homeView" class="view-section active-view">
 
-function filterPrograms() {
-  const q = document.getElementById('searchBox').value.toLowerCase().trim();
-  if (!q) { render(programs); return; }
-  const filtered = programs.filter(p =>
-    p.name.toLowerCase().includes(q) ||
-    p.topic.toLowerCase().includes(q) ||
-    String(p.no).includes(q)
-  );
-  render(filtered);
-}
 
-// Initial render
-render(programs);
-</script>
+   
+
+      <!-- Practicals Grid Section -->
+      <section class="practicals-section" id="practicalsSection">
+        <div class="container">
+          <div class="section-header-row">
+            <div>
+              <h2 class="section-title">Laboratory Practicals</h2>
+              <p class="section-subtitle">Select any practical to access full source code, sample inputs, expected outputs and execution instructions.</p>
+            </div>
+            <div class="results-counter" id="resultsCounter">Showing all 7 practicals</div>
+          </div>
+
+          <div class="cards-grid" id="practicalsGrid">
+            <!-- Dynamic practical cards rendered via JS -->
+          </div>
+
+          <!-- Empty search results state -->
+          <div class="empty-state" id="emptySearchState" style="display: none;">
+            <div class="empty-icon">🔍</div>
+            <h3 class="empty-title">No matching practicals or algorithms found</h3>
+            <p class="empty-text">Try searching with different terms like "CRC", "Dijkstra", "Hamming", "TCP", or "Subnet".</p>
+            <button class="btn btn-secondary" onclick="clearSearch()">Reset Search</button>
+          </div>
+        </div>
+      </section>
+
+      <!-- Quick Reference Summary Section -->
+      <section class="summary-section">
+        <div class="container">
+          <div class="summary-card">
+            <div class="summary-header">
+              <h3 class="summary-title">Practical Curriculum Overview</h3>
+              <span class="summary-pill">MinGW g++ (Windows 10/11)</span>
+            </div>
+            <div class="summary-table-wrap">
+              <table class="academic-table">
+                <thead>
+                  <tr>
+                    <th>Practical</th>
+                    <th>Lab Practical Title</th>
+                    <th>Type</th>
+                    <th>Implementations</th>
+                    <th>Action</th>
+                  </tr>
+                </thead>
+                <tbody>
+                  <tr>
+                    <td><strong>PR-01</strong></td>
+                    <td>Setup of Wired LAN</td>
+                    <td><span class="type-badge hardware">Hardware &amp; Wireshark</span></td>
+                    <td>Step-by-step T568B &amp; ICMP Analysis</td>
+                    <td><button class="table-link-btn" onclick="openPractical(1)">View Guide →</button></td>
+                  </tr>
+                  <tr>
+                    <td><strong>PR-02</strong></td>
+                    <td>Cisco Packet Tracer</td>
+                    <td><span class="type-badge sim">Topology &amp; Subnetting</span></td>
+                    <td>5 Topologies + VLSM Subnetting</td>
+                    <td><button class="table-link-btn" onclick="openPractical(2)">View Guide →</button></td>
+                  </tr>
+                  <tr>
+                    <td><strong>PR-03</strong></td>
+                    <td>Single Bit Error Detection and Correction</td>
+                    <td><span class="type-badge cpp">C++ Programming</span></td>
+                    <td>4 Codes (Parity, CRC, Hamming, Combined)</td>
+                    <td><button class="table-link-btn" onclick="openPractical(3)">Open Code →</button></td>
+                  </tr>
+                  <tr>
+                    <td><strong>PR-04</strong></td>
+                    <td>Sliding Window Mechanism</td>
+                    <td><span class="type-badge cpp">C++ Programming</span></td>
+                    <td>4 Codes (Stop&amp;Wait, GBN, SR, Combined)</td>
+                    <td><button class="table-link-btn" onclick="openPractical(4)">Open Code →</button></td>
+                  </tr>
+                  <tr>
+                    <td><strong>PR-05</strong></td>
+                    <td>Subnet Calculator</td>
+                    <td><span class="type-badge cpp">C++ Programming</span></td>
+                    <td>1 Standalone (/31, /32 edge cases handled)</td>
+                    <td><button class="table-link-btn" onclick="openPractical(5)">Open Code →</button></td>
+                  </tr>
+                  <tr>
+                    <td><strong>PR-06</strong></td>
+                    <td>Routing Algorithms</td>
+                    <td><span class="type-badge cpp">C++ Programming</span></td>
+                    <td>3 Codes (Distance Vector, Dijkstra, Combined)</td>
+                    <td><button class="table-link-btn" onclick="openPractical(6)">Open Code →</button></td>
+                  </tr>
+                  <tr>
+                    <td><strong>PR-07</strong></td>
+                    <td>Socket Programming</td>
+                    <td><span class="type-badge cpp">C++ Winsock2</span></td>
+                    <td>4 Codes (TCP/UDP Client-Server) + Wireshark</td>
+                    <td><button class="table-link-btn" onclick="openPractical(7)">Open Code →</button></td>
+                  </tr>
+                </tbody>
+              </table>
+            </div>
+          </div>
+        </div>
+      </section>
+
+    </div><!-- /homeView -->
+
+    <!-- INDIVIDUAL PRACTICAL DETAIL VIEW -->
+    <div id="detailView" class="view-section" style="display: none;">
+      <div class="container detail-container">
+
+        <!-- Breadcrumbs & Navigation Bar -->
+        <div class="detail-nav-bar">
+          <div class="breadcrumb-trail">
+            <button class="crumb-link" onclick="navigateToHome()">Home</button>
+            <span class="crumb-sep">/</span>
+            <span class="crumb-current" id="detailBreadcrumb">Practical 01</span>
+          </div>
+          <div class="detail-actions">
+            <button class="btn btn-secondary back-btn" onclick="navigateToHome()">
+              <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                <line x1="19" y1="12" x2="5" y2="12"></line>
+                <polyline points="12 19 5 12 12 5"></polyline>
+              </svg>
+              Back to Practicals
+            </button>
+          </div>
+        </div>
+
+        <!-- Dynamic Practical Detail Container -->
+        <div id="practicalDetailContent">
+          <!-- Content dynamically injected by script.js -->
+        </div>
+
+      </div>
+    </div><!-- /detailView -->
+
+  </main>
+
+  <!-- Academic Footer -->
+  <footer class="site-footer">
+    <div class="container footer-container">
+      <div class="footer-left">
+        <div class="footer-brand">CN Practical Hub</div>
+        <p class="footer-desc">Academic reference portal for Computer Networks Laboratory (B.Tech Information Technology &amp; Computer Engineering).</p>
+      </div>
+      <div class="footer-links">
+        <div class="footer-col">
+          <span class="col-title">Practicals</span>
+          <a href="javascript:void(0)" onclick="openPractical(1)">PR-01: Wired LAN</a>
+          <a href="javascript:void(0)" onclick="openPractical(2)">PR-02: Packet Tracer</a>
+          <a href="javascript:void(0)" onclick="openPractical(3)">PR-03: Error Control</a>
+          <a href="javascript:void(0)" onclick="openPractical(4)">PR-04: Sliding Window</a>
+        </div>
+        <div class="footer-col">
+          <span class="col-title">Implementations</span>
+          <a href="javascript:void(0)" onclick="openPractical(5)">PR-05: Subnet Calculator</a>
+          <a href="javascript:void(0)" onclick="openPractical(6)">PR-06: Routing Algorithms</a>
+          <a href="javascript:void(0)" onclick="openPractical(7)">PR-07: Socket Programming</a>
+        </div>
+        <div class="footer-col">
+          <span class="col-title">Compiler &amp; Environment</span>
+          <span class="footer-info">MinGW g++ (x86_64)</span>
+          <span class="footer-info">Windows 10 / 11</span>
+          <span class="footer-info">Winsock2 (-lws2_32)</span>
+        </div>
+      </div>
+    </div>
+    <div class="footer-bottom container">
+      <p>© 2026 CN Practical Hub · Designed for Academic &amp; Laboratory Excellence</p>
+      <p class="footer-note">All implementations are tested, standalone, compilable C++ source files.</p>
+    </div>
+  </footer>
+
+  <!-- Floating Scroll-To-Top Button -->
+  <button id="scrollToTopBtn" class="scroll-top-btn" onclick="scrollToTop()" title="Scroll to top">
+    <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5">
+      <polyline points="18 15 12 9 6 15"></polyline>
+    </svg>
+  </button>
+
+  <!-- Live Toast Feedback Notification -->
+  <div id="copyToast" class="toast-notification">
+    <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5">
+      <polyline points="20 6 9 17 4 12"></polyline>
+    </svg>
+    <span id="toastMessage">Code copied successfully!</span>
+  </div>
+
+  <script src="script.js"></script>
 </body>
 </html>
-`
