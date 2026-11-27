@@ -1,3633 +1,2639 @@
 /**
- * CN Practical Hub — Core Client Script
- * Complete academic practical reference portal for B.Tech IT / Computer Engineering.
- * All content, algorithms, diagrams, and full compilable C++ codes stored locally.
+ * OS Practical Hub — Complete Client Script & Practical Data
+ * All 8 Operating Systems Practicals with C, C++, Python & Bash Implementations
  */
 
-// Global State
-let currentPracticalId = null;
-let currentAlgoIndex = 0;
-let currentCategoryFilter = 'all';
-
-// ===================================================================
-// PRACTICALS REPOSITORY DATA
-// ===================================================================
 const practicalsData = [
-  // ─────────────────────────────────────────────────────────────────
-  // PRACTICAL 01: SETUP OF WIRED LAN
-  // ─────────────────────────────────────────────────────────────────
   {
-    id: 1,
-    number: "PR-01",
-    title: "Setup of Wired LAN",
-    category: "hardware",
-    categoryLabel: "Hardware & Networking",
-    type: "hardware",
-    shortDesc: "Step-by-step practical guide to preparing straight-through Ethernet cables using T568B, configuring static IP addresses on 4 PCs connected via a Layer 2 switch, testing connectivity using ICMP ping, and analyzing packets in Wireshark.",
-    topics: ["T568B Standard", "Crimping RJ45", "Layer 2 Switch", "Static IP Assignment", "ICMP Ping", "Wireshark Packet Analysis"],
-    implCount: "Complete Hardware & Wireshark Guide",
-    aim: "To assemble and set up a wired Local Area Network (LAN) consisting of at least four personal computers connected through a Layer 2 switch, construct straight-through Ethernet patch cables following the T568B standard, configure static IPv4 addresses, verify network reachability using ICMP ping, and inspect packet headers in Wireshark.",
-    hasCode: false,
-    hardwareContent: {
-      requiredHardware: [
-        { item: "Workstation PCs", qty: "4 Units (PC1 to PC4)", spec: "Equipped with 10/100/1000 Mbps RJ45 Gigabit Ethernet NIC" },
-        { item: "Layer 2 Ethernet Switch", qty: "1 Unit", spec: "8-port or 16-port unmanaged/managed Fast/Gigabit Ethernet switch" },
-        { item: "Cat5e / Cat6 UTP Cable", qty: "4 Lengths (2-3 meters each)", spec: "4-pair unshielded twisted pair copper wire" },
-        { item: "RJ45 Modular Connectors", qty: "10-12 Pieces", spec: "8P8C gold-plated transparent connectors" },
-        { item: "Crimping Tool", qty: "1 Unit", spec: "Ratchet type with built-in stripper and cutter blades" },
-        { item: "LAN Cable Continuity Tester", qty: "1 Unit", spec: "Master and remote unit with 8-LED sequential display" }
-      ],
-      t568bPinout: [
-        { pin: 1, colorName: "White-Orange", colorCode: "#f97316", wireType: "Stripe", function: "Tx+ (Transmit Data Positive)" },
-        { pin: 2, colorName: "Orange", colorCode: "#ea580c", wireType: "Solid", function: "Tx- (Transmit Data Negative)" },
-        { pin: 3, colorName: "White-Green", colorCode: "#22c55e", wireType: "Stripe", function: "Rx+ (Receive Data Positive)" },
-        { pin: 4, colorName: "Blue", colorCode: "#3b82f6", wireType: "Solid", function: "Unused in 10/100Base-T (PoE / Gigabit)" },
-        { pin: 5, colorName: "White-Blue", colorCode: "#60a5fa", wireType: "Stripe", function: "Unused in 10/100Base-T (PoE / Gigabit)" },
-        { pin: 6, colorName: "Green", colorCode: "#16a34a", wireType: "Solid", function: "Rx- (Receive Data Negative)" },
-        { pin: 7, colorName: "White-Brown", colorCode: "#a16207", wireType: "Stripe", function: "Unused in 10/100Base-T (PoE / Gigabit)" },
-        { pin: 8, colorName: "Brown", colorCode: "#78350f", wireType: "Solid", function: "Unused in 10/100Base-T (PoE / Gigabit)" }
-      ],
-      cableSteps: [
-        "Use the cable stripper blade on the crimping tool to score and remove approximately 1.5 cm (0.6 inch) of outer PVC jacket from the Cat5e/6 cable without nicking the copper wires inside.",
-        "Untwist the 4 wire pairs and straighten each individual wire. Arrange them strictly according to the T568B color standard: White-Orange, Orange, White-Green, Blue, White-Blue, Green, White-Brown, Brown.",
-        "Hold the aligned wires flat between thumb and forefinger, then use the wire cutting blade to trim all wires evenly in a perpendicular 90-degree straight line, leaving approximately 1.2 cm of exposed wires.",
-        "Hold the RJ45 connector with the plastic locking clip facing DOWN and copper pins facing UP and away from you. Insert the aligned wires firmly into the connector until each conductor seats all the way against the front end of the plug under the gold pins.",
-        "Ensure the outer cable jacket enters past the strain-relief wedge inside the connector body. Insert into the 8P crimp slot of the tool and squeeze the handles firmly until the ratchet mechanism releases.",
-        "Repeat the exact same T568B wiring procedure for the opposite end of the cable to complete a Straight-Through patch cord. Repeat for all 4 workstations."
-      ],
-      testerGuide: {
-        procedure: "Plug one connector into the Master unit of the LAN Cable Tester and the opposite connector into the Remote unit. Power ON the tester in Slow (S) or Normal mode.",
-        expectedResult: "All 8 LEDs on both Master and Remote units must illuminate sequentially from 1 to 8: [1] -> [2] -> [3] -> [4] -> [5] -> [6] -> [7] -> [8].",
-        diagnostics: [
-          { error: "Out-of-order LED sequence (e.g., 1-2-6-4-5-3-7-8)", cause: "Miswire / Crossed pair (pins 3 and 6 swapped)." },
-          { error: "One or more LEDs fail to light up", cause: "Open circuit / wire did not reach the copper pin during crimping." },
-          { error: "Two LEDs light up simultaneously", cause: "Short circuit between adjacent conductor wires." }
+    "id": 1,
+    "number": "PR-01",
+    "title": "Study, Demonstrate and Execute Basic Linux Commands",
+    "category": "commands",
+    "categoryLabel": "Linux Shell & System Utilities",
+    "type": "commands",
+    "aim": "To study, demonstrate, and execute essential Linux terminal commands across 8 functional categories: file & directory management, file viewing, system info, process control, permissions, searching & filtering, networking basics, and package/help utilities.",
+    "shortDesc": "Comprehensive reference of 40+ essential Linux commands across 8 categories with syntax, examples, and safety badges.",
+    "topics": [
+      "File & Directory",
+      "File Viewing",
+      "System Info",
+      "Process Control",
+      "Permissions",
+      "grep & find",
+      "Networking",
+      "apt & man"
+    ],
+    "implCount": 8,
+    "categories": [
+      {
+        "name": "File and Directory Commands",
+        "commands": [
+          {
+            "name": "pwd",
+            "purpose": "Print the full absolute path of the current working directory.",
+            "syntax": "pwd [OPTION]",
+            "examples": [
+              {
+                "cmd": "pwd",
+                "out": "/home/student/os_lab"
+              },
+              {
+                "cmd": "pwd -P",
+                "out": "/mnt/c/Users/student/os_lab"
+              }
+            ]
+          },
+          {
+            "name": "ls",
+            "purpose": "List directory contents, file types, sizes, and timestamps.",
+            "syntax": "ls [OPTION]... [FILE]...",
+            "examples": [
+              {
+                "cmd": "ls -la",
+                "out": "total 16\ndrwxr-xr-x 2 student student 4096 Nov 28 10:00 .\ndrwxr-xr-x 5 student student 4096 Nov 28 09:30 ..\n-rw-r--r-- 1 student student  512 Nov 28 10:00 fcfs.c"
+              },
+              {
+                "cmd": "ls -lh *.c",
+                "out": "-rw-r--r-- 1 student student 1.4K Nov 28 10:02 scheduler.c"
+              }
+            ]
+          },
+          {
+            "name": "cd",
+            "purpose": "Change the shell's current working directory.",
+            "syntax": "cd [DIRECTORY]",
+            "examples": [
+              {
+                "cmd": "cd /var/log",
+                "out": "(Changes current directory to /var/log)"
+              },
+              {
+                "cmd": "cd ..",
+                "out": "(Moves up one directory level to the parent directory)"
+              }
+            ]
+          },
+          {
+            "name": "mkdir",
+            "purpose": "Create one or more new directories.",
+            "syntax": "mkdir [OPTION]... DIRECTORY...",
+            "examples": [
+              {
+                "cmd": "mkdir os_practicals",
+                "out": "(Creates directory 'os_practicals')"
+              },
+              {
+                "cmd": "mkdir -p lab3/src/bin",
+                "out": "(Creates nested parent directories lab3, src, and bin)"
+              }
+            ]
+          },
+          {
+            "name": "rmdir",
+            "purpose": "Remove empty directories.",
+            "syntax": "rmdir [OPTION]... DIRECTORY...",
+            "danger": "Delete Operation (Empty dirs only)",
+            "examples": [
+              {
+                "cmd": "rmdir temp_dir",
+                "out": "(Removes 'temp_dir' if empty)"
+              },
+              {
+                "cmd": "rmdir -p a/b/c",
+                "out": "(Removes c, then b, then a if all become empty)"
+              }
+            ]
+          },
+          {
+            "name": "touch",
+            "purpose": "Create an empty file or update an existing file's access/modification timestamps.",
+            "syntax": "touch [OPTION]... FILE...",
+            "examples": [
+              {
+                "cmd": "touch notes.txt",
+                "out": "(Creates empty file notes.txt if it does not exist)"
+              },
+              {
+                "cmd": "touch prog1.c prog2.c",
+                "out": "(Creates multiple empty files at once)"
+              }
+            ]
+          },
+          {
+            "name": "cp",
+            "purpose": "Copy files and directories from source to destination.",
+            "syntax": "cp [OPTION]... SOURCE DEST",
+            "danger": "Can overwrite existing destination files",
+            "examples": [
+              {
+                "cmd": "cp fcfs.c fcfs_backup.c",
+                "out": "(Copies fcfs.c to fcfs_backup.c)"
+              },
+              {
+                "cmd": "cp -r lab1/ lab1_backup/",
+                "out": "(Recursively copies directory lab1 and its contents)"
+              }
+            ]
+          },
+          {
+            "name": "mv",
+            "purpose": "Move or rename files and directories.",
+            "syntax": "mv [OPTION]... SOURCE DEST",
+            "danger": "Can overwrite existing destination files",
+            "examples": [
+              {
+                "cmd": "mv old_name.c new_name.c",
+                "out": "(Renames old_name.c to new_name.c)"
+              },
+              {
+                "cmd": "mv *.c src/",
+                "out": "(Moves all .c files into src/ directory)"
+              }
+            ]
+          },
+          {
+            "name": "rm",
+            "purpose": "Remove (delete) files or directories permanently.",
+            "syntax": "rm [OPTION]... FILE...",
+            "danger": "DESTRUCTIVE: Permanently deletes files/directories",
+            "examples": [
+              {
+                "cmd": "rm -i temp.txt",
+                "out": "rm: remove regular file 'temp.txt'? y"
+              },
+              {
+                "cmd": "rm -rf build_temp/",
+                "out": "(Forcefully and recursively deletes build_temp/ without prompt)"
+              }
+            ]
+          }
         ]
       },
-      ipTable: [
-        { pc: "PC1", ip: "192.168.1.1", subnet: "255.255.255.0", gateway: "192.168.1.1 (or None)", role: "Workstation 1 (Test Sender)" },
-        { pc: "PC2", ip: "192.168.1.2", subnet: "255.255.255.0", gateway: "None", role: "Workstation 2 (Test Receiver)" },
-        { pc: "PC3", ip: "192.168.1.3", subnet: "255.255.255.0", gateway: "None", role: "Workstation 3" },
-        { pc: "PC4", ip: "192.168.1.4", subnet: "255.255.255.0", gateway: "None", role: "Workstation 4" }
-      ],
-      windowsCommands: [
-        { desc: "Open Network Connections Control Panel", cmd: "ncpa.cpl" },
-        { desc: "Configure Static IP via Command Prompt (Administrator)", cmd: 'netsh interface ip set address name="Ethernet" static 192.168.1.1 255.255.255.0' },
-        { desc: "Verify current IP and MAC address settings", cmd: "ipconfig /all" },
-        { desc: "Test ping reachability to PC2", cmd: "ping 192.168.1.2" },
-        { desc: "Ping PC2 with 10 packets and custom timeout", cmd: "ping 192.168.1.2 -n 10" },
-        { desc: "Inspect ARP table to verify resolved MAC addresses", cmd: "arp -a" }
-      ],
-      wiresharkGuide: {
-        steps: [
-          "Launch Wireshark on PC1 as an Administrator.",
-          "On the Welcome screen, identify the active network interface corresponding to your physical NIC (typically labeled 'Ethernet' or 'Local Area Connection') showing live packet activity spikes. Double-click to start capture.",
-          "In the top display filter bar, enter the filter: icmp (or ip.addr == 192.168.1.2 && icmp) and press Enter. The packet list will only display ICMP control messages.",
-          "Open Windows Command Prompt on PC1 and execute: ping 192.168.1.2",
-          "Switch back to Wireshark and click the red square button on the toolbar to Stop the capture."
-        ],
-        packetAnalysis: [
+      {
+        "name": "File Viewing Commands",
+        "commands": [
           {
-            type: "Echo (ping) Request",
-            src: "192.168.1.1 (PC1)",
-            dst: "192.168.1.2 (PC2)",
-            protocol: "ICMP",
-            info: "Type 8, Code 0, Identifier: 0x0001, Sequence: 1",
-            details: "Generated by PC1 operating system network stack. Transmitted across the switch port to PC2 carrying a 32-byte payload."
+            "name": "cat",
+            "purpose": "Concatenate and print file contents directly to standard output.",
+            "syntax": "cat [OPTION]... [FILE]...",
+            "examples": [
+              {
+                "cmd": "cat fcfs.c",
+                "out": "#include <stdio.h>\nint main() { ... }"
+              },
+              {
+                "cmd": "cat -n notes.txt",
+                "out": "     1\tOperating Systems Lab\n     2\tPractical 01 Linux Commands"
+              }
+            ]
           },
           {
-            type: "Echo (ping) Reply",
-            src: "192.168.1.2 (PC2)",
-            dst: "192.168.1.1 (PC1)",
-            protocol: "ICMP",
-            info: "Type 0, Code 0, Identifier: 0x0001, Sequence: 1",
-            details: "Generated by PC2 in response to Echo Request, echoing back the identical payload data. Demonstrates full bidirectional connectivity."
+            "name": "head",
+            "purpose": "Display the first N lines (default 10) of a file.",
+            "syntax": "head [OPTION]... [FILE]...",
+            "examples": [
+              {
+                "cmd": "head -n 5 /etc/passwd",
+                "out": "root:x:0:0:root:/root:/bin/bash\ndaemon:x:1:1:daemon:/usr/sbin:/usr/sbin/nologin\n..."
+              },
+              {
+                "cmd": "head -c 64 log.txt",
+                "out": "(Prints the first 64 bytes of log.txt)"
+              }
+            ]
+          },
+          {
+            "name": "tail",
+            "purpose": "Display the last N lines of a file or follow live log updates.",
+            "syntax": "tail [OPTION]... [FILE]...",
+            "examples": [
+              {
+                "cmd": "tail -n 10 /var/log/syslog",
+                "out": "(Prints the last 10 lines of system log)"
+              },
+              {
+                "cmd": "tail -f app.log",
+                "out": "(Streams newly appended lines in real time until Ctrl+C)"
+              }
+            ]
+          },
+          {
+            "name": "less",
+            "purpose": "View large files one screen at a time with forward/backward scrolling and search.",
+            "syntax": "less [OPTIONS] FILE",
+            "examples": [
+              {
+                "cmd": "less /var/log/dmesg",
+                "out": "(Opens interactive pager; press Space/b to scroll, /pattern to search, q to quit)"
+              },
+              {
+                "cmd": "less -N script.js",
+                "out": "(Opens script.js in pager with line numbers shown)"
+              }
+            ]
+          },
+          {
+            "name": "more",
+            "purpose": "Basic forward-only terminal pager for viewing text files screen by screen.",
+            "syntax": "more [OPTIONS] FILE",
+            "examples": [
+              {
+                "cmd": "more readme.txt",
+                "out": "--More--(42%) [Press Space for next page, q to quit]"
+              },
+              {
+                "cmd": "ls -la /usr/bin | more",
+                "out": "(Pipes long directory listing through more pager)"
+              }
+            ]
+          }
+        ]
+      },
+      {
+        "name": "System Information",
+        "commands": [
+          {
+            "name": "uname",
+            "purpose": "Print kernel, OS, architecture, and system hardware information.",
+            "syntax": "uname [OPTION]...",
+            "examples": [
+              {
+                "cmd": "uname -a",
+                "out": "Linux ubuntu-lab 5.15.0-91-generic #101-Ubuntu SMP x86_64 GNU/Linux"
+              },
+              {
+                "cmd": "uname -r",
+                "out": "5.15.0-91-generic"
+              }
+            ]
+          },
+          {
+            "name": "hostname",
+            "purpose": "Display or set the system's network hostname.",
+            "syntax": "hostname [OPTION]",
+            "examples": [
+              {
+                "cmd": "hostname",
+                "out": "ubuntu-lab"
+              },
+              {
+                "cmd": "hostname -I",
+                "out": "192.168.1.42"
+              }
+            ]
+          },
+          {
+            "name": "whoami",
+            "purpose": "Print the effective username of the current logged-in user.",
+            "syntax": "whoami",
+            "examples": [
+              {
+                "cmd": "whoami",
+                "out": "student"
+              },
+              {
+                "cmd": "sudo whoami",
+                "out": "root"
+              }
+            ]
+          },
+          {
+            "name": "date",
+            "purpose": "Display or format the current system date and time.",
+            "syntax": "date [OPTION]... [+FORMAT]",
+            "examples": [
+              {
+                "cmd": "date",
+                "out": "Fri Nov 28 10:20:45 IST 2026"
+              },
+              {
+                "cmd": "date '+%Y-%m-%d %H:%M:%S'",
+                "out": "2026-11-28 10:20:45"
+              }
+            ]
+          },
+          {
+            "name": "uptime",
+            "purpose": "Show how long the system has been running, logged-in users, and CPU load averages.",
+            "syntax": "uptime [OPTIONS]",
+            "examples": [
+              {
+                "cmd": "uptime",
+                "out": " 10:21:10 up 3 days, 4:12,  2 users,  load average: 0.15, 0.10, 0.08"
+              },
+              {
+                "cmd": "uptime -p",
+                "out": "up 3 days, 4 hours, 12 minutes"
+              }
+            ]
+          },
+          {
+            "name": "df",
+            "purpose": "Report filesystem disk space usage across mounted partitions.",
+            "syntax": "df [OPTION]... [FILE]...",
+            "examples": [
+              {
+                "cmd": "df -h",
+                "out": "Filesystem      Size  Used Avail Use% Mounted on\n/dev/sda1        50G   18G   30G  38% /"
+              },
+              {
+                "cmd": "df -hT /home",
+                "out": "Filesystem     Type  Size  Used Avail Use% Mounted on\n/dev/sda2      ext4  200G   80G  110G  43% /home"
+              }
+            ]
+          },
+          {
+            "name": "free",
+            "purpose": "Display amount of free and used physical RAM and swap memory.",
+            "syntax": "free [OPTIONS]",
+            "examples": [
+              {
+                "cmd": "free -h",
+                "out": "               total        used        free      shared  buff/cache   available\nMem:            15Gi       4.2Gi       6.8Gi       312Mi       4.5Gi        10Gi\nSwap:          2.0Gi          0B       2.0Gi"
+              },
+              {
+                "cmd": "free -m",
+                "out": "(Displays memory statistics in mebibytes)"
+              }
+            ]
+          }
+        ]
+      },
+      {
+        "name": "Process Commands",
+        "commands": [
+          {
+            "name": "ps",
+            "purpose": "Report a snapshot of currently running processes and PIDs.",
+            "syntax": "ps [OPTIONS]",
+            "examples": [
+              {
+                "cmd": "ps aux",
+                "out": "USER       PID %CPU %MEM    VSZ   RSS TTY      STAT START   TIME COMMAND\nroot         1  0.0  0.1 169316 11200 ?        Ss   10:00   0:01 /sbin/init"
+              },
+              {
+                "cmd": "ps -ef | grep bash",
+                "out": "student   2410  2408  0 10:05 pts/0    00:00:00 -bash"
+              }
+            ]
+          },
+          {
+            "name": "top",
+            "purpose": "Real-time dynamic view of running processes, CPU, and memory usage.",
+            "syntax": "top [OPTIONS]",
+            "examples": [
+              {
+                "cmd": "top",
+                "out": "(Opens interactive real-time process table; press q to quit, k to kill a PID)"
+              },
+              {
+                "cmd": "top -u student",
+                "out": "(Shows only processes owned by user 'student')"
+              }
+            ]
+          },
+          {
+            "name": "htop",
+            "purpose": "Interactive, color-coded process viewer (improved alternative to top; install via apt if absent).",
+            "syntax": "htop [OPTIONS]",
+            "examples": [
+              {
+                "cmd": "htop",
+                "out": "(Opens full-screen visual CPU/RAM meters and process tree; F10 to quit)"
+              },
+              {
+                "cmd": "htop -p 1234,5678",
+                "out": "(Monitors only PIDs 1234 and 5678)"
+              }
+            ]
+          },
+          {
+            "name": "kill",
+            "purpose": "Send a signal (e.g., SIGTERM, SIGKILL) to terminate or control a process by PID.",
+            "syntax": "kill [-SIGNAL] PID...",
+            "danger": "Terminates running processes",
+            "examples": [
+              {
+                "cmd": "kill 4120",
+                "out": "(Sends SIGTERM (15) to gracefully stop PID 4120)"
+              },
+              {
+                "cmd": "kill -9 4120",
+                "out": "(Sends SIGKILL (9) to forcefully terminate unresponsive PID 4120)"
+              }
+            ]
+          },
+          {
+            "name": "jobs",
+            "purpose": "List active background and suspended jobs in the current shell session.",
+            "syntax": "jobs [OPTIONS]",
+            "examples": [
+              {
+                "cmd": "jobs -l",
+                "out": "[1]+  4321 Stopped                 sleep 100\n[2]-  4350 Running                 ./server &"
+              },
+              {
+                "cmd": "jobs",
+                "out": "[1]+  Stopped                 vim notes.txt"
+              }
+            ]
+          },
+          {
+            "name": "bg",
+            "purpose": "Resume a suspended job in the background.",
+            "syntax": "bg [%job_id]",
+            "examples": [
+              {
+                "cmd": "bg %1",
+                "out": "[1]+ sleep 100 &"
+              },
+              {
+                "cmd": "bg",
+                "out": "(Resumes the most recently suspended job in the background)"
+              }
+            ]
+          },
+          {
+            "name": "fg",
+            "purpose": "Bring a background or suspended job back to the foreground.",
+            "syntax": "fg [%job_id]",
+            "examples": [
+              {
+                "cmd": "fg %1",
+                "out": "sleep 100 (Now running in foreground)"
+              },
+              {
+                "cmd": "fg",
+                "out": "(Brings the most recent background job to the foreground)"
+              }
+            ]
+          }
+        ]
+      },
+      {
+        "name": "Permission Commands",
+        "commands": [
+          {
+            "name": "chmod",
+            "purpose": "Change file or directory access permissions (read, write, execute).",
+            "syntax": "chmod [OPTIONS] MODE FILE...",
+            "danger": "Modifies File Permissions",
+            "examples": [
+              {
+                "cmd": "chmod +x disk_usage.sh",
+                "out": "(Adds execute permission for owner, group, and others)"
+              },
+              {
+                "cmd": "chmod 755 deploy.sh",
+                "out": "(Sets rwxr-xr-x permissions: owner full, group/others read+exec)"
+              }
+            ]
+          },
+          {
+            "name": "chown",
+            "purpose": "Change file or directory owner and group.",
+            "syntax": "chown [OPTIONS] OWNER[:GROUP] FILE...",
+            "danger": "Sudo Required & Modifies Ownership",
+            "examples": [
+              {
+                "cmd": "sudo chown student:student project.c",
+                "out": "(Transfers ownership of project.c to user and group 'student')"
+              },
+              {
+                "cmd": "sudo chown -R www-data:www-data /var/www/html",
+                "out": "(Recursively updates ownership of web root directory)"
+              }
+            ]
+          },
+          {
+            "name": "ls -l",
+            "purpose": "Display long-format listing showing permission bits, link count, owner, group, size, and date.",
+            "syntax": "ls -l [FILE]...",
+            "examples": [
+              {
+                "cmd": "ls -l disk_usage.sh",
+                "out": "-rwxr-xr-x 1 student student 1024 Nov 28 10:15 disk_usage.sh"
+              },
+              {
+                "cmd": "ls -ld /etc",
+                "out": "drwxr-xr-x 95 root root 4096 Nov 28 09:00 /etc"
+              }
+            ]
+          }
+        ]
+      },
+      {
+        "name": "Searching and Filtering",
+        "commands": [
+          {
+            "name": "grep",
+            "purpose": "Search for text patterns inside files or command output using regular expressions.",
+            "syntax": "grep [OPTIONS] PATTERN [FILE...]",
+            "examples": [
+              {
+                "cmd": "grep -in 'pthread' *.c",
+                "out": "producer_consumer.c:6:#include <pthread.h>"
+              },
+              {
+                "cmd": "ps aux | grep python3",
+                "out": "student  5120  0.2  0.4  32000 14000 pts/0 S+ 10:30 0:00 python3 app.py"
+              }
+            ]
+          },
+          {
+            "name": "find",
+            "purpose": "Search for files and directories in a directory hierarchy by name, type, size, or time.",
+            "syntax": "find [PATH] [EXPRESSION]",
+            "examples": [
+              {
+                "cmd": "find . -name '*.c'",
+                "out": "./fcfs.c\n./sjf.c\n./bankers.c"
+              },
+              {
+                "cmd": "find /var/log -type f -size +10M",
+                "out": "/var/log/syslog.1"
+              }
+            ]
+          },
+          {
+            "name": "sort",
+            "purpose": "Sort lines of text files alphabetically, numerically, or in reverse.",
+            "syntax": "sort [OPTION]... [FILE]...",
+            "examples": [
+              {
+                "cmd": "sort names.txt",
+                "out": "Alice\nBob\nCharlie"
+              },
+              {
+                "cmd": "sort -nr scores.txt",
+                "out": "98\n87\n74\n61"
+              }
+            ]
+          },
+          {
+            "name": "wc",
+            "purpose": "Count lines, words, characters, and bytes in a file or input stream.",
+            "syntax": "wc [OPTION]... [FILE]...",
+            "examples": [
+              {
+                "cmd": "wc -l fcfs.c",
+                "out": "74 fcfs.c"
+              },
+              {
+                "cmd": "wc notes.txt",
+                "out": " 12  85 512 notes.txt"
+              }
+            ]
+          },
+          {
+            "name": "cut",
+            "purpose": "Extract specific columns or fields from delimited lines of text.",
+            "syntax": "cut OPTION... [FILE]...",
+            "examples": [
+              {
+                "cmd": "cut -d':' -f1,7 /etc/passwd | head -n 3",
+                "out": "root:/bin/bash\ndaemon:/usr/sbin/nologin\nbin:/usr/sbin/nologin"
+              },
+              {
+                "cmd": "cut -c1-10 log.txt",
+                "out": "(Extracts first 10 characters of each line)"
+              }
+            ]
+          },
+          {
+            "name": "diff",
+            "purpose": "Compare two files line by line and show the differences.",
+            "syntax": "diff [OPTION]... FILE1 FILE2",
+            "examples": [
+              {
+                "cmd": "diff -u v1.c v2.c",
+                "out": "--- v1.c\n+++ v2.c\n@@ -10,1 +10,1 @@\n-int tq = 2;\n+int tq = 4;"
+              },
+              {
+                "cmd": "diff fileA.txt fileB.txt",
+                "out": "3c3\n< Old Line\n---\n> New Line"
+              }
+            ]
+          }
+        ]
+      },
+      {
+        "name": "Networking Basics",
+        "commands": [
+          {
+            "name": "ip",
+            "purpose": "Show and manipulate network interfaces, IP addresses, and routing tables.",
+            "syntax": "ip [OPTIONS] OBJECT {COMMAND}",
+            "examples": [
+              {
+                "cmd": "ip addr show",
+                "out": "2: eth0: <BROADCAST,MULTICAST,UP> mtu 1500\n    inet 192.168.1.42/24 brd 192.168.1.255 scope global eth0"
+              },
+              {
+                "cmd": "ip route",
+                "out": "default via 192.168.1.1 dev eth0 proto dhcp"
+              }
+            ]
+          },
+          {
+            "name": "ping",
+            "purpose": "Send ICMP ECHO_REQUEST packets to test network reachability and latency.",
+            "syntax": "ping [OPTIONS] DESTINATION",
+            "examples": [
+              {
+                "cmd": "ping -c 3 8.8.8.8",
+                "out": "3 packets transmitted, 3 received, 0% packet loss, time 2003ms\nrtt min/avg/max/mdev = 14.1/15.2/16.8/1.1 ms"
+              },
+              {
+                "cmd": "ping -c 2 localhost",
+                "out": "64 bytes from localhost (127.0.0.1): icmp_seq=1 ttl=64 time=0.042 ms"
+              }
+            ]
+          },
+          {
+            "name": "hostname",
+            "purpose": "Display system hostname or resolve local IP addresses.",
+            "syntax": "hostname [OPTION]",
+            "examples": [
+              {
+                "cmd": "hostname -f",
+                "out": "ubuntu-lab.localdomain"
+              },
+              {
+                "cmd": "hostname -i",
+                "out": "127.0.1.1"
+              }
+            ]
+          },
+          {
+            "name": "ss",
+            "purpose": "Investigate active network sockets, listening TCP/UDP ports, and connections.",
+            "syntax": "ss [OPTIONS]",
+            "examples": [
+              {
+                "cmd": "ss -tuln",
+                "out": "Netid State  Recv-Q Send-Q Local Address:Port Peer Address:Port\ntcp   LISTEN 0      128    0.0.0.0:22         0.0.0.0:*"
+              },
+              {
+                "cmd": "ss -tp",
+                "out": "(Lists established TCP connections with process names)"
+              }
+            ]
+          },
+          {
+            "name": "curl",
+            "purpose": "Transfer data from or to a server using HTTP, HTTPS, FTP, etc.",
+            "syntax": "curl [OPTIONS] URL",
+            "examples": [
+              {
+                "cmd": "curl -I https://example.com",
+                "out": "HTTP/2 200 \ncontent-type: text/html; charset=UTF-8"
+              },
+              {
+                "cmd": "curl -s https://api.github.com/zen",
+                "out": "Speak like a human."
+              }
+            ]
+          }
+        ]
+      },
+      {
+        "name": "Package and Help Commands",
+        "commands": [
+          {
+            "name": "man",
+            "purpose": "Display the system reference manual pages for commands, system calls, and libraries.",
+            "syntax": "man [SECTION] NAME",
+            "examples": [
+              {
+                "cmd": "man 2 fork",
+                "out": "(Opens Linux Programmer's Manual Section 2 for the fork() system call)"
+              },
+              {
+                "cmd": "man 3 pthread_create",
+                "out": "(Opens manual Section 3 for POSIX thread creation API)"
+              }
+            ]
+          },
+          {
+            "name": "--help",
+            "purpose": "Standard GNU flag to print concise usage syntax and options to stdout.",
+            "syntax": "command --help",
+            "examples": [
+              {
+                "cmd": "grep --help",
+                "out": "Usage: grep [OPTION]... PATTERNS [FILE]...\nSearch for PATTERNS in each FILE."
+              },
+              {
+                "cmd": "gcc --help",
+                "out": "(Displays summary of GNU C compiler options)"
+              }
+            ]
+          },
+          {
+            "name": "apt",
+            "purpose": "Debian/Ubuntu package manager for updating package lists and installing software.",
+            "syntax": "sudo apt [COMMAND] [PACKAGE]",
+            "danger": "Sudo / Root Privilege Required",
+            "examples": [
+              {
+                "cmd": "sudo apt update && sudo apt install build-essential",
+                "out": "(Updates package index and installs gcc, g++, make, and libc headers)"
+              },
+              {
+                "cmd": "sudo apt install htop python3",
+                "out": "(Installs htop monitor and Python 3 interpreter)"
+              }
+            ]
+          }
+        ]
+      }
+    ]
+  },
+  {
+    "id": 2,
+    "number": "PR-02",
+    "title": "Study and Implement Disk Space Usage Information Utilities",
+    "category": "utilities",
+    "categoryLabel": "System Administration & Utilities",
+    "type": "coding",
+    "aim": "To study Linux filesystem organization and implement utilities in Bash, C, C++, and Python that inspect and report mounted filesystem disk space usage (total, used, available, usage percentage) similar to df -h, with customizable threshold warnings.",
+    "shortDesc": "Inspect and report mounted disk space statistics, total/used/free capacity, and threshold usage alerts.",
+    "topics": [
+      "Linux VFS",
+      "statvfs System Call",
+      "shutil.disk_usage",
+      "Shell Scripting df -h",
+      "Disk Quota Alerting"
+    ],
+    "implCount": 4,
+    "languages": [
+      "bash",
+      "c",
+      "cpp",
+      "python"
+    ],
+    "defaultLang": "bash",
+    "linuxOnlyNote": "Requires Linux or WSL (Ubuntu) for the Bash shell script (df) and POSIX statvfs() system calls in C/C++. Python implementation works cross-platform.",
+    "code": {
+      "bash": {
+        "filename": "disk_usage.sh",
+        "langLabel": "Bash Shell Script",
+        "source": "#!/bin/bash\n# ==============================================================================\n# Practical 02: Disk Space Usage Monitoring Script\n# Inspects mounted filesystems and alerts if usage exceeds threshold (default 80%)\n# Usage: ./disk_usage.sh [threshold_percent]\n# ==============================================================================\n\nTHRESHOLD=${1:-80}\n\necho \"=================================================================\"\necho \"       SYSTEM DISK SPACE USAGE REPORT - $(date '+%Y-%m-%d %H:%M:%S')\"\necho \"       Warning Threshold: ${THRESHOLD}%\"\necho \"=================================================================\"\nprintf \"%-22s %-8s %-8s %-8s %-6s %-14s %s\\n\" \"Filesystem\" \"Size\" \"Used\" \"Avail\" \"Use%\" \"Mounted on\" \"Status\"\necho \"-----------------------------------------------------------------\"\n\ndf -h -x tmpfs -x devtmpfs -x squashfs 2>/dev/null | tail -n +2 | while read -r line; do\n    fs=$(echo \"$line\" | awk '{print $1}')\n    size=$(echo \"$line\" | awk '{print $2}')\n    used=$(echo \"$line\" | awk '{print $3}')\n    avail=$(echo \"$line\" | awk '{print $4}')\n    use_pct=$(echo \"$line\" | awk '{print $5}')\n    mount_point=$(echo \"$line\" | awk '{print $6}')\n\n    usage_num=${use_pct%\\%}\n\n    if [ -n \"$usage_num\" ] && [ \"$usage_num\" -ge \"$THRESHOLD\" ] 2>/dev/null; then\n        status=\"[WARNING >= ${THRESHOLD}%]\"\n    else\n        status=\"[NORMAL]\"\n    fi\n\n    printf \"%-22s %-8s %-8s %-8s %-6s %-14s %s\\n\" \"$fs\" \"$size\" \"$used\" \"$avail\" \"$use_pct\" \"$mount_point\" \"$status\"\ndone\n\necho \"=================================================================\"\necho \"Report generation completed.\"\n",
+        "compileCmd": "chmod +x disk_usage.sh",
+        "runCmd": "./disk_usage.sh 80",
+        "sampleInputs": [
+          {
+            "desc": "Run with default 80% warning threshold",
+            "input": "./disk_usage.sh"
+          },
+          {
+            "desc": "Run with custom 45% warning threshold",
+            "input": "./disk_usage.sh 45"
+          }
+        ],
+        "sampleOutputs": [
+          {
+            "desc": "Output with default 80% threshold on Ubuntu/WSL",
+            "output": "=================================================================\n       SYSTEM DISK SPACE USAGE REPORT - 2026-11-28 10:15:00\n       Warning Threshold: 80%\n=================================================================\nFilesystem             Size     Used     Avail    Use%   Mounted on     Status\n-----------------------------------------------------------------\n/dev/sda1              50G      18G      30G      38%    /              [NORMAL]\n/dev/sdb1              200G     172G     18G      91%    /data          [WARNING >= 80%]\n/dev/nvme0n1p2         450G     210G     217G     50%    /home          [NORMAL]\n=================================================================\nReport generation completed."
+          },
+          {
+            "desc": "Output with 45% threshold triggering warning on /home",
+            "output": "/dev/nvme0n1p2         450G     210G     217G     50%    /home          [WARNING >= 45%]"
+          }
+        ]
+      },
+      "c": {
+        "filename": "disk_usage.c",
+        "langLabel": "C (POSIX statvfs)",
+        "source": "/*\n * Practical 02: Disk Space Usage Utility in C\n * Uses POSIX statvfs() system call to query actual filesystem statistics.\n * Compile: gcc -Wall -Wextra disk_usage.c -o disk_usage\n * Run:     ./disk_usage / 80.0\n */\n#include <stdio.h>\n#include <stdlib.h>\n#include <sys/statvfs.h>\n\nvoid print_disk_usage(const char *path, double threshold) {\n    struct statvfs stat;\n\n    if (statvfs(path, &stat) != 0) {\n        perror(\"statvfs() error\");\n        return;\n    }\n\n    unsigned long long total_bytes = (unsigned long long)stat.f_blocks * stat.f_frsize;\n    unsigned long long avail_bytes = (unsigned long long)stat.f_bavail * stat.f_frsize;\n    unsigned long long free_root   = (unsigned long long)stat.f_bfree  * stat.f_frsize;\n    unsigned long long used_bytes  = total_bytes - free_root;\n\n    double total_gb = (double)total_bytes / (1024.0 * 1024.0 * 1024.0);\n    double used_gb  = (double)used_bytes  / (1024.0 * 1024.0 * 1024.0);\n    double avail_gb = (double)avail_bytes / (1024.0 * 1024.0 * 1024.0);\n    double used_pct = (total_bytes > 0) ? ((double)used_bytes / (double)total_bytes) * 100.0 : 0.0;\n\n    printf(\"\\n--- Disk Usage Report for: %s ---\\n\", path);\n    printf(\"Total Capacity   : %.2f GB (%llu bytes)\\n\", total_gb, total_bytes);\n    printf(\"Used Space       : %.2f GB (%llu bytes)\\n\", used_gb, used_bytes);\n    printf(\"Available Space  : %.2f GB (%llu bytes)\\n\", avail_gb, avail_bytes);\n    printf(\"Usage Percentage : %.2f%%\\n\", used_pct);\n\n    if (used_pct >= threshold) {\n        printf(\">>> [ALERT] Usage exceeds warning threshold of %.1f%%!\\n\", threshold);\n    } else {\n        printf(\">>> [STATUS] Disk utilization is within safe limits (< %.1f%%).\\n\", threshold);\n    }\n}\n\nint main(int argc, char *argv[]) {\n    const char *target_path = \"/\";\n    double threshold = 80.0;\n\n    if (argc >= 2) target_path = argv[1];\n    if (argc >= 3) threshold = atof(argv[2]);\n\n    printf(\"========================================================\\n\");\n    printf(\"         POSIX C DISK SPACE MONITORING UTILITY          \\n\");\n    printf(\"========================================================\\n\");\n    print_disk_usage(target_path, threshold);\n    printf(\"========================================================\\n\");\n    return 0;\n}\n",
+        "compileCmd": "gcc -Wall -Wextra disk_usage.c -o disk_usage",
+        "runCmd": "./disk_usage / 80.0",
+        "sampleInputs": [
+          {
+            "desc": "Inspect root partition with 80% threshold",
+            "input": "./disk_usage / 80.0"
+          },
+          {
+            "desc": "Inspect /home directory with 40% threshold",
+            "input": "./disk_usage /home 40.0"
+          }
+        ],
+        "sampleOutputs": [
+          {
+            "desc": "Execution output for root partition (/)",
+            "output": "--- Disk Usage Report for: / ---\nTotal Capacity   : 100.00 GB (107374182400 bytes)\nUsed Space       : 42.50 GB (45634027520 bytes)\nAvailable Space  : 57.50 GB (61740154880 bytes)\nUsage Percentage : 42.50%\n>>> [STATUS] Disk utilization is within safe limits (< 80.0%)."
+          },
+          {
+            "desc": "Execution triggering threshold alert",
+            "output": "--- Disk Usage Report for: /home ---\nUsage Percentage : 42.50%\n>>> [ALERT] Usage exceeds warning threshold of 40.0%!"
+          }
+        ]
+      },
+      "cpp": {
+        "filename": "disk_usage.cpp",
+        "langLabel": "C++ (OOP & statvfs)",
+        "source": "/*\n * Practical 02: Disk Space Usage Utility in C++\n * Object-oriented wrapper around Linux POSIX statvfs() system call.\n * Compile: g++ -std=c++17 -Wall -Wextra disk_usage.cpp -o disk_usage_cpp\n * Run:     ./disk_usage_cpp / 75.0\n */\n#include <iostream>\n#include <iomanip>\n#include <string>\n#include <vector>\n#include <cstdint>\n#include <sys/statvfs.h>\n\nclass DiskMonitor {\nprivate:\n    std::string mountPath;\n    double thresholdPercent;\n\npublic:\n    DiskMonitor(std::string path, double threshold = 80.0)\n        : mountPath(std::move(path)), thresholdPercent(threshold) {}\n\n    bool inspectUsage() const {\n        struct statvfs stat{};\n        if (statvfs(mountPath.c_str(), &stat) != 0) {\n            std::cerr << \"Error querying filesystem path: \" << mountPath << \"\\n\";\n            return false;\n        }\n\n        uint64_t totalBytes = static_cast<uint64_t>(stat.f_blocks) * stat.f_frsize;\n        uint64_t freeRoot   = static_cast<uint64_t>(stat.f_bfree)  * stat.f_frsize;\n        uint64_t availBytes = static_cast<uint64_t>(stat.f_bavail) * stat.f_frsize;\n        uint64_t usedBytes  = totalBytes - freeRoot;\n\n        double totalGB = static_cast<double>(totalBytes) / (1024.0 * 1024.0 * 1024.0);\n        double usedGB  = static_cast<double>(usedBytes)  / (1024.0 * 1024.0 * 1024.0);\n        double availGB = static_cast<double>(availBytes) / (1024.0 * 1024.0 * 1024.0);\n        double usedPct = (totalBytes > 0) ? (static_cast<double>(usedBytes) / totalBytes) * 100.0 : 0.0;\n\n        std::cout << std::fixed << std::setprecision(2);\n        std::cout << \"\\n-----------------------------------------------------\\n\";\n        std::cout << \"Mount Point Target : \" << mountPath << \"\\n\";\n        std::cout << \"Total Size         : \" << totalGB << \" GB\\n\";\n        std::cout << \"Used Space         : \" << usedGB << \" GB (\" << usedPct << \"%)\\n\";\n        std::cout << \"Available Space    : \" << availGB << \" GB\\n\";\n\n        if (usedPct >= thresholdPercent) {\n            std::cout << \"STATUS             : [HIGH USAGE ALERT >= \" << thresholdPercent << \"%]\\n\";\n        } else {\n            std::cout << \"STATUS             : [HEALTHY OK]\\n\";\n        }\n        std::cout << \"-----------------------------------------------------\\n\";\n        return true;\n    }\n};\n\nint main(int argc, char* argv[]) {\n    std::vector<std::string> paths = {\"/\", \"/home\"};\n    double threshold = 75.0;\n\n    if (argc >= 2) {\n        paths.clear();\n        paths.emplace_back(argv[1]);\n    }\n    if (argc >= 3) {\n        threshold = std::stod(argv[2]);\n    }\n\n    for (const auto& p : paths) {\n        DiskMonitor monitor(p, threshold);\n        monitor.inspectUsage();\n    }\n    return 0;\n}\n",
+        "compileCmd": "g++ -std=c++17 -Wall -Wextra disk_usage.cpp -o disk_usage_cpp",
+        "runCmd": "./disk_usage_cpp / 75.0",
+        "sampleInputs": [
+          {
+            "desc": "Inspect default paths (/ and /home)",
+            "input": "./disk_usage_cpp"
+          },
+          {
+            "desc": "Inspect single target with 85% threshold",
+            "input": "./disk_usage_cpp /mnt/data 85.0"
+          }
+        ],
+        "sampleOutputs": [
+          {
+            "desc": "Output for default system paths",
+            "output": "Mount Point Target : /\nTotal Size         : 120.50 GB\nUsed Space         : 48.20 GB (40.00%)\nAvailable Space    : 72.30 GB\nSTATUS             : [HEALTHY OK]"
+          },
+          {
+            "desc": "Output for single custom directory",
+            "output": "Mount Point Target : /mnt/data\nTotal Size         : 500.00 GB\nUsed Space         : 150.00 GB (30.00%)\nAvailable Space    : 350.00 GB\nSTATUS             : [HEALTHY OK]"
+          }
+        ]
+      },
+      "python": {
+        "filename": "disk_usage.py",
+        "langLabel": "Python (shutil.disk_usage)",
+        "source": "#!/usr/bin/env python3\n\"\"\"\nPractical 02: Disk Space Usage Utility in Python\nCross-platform implementation using standard library `shutil.disk_usage()`.\nRun: python3 disk_usage.py / 80.0\n\"\"\"\nimport os\nimport sys\nimport shutil\n\ndef format_gb(bytes_val):\n    return f\"{bytes_val / (1024 ** 3):.2f} GB\"\n\ndef check_disk_usage(path=\"/\", threshold=80.0):\n    if not os.path.exists(path):\n        print(f\"[Error] Specified filesystem path '{path}' does not exist.\")\n        return\n\n    total, used, free = shutil.disk_usage(path)\n    used_pct = (used / total) * 100.0 if total > 0 else 0.0\n    free_pct = (free / total) * 100.0 if total > 0 else 0.0\n\n    print(\"=\" * 60)\n    print(f\"      DISK SPACE USAGE ANALYSIS - Target: {path}\")\n    print(\"=\" * 60)\n    print(f\"Total Capacity     : {format_gb(total):>12}\")\n    print(f\"Used Space         : {format_gb(used):>12} ({used_pct:.1f}%)\")\n    print(f\"Free / Available   : {format_gb(free):>12} ({free_pct:.1f}%)\")\n    print(\"-\" * 60)\n\n    total_blocks = 25\n    filled_blocks = int(round((used_pct / 100.0) * total_blocks))\n    bar = \"[\" + \"#\" * filled_blocks + \"-\" * (total_blocks - filled_blocks) + \"]\"\n    print(f\"Utilization Bar    : {bar} {used_pct:.1f}%\")\n\n    if used_pct >= threshold:\n        print(f\"\\n>>> [ALERT] Disk usage {used_pct:.1f}% exceeds warning threshold of {threshold}%!\")\n    else:\n        print(f\"\\n>>> [STATUS] Disk usage is within safe thresholds (< {threshold}%).\")\n    print(\"=\" * 60)\n\ndef main():\n    target = \"/\" if len(sys.argv) < 2 else sys.argv[1]\n    threshold = 80.0 if len(sys.argv) < 3 else float(sys.argv[2])\n    check_disk_usage(target, threshold)\n\nif __name__ == \"__main__\":\n    main()\n",
+        "compileCmd": "python3 -m py_compile disk_usage.py",
+        "runCmd": "python3 disk_usage.py / 80.0",
+        "sampleInputs": [
+          {
+            "desc": "Check root filesystem with 80% threshold",
+            "input": "python3 disk_usage.py / 80.0"
+          },
+          {
+            "desc": "Check with 30% threshold to verify alert",
+            "input": "python3 disk_usage.py / 30.0"
+          }
+        ],
+        "sampleOutputs": [
+          {
+            "desc": "Standard disk usage report",
+            "output": "Total Capacity     :    120.00 GB\nUsed Space         :     38.40 GB (32.0%)\nFree / Available   :     81.60 GB (68.0%)\nUtilization Bar    : [########-----------------] 32.0%\n>>> [STATUS] Disk usage is within safe thresholds (< 80.0%)."
+          },
+          {
+            "desc": "Alert triggered at 30% threshold",
+            "output": "Utilization Bar    : [########-----------------] 32.0%\n>>> [ALERT] Disk usage 32.0% exceeds warning threshold of 30.0%!"
           }
         ]
       }
     }
   },
-
-  // ─────────────────────────────────────────────────────────────────
-  // PRACTICAL 02: CISCO PACKET TRACER
-  // ─────────────────────────────────────────────────────────────────
   {
-    id: 2,
-    number: "PR-02",
-    title: "Cisco Packet Tracer",
-    category: "simulation",
-    categoryLabel: "Network Simulation & Topologies",
-    type: "simulation",
-    shortDesc: "Comprehensive Packet Tracer simulation covering five standard physical & logical topologies (Bus, Star, Ring, Mesh, Tree) with visual diagrams and a practical VLSM subnetting design with inter-VLAN routing.",
-    topics: ["Bus Topology", "Star Topology", "Ring Topology", "Mesh Topology", "Tree Topology", "VLSM Subnetting", "Packet Tracer CLI"],
-    implCount: "5 Topologies (.pkt Files) + Subnetting Lab",
-    aim: "To design, simulate, and analyze five standard local network topologies (Bus, Star, Ring, Mesh, Tree) in Cisco Packet Tracer, configure device interfaces, verify packet delivery via ICMP simulations, and implement a departmental IP subnetting scheme.",
-    hasCode: false,
-    tracerContent: {
-      repoUrl: "https://github.com/VIRAJ-JAYASINGHE/Network-Topologies",
-      allZipPath: "assets/packet-tracer/Network_Topologies_All.zip",
-      allZipSize: "247 KB",
-      topologies: [
-        {
-          name: "Star Topology",
-          fileName: "Star_topology.pkt",
-          fileSize: "51.2 KB",
-          filePath: "assets/packet-tracer/Star_topology.pkt",
-          repoUrl: "https://github.com/VIRAJ-JAYASINGHE/Network-Topologies/blob/main/Star_topology.pkt",
-          briefDesc: "Cisco 2960 switch-centered star layout with 4 radial PCs.",
-          devices: "1x Cisco 2960-24TT Switch, 4x Generic End PCs (PC0, PC1, PC2, PC3)",
-          cables: "Copper Straight-Through Cables connected from PC FastEthernet0 to Switch FastEthernet0/1 through 0/4",
-          ipScheme: "Network 192.168.1.0/24. PC0: 192.168.1.10, PC1: 192.168.1.11, PC2: 192.168.1.12, PC3: 192.168.1.13. Mask: 255.255.255.0",
-          instructions: "1. Drag a 2960 switch into the workspace center.\n2. Place 4 PCs radially around the switch.\n3. Connect each PC to the switch using Copper Straight-Through cable.\n4. Click each PC -> Desktop tab -> IP Configuration. Assign static IPs.\n5. Wait for switch port link lights to turn from amber to solid green (STP convergence).",
-          testing: "Open Command Prompt on PC0 and execute: ping 192.168.1.11. Also use Packet Tracer Simulation mode with ICMP filter to watch ARP frame broadcast and subsequent unicast ICMP ping.",
-          expected: "Packets sent = 4, Received = 4, Lost = 0 (0% loss). Switch builds its CAM (MAC Address Table) dynamically.",
-          diagramSvg: `<svg width="340" height="220" viewBox="0 0 340 220" xmlns="http://www.w3.org/2000/svg">
-            <rect width="100%" height="100%" fill="#f8fafc" rx="8"/>
-            <line x1="170" y1="110" x2="60" y2="40" stroke="#94a3b8" stroke-width="2" stroke-dasharray="4,4"/>
-            <line x1="170" y1="110" x2="280" y2="40" stroke="#94a3b8" stroke-width="2" stroke-dasharray="4,4"/>
-            <line x1="170" y1="110" x2="60" y2="180" stroke="#94a3b8" stroke-width="2" stroke-dasharray="4,4"/>
-            <line x1="170" y1="110" x2="280" y2="180" stroke="#94a3b8" stroke-width="2" stroke-dasharray="4,4"/>
-            <circle cx="170" cy="110" r="32" fill="#2563eb" stroke="#1d4ed8" stroke-width="2"/>
-            <text x="170" y="114" fill="#ffffff" font-size="11" font-weight="bold" text-anchor="middle" font-family="sans-serif">SWITCH</text>
-            <rect x="30" y="20" width="60" height="36" rx="4" fill="#ffffff" stroke="#64748b" stroke-width="1.5"/>
-            <text x="60" y="42" fill="#1e293b" font-size="10" font-weight="600" text-anchor="middle" font-family="sans-serif">PC 0</text>
-            <rect x="250" y="20" width="60" height="36" rx="4" fill="#ffffff" stroke="#64748b" stroke-width="1.5"/>
-            <text x="280" y="42" fill="#1e293b" font-size="10" font-weight="600" text-anchor="middle" font-family="sans-serif">PC 1</text>
-            <rect x="30" y="160" width="60" height="36" rx="4" fill="#ffffff" stroke="#64748b" stroke-width="1.5"/>
-            <text x="60" y="182" fill="#1e293b" font-size="10" font-weight="600" text-anchor="middle" font-family="sans-serif">PC 2</text>
-            <rect x="250" y="160" width="60" height="36" rx="4" fill="#ffffff" stroke="#64748b" stroke-width="1.5"/>
-            <text x="280" y="182" fill="#1e293b" font-size="10" font-weight="600" text-anchor="middle" font-family="sans-serif">PC 3</text>
-          </svg>`
+    "id": 3,
+    "number": "PR-03",
+    "title": "CPU Process Scheduling Algorithms (FCFS, SJF, Round Robin)",
+    "category": "scheduling",
+    "categoryLabel": "CPU Scheduling",
+    "type": "coding_multi",
+    "aim": "To implement and compare CPU process scheduling algorithms — First Come First Serve (FCFS), Shortest Job First (SJF - Non-Preemptive), and Round Robin (RR - Preemptive) — by computing Completion Time, Turnaround Time, Waiting Time, and their averages.",
+    "shortDesc": "Implement FCFS, SJF, Round Robin, and a combined menu-driven CPU scheduler in C, C++, and Python.",
+    "topics": [
+      "FCFS",
+      "Shortest Job First (SJF)",
+      "Round Robin",
+      "Turnaround Time",
+      "Waiting Time",
+      "Menu-Driven Comparison"
+    ],
+    "implCount": 12,
+    "languages": [
+      "c",
+      "cpp",
+      "python"
+    ],
+    "defaultLang": "c",
+    "algorithms": [
+      {
+        "key": "fcfs",
+        "label": "FCFS Standalone"
+      },
+      {
+        "key": "sjf",
+        "label": "SJF Standalone"
+      },
+      {
+        "key": "rr",
+        "label": "Round Robin Standalone"
+      },
+      {
+        "key": "combined",
+        "label": "Combined Menu Program"
+      }
+    ],
+    "defaultAlgo": "fcfs",
+    "code": {
+      "c": {
+        "fcfs": {
+          "filename": "fcfs.c",
+          "langLabel": "C (GCC)",
+          "source": "/*\n * Practical 03 (C - FCFS Standalone): First Come First Serve CPU Scheduling\n * Compile: gcc -Wall fcfs.c -o fcfs\n * Run:     ./fcfs\n */\n#include <stdio.h>\n\ntypedef struct {\n    int pid, arrival, burst, completion, turnaround, waiting;\n} Process;\n\nint main() {\n    int n, i, j;\n    printf(\"Enter number of processes: \");\n    if (scanf(\"%d\", &n) != 1 || n <= 0) return 1;\n\n    Process p[100], temp;\n    for (i = 0; i < n; i++) {\n        printf(\"Enter Process ID, Arrival Time, Burst Time for P%d: \", i + 1);\n        scanf(\"%d %d %d\", &p[i].pid, &p[i].arrival, &p[i].burst);\n    }\n\n    for (i = 0; i < n - 1; i++) {\n        for (j = 0; j < n - i - 1; j++) {\n            if (p[j].arrival > p[j + 1].arrival ||\n               (p[j].arrival == p[j + 1].arrival && p[j].pid > p[j + 1].pid)) {\n                temp = p[j]; p[j] = p[j + 1]; p[j + 1] = temp;\n            }\n        }\n    }\n\n    int cur = 0;\n    double total_tat = 0, total_wt = 0;\n    for (i = 0; i < n; i++) {\n        if (cur < p[i].arrival) cur = p[i].arrival;\n        p[i].completion = cur + p[i].burst;\n        p[i].turnaround = p[i].completion - p[i].arrival;\n        p[i].waiting    = p[i].turnaround - p[i].burst;\n        cur = p[i].completion;\n        total_tat += p[i].turnaround;\n        total_wt  += p[i].waiting;\n    }\n\n    printf(\"\\n--- FCFS Scheduling Result ---\\nPID\\tAT\\tBT\\tCT\\tTAT\\tWT\\n\");\n    for (i = 0; i < n; i++) {\n        printf(\"P%d\\t%d\\t%d\\t%d\\t%d\\t%d\\n\", p[i].pid, p[i].arrival, p[i].burst,\n               p[i].completion, p[i].turnaround, p[i].waiting);\n    }\n    printf(\"\\nAverage Turnaround Time: %.2f\\nAverage Waiting Time   : %.2f\\n\",\n           total_tat / n, total_wt / n);\n    return 0;\n}\n",
+          "compileCmd": "gcc -Wall fcfs.c -o fcfs",
+          "runCmd": "./fcfs",
+          "sampleInputs": [
+            {
+              "desc": "Test Case 1: 4 processes arriving sequentially (0, 1, 2, 3)",
+              "input": "4\n1 0 5\n2 1 3\n3 2 8\n4 3 6"
+            },
+            {
+              "desc": "Test Case 2: 3 processes with CPU idle gap",
+              "input": "3\n1 0 4\n2 6 3\n3 7 2"
+            }
+          ],
+          "sampleOutputs": [
+            {
+              "desc": "Expected FCFS Output (Test Case 1)",
+              "output": "--- FCFS Scheduling Result ---\nPID\tAT\tBT\tCT\tTAT\tWT\nP1\t0\t5\t5\t5\t0\nP2\t1\t3\t8\t7\t4\nP3\t2\t8\t16\t14\t6\nP4\t3\t6\t22\t19\t13\n\nAverage Turnaround Time: 11.25\nAverage Waiting Time   : 5.75"
+            },
+            {
+              "desc": "Expected FCFS Output (Test Case 2)",
+              "output": "--- FCFS Scheduling Result ---\nPID\tAT\tBT\tCT\tTAT\tWT\nP1\t0\t4\t4\t4\t0\nP2\t6\t3\t9\t3\t0\nP3\t7\t2\t11\t4\t2\n\nAverage Turnaround Time: 3.67\nAverage Waiting Time   : 0.67"
+            }
+          ]
         },
-        {
-          name: "Bus Topology",
-          fileName: "Bus_topology.pkt",
-          fileSize: "47.9 KB",
-          filePath: "assets/packet-tracer/Bus_topology.pkt",
-          repoUrl: "https://github.com/VIRAJ-JAYASINGHE/Network-Topologies/blob/main/Bus_topology.pkt",
-          briefDesc: "Simulated multi-drop shared coaxial backbone network with terminators.",
-          devices: "4x Generic PCs, 3x Generic Hubs/Repeater nodes (or daisy-chained switches emulating multi-drop coaxial bus), terminators",
-          cables: "Copper Cross-over cables linking consecutive backbone hubs; Straight-Through cables linking drop lines to workstations",
-          ipScheme: "Network 192.168.2.0/24. PC0: 192.168.2.1, PC1: 192.168.2.2, PC2: 192.168.2.3, PC3: 192.168.2.4",
-          instructions: "1. Place Hub0, Hub1, Hub2 in a straight horizontal line representing the central trunk backbone.\n2. Connect Hub0 to Hub1, and Hub1 to Hub2 using Copper Cross-over cables.\n3. Connect PCs to respective Hubs using Copper Straight-Through cables.\n4. Configure static IPs within 192.168.2.0/24 on all workstations.",
-          testing: "Send an ICMP ping from PC0 to PC3. In simulation mode, observe how Hub replicates the incoming frame to every attached drop line (shared collision domain).",
-          expected: "Destination PC accepts packet and replies; non-destination PCs discard frame at Layer 2. Single cable cut breaks backbone communication.",
-          diagramSvg: `<svg width="340" height="180" viewBox="0 0 340 180" xmlns="http://www.w3.org/2000/svg">
-            <rect width="100%" height="100%" fill="#f8fafc" rx="8"/>
-            <line x1="30" y1="90" x2="310" y2="90" stroke="#0f172a" stroke-width="5"/>
-            <rect x="22" y="78" width="10" height="24" fill="#64748b"/>
-            <rect x="308" y="78" width="10" height="24" fill="#64748b"/>
-            <line x1="70" y1="90" x2="70" y2="46" stroke="#94a3b8" stroke-width="2"/>
-            <rect x="45" y="16" width="50" height="30" rx="4" fill="#ffffff" stroke="#64748b" stroke-width="1.5"/>
-            <text x="70" y="35" fill="#1e293b" font-size="10" font-weight="600" text-anchor="middle" font-family="sans-serif">PC 0</text>
-            <line x1="140" y1="90" x2="140" y2="134" stroke="#94a3b8" stroke-width="2"/>
-            <rect x="115" y="134" width="50" height="30" rx="4" fill="#ffffff" stroke="#64748b" stroke-width="1.5"/>
-            <text x="140" y="153" fill="#1e293b" font-size="10" font-weight="600" text-anchor="middle" font-family="sans-serif">PC 1</text>
-            <line x1="210" y1="90" x2="210" y2="46" stroke="#94a3b8" stroke-width="2"/>
-            <rect x="185" y="16" width="50" height="30" rx="4" fill="#ffffff" stroke="#64748b" stroke-width="1.5"/>
-            <text x="210" y="35" fill="#1e293b" font-size="10" font-weight="600" text-anchor="middle" font-family="sans-serif">PC 2</text>
-            <line x1="275" y1="90" x2="275" y2="134" stroke="#94a3b8" stroke-width="2"/>
-            <rect x="250" y="134" width="50" height="30" rx="4" fill="#ffffff" stroke="#64748b" stroke-width="1.5"/>
-            <text x="275" y="153" fill="#1e293b" font-size="10" font-weight="600" text-anchor="middle" font-family="sans-serif">PC 3</text>
-          </svg>`
+        "sjf": {
+          "filename": "sjf.c",
+          "langLabel": "C (GCC)",
+          "source": "/*\n * Practical 03 (C - SJF Standalone): Non-Preemptive Shortest Job First\n * Compile: gcc -Wall sjf.c -o sjf\n * Run:     ./sjf\n */\n#include <stdio.h>\n#include <limits.h>\n\ntypedef struct {\n    int pid, arrival, burst, completion, turnaround, waiting, done;\n} Process;\n\nint main() {\n    int n, i;\n    printf(\"Enter number of processes: \");\n    if (scanf(\"%d\", &n) != 1 || n <= 0) return 1;\n\n    Process p[100];\n    for (i = 0; i < n; i++) {\n        printf(\"Enter Process ID, Arrival Time, Burst Time for P%d: \", i + 1);\n        scanf(\"%d %d %d\", &p[i].pid, &p[i].arrival, &p[i].burst);\n        p[i].done = 0;\n    }\n\n    int completed = 0, cur = 0;\n    double total_tat = 0, total_wt = 0;\n    while (completed < n) {\n        int idx = -1, min_bt = INT_MAX;\n        for (i = 0; i < n; i++) {\n            if (!p[i].done && p[i].arrival <= cur) {\n                if (p[i].burst < min_bt || (p[i].burst == min_bt && p[i].arrival < p[idx].arrival)) {\n                    min_bt = p[i].burst; idx = i;\n                }\n            }\n        }\n        if (idx == -1) cur++;\n        else {\n            p[idx].completion = cur + p[idx].burst;\n            p[idx].turnaround = p[idx].completion - p[idx].arrival;\n            p[idx].waiting    = p[idx].turnaround - p[idx].burst;\n            p[idx].done = 1;\n            cur = p[idx].completion;\n            completed++;\n            total_tat += p[idx].turnaround;\n            total_wt  += p[idx].waiting;\n        }\n    }\n\n    printf(\"\\n--- SJF (Non-Preemptive) Scheduling Result ---\\nPID\\tAT\\tBT\\tCT\\tTAT\\tWT\\n\");\n    for (i = 0; i < n; i++) {\n        printf(\"P%d\\t%d\\t%d\\t%d\\t%d\\t%d\\n\", p[i].pid, p[i].arrival, p[i].burst,\n               p[i].completion, p[i].turnaround, p[i].waiting);\n    }\n    printf(\"\\nAverage Turnaround Time: %.2f\\nAverage Waiting Time   : %.2f\\n\",\n           total_tat / n, total_wt / n);\n    return 0;\n}\n",
+          "compileCmd": "gcc -Wall sjf.c -o sjf",
+          "runCmd": "./sjf",
+          "sampleInputs": [
+            {
+              "desc": "Test Case 1: 4 processes (same dataset as FCFS for comparison)",
+              "input": "4\n1 0 5\n2 1 3\n3 2 8\n4 3 6"
+            },
+            {
+              "desc": "Test Case 2: 4 processes arriving at time 0",
+              "input": "4\n1 0 6\n2 0 8\n3 0 7\n4 0 3"
+            }
+          ],
+          "sampleOutputs": [
+            {
+              "desc": "Expected SJF Output (Test Case 1)",
+              "output": "--- SJF (Non-Preemptive) Scheduling Result ---\nPID\tAT\tBT\tCT\tTAT\tWT\nP1\t0\t5\t5\t5\t0\nP2\t1\t3\t8\t7\t4\nP3\t2\t8\t22\t20\t12\nP4\t3\t6\t14\t11\t5\n\nAverage Turnaround Time: 10.75\nAverage Waiting Time   : 5.25"
+            },
+            {
+              "desc": "Expected SJF Output (Test Case 2)",
+              "output": "--- SJF (Non-Preemptive) Scheduling Result ---\nPID\tAT\tBT\tCT\tTAT\tWT\nP1\t0\t6\t9\t9\t3\nP2\t0\t8\t24\t24\t16\nP3\t0\t7\t16\t16\t9\nP4\t0\t3\t3\t3\t0\n\nAverage Turnaround Time: 13.00\nAverage Waiting Time   : 7.00"
+            }
+          ]
         },
-        {
-          name: "Ring Topology",
-          fileName: "Ring_topology.pkt",
-          fileSize: "47.7 KB",
-          filePath: "assets/packet-tracer/Ring_topology.pkt",
-          repoUrl: "https://github.com/VIRAJ-JAYASINGHE/Network-Topologies/blob/main/Ring_topology.pkt",
-          briefDesc: "Closed-loop ring with Spanning Tree Protocol (STP) automatic failover.",
-          devices: "4x Cisco 2960 Switches or 1941 Routers arranged in a closed loop, 4x End Host PCs",
-          cables: "Copper Cross-over cables between switches (e.g. Sw0-Sw1, Sw1-Sw2, Sw2-Sw3, Sw3-Sw0); Straight-Through to PCs",
-          ipScheme: "Subnet 192.168.3.0/24 (for switch-based VLAN) or point-to-point /30 subnets if router-based ring.",
-          instructions: "1. Place 4 switches in a circular perimeter.\n2. Connect Sw0(Fa0/24) to Sw1(Fa0/23), Sw1(Fa0/24) to Sw2(Fa0/23), Sw2(Fa0/24) to Sw3(Fa0/23), Sw3(Fa0/24) to Sw0(Fa0/23).\n3. Connect PC0-PC3 to Fa0/1 on each respective switch.\n4. Observe Spanning Tree Protocol (STP) blocking one redundant link (amber LED) to prevent bridge loops while maintaining fault-tolerant ring capability.",
-          testing: "Ping PC2 from PC0. Then delete one active switch-to-switch link. Observe STP recalculation (takes ~30s) and subsequent packet re-routing along the alternative ring segment.",
-          expected: "High availability; network self-heals when a single link failure occurs.",
-          diagramSvg: `<svg width="340" height="220" viewBox="0 0 340 220" xmlns="http://www.w3.org/2000/svg">
-            <rect width="100%" height="100%" fill="#f8fafc" rx="8"/>
-            <polygon points="100,50 240,50 240,170 100,170" fill="none" stroke="#2563eb" stroke-width="3" stroke-dasharray="6,4"/>
-            <circle cx="100" cy="50" r="18" fill="#1e293b"/>
-            <circle cx="240" cy="50" r="18" fill="#1e293b"/>
-            <circle cx="240" cy="170" r="18" fill="#1e293b"/>
-            <circle cx="100" cy="170" r="18" fill="#1e293b"/>
-            <text x="100" y="54" fill="#fff" font-size="9" font-weight="bold" text-anchor="middle" font-family="sans-serif">SW0</text>
-            <text x="240" y="54" fill="#fff" font-size="9" font-weight="bold" text-anchor="middle" font-family="sans-serif">SW1</text>
-            <text x="240" y="174" fill="#fff" font-size="9" font-weight="bold" text-anchor="middle" font-family="sans-serif">SW2</text>
-            <text x="100" y="174" fill="#fff" font-size="9" font-weight="bold" text-anchor="middle" font-family="sans-serif">SW3</text>
-            <text x="170" y="115" fill="#64748b" font-size="11" font-weight="600" text-anchor="middle" font-family="sans-serif">Closed Ring Loop</text>
-          </svg>`
+        "rr": {
+          "filename": "round_robin.c",
+          "langLabel": "C (GCC)",
+          "source": "/*\n * Practical 03 (C - Round Robin Standalone): Preemptive Round Robin Scheduling\n * Compile: gcc -Wall round_robin.c -o round_robin\n * Run:     ./round_robin\n */\n#include <stdio.h>\n\ntypedef struct {\n    int pid, arrival, burst, remaining, completion, turnaround, waiting, in_queue;\n} Process;\n\nint main() {\n    int n, tq, i;\n    printf(\"Enter number of processes: \");\n    if (scanf(\"%d\", &n) != 1 || n <= 0) return 1;\n\n    Process p[100];\n    for (i = 0; i < n; i++) {\n        printf(\"Enter Process ID, Arrival Time, Burst Time for P%d: \", i + 1);\n        scanf(\"%d %d %d\", &p[i].pid, &p[i].arrival, &p[i].burst);\n        p[i].remaining = p[i].burst;\n        p[i].in_queue = 0;\n    }\n    printf(\"Enter Time Quantum: \");\n    if (scanf(\"%d\", &tq) != 1 || tq <= 0) return 1;\n\n    int queue[1000], front = 0, rear = 0, cur = p[0].arrival, completed = 0;\n    for (i = 1; i < n; i++) if (p[i].arrival < cur) cur = p[i].arrival;\n    for (i = 0; i < n; i++) if (p[i].arrival <= cur && !p[i].in_queue) { queue[rear++] = i; p[i].in_queue = 1; }\n\n    double total_tat = 0, total_wt = 0;\n    while (completed < n) {\n        if (front == rear) {\n            cur++;\n            for (i = 0; i < n; i++)\n                if (p[i].arrival <= cur && p[i].remaining > 0 && !p[i].in_queue) { queue[rear++] = i; p[i].in_queue = 1; }\n            continue;\n        }\n        int idx = queue[front++];\n        int exec = (p[idx].remaining > tq) ? tq : p[idx].remaining;\n        p[idx].remaining -= exec; cur += exec;\n        for (i = 0; i < n; i++)\n            if (p[i].arrival <= cur && p[i].remaining > 0 && !p[i].in_queue) { queue[rear++] = i; p[i].in_queue = 1; }\n        if (p[idx].remaining == 0) {\n            p[idx].completion = cur;\n            p[idx].turnaround = p[idx].completion - p[idx].arrival;\n            p[idx].waiting    = p[idx].turnaround - p[idx].burst;\n            total_tat += p[idx].turnaround;\n            total_wt  += p[idx].waiting;\n            completed++;\n        } else queue[rear++] = idx;\n    }\n\n    printf(\"\\n--- Round Robin (TQ = %d) Scheduling Result ---\\nPID\\tAT\\tBT\\tCT\\tTAT\\tWT\\n\", tq);\n    for (i = 0; i < n; i++) {\n        printf(\"P%d\\t%d\\t%d\\t%d\\t%d\\t%d\\n\", p[i].pid, p[i].arrival, p[i].burst,\n               p[i].completion, p[i].turnaround, p[i].waiting);\n    }\n    printf(\"\\nAverage Turnaround Time: %.2f\\nAverage Waiting Time   : %.2f\\n\",\n           total_tat / n, total_wt / n);\n    return 0;\n}\n",
+          "compileCmd": "gcc -Wall round_robin.c -o round_robin",
+          "runCmd": "./round_robin",
+          "sampleInputs": [
+            {
+              "desc": "Test Case 1: 4 processes with Time Quantum = 2",
+              "input": "4\n1 0 5\n2 1 3\n3 2 8\n4 3 6\n2"
+            },
+            {
+              "desc": "Test Case 2: 3 processes arriving at time 0 with Time Quantum = 4",
+              "input": "3\n1 0 10\n2 0 5\n3 0 8\n4"
+            }
+          ],
+          "sampleOutputs": [
+            {
+              "desc": "Expected Round Robin Output (Test Case 1, TQ=2)",
+              "output": "--- Round Robin (TQ = 2) Scheduling Result ---\nPID\tAT\tBT\tCT\tTAT\tWT\nP1\t0\t5\t17\t17\t12\nP2\t1\t3\t11\t10\t7\nP3\t2\t8\t22\t20\t12\nP4\t3\t6\t20\t17\t11\n\nAverage Turnaround Time: 16.00\nAverage Waiting Time   : 10.50"
+            },
+            {
+              "desc": "Expected Round Robin Output (Test Case 2, TQ=4)",
+              "output": "--- Round Robin (TQ = 4) Scheduling Result ---\nPID\tAT\tBT\tCT\tTAT\tWT\nP1\t0\t10\t23\t23\t13\nP2\t0\t5\t17\t17\t12\nP3\t0\t8\t21\t21\t13\n\nAverage Turnaround Time: 20.33\nAverage Waiting Time   : 12.67"
+            }
+          ]
         },
-        {
-          name: "Mesh Topology (Full Mesh)",
-          fileName: "Mesh_topology.pkt",
-          fileSize: "47.8 KB",
-          filePath: "assets/packet-tracer/Mesh_topology.pkt",
-          repoUrl: "https://github.com/VIRAJ-JAYASINGHE/Network-Topologies/blob/main/Mesh_topology.pkt",
-          briefDesc: "Fully meshed router network with dedicated serial point-to-point links.",
-          devices: "4x Cisco 1941 Routers (each equipped with HWIC-2T Serial WAN interface cards) or 4x Multi-interface Workstations",
-          cables: "Serial DTE/DCE cables connecting every node to every other node: N(N-1)/2 = 4(3)/2 = 6 dedicated physical links",
-          ipScheme: "Point-to-point /30 subnets: 10.0.12.0/30 (R1-R2), 10.0.13.0/30 (R1-R3), 10.0.14.0/30 (R1-R4), 10.0.23.0/30 (R2-R3), 10.0.24.0/30 (R2-R4), 10.0.34.0/30 (R3-R4)",
-          instructions: "1. Add 4 routers in Packet Tracer.\n2. Power off each router and insert HWIC-2T modules into slot 0.\n3. Connect serial cables between all 6 node pairs.\n4. Configure clock rate on DCE ends and assign IP addresses.\n5. Enable OSPF (router ospf 1) on all routers.",
-          testing: "Execute traceroute from R1 to R4. Shut down direct link R1-R4 using 'shutdown'. Re-run traceroute to verify immediate failover through R2 or R3 without packet drop.",
-          expected: "Zero single points of failure, dedicated line capacity, highest fault tolerance.",
-          diagramSvg: `<svg width="340" height="220" viewBox="0 0 340 220" xmlns="http://www.w3.org/2000/svg">
-            <rect width="100%" height="100%" fill="#f8fafc" rx="8"/>
-            <line x1="80" y1="50" x2="260" y2="50" stroke="#0284c7" stroke-width="2"/>
-            <line x1="260" y1="50" x2="260" y2="170" stroke="#0284c7" stroke-width="2"/>
-            <line x1="260" y1="170" x2="80" y2="170" stroke="#0284c7" stroke-width="2"/>
-            <line x1="80" y1="170" x2="80" y2="50" stroke="#0284c7" stroke-width="2"/>
-            <line x1="80" y1="50" x2="260" y2="170" stroke="#0284c7" stroke-width="2"/>
-            <line x1="260" y1="50" x2="80" y2="170" stroke="#0284c7" stroke-width="2"/>
-            <circle cx="80" cy="50" r="18" fill="#0284c7"/>
-            <circle cx="260" cy="50" r="18" fill="#0284c7"/>
-            <circle cx="260" cy="170" r="18" fill="#0284c7"/>
-            <circle cx="80" cy="170" r="18" fill="#0284c7"/>
-            <text x="80" y="54" fill="#fff" font-size="9" font-weight="bold" text-anchor="middle" font-family="sans-serif">R1</text>
-            <text x="260" y="54" fill="#fff" font-size="9" font-weight="bold" text-anchor="middle" font-family="sans-serif">R2</text>
-            <text x="260" y="174" fill="#fff" font-size="9" font-weight="bold" text-anchor="middle" font-family="sans-serif">R3</text>
-            <text x="80" y="174" fill="#fff" font-size="9" font-weight="bold" text-anchor="middle" font-family="sans-serif">R4</text>
-          </svg>`
+        "combined": {
+          "filename": "scheduler_menu.c",
+          "langLabel": "C (GCC)",
+          "source": "/*\n * Practical 03 (C - Combined Menu-Driven): FCFS, SJF, Round Robin\n * Compile: gcc -Wall scheduler_menu.c -o scheduler_menu\n * Run:     ./scheduler_menu\n */\n#include <stdio.h>\n#include <limits.h>\n\ntypedef struct {\n    int pid, arrival, burst, remaining, completion, turnaround, waiting, done, in_queue;\n} Process;\n\nvoid print_table(Process p[], int n, const char *title) {\n    double total_tat = 0, total_wt = 0;\n    printf(\"\\n--- %s ---\\nPID\\tAT\\tBT\\tCT\\tTAT\\tWT\\n\", title);\n    for (int i = 0; i < n; i++) {\n        printf(\"P%d\\t%d\\t%d\\t%d\\t%d\\t%d\\n\", p[i].pid, p[i].arrival, p[i].burst,\n               p[i].completion, p[i].turnaround, p[i].waiting);\n        total_tat += p[i].turnaround; total_wt += p[i].waiting;\n    }\n    printf(\"Average Turnaround Time: %.2f\\nAverage Waiting Time   : %.2f\\n\", total_tat / n, total_wt / n);\n}\n\nvoid run_fcfs(Process orig[], int n) {\n    Process p[100], t;\n    for (int i = 0; i < n; i++) p[i] = orig[i];\n    for (int i = 0; i < n - 1; i++)\n        for (int j = 0; j < n - i - 1; j++)\n            if (p[j].arrival > p[j + 1].arrival || (p[j].arrival == p[j + 1].arrival && p[j].pid > p[j + 1].pid)) {\n                t = p[j]; p[j] = p[j + 1]; p[j + 1] = t;\n            }\n    int cur = 0;\n    for (int i = 0; i < n; i++) {\n        if (cur < p[i].arrival) cur = p[i].arrival;\n        p[i].completion = cur + p[i].burst;\n        p[i].turnaround = p[i].completion - p[i].arrival;\n        p[i].waiting    = p[i].turnaround - p[i].burst;\n        cur = p[i].completion;\n    }\n    print_table(p, n, \"FCFS Scheduling\");\n}\n\nvoid run_sjf(Process orig[], int n) {\n    Process p[100];\n    for (int i = 0; i < n; i++) { p[i] = orig[i]; p[i].done = 0; }\n    int completed = 0, cur = 0;\n    while (completed < n) {\n        int idx = -1, min_bt = INT_MAX;\n        for (int i = 0; i < n; i++)\n            if (!p[i].done && p[i].arrival <= cur && (p[i].burst < min_bt || (p[i].burst == min_bt && p[i].arrival < p[idx].arrival))) {\n                min_bt = p[i].burst; idx = i;\n            }\n        if (idx == -1) cur++;\n        else {\n            p[idx].completion = cur + p[idx].burst;\n            p[idx].turnaround = p[idx].completion - p[idx].arrival;\n            p[idx].waiting    = p[idx].turnaround - p[idx].burst;\n            p[idx].done = 1; cur = p[idx].completion; completed++;\n        }\n    }\n    print_table(p, n, \"SJF (Non-Preemptive) Scheduling\");\n}\n\nvoid run_rr(Process orig[], int n, int tq) {\n    Process p[100];\n    int queue[1000], front = 0, rear = 0, earliest = orig[0].arrival;\n    for (int i = 0; i < n; i++) {\n        p[i] = orig[i]; p[i].remaining = p[i].burst; p[i].in_queue = 0;\n        if (p[i].arrival < earliest) earliest = p[i].arrival;\n    }\n    int cur = earliest, completed = 0;\n    for (int i = 0; i < n; i++) if (p[i].arrival <= cur && !p[i].in_queue) { queue[rear++] = i; p[i].in_queue = 1; }\n    while (completed < n) {\n        if (front == rear) {\n            cur++;\n            for (int i = 0; i < n; i++)\n                if (p[i].arrival <= cur && p[i].remaining > 0 && !p[i].in_queue) { queue[rear++] = i; p[i].in_queue = 1; }\n            continue;\n        }\n        int idx = queue[front++], exec = (p[idx].remaining > tq) ? tq : p[idx].remaining;\n        p[idx].remaining -= exec; cur += exec;\n        for (int i = 0; i < n; i++)\n            if (p[i].arrival <= cur && p[i].remaining > 0 && !p[i].in_queue) { queue[rear++] = i; p[i].in_queue = 1; }\n        if (p[idx].remaining == 0) {\n            p[idx].completion = cur; p[idx].turnaround = p[idx].completion - p[idx].arrival;\n            p[idx].waiting = p[idx].turnaround - p[idx].burst; completed++;\n        } else queue[rear++] = idx;\n    }\n    print_table(p, n, \"Round Robin Scheduling\");\n}\n\nint main() {\n    int n, choice, tq;\n    Process p[100];\n    printf(\"Enter number of processes: \");\n    if (scanf(\"%d\", &n) != 1 || n <= 0) return 1;\n    for (int i = 0; i < n; i++) {\n        printf(\"Enter Process ID, Arrival Time, Burst Time for P%d: \", i + 1);\n        scanf(\"%d %d %d\", &p[i].pid, &p[i].arrival, &p[i].burst);\n    }\n    do {\n        printf(\"\\n=== CPU SCHEDULER MENU ===\\n1. FCFS\\n2. SJF\\n3. Round Robin\\n4. Exit\\nEnter choice: \");\n        if (scanf(\"%d\", &choice) != 1) break;\n        if (choice == 1) run_fcfs(p, n);\n        else if (choice == 2) run_sjf(p, n);\n        else if (choice == 3) { printf(\"Enter Time Quantum: \"); scanf(\"%d\", &tq); if (tq > 0) run_rr(p, n, tq); }\n    } while (choice != 4);\n    return 0;\n}\n",
+          "compileCmd": "gcc -Wall scheduler_menu.c -o scheduler_menu",
+          "runCmd": "./scheduler_menu",
+          "sampleInputs": [
+            {
+              "desc": "Test Case 1: Compare FCFS (1), SJF (2), Round Robin TQ=2 (3), Exit (4)",
+              "input": "4\n1 0 5\n2 1 3\n3 2 8\n4 3 6\n1\n2\n3\n2\n4"
+            },
+            {
+              "desc": "Test Case 2: Compare on 3 equal-arrival processes (TQ=3)",
+              "input": "3\n1 0 7\n2 0 4\n3 0 9\n1\n2\n3\n3\n4"
+            }
+          ],
+          "sampleOutputs": [
+            {
+              "desc": "Expected Combined Comparison Output (Test Case 1)",
+              "output": "--- FCFS Scheduling ---\nAverage Turnaround Time: 11.25\nAverage Waiting Time   : 5.75\n\n--- SJF (Non-Preemptive) Scheduling ---\nAverage Turnaround Time: 10.75\nAverage Waiting Time   : 5.25\n\n--- Round Robin Scheduling ---\nAverage Turnaround Time: 16.00\nAverage Waiting Time   : 10.50"
+            },
+            {
+              "desc": "Expected Combined Comparison Output (Test Case 2)",
+              "output": "--- FCFS Scheduling ---\nAverage Turnaround Time: 12.67\nAverage Waiting Time   : 6.00\n\n--- SJF (Non-Preemptive) Scheduling ---\nAverage Turnaround Time: 11.67\nAverage Waiting Time   : 5.00\n\n--- Round Robin Scheduling ---\nAverage Turnaround Time: 16.00\nAverage Waiting Time   : 9.33"
+            }
+          ]
+        }
+      },
+      "cpp": {
+        "fcfs": {
+          "filename": "fcfs.cpp",
+          "langLabel": "C++ (G++ 17)",
+          "source": "/*\n * Practical 03 (C++ - FCFS Standalone)\n * Compile: g++ -std=c++17 -Wall fcfs.cpp -o fcfs_cpp\n * Run:     ./fcfs_cpp\n */\n#include <iostream>\n#include <vector>\n#include <algorithm>\n#include <iomanip>\n\nstruct Process { int pid, arrival, burst, completion = 0, turnaround = 0, waiting = 0; };\n\nint main() {\n    int n;\n    std::cout << \"Enter number of processes: \";\n    if (!(std::cin >> n) || n <= 0) return 1;\n    std::vector<Process> p(n);\n    for (int i = 0; i < n; ++i) std::cin >> p[i].pid >> p[i].arrival >> p[i].burst;\n    std::sort(p.begin(), p.end(), [](const Process& a, const Process& b) {\n        return a.arrival != b.arrival ? a.arrival < b.arrival : a.pid < b.pid;\n    });\n    int cur = 0; double tTAT = 0, tWT = 0;\n    for (auto& proc : p) {\n        if (cur < proc.arrival) cur = proc.arrival;\n        proc.completion = cur + proc.burst;\n        proc.turnaround = proc.completion - proc.arrival;\n        proc.waiting = proc.turnaround - proc.burst;\n        cur = proc.completion; tTAT += proc.turnaround; tWT += proc.waiting;\n    }\n    std::cout << \"\\n--- FCFS Scheduling Result ---\\nPID\\tAT\\tBT\\tCT\\tTAT\\tWT\\n\";\n    for (const auto& proc : p)\n        std::cout << \"P\" << proc.pid << \"\\t\" << proc.arrival << \"\\t\" << proc.burst << \"\\t\" << proc.completion << \"\\t\" << proc.turnaround << \"\\t\" << proc.waiting << \"\\n\";\n    std::cout << std::fixed << std::setprecision(2) << \"\\nAverage Turnaround Time: \" << tTAT / n << \"\\nAverage Waiting Time   : \" << tWT / n << \"\\n\";\n    return 0;\n}\n",
+          "compileCmd": "g++ -std=c++17 -Wall fcfs.cpp -o fcfs_cpp",
+          "runCmd": "./fcfs_cpp",
+          "sampleInputs": [
+            {
+              "desc": "Test Case 1: 4 processes arriving sequentially (0, 1, 2, 3)",
+              "input": "4\n1 0 5\n2 1 3\n3 2 8\n4 3 6"
+            },
+            {
+              "desc": "Test Case 2: 3 processes with CPU idle gap",
+              "input": "3\n1 0 4\n2 6 3\n3 7 2"
+            }
+          ],
+          "sampleOutputs": [
+            {
+              "desc": "Expected FCFS Output (Test Case 1)",
+              "output": "--- FCFS Scheduling Result ---\nPID\tAT\tBT\tCT\tTAT\tWT\nP1\t0\t5\t5\t5\t0\nP2\t1\t3\t8\t7\t4\nP3\t2\t8\t16\t14\t6\nP4\t3\t6\t22\t19\t13\n\nAverage Turnaround Time: 11.25\nAverage Waiting Time   : 5.75"
+            },
+            {
+              "desc": "Expected FCFS Output (Test Case 2)",
+              "output": "--- FCFS Scheduling Result ---\nPID\tAT\tBT\tCT\tTAT\tWT\nP1\t0\t4\t4\t4\t0\nP2\t6\t3\t9\t3\t0\nP3\t7\t2\t11\t4\t2\n\nAverage Turnaround Time: 3.67\nAverage Waiting Time   : 0.67"
+            }
+          ]
         },
-        {
-          name: "Tree Topology (Hierarchical)",
-          fileName: "Tree_topology.pkt",
-          fileSize: "51.6 KB",
-          filePath: "assets/packet-tracer/Tree_topology.pkt",
-          repoUrl: "https://github.com/VIRAJ-JAYASINGHE/Network-Topologies/blob/main/Tree_topology.pkt",
-          briefDesc: "Hierarchical Core -> Distribution -> Access multi-tier campus network.",
-          devices: "1x Core Switch (3560-24PS), 2x Distribution Switches (2960), 4x Access PCs",
-          cables: "Gigabit Ethernet uplinks from Distribution to Core; FastEthernet downlinks to end stations",
-          ipScheme: "Core Root: 192.168.0.0/16. Dept A Branch: 192.168.10.0/24. Dept B Branch: 192.168.20.0/24",
-          instructions: "1. Place Core Switch at tier 1.\n2. Place 2 Distribution Switches below it at tier 2.\n3. Place 2 PCs under each distribution switch at tier 3.\n4. Connect using copper straight-through cables.\n5. Configure Default Gateways on PCs pointing to Core Switch Layer 3 SVIs.",
-          testing: "Ping across departments (from Dept A PC to Dept B PC) through the hierarchical aggregation trunk.",
-          expected: "Easily scalable, modular organization, localized fault isolation.",
-          diagramSvg: `<svg width="340" height="220" viewBox="0 0 340 220" xmlns="http://www.w3.org/2000/svg">
-            <rect width="100%" height="100%" fill="#f8fafc" rx="8"/>
-            <rect x="135" y="16" width="70" height="30" rx="4" fill="#1e293b"/>
-            <text x="170" y="35" fill="#fff" font-size="9" font-weight="bold" text-anchor="middle" font-family="sans-serif">CORE</text>
-            <line x1="150" y1="46" x2="90" y2="86" stroke="#64748b" stroke-width="2"/>
-            <line x1="190" y1="46" x2="250" y2="86" stroke="#64748b" stroke-width="2"/>
-            <rect x="55" y="86" width="70" height="28" rx="4" fill="#2563eb"/>
-            <text x="90" y="104" fill="#fff" font-size="9" font-weight="bold" text-anchor="middle" font-family="sans-serif">DIST 1</text>
-            <rect x="215" y="86" width="70" height="28" rx="4" fill="#2563eb"/>
-            <text x="250" y="104" fill="#fff" font-size="9" font-weight="bold" text-anchor="middle" font-family="sans-serif">DIST 2</text>
-            <line x1="70" y1="114" x2="45" y2="154" stroke="#94a3b8" stroke-width="1.5"/>
-            <line x1="110" y1="114" x2="135" y2="154" stroke="#94a3b8" stroke-width="1.5"/>
-            <line x1="230" y1="114" x2="205" y2="154" stroke="#94a3b8" stroke-width="1.5"/>
-            <line x1="270" y1="114" x2="295" y2="154" stroke="#94a3b8" stroke-width="1.5"/>
-            <rect x="25" y="154" width="40" height="24" rx="3" fill="#ffffff" stroke="#64748b"/>
-            <text x="45" y="170" fill="#1e293b" font-size="8" font-weight="bold" text-anchor="middle" font-family="sans-serif">PC1</text>
-            <rect x="115" y="154" width="40" height="24" rx="3" fill="#ffffff" stroke="#64748b"/>
-            <text x="135" y="170" fill="#1e293b" font-size="8" font-weight="bold" text-anchor="middle" font-family="sans-serif">PC2</text>
-            <rect x="185" y="154" width="40" height="24" rx="3" fill="#ffffff" stroke="#64748b"/>
-            <text x="205" y="170" fill="#1e293b" font-size="8" font-weight="bold" text-anchor="middle" font-family="sans-serif">PC3</text>
-            <rect x="275" y="154" width="40" height="24" rx="3" fill="#ffffff" stroke="#64748b"/>
-            <text x="295" y="170" fill="#1e293b" font-size="8" font-weight="bold" text-anchor="middle" font-family="sans-serif">PC4</text>
-          </svg>`
+        "sjf": {
+          "filename": "sjf.cpp",
+          "langLabel": "C++ (G++ 17)",
+          "source": "/*\n * Practical 03 (C++ - SJF Standalone)\n * Compile: g++ -std=c++17 -Wall sjf.cpp -o sjf_cpp\n * Run:     ./sjf_cpp\n */\n#include <iostream>\n#include <vector>\n#include <limits>\n#include <iomanip>\n\nstruct Process { int pid, arrival, burst, completion = 0, turnaround = 0, waiting = 0; bool done = false; };\n\nint main() {\n    int n;\n    std::cout << \"Enter number of processes: \";\n    if (!(std::cin >> n) || n <= 0) return 1;\n    std::vector<Process> p(n);\n    for (int i = 0; i < n; ++i) std::cin >> p[i].pid >> p[i].arrival >> p[i].burst;\n    int completed = 0, cur = 0; double tTAT = 0, tWT = 0;\n    while (completed < n) {\n        int idx = -1, minBT = std::numeric_limits<int>::max();\n        for (int i = 0; i < n; ++i)\n            if (!p[i].done && p[i].arrival <= cur && (p[i].burst < minBT || (p[i].burst == minBT && p[i].arrival < p[idx].arrival))) {\n                minBT = p[i].burst; idx = i;\n            }\n        if (idx == -1) ++cur;\n        else {\n            p[idx].completion = cur + p[idx].burst;\n            p[idx].turnaround = p[idx].completion - p[idx].arrival;\n            p[idx].waiting = p[idx].turnaround - p[idx].burst;\n            p[idx].done = true; cur = p[idx].completion; ++completed;\n            tTAT += p[idx].turnaround; tWT += p[idx].waiting;\n        }\n    }\n    std::cout << \"\\n--- SJF (Non-Preemptive) Scheduling Result ---\\nPID\\tAT\\tBT\\tCT\\tTAT\\tWT\\n\";\n    for (const auto& proc : p)\n        std::cout << \"P\" << proc.pid << \"\\t\" << proc.arrival << \"\\t\" << proc.burst << \"\\t\" << proc.completion << \"\\t\" << proc.turnaround << \"\\t\" << proc.waiting << \"\\n\";\n    std::cout << std::fixed << std::setprecision(2) << \"\\nAverage Turnaround Time: \" << tTAT / n << \"\\nAverage Waiting Time   : \" << tWT / n << \"\\n\";\n    return 0;\n}\n",
+          "compileCmd": "g++ -std=c++17 -Wall sjf.cpp -o sjf_cpp",
+          "runCmd": "./sjf_cpp",
+          "sampleInputs": [
+            {
+              "desc": "Test Case 1: 4 processes (same dataset as FCFS for comparison)",
+              "input": "4\n1 0 5\n2 1 3\n3 2 8\n4 3 6"
+            },
+            {
+              "desc": "Test Case 2: 4 processes arriving at time 0",
+              "input": "4\n1 0 6\n2 0 8\n3 0 7\n4 0 3"
+            }
+          ],
+          "sampleOutputs": [
+            {
+              "desc": "Expected SJF Output (Test Case 1)",
+              "output": "--- SJF (Non-Preemptive) Scheduling Result ---\nPID\tAT\tBT\tCT\tTAT\tWT\nP1\t0\t5\t5\t5\t0\nP2\t1\t3\t8\t7\t4\nP3\t2\t8\t22\t20\t12\nP4\t3\t6\t14\t11\t5\n\nAverage Turnaround Time: 10.75\nAverage Waiting Time   : 5.25"
+            },
+            {
+              "desc": "Expected SJF Output (Test Case 2)",
+              "output": "--- SJF (Non-Preemptive) Scheduling Result ---\nPID\tAT\tBT\tCT\tTAT\tWT\nP1\t0\t6\t9\t9\t3\nP2\t0\t8\t24\t24\t16\nP3\t0\t7\t16\t16\t9\nP4\t0\t3\t3\t3\t0\n\nAverage Turnaround Time: 13.00\nAverage Waiting Time   : 7.00"
+            }
+          ]
+        },
+        "rr": {
+          "filename": "round_robin.cpp",
+          "langLabel": "C++ (G++ 17)",
+          "source": "/*\n * Practical 03 (C++ - Round Robin Standalone)\n * Compile: g++ -std=c++17 -Wall round_robin.cpp -o rr_cpp\n * Run:     ./rr_cpp\n */\n#include <iostream>\n#include <vector>\n#include <queue>\n#include <algorithm>\n#include <iomanip>\n\nstruct Process { int pid, arrival, burst, remaining, completion = 0, turnaround = 0, waiting = 0; bool inQueue = false; };\n\nint main() {\n    int n, tq;\n    std::cout << \"Enter number of processes: \";\n    if (!(std::cin >> n) || n <= 0) return 1;\n    std::vector<Process> p(n); int earliest = 1e9;\n    for (int i = 0; i < n; ++i) {\n        std::cin >> p[i].pid >> p[i].arrival >> p[i].burst;\n        p[i].remaining = p[i].burst; earliest = std::min(earliest, p[i].arrival);\n    }\n    std::cout << \"Enter Time Quantum: \";\n    if (!(std::cin >> tq) || tq <= 0) return 1;\n    std::queue<int> q; int cur = earliest, completed = 0; double tTAT = 0, tWT = 0;\n    for (int i = 0; i < n; ++i) if (p[i].arrival <= cur && !p[i].inQueue) { q.push(i); p[i].inQueue = true; }\n    while (completed < n) {\n        if (q.empty()) {\n            ++cur;\n            for (int i = 0; i < n; ++i) if (p[i].arrival <= cur && p[i].remaining > 0 && !p[i].inQueue) { q.push(i); p[i].inQueue = true; }\n            continue;\n        }\n        int idx = q.front(); q.pop();\n        int ex = std::min(tq, p[idx].remaining); p[idx].remaining -= ex; cur += ex;\n        for (int i = 0; i < n; ++i) if (p[i].arrival <= cur && p[i].remaining > 0 && !p[i].inQueue) { q.push(i); p[i].inQueue = true; }\n        if (p[idx].remaining == 0) {\n            p[idx].completion = cur; p[idx].turnaround = p[idx].completion - p[idx].arrival;\n            p[idx].waiting = p[idx].turnaround - p[idx].burst;\n            tTAT += p[idx].turnaround; tWT += p[idx].waiting; ++completed;\n        } else q.push(idx);\n    }\n    std::cout << \"\\n--- Round Robin (TQ = \" << tq << \") Scheduling Result ---\\nPID\\tAT\\tBT\\tCT\\tTAT\\tWT\\n\";\n    for (const auto& proc : p)\n        std::cout << \"P\" << proc.pid << \"\\t\" << proc.arrival << \"\\t\" << proc.burst << \"\\t\" << proc.completion << \"\\t\" << proc.turnaround << \"\\t\" << proc.waiting << \"\\n\";\n    std::cout << std::fixed << std::setprecision(2) << \"\\nAverage Turnaround Time: \" << tTAT / n << \"\\nAverage Waiting Time   : \" << tWT / n << \"\\n\";\n    return 0;\n}\n",
+          "compileCmd": "g++ -std=c++17 -Wall round_robin.cpp -o rr_cpp",
+          "runCmd": "./rr_cpp",
+          "sampleInputs": [
+            {
+              "desc": "Test Case 1: 4 processes with Time Quantum = 2",
+              "input": "4\n1 0 5\n2 1 3\n3 2 8\n4 3 6\n2"
+            },
+            {
+              "desc": "Test Case 2: 3 processes arriving at time 0 with Time Quantum = 4",
+              "input": "3\n1 0 10\n2 0 5\n3 0 8\n4"
+            }
+          ],
+          "sampleOutputs": [
+            {
+              "desc": "Expected Round Robin Output (Test Case 1, TQ=2)",
+              "output": "--- Round Robin (TQ = 2) Scheduling Result ---\nPID\tAT\tBT\tCT\tTAT\tWT\nP1\t0\t5\t17\t17\t12\nP2\t1\t3\t11\t10\t7\nP3\t2\t8\t22\t20\t12\nP4\t3\t6\t20\t17\t11\n\nAverage Turnaround Time: 16.00\nAverage Waiting Time   : 10.50"
+            },
+            {
+              "desc": "Expected Round Robin Output (Test Case 2, TQ=4)",
+              "output": "--- Round Robin (TQ = 4) Scheduling Result ---\nPID\tAT\tBT\tCT\tTAT\tWT\nP1\t0\t10\t23\t23\t13\nP2\t0\t5\t17\t17\t12\nP3\t0\t8\t21\t21\t13\n\nAverage Turnaround Time: 20.33\nAverage Waiting Time   : 12.67"
+            }
+          ]
+        },
+        "combined": {
+          "filename": "scheduler_menu.cpp",
+          "langLabel": "C++ (G++ 17)",
+          "source": "/*\n * Practical 03 (C++ - Combined Menu-Driven): FCFS, SJF, Round Robin\n * Compile: g++ -std=c++17 -Wall scheduler_menu.cpp -o scheduler_menu_cpp\n * Run:     ./scheduler_menu_cpp\n */\n#include <iostream>\n#include <vector>\n#include <queue>\n#include <algorithm>\n#include <limits>\n#include <iomanip>\n#include <string>\n\nstruct Process {\n    int pid, arrival, burst, remaining = 0, completion = 0, turnaround = 0, waiting = 0;\n    bool done = false, inQueue = false;\n};\n\nvoid printTable(const std::vector<Process>& p, const std::string& title) {\n    double tTAT = 0, tWT = 0;\n    std::cout << \"\\n--- \" << title << \" ---\\nPID\\tAT\\tBT\\tCT\\tTAT\\tWT\\n\";\n    for (const auto& proc : p) {\n        std::cout << \"P\" << proc.pid << \"\\t\" << proc.arrival << \"\\t\" << proc.burst << \"\\t\" << proc.completion << \"\\t\" << proc.turnaround << \"\\t\" << proc.waiting << \"\\n\";\n        tTAT += proc.turnaround; tWT += proc.waiting;\n    }\n    std::cout << std::fixed << std::setprecision(2) << \"Average Turnaround Time: \" << tTAT / p.size() << \"\\nAverage Waiting Time   : \" << tWT / p.size() << \"\\n\";\n}\n\nvoid runFCFS(std::vector<Process> p) {\n    std::sort(p.begin(), p.end(), [](const Process& a, const Process& b) { return a.arrival != b.arrival ? a.arrival < b.arrival : a.pid < b.pid; });\n    int cur = 0;\n    for (auto& proc : p) {\n        if (cur < proc.arrival) cur = proc.arrival;\n        proc.completion = cur + proc.burst; proc.turnaround = proc.completion - proc.arrival;\n        proc.waiting = proc.turnaround - proc.burst; cur = proc.completion;\n    }\n    printTable(p, \"FCFS Scheduling\");\n}\n\nvoid runSJF(std::vector<Process> p) {\n    int n = static_cast<int>(p.size()), completed = 0, cur = 0;\n    while (completed < n) {\n        int idx = -1, minBT = std::numeric_limits<int>::max();\n        for (int i = 0; i < n; ++i)\n            if (!p[i].done && p[i].arrival <= cur && (p[i].burst < minBT || (p[i].burst == minBT && p[i].arrival < p[idx].arrival))) { minBT = p[i].burst; idx = i; }\n        if (idx == -1) ++cur;\n        else { p[idx].completion = cur + p[idx].burst; p[idx].turnaround = p[idx].completion - p[idx].arrival; p[idx].waiting = p[idx].turnaround - p[idx].burst; p[idx].done = true; cur = p[idx].completion; ++completed; }\n    }\n    printTable(p, \"SJF (Non-Preemptive) Scheduling\");\n}\n\nvoid runRR(std::vector<Process> p, int tq) {\n    int n = static_cast<int>(p.size()), earliest = 1e9;\n    for (auto& proc : p) { proc.remaining = proc.burst; earliest = std::min(earliest, proc.arrival); }\n    std::queue<int> q; int cur = earliest, completed = 0;\n    for (int i = 0; i < n; ++i) if (p[i].arrival <= cur && !p[i].inQueue) { q.push(i); p[i].inQueue = true; }\n    while (completed < n) {\n        if (q.empty()) { ++cur; for (int i = 0; i < n; ++i) if (p[i].arrival <= cur && p[i].remaining > 0 && !p[i].inQueue) { q.push(i); p[i].inQueue = true; } continue; }\n        int idx = q.front(); q.pop(); int ex = std::min(tq, p[idx].remaining); p[idx].remaining -= ex; cur += ex;\n        for (int i = 0; i < n; ++i) if (p[i].arrival <= cur && p[i].remaining > 0 && !p[i].inQueue) { q.push(i); p[i].inQueue = true; }\n        if (p[idx].remaining == 0) { p[idx].completion = cur; p[idx].turnaround = p[idx].completion - p[idx].arrival; p[idx].waiting = p[idx].turnaround - p[idx].burst; ++completed; }\n        else q.push(idx);\n    }\n    printTable(p, \"Round Robin Scheduling\");\n}\n\nint main() {\n    int n, choice, tq;\n    std::cout << \"Enter number of processes: \";\n    if (!(std::cin >> n) || n <= 0) return 1;\n    std::vector<Process> p(n);\n    for (int i = 0; i < n; ++i) std::cin >> p[i].pid >> p[i].arrival >> p[i].burst;\n    do {\n        std::cout << \"\\n=== CPU SCHEDULER MENU ===\\n1. FCFS\\n2. SJF\\n3. Round Robin\\n4. Exit\\nEnter choice: \";\n        if (!(std::cin >> choice)) break;\n        if (choice == 1) runFCFS(p);\n        else if (choice == 2) runSJF(p);\n        else if (choice == 3) { std::cout << \"Enter Time Quantum: \"; std::cin >> tq; if (tq > 0) runRR(p, tq); }\n    } while (choice != 4);\n    return 0;\n}\n",
+          "compileCmd": "g++ -std=c++17 -Wall scheduler_menu.cpp -o scheduler_menu_cpp",
+          "runCmd": "./scheduler_menu_cpp",
+          "sampleInputs": [
+            {
+              "desc": "Test Case 1: Compare FCFS (1), SJF (2), Round Robin TQ=2 (3), Exit (4)",
+              "input": "4\n1 0 5\n2 1 3\n3 2 8\n4 3 6\n1\n2\n3\n2\n4"
+            },
+            {
+              "desc": "Test Case 2: Compare on 3 equal-arrival processes (TQ=3)",
+              "input": "3\n1 0 7\n2 0 4\n3 0 9\n1\n2\n3\n3\n4"
+            }
+          ],
+          "sampleOutputs": [
+            {
+              "desc": "Expected Combined Comparison Output (Test Case 1)",
+              "output": "--- FCFS Scheduling ---\nAverage Turnaround Time: 11.25\nAverage Waiting Time   : 5.75\n\n--- SJF (Non-Preemptive) Scheduling ---\nAverage Turnaround Time: 10.75\nAverage Waiting Time   : 5.25\n\n--- Round Robin Scheduling ---\nAverage Turnaround Time: 16.00\nAverage Waiting Time   : 10.50"
+            },
+            {
+              "desc": "Expected Combined Comparison Output (Test Case 2)",
+              "output": "--- FCFS Scheduling ---\nAverage Turnaround Time: 12.67\nAverage Waiting Time   : 6.00\n\n--- SJF (Non-Preemptive) Scheduling ---\nAverage Turnaround Time: 11.67\nAverage Waiting Time   : 5.00\n\n--- Round Robin Scheduling ---\nAverage Turnaround Time: 16.00\nAverage Waiting Time   : 9.33"
+            }
+          ]
         }
-      ],
-      subnetExercise: {
-        title: "Departmental Subnetting Practical in Cisco Packet Tracer",
-        network: "192.168.10.0 /24",
-        subnetsNeeded: 4,
-        hostCalcFormula: "Total subnets required = 4 => 2^2 = 4 (borrow 2 bits from host portion). New Prefix = /24 + 2 = /26. Host bits remaining = 32 - 26 = 6 bits. Usable hosts per subnet = 2^6 - 2 = 64 - 2 = 62 hosts.",
-        mask: "255.255.255.192 (/26)",
-        allocationTable: [
-          { dept: "Subnet A (IT Lab)", netAddr: "192.168.10.0/26", usableRange: "192.168.10.1 - 192.168.10.62", broadcast: "192.168.10.63", gateway: "192.168.10.1 (Router G0/0/0)" },
-          { dept: "Subnet B (Admin Office)", netAddr: "192.168.10.64/26", usableRange: "192.168.10.65 - 192.168.10.126", broadcast: "192.168.10.127", gateway: "192.168.10.65 (Router G0/0/1)" },
-          { dept: "Subnet C (Library)", netAddr: "192.168.10.128/26", usableRange: "192.168.10.129 - 192.168.10.190", broadcast: "192.168.10.191", gateway: "192.168.10.129 (Router G0/0/2)" },
-          { dept: "Subnet D (Server Room)", netAddr: "192.168.10.192/26", usableRange: "192.168.10.193 - 192.168.10.254", broadcast: "192.168.10.255", gateway: "192.168.10.193 (Router G0/0/3)" }
-        ],
-        cliCommands: `Router> enable
-Router# configure terminal
-Router(config)# hostname LabGateway
-
-! Configure Subnet A Default Gateway
-LabGateway(config)# interface GigabitEthernet0/0/0
-LabGateway(config-if)# ip address 192.168.10.1 255.255.255.192
-LabGateway(config-if)# no shutdown
-LabGateway(config-if)# exit
-
-! Configure Subnet B Default Gateway
-LabGateway(config)# interface GigabitEthernet0/0/1
-LabGateway(config-if)# ip address 192.168.10.65 255.255.255.192
-LabGateway(config-if)# no shutdown
-LabGateway(config-if)# exit`
+      },
+      "python": {
+        "fcfs": {
+          "filename": "fcfs.py",
+          "langLabel": "Python 3",
+          "source": "#!/usr/bin/env python3\n\"\"\"Practical 03 (Python - FCFS Standalone) | Run: python3 fcfs.py\"\"\"\n\ndef fcfs():\n    n = int(input(\"Enter number of processes: \"))\n    procs = [dict(zip([\"pid\", \"at\", \"bt\"], map(int, input(f\"P{i+1} (PID AT BT): \").split()))) for i in range(n)]\n    procs.sort(key=lambda x: (x[\"at\"], x[\"pid\"]))\n    cur = 0\n    for p in procs:\n        if cur < p[\"at\"]: cur = p[\"at\"]\n        p[\"ct\"] = cur + p[\"bt\"]\n        p[\"tat\"] = p[\"ct\"] - p[\"at\"]\n        p[\"wt\"] = p[\"tat\"] - p[\"bt\"]\n        cur = p[\"ct\"]\n    print(\"\\n--- FCFS Scheduling Result ---\\nPID\\tAT\\tBT\\tCT\\tTAT\\tWT\")\n    for p in procs:\n        print(f\"P{p['pid']}\\t{p['at']}\\t{p['bt']}\\t{p['ct']}\\t{p['tat']}\\t{p['wt']}\")\n    print(f\"\\nAverage Turnaround Time: {sum(p['tat'] for p in procs)/n:.2f}\")\n    print(f\"Average Waiting Time   : {sum(p['wt'] for p in procs)/n:.2f}\")\n\nif __name__ == \"__main__\":\n    fcfs()\n",
+          "compileCmd": "python3 -m py_compile fcfs.py",
+          "runCmd": "python3 fcfs.py",
+          "sampleInputs": [
+            {
+              "desc": "Test Case 1: 4 processes arriving sequentially (0, 1, 2, 3)",
+              "input": "4\n1 0 5\n2 1 3\n3 2 8\n4 3 6"
+            },
+            {
+              "desc": "Test Case 2: 3 processes with CPU idle gap",
+              "input": "3\n1 0 4\n2 6 3\n3 7 2"
+            }
+          ],
+          "sampleOutputs": [
+            {
+              "desc": "Expected FCFS Output (Test Case 1)",
+              "output": "--- FCFS Scheduling Result ---\nPID\tAT\tBT\tCT\tTAT\tWT\nP1\t0\t5\t5\t5\t0\nP2\t1\t3\t8\t7\t4\nP3\t2\t8\t16\t14\t6\nP4\t3\t6\t22\t19\t13\n\nAverage Turnaround Time: 11.25\nAverage Waiting Time   : 5.75"
+            },
+            {
+              "desc": "Expected FCFS Output (Test Case 2)",
+              "output": "--- FCFS Scheduling Result ---\nPID\tAT\tBT\tCT\tTAT\tWT\nP1\t0\t4\t4\t4\t0\nP2\t6\t3\t9\t3\t0\nP3\t7\t2\t11\t4\t2\n\nAverage Turnaround Time: 3.67\nAverage Waiting Time   : 0.67"
+            }
+          ]
+        },
+        "sjf": {
+          "filename": "sjf.py",
+          "langLabel": "Python 3",
+          "source": "#!/usr/bin/env python3\n\"\"\"Practical 03 (Python - SJF Standalone) | Run: python3 sjf.py\"\"\"\n\ndef sjf():\n    n = int(input(\"Enter number of processes: \"))\n    procs = [dict(zip([\"pid\", \"at\", \"bt\"], map(int, input(f\"P{i+1} (PID AT BT): \").split())), done=False) for i in range(n)]\n    completed, cur = 0, 0\n    while completed < n:\n        ready = [p for p in procs if not p[\"done\"] and p[\"at\"] <= cur]\n        if not ready: cur += 1; continue\n        p = min(ready, key=lambda x: (x[\"bt\"], x[\"at\"]))\n        p[\"ct\"] = cur + p[\"bt\"]; p[\"tat\"] = p[\"ct\"] - p[\"at\"]; p[\"wt\"] = p[\"tat\"] - p[\"bt\"]\n        p[\"done\"] = True; cur = p[\"ct\"]; completed += 1\n    print(\"\\n--- SJF (Non-Preemptive) Scheduling Result ---\\nPID\\tAT\\tBT\\tCT\\tTAT\\tWT\")\n    for p in procs:\n        print(f\"P{p['pid']}\\t{p['at']}\\t{p['bt']}\\t{p['ct']}\\t{p['tat']}\\t{p['wt']}\")\n    print(f\"\\nAverage Turnaround Time: {sum(p['tat'] for p in procs)/n:.2f}\")\n    print(f\"Average Waiting Time   : {sum(p['wt'] for p in procs)/n:.2f}\")\n\nif __name__ == \"__main__\":\n    sjf()\n",
+          "compileCmd": "python3 -m py_compile sjf.py",
+          "runCmd": "python3 sjf.py",
+          "sampleInputs": [
+            {
+              "desc": "Test Case 1: 4 processes (same dataset as FCFS for comparison)",
+              "input": "4\n1 0 5\n2 1 3\n3 2 8\n4 3 6"
+            },
+            {
+              "desc": "Test Case 2: 4 processes arriving at time 0",
+              "input": "4\n1 0 6\n2 0 8\n3 0 7\n4 0 3"
+            }
+          ],
+          "sampleOutputs": [
+            {
+              "desc": "Expected SJF Output (Test Case 1)",
+              "output": "--- SJF (Non-Preemptive) Scheduling Result ---\nPID\tAT\tBT\tCT\tTAT\tWT\nP1\t0\t5\t5\t5\t0\nP2\t1\t3\t8\t7\t4\nP3\t2\t8\t22\t20\t12\nP4\t3\t6\t14\t11\t5\n\nAverage Turnaround Time: 10.75\nAverage Waiting Time   : 5.25"
+            },
+            {
+              "desc": "Expected SJF Output (Test Case 2)",
+              "output": "--- SJF (Non-Preemptive) Scheduling Result ---\nPID\tAT\tBT\tCT\tTAT\tWT\nP1\t0\t6\t9\t9\t3\nP2\t0\t8\t24\t24\t16\nP3\t0\t7\t16\t16\t9\nP4\t0\t3\t3\t3\t0\n\nAverage Turnaround Time: 13.00\nAverage Waiting Time   : 7.00"
+            }
+          ]
+        },
+        "rr": {
+          "filename": "round_robin.py",
+          "langLabel": "Python 3",
+          "source": "#!/usr/bin/env python3\n\"\"\"Practical 03 (Python - Round Robin Standalone) | Run: python3 round_robin.py\"\"\"\nfrom collections import deque\n\ndef round_robin():\n    n = int(input(\"Enter number of processes: \"))\n    procs = []\n    for i in range(n):\n        pid, at, bt = map(int, input(f\"P{i+1} (PID AT BT): \").split())\n        procs.append({\"pid\": pid, \"at\": at, \"bt\": bt, \"rem\": bt, \"in_q\": False, \"ct\": 0, \"tat\": 0, \"wt\": 0})\n    tq = int(input(\"Enter Time Quantum: \"))\n    cur = min(p[\"at\"] for p in procs)\n    q = deque()\n    for i, p in enumerate(procs):\n        if p[\"at\"] <= cur: q.append(i); p[\"in_q\"] = True\n    completed = 0\n    while completed < n:\n        if not q:\n            cur += 1\n            for i, p in enumerate(procs):\n                if p[\"at\"] <= cur and p[\"rem\"] > 0 and not p[\"in_q\"]: q.append(i); p[\"in_q\"] = True\n            continue\n        idx = q.popleft(); p = procs[idx]\n        ex = min(tq, p[\"rem\"]); p[\"rem\"] -= ex; cur += ex\n        for i, proc in enumerate(procs):\n            if proc[\"at\"] <= cur and proc[\"rem\"] > 0 and not proc[\"in_q\"]: q.append(i); proc[\"in_q\"] = True\n        if p[\"rem\"] == 0:\n            p[\"ct\"] = cur; p[\"tat\"] = p[\"ct\"] - p[\"at\"]; p[\"wt\"] = p[\"tat\"] - p[\"bt\"]; completed += 1\n        else: q.append(idx)\n    print(f\"\\n--- Round Robin (TQ = {tq}) Scheduling Result ---\\nPID\\tAT\\tBT\\tCT\\tTAT\\tWT\")\n    for p in procs:\n        print(f\"P{p['pid']}\\t{p['at']}\\t{p['bt']}\\t{p['ct']}\\t{p['tat']}\\t{p['wt']}\")\n    print(f\"\\nAverage Turnaround Time: {sum(p['tat'] for p in procs)/n:.2f}\")\n    print(f\"Average Waiting Time   : {sum(p['wt'] for p in procs)/n:.2f}\")\n\nif __name__ == \"__main__\":\n    round_robin()\n",
+          "compileCmd": "python3 -m py_compile round_robin.py",
+          "runCmd": "python3 round_robin.py",
+          "sampleInputs": [
+            {
+              "desc": "Test Case 1: 4 processes with Time Quantum = 2",
+              "input": "4\n1 0 5\n2 1 3\n3 2 8\n4 3 6\n2"
+            },
+            {
+              "desc": "Test Case 2: 3 processes arriving at time 0 with Time Quantum = 4",
+              "input": "3\n1 0 10\n2 0 5\n3 0 8\n4"
+            }
+          ],
+          "sampleOutputs": [
+            {
+              "desc": "Expected Round Robin Output (Test Case 1, TQ=2)",
+              "output": "--- Round Robin (TQ = 2) Scheduling Result ---\nPID\tAT\tBT\tCT\tTAT\tWT\nP1\t0\t5\t17\t17\t12\nP2\t1\t3\t11\t10\t7\nP3\t2\t8\t22\t20\t12\nP4\t3\t6\t20\t17\t11\n\nAverage Turnaround Time: 16.00\nAverage Waiting Time   : 10.50"
+            },
+            {
+              "desc": "Expected Round Robin Output (Test Case 2, TQ=4)",
+              "output": "--- Round Robin (TQ = 4) Scheduling Result ---\nPID\tAT\tBT\tCT\tTAT\tWT\nP1\t0\t10\t23\t23\t13\nP2\t0\t5\t17\t17\t12\nP3\t0\t8\t21\t21\t13\n\nAverage Turnaround Time: 20.33\nAverage Waiting Time   : 12.67"
+            }
+          ]
+        },
+        "combined": {
+          "filename": "scheduler_menu.py",
+          "langLabel": "Python 3",
+          "source": "#!/usr/bin/env python3\n\"\"\"Practical 03 (Python - Combined Menu-Driven): FCFS, SJF, Round Robin | Run: python3 scheduler_menu.py\"\"\"\nfrom collections import deque\nimport copy\n\ndef print_table(procs, title):\n    n = len(procs)\n    print(f\"\\n--- {title} ---\\nPID\\tAT\\tBT\\tCT\\tTAT\\tWT\")\n    for p in procs:\n        print(f\"P{p['pid']}\\t{p['at']}\\t{p['bt']}\\t{p['ct']}\\t{p['tat']}\\t{p['wt']}\")\n    print(f\"Average Turnaround Time: {sum(p['tat'] for p in procs)/n:.2f}\")\n    print(f\"Average Waiting Time   : {sum(p['wt'] for p in procs)/n:.2f}\")\n\ndef run_fcfs(orig):\n    procs = copy.deepcopy(orig); procs.sort(key=lambda x: (x[\"at\"], x[\"pid\"])); cur = 0\n    for p in procs:\n        if cur < p[\"at\"]: cur = p[\"at\"]\n        p[\"ct\"] = cur + p[\"bt\"]; p[\"tat\"] = p[\"ct\"] - p[\"at\"]; p[\"wt\"] = p[\"tat\"] - p[\"bt\"]; cur = p[\"ct\"]\n    print_table(procs, \"FCFS Scheduling\")\n\ndef run_sjf(orig):\n    procs = copy.deepcopy(orig)\n    for p in procs: p[\"done\"] = False\n    completed, cur = 0, 0\n    while completed < len(procs):\n        ready = [p for p in procs if not p[\"done\"] and p[\"at\"] <= cur]\n        if not ready: cur += 1; continue\n        p = min(ready, key=lambda x: (x[\"bt\"], x[\"at\"]))\n        p[\"ct\"] = cur + p[\"bt\"]; p[\"tat\"] = p[\"ct\"] - p[\"at\"]; p[\"wt\"] = p[\"tat\"] - p[\"bt\"]\n        p[\"done\"] = True; cur = p[\"ct\"]; completed += 1\n    print_table(procs, \"SJF (Non-Preemptive) Scheduling\")\n\ndef run_rr(orig, tq):\n    procs = copy.deepcopy(orig)\n    for p in procs: p[\"rem\"] = p[\"bt\"]; p[\"in_q\"] = False\n    cur = min(p[\"at\"] for p in procs); q = deque()\n    for i, p in enumerate(procs):\n        if p[\"at\"] <= cur: q.append(i); p[\"in_q\"] = True\n    completed = 0\n    while completed < len(procs):\n        if not q:\n            cur += 1\n            for i, p in enumerate(procs):\n                if p[\"at\"] <= cur and p[\"rem\"] > 0 and not p[\"in_q\"]: q.append(i); p[\"in_q\"] = True\n            continue\n        idx = q.popleft(); p = procs[idx]; ex = min(tq, p[\"rem\"]); p[\"rem\"] -= ex; cur += ex\n        for i, proc in enumerate(procs):\n            if proc[\"at\"] <= cur and proc[\"rem\"] > 0 and not proc[\"in_q\"]: q.append(i); proc[\"in_q\"] = True\n        if p[\"rem\"] == 0:\n            p[\"ct\"] = cur; p[\"tat\"] = p[\"ct\"] - p[\"at\"]; p[\"wt\"] = p[\"tat\"] - p[\"bt\"]; completed += 1\n        else: q.append(idx)\n    print_table(procs, f\"Round Robin Scheduling (TQ={tq})\")\n\ndef main():\n    n = int(input(\"Enter number of processes: \"))\n    procs = [dict(zip([\"pid\", \"at\", \"bt\"], map(int, input(f\"P{i+1} (PID AT BT): \").split()))) for i in range(n)]\n    while True:\n        ch = int(input(\"\\n=== CPU SCHEDULER MENU ===\\n1. FCFS\\n2. SJF\\n3. Round Robin\\n4. Exit\\nEnter choice: \"))\n        if ch == 1: run_fcfs(procs)\n        elif ch == 2: run_sjf(procs)\n        elif ch == 3: run_rr(procs, int(input(\"Enter Time Quantum: \")))\n        elif ch == 4: break\n\nif __name__ == \"__main__\":\n    main()\n",
+          "compileCmd": "python3 -m py_compile scheduler_menu.py",
+          "runCmd": "python3 scheduler_menu.py",
+          "sampleInputs": [
+            {
+              "desc": "Test Case 1: Compare FCFS (1), SJF (2), Round Robin TQ=2 (3), Exit (4)",
+              "input": "4\n1 0 5\n2 1 3\n3 2 8\n4 3 6\n1\n2\n3\n2\n4"
+            },
+            {
+              "desc": "Test Case 2: Compare on 3 equal-arrival processes (TQ=3)",
+              "input": "3\n1 0 7\n2 0 4\n3 0 9\n1\n2\n3\n3\n4"
+            }
+          ],
+          "sampleOutputs": [
+            {
+              "desc": "Expected Combined Comparison Output (Test Case 1)",
+              "output": "--- FCFS Scheduling ---\nAverage Turnaround Time: 11.25\nAverage Waiting Time   : 5.75\n\n--- SJF (Non-Preemptive) Scheduling ---\nAverage Turnaround Time: 10.75\nAverage Waiting Time   : 5.25\n\n--- Round Robin Scheduling ---\nAverage Turnaround Time: 16.00\nAverage Waiting Time   : 10.50"
+            },
+            {
+              "desc": "Expected Combined Comparison Output (Test Case 2)",
+              "output": "--- FCFS Scheduling ---\nAverage Turnaround Time: 12.67\nAverage Waiting Time   : 6.00\n\n--- SJF (Non-Preemptive) Scheduling ---\nAverage Turnaround Time: 11.67\nAverage Waiting Time   : 5.00\n\n--- Round Robin Scheduling ---\nAverage Turnaround Time: 16.00\nAverage Waiting Time   : 9.33"
+            }
+          ]
+        }
       }
     }
   },
-
-  // ─────────────────────────────────────────────────────────────────
-  // PRACTICAL 03: SINGLE BIT ERROR DETECTION AND CORRECTION
-  // ─────────────────────────────────────────────────────────────────
   {
-    id: 3,
-    number: "PR-03",
-    title: "Single Bit Error Detection and Correction",
-    category: "error",
-    categoryLabel: "Data Link Layer · Error Control",
-    type: "cpp",
-    shortDesc: "Complete C++ implementations for Parity Check (Even/Odd with parity limitation demo), Cyclic Redundancy Check (CRC binary polynomial division for error detection), and Hamming Code (single-bit error detection and correction), plus a combined menu-driven program.",
-    topics: ["Parity Check", "CRC (Cyclic Redundancy Check)", "Hamming Code (7,4)", "Modulo-2 Binary Division", "Syndrome Calculation", "Menu-Driven Interface"],
-    implCount: "4 C++ Implementations",
-    aim: "To implement error detection techniques (Even/Odd Parity, Cyclic Redundancy Check) and single-bit error detection and correction using Hamming Code in C++, verify their mathematical foundations, demonstrate receiver verification, and integrate them into a comprehensive menu-driven program.",
-    hasCode: true,
-    algorithms: [
-      {
-        name: "Parity Check",
-        fileName: "parity_check.cpp",
-        description: "Standalone C++ program implementing Even and Odd Parity generation at sender, transmission error detection at receiver, and practical demonstration of parity limitations when even numbers of bits flip.",
-        howToRun: [
-          { step: 1, text: "Create parity_check.cpp in VS Code and paste the code." },
-          { step: 2, text: "Open terminal and compile with g++:", cmd: "g++ parity_check.cpp -o parity_check" },
-          { step: 3, text: "Execute the compiled program:", cmd: "./parity_check.exe" }
-        ],
-        samples: [
+    "id": 4,
+    "number": "PR-04",
+    "title": "Process Creation, Termination and IPC using PIPE",
+    "category": "ipc",
+    "categoryLabel": "Process Management & IPC",
+    "type": "coding",
+    "aim": "To demonstrate actual OS process creation, parent-child synchronization, termination, and inter-process communication (IPC) using anonymous pipes in C (fork, pipe, read, write, wait), C++ (POSIX APIs), and Python (multiprocessing.Pipe).",
+    "shortDesc": "Real parent-child process creation, PID tracking, wait() termination, and bidirectional pipe IPC.",
+    "topics": [
+      "fork()",
+      "pipe()",
+      "read() / write()",
+      "wait()",
+      "Process Termination",
+      "multiprocessing.Pipe"
+    ],
+    "implCount": 3,
+    "languages": [
+      "c",
+      "cpp",
+      "python"
+    ],
+    "defaultLang": "c",
+    "linuxOnlyNote": "Linux / WSL (Ubuntu) Required: C and C++ implementations use POSIX system calls (<unistd.h>, <sys/wait.h>) including fork(), pipe(), and wait(), which are native to Linux/Unix kernels.",
+    "code": {
+      "c": {
+        "filename": "pipe_ipc.c",
+        "langLabel": "C (POSIX fork & pipe)",
+        "source": "/*\n * Practical 04: Process Creation, Termination & IPC using PIPE in C\n * Uses POSIX fork(), pipe(), write(), read(), wait(), and exit().\n * Compile: gcc -Wall pipe_ipc.c -o pipe_ipc\n * Run:     ./pipe_ipc\n */\n#include <stdio.h>\n#include <stdlib.h>\n#include <string.h>\n#include <unistd.h>\n#include <sys/wait.h>\n\nint main() {\n    int p2c[2], c2p[2];\n    if (pipe(p2c) == -1 || pipe(c2p) == -1) {\n        perror(\"pipe() failed\");\n        exit(EXIT_FAILURE);\n    }\n\n    char message[256];\n    printf(\"Enter message from Parent to Child: \");\n    if (fgets(message, sizeof(message), stdin) == NULL) strcpy(message, \"Hello from Parent!\");\n    message[strcspn(message, \"\\n\")] = '\\0';\n\n    pid_t pid = fork();\n    if (pid < 0) {\n        perror(\"fork() failed\");\n        exit(EXIT_FAILURE);\n    } else if (pid == 0) {\n        close(p2c[1]); close(c2p[0]);\n        char recv_buf[256];\n        ssize_t n = read(p2c[0], recv_buf, sizeof(recv_buf) - 1);\n        if (n > 0) {\n            recv_buf[n] = '\\0';\n            printf(\"[Child PID %d | PPID %d] Received: \\\"%s\\\"\\n\", getpid(), getppid(), recv_buf);\n        }\n        char reply[300];\n        snprintf(reply, sizeof(reply), \"ACK from Child (PID %d): Processed '%s'\", getpid(), recv_buf);\n        write(c2p[1], reply, strlen(reply) + 1);\n        close(p2c[0]); close(c2p[1]);\n        printf(\"[Child PID %d] Terminating normally.\\n\", getpid());\n        exit(EXIT_SUCCESS);\n    } else {\n        close(p2c[0]); close(c2p[1]);\n        printf(\"[Parent PID %d] Created Child PID %d. Sending message...\\n\", getpid(), pid);\n        write(p2c[1], message, strlen(message) + 1);\n        close(p2c[1]);\n\n        char ack_buf[300];\n        ssize_t n = read(c2p[0], ack_buf, sizeof(ack_buf) - 1);\n        if (n > 0) {\n            ack_buf[n] = '\\0';\n            printf(\"[Parent PID %d] Received reply: \\\"%s\\\"\\n\", getpid(), ack_buf);\n        }\n        close(c2p[0]);\n\n        int status;\n        pid_t terminated = wait(&status);\n        if (WIFEXITED(status)) {\n            printf(\"[Parent PID %d] Child PID %d terminated with exit code %d.\\n\",\n                   getpid(), terminated, WEXITSTATUS(status));\n        }\n    }\n    return 0;\n}\n",
+        "compileCmd": "gcc -Wall pipe_ipc.c -o pipe_ipc",
+        "runCmd": "./pipe_ipc",
+        "sampleInputs": [
           {
-            title: "Test Case 1: Even Parity with Single Bit Error Injected",
-            input: "1\n1011001\n1\n3",
-            output: "=== PARITY CHECK SENDER ===\nEnter Parity Type (1: Even, 2: Odd): 1\nEnter Binary Data Word: 1011001\nData Length: 7 bits\nNumber of 1s in Data: 4\nCalculated Parity Bit: 0\nTransmitted Codeword: 10110010\n\n=== TRANSMISSION CHANNEL ===\nSimulate Transmission Error? (1: Yes, 0: No): 1\nEnter 1-based bit position to flip (1-8): 3\nTransmitted: 10110010\nReceived:    10010010\n\n=== PARITY CHECK RECEIVER ===\nReceived Codeword: 10010010\nTotal 1s received: 3\n[RESULT]: Parity Mismatch Detected! ERROR in Transmission.\n(Limitation Note: Parity detects any odd number of bit errors, but cannot pinpoint the exact corrupted bit)."
+            "desc": "Scenario 1: Send greeting message through pipe",
+            "input": "Operating Systems Lab IPC Test"
           },
           {
-            title: "Test Case 2: Odd Parity with Error-Free Transmission",
-            input: "2\n1101\n0",
-            output: "=== PARITY CHECK SENDER ===\nEnter Parity Type (1: Even, 2: Odd): 2\nEnter Binary Data Word: 1101\nData Length: 4 bits\nNumber of 1s in Data: 3\nCalculated Parity Bit: 0\nTransmitted Codeword: 11010\n\n=== TRANSMISSION CHANNEL ===\nSimulate Transmission Error? (1: Yes, 0: No): 0\n\n=== PARITY CHECK RECEIVER ===\nReceived Codeword: 11010\nTotal 1s received: 3\n[RESULT]: Parity Verified! No transmission error detected.\nOriginal Data Extracted: 1101"
+            "desc": "Scenario 2: Send command-style payload",
+            "input": "STATUS_CHECK_REQ_101"
           }
         ],
-        code: `#include <iostream>
-#include <string>
-#include <algorithm>
-
-using namespace std;
-
-// Sample Input 1:
-// Enter Parity Type (1: Even, 2: Odd): 1
-// Enter Binary Data Word: 1011001
-// Simulate Transmission Error? (1: Yes, 0: No): 1
-// Enter 1-based bit position to flip: 3
-
-// Sample Input 2:
-// Enter Parity Type (1: Even, 2: Odd): 2
-// Enter Binary Data Word: 1101
-// Simulate Transmission Error? (1: Yes, 0: No): 0
-
-int countOnes(const string& str) {
-    int count = 0;
-    for (char c : str) {
-        if (c == '1') count++;
-    }
-    return count;
-}
-
-char calculateParityBit(const string& data, int parityType) {
-    int ones = countOnes(data);
-    if (parityType == 1) { // Even Parity: total 1s including parity bit must be even
-        return (ones % 2 == 0) ? '0' : '1';
-    } else {               // Odd Parity: total 1s including parity bit must be odd
-        return (ones % 2 == 0) ? '1' : '0';
-    }
-}
-
-bool verifyParity(const string& codeword, int parityType) {
-    int ones = countOnes(codeword);
-    if (parityType == 1) {
-        return (ones % 2 == 0);
-    } else {
-        return (ones % 2 != 0);
-    }
-}
-
-int main() {
-    int parityChoice;
-    string dataWord;
-
-    cout << "============================================" << endl;
-    cout << "  PARITY CHECK ERROR DETECTION SIMULATION  " << endl;
-    cout << "============================================" << endl;
-    cout << "Select Parity Scheme:\\n  1. Even Parity\\n  2. Odd Parity\\nEnter choice (1 or 2): ";
-    if (!(cin >> parityChoice) || (parityChoice != 1 && parityChoice != 2)) {
-        cout << "[ERROR]: Invalid parity selection!" << endl;
-        return 1;
-    }
-
-    cout << "Enter Binary Data Word: ";
-    cin >> dataWord;
-
-    for (char c : dataWord) {
-        if (c != '0' && c != '1') {
-            cout << "[ERROR]: Invalid binary input! Only '0' and '1' allowed." << endl;
-            return 1;
-        }
-    }
-
-    // Sender generates parity bit
-    char parityBit = calculateParityBit(dataWord, parityChoice);
-    string transmittedCodeword = dataWord + parityBit;
-
-    cout << "\\n--- SENDER SIDE ---" << endl;
-    cout << "Original Data:          " << dataWord << endl;
-    cout << "Number of 1s in data:   " << countOnes(dataWord) << endl;
-    cout << "Generated Parity Bit:   " << parityBit << " (" << (parityChoice == 1 ? "Even" : "Odd") << ")" << endl;
-    cout << "Transmitted Codeword:   " << transmittedCodeword << endl;
-
-    // Transmission Channel Simulation
-    int injectError;
-    string receivedCodeword = transmittedCodeword;
-    cout << "\\n--- CHANNEL SIMULATION ---" << endl;
-    cout << "Simulate Transmission Error? (1: Yes, 0: No): ";
-    cin >> injectError;
-
-    if (injectError == 1) {
-        int pos;
-        cout << "Enter 1-based bit position to flip (1 to " << transmittedCodeword.length() << "): ";
-        cin >> pos;
-        if (pos >= 1 && pos <= (int)transmittedCodeword.length()) {
-            receivedCodeword[pos - 1] = (receivedCodeword[pos - 1] == '0') ? '1' : '0';
-            cout << "Bit flipped at position " << pos << "!" << endl;
-            cout << "Transmitted: " << transmittedCodeword << endl;
-            cout << "Received:    " << receivedCodeword << endl;
-        } else {
-            cout << "[WARNING]: Position out of range. Transmitting without error." << endl;
-        }
-    }
-
-    // Receiver verifies parity
-    cout << "\\n--- RECEIVER SIDE ---" << endl;
-    cout << "Received Codeword:      " << receivedCodeword << endl;
-    cout << "Total 1s in received:   " << countOnes(receivedCodeword) << endl;
-
-    bool isCorrect = verifyParity(receivedCodeword, parityChoice);
-    if (isCorrect) {
-        cout << "[STATUS]: SUCCESS - No error detected!" << endl;
-        string recoveredData = receivedCodeword.substr(0, receivedCodeword.length() - 1);
-        cout << "Recovered Data Word:    " << recoveredData << endl;
-    } else {
-        cout << "[STATUS]: ERROR DETECTED! Parity integrity check failed." << endl;
-        cout << "Notice: Parity detects any single-bit (or odd number of) error." << endl;
-        cout << "Limitation: It CANNOT locate which bit was corrupted, nor detect 2-bit flips." << endl;
-    }
-
-    return 0;
-}`
-      },
-      {
-        name: "Cyclic Redundancy Check (CRC)",
-        fileName: "crc.cpp",
-        description: "Standalone C++ program implementing Cyclic Redundancy Check (CRC) using Modulo-2 binary polynomial division (XOR arithmetic). Emphasizes that CRC is an error detection mechanism, not an error correction mechanism.",
-        howToRun: [
-          { step: 1, text: "Create crc.cpp in VS Code and paste the source code." },
-          { step: 2, text: "Compile using MinGW g++ in the terminal:", cmd: "g++ crc.cpp -o crc" },
-          { step: 3, text: "Run the binary executable:", cmd: "./crc.exe" }
-        ],
-        samples: [
+        "sampleOutputs": [
           {
-            title: "Test Case 1: Standard CRC with Generator 1011 (x³ + x + 1) - Clean Channel",
-            input: "100100\n1011\n0",
-            output: "=== CRC SENDER SIDE ===\nEnter Binary Data Word: 100100\nEnter Generator Polynomial (Divisor): 1011\nAppended Data (with 3 zeros): 100100000\nComputed Remainder (CRC Checksum): 001\nTransmitted Codeword: 100100001\n\n=== CHANNEL SIMULATION ===\nSimulate Transmission Error? (1: Yes, 0: No): 0\n\n=== CRC RECEIVER SIDE ===\nReceived Codeword: 100100001\nSyndrome (Remainder on Division): 000\n[RESULT]: Remainder is ZERO. No error detected. Data accepted!"
+            "desc": "Bidirectional pipe exchange output (Scenario 1)",
+            "output": "[Parent PID 4120] Created Child PID 4121. Sending message...\n[Child PID 4121 | PPID 4120] Received: \"Operating Systems Lab IPC Test\"\n[Child PID 4121] Terminating normally.\n[Parent PID 4120] Received reply: \"ACK from Child (PID 4121): Processed 'Operating Systems Lab IPC Test'\"\n[Parent PID 4120] Child PID 4121 terminated with exit code 0."
           },
           {
-            title: "Test Case 2: CRC with 1-Bit Error Injected in Channel",
-            input: "1101011011\n10011\n1\n4",
-            output: "=== CRC SENDER SIDE ===\nEnter Binary Data Word: 1101011011\nEnter Generator Polynomial (Divisor): 10011\nAppended Data (with 4 zeros): 11010110110000\nComputed Remainder (CRC Checksum): 1110\nTransmitted Codeword: 11010110111110\n\n=== CHANNEL SIMULATION ===\nSimulate Transmission Error? (1: Yes, 0: No): 1\nEnter 1-based bit position to corrupt (1-14): 4\nBit 4 flipped (0 -> 1)!\nReceived Codeword: 11000110111110\n\n=== CRC RECEIVER SIDE ===\nSyndrome (Remainder on Division): 0110\n[RESULT]: Non-zero remainder detected! Transmission ERROR occurred. Frame rejected."
+            "desc": "Bidirectional pipe exchange output (Scenario 2)",
+            "output": "[Parent PID 4188] Created Child PID 4189. Sending message...\n[Child PID 4189 | PPID 4188] Received: \"STATUS_CHECK_REQ_101\"\n[Child PID 4189] Terminating normally.\n[Parent PID 4188] Received reply: \"ACK from Child (PID 4189): Processed 'STATUS_CHECK_REQ_101'\"\n[Parent PID 4188] Child PID 4189 terminated with exit code 0."
           }
-        ],
-        code: `#include <iostream>
-#include <string>
-
-using namespace std;
-
-// Sample Input 1:
-// Enter Binary Data Word: 100100
-// Enter Generator Divisor: 1011
-// Simulate Transmission Error? (1: Yes, 0: No): 0
-
-// Sample Input 2:
-// Enter Binary Data Word: 1101011011
-// Enter Generator Divisor: 10011
-// Simulate Transmission Error? (1: Yes, 0: No): 1
-// Enter bit position to corrupt: 4
-
-// Bitwise XOR operation for Modulo-2 arithmetic
-string xorOperation(string a, string b) {
-    string result = "";
-    int n = b.length();
-    for (int i = 1; i < n; i++) {
-        if (a[i] == b[i]) result += "0";
-        else result += "1";
-    }
-    return result;
-}
-
-// Modulo-2 binary polynomial division
-string modulo2Division(string dividend, string divisor) {
-    int pick = divisor.length();
-    string tmp = dividend.substr(0, pick);
-    int n = dividend.length();
-
-    while (pick < n) {
-        if (tmp[0] == '1') {
-            tmp = xorOperation(divisor, tmp) + dividend[pick];
-        } else {
-            string zeros(divisor.length(), '0');
-            tmp = xorOperation(zeros, tmp) + dividend[pick];
-        }
-        pick += 1;
-    }
-
-    // Final step
-    if (tmp[0] == '1') {
-        tmp = xorOperation(divisor, tmp);
-    } else {
-        string zeros(divisor.length(), '0');
-        tmp = xorOperation(zeros, tmp);
-    }
-
-    return tmp; // Remainder (CRC bits)
-}
-
-int main() {
-    string dataWord, generator;
-
-    cout << "==========================================" << endl;
-    cout << "   CYCLIC REDUNDANCY CHECK (CRC) ENGINE   " << endl;
-    cout << "==========================================" << endl;
-    cout << "Note: CRC is an Error DETECTION technique." << endl;
-    cout << "Enter Data Word (binary): ";
-    cin >> dataWord;
-    cout << "Enter Generator Polynomial Divisor (binary): ";
-    cin >> generator;
-
-    // Validate inputs
-    for (char c : dataWord) {
-        if (c != '0' && c != '1') {
-            cout << "[ERROR]: Data word must contain only 0s and 1s!" << endl;
-            return 1;
-        }
-    }
-    for (char c : generator) {
-        if (c != '0' && c != '1') {
-            cout << "[ERROR]: Generator must contain only 0s and 1s!" << endl;
-            return 1;
-        }
-    }
-    if (generator[0] != '1') {
-        cout << "[ERROR]: Generator polynomial must start with '1'!" << endl;
-        return 1;
-    }
-
-    int m = generator.length() - 1; // Number of zero bits to append
-    string appendedData = dataWord + string(m, '0');
-
-    cout << "\\n--- SENDER SIDE ---" << endl;
-    cout << "Data Word:              " << dataWord << " (" << dataWord.length() << " bits)" << endl;
-    cout << "Generator (Divisor):    " << generator << " (" << generator.length() << " bits)" << endl;
-    cout << "Appended Zeros:         " << m << " bits" << endl;
-    cout << "Dividend for Division:  " << appendedData << endl;
-
-    string remainder = modulo2Division(appendedData, generator);
-    cout << "Computed Remainder/CRC: " << remainder << endl;
-
-    string codeword = dataWord + remainder;
-    cout << "Transmitted Codeword:   " << codeword << endl;
-
-    // Channel Error Simulation
-    int injectChoice;
-    string receivedCodeword = codeword;
-    cout << "\\n--- CHANNEL SIMULATION ---" << endl;
-    cout << "Simulate Transmission Error? (1: Yes, 0: No): ";
-    cin >> injectChoice;
-
-    if (injectChoice == 1) {
-        int pos;
-        cout << "Enter 1-based bit position to corrupt (1 to " << codeword.length() << "): ";
-        cin >> pos;
-        if (pos >= 1 && pos <= (int)codeword.length()) {
-            receivedCodeword[pos - 1] = (receivedCodeword[pos - 1] == '0') ? '1' : '0';
-            cout << "Bit " << pos << " corrupted!" << endl;
-            cout << "Sent:     " << codeword << endl;
-            cout << "Received: " << receivedCodeword << endl;
-        }
-    }
-
-    // Receiver Side Verification
-    cout << "\\n--- RECEIVER SIDE ---" << endl;
-    cout << "Received Codeword:      " << receivedCodeword << endl;
-
-    string receiverRemainder = modulo2Division(receivedCodeword, generator);
-    cout << "Syndrome (Remainder):   " << receiverRemainder << endl;
-
-    bool hasError = false;
-    for (char c : receiverRemainder) {
-        if (c == '1') {
-            hasError = true;
-            break;
-        }
-    }
-
-    if (!hasError) {
-        cout << "\\n[RESULT]: Remainder is ZERO. No error detected!" << endl;
-        cout << "Accepted Data Word:     " << receivedCodeword.substr(0, dataWord.length()) << endl;
-    } else {
-        cout << "\\n[RESULT]: Non-zero remainder! CRC Integrity Check FAILED." << endl;
-        cout << "Packet corrupted in transit. Frame discarded by receiver." << endl;
-    }
-
-    return 0;
-}`
-      },
-      {
-        name: "Hamming Code (Error Correction)",
-        fileName: "hamming_code.cpp",
-        description: "Standalone C++ program implementing generalized Hamming Code with single-bit error detection and automatic single-bit error correction. Calculates redundant parity bits, places them at powers of 2 (1, 2, 4, 8...), computes parity at sender, and evaluates syndrome bits at receiver to pinpoint and correct the flipped bit.",
-        howToRun: [
-          { step: 1, text: "Save the code as hamming_code.cpp." },
-          { step: 2, text: "Compile with g++:", cmd: "g++ hamming_code.cpp -o hamming_code" },
-          { step: 3, text: "Execute the program:", cmd: "./hamming_code.exe" }
-        ],
-        samples: [
-          {
-            title: "Test Case 1: 4-bit Data (1011) with Error Injected at Position 6",
-            input: "1011\n1\n6",
-            output: "=== HAMMING CODE SENDER ===\nEnter Binary Data Bits (m bits): 1011\nData Bits (m): 4\nRedundant Bits (r) Required: 3 (since 2^3 >= 4 + 3 + 1)\nTotal Codeword Length (n = m+r): 7\nParity Bit Positions: P1(1), P2(2), P4(4)\nEncoded 7-bit Transmitted Codeword: 0110011\n\n=== CHANNEL SIMULATION ===\nSimulate Error? (1: Yes, 0: No): 1\nEnter 1-based bit position to corrupt (1 to 7): 6\nReceived Codeword: 0110001 (Bit 6 flipped)\n\n=== HAMMING CODE RECEIVER ===\nCalculated Syndrome Bits (P4 P2 P1): 1 1 0 (Binary 110 = Decimal 6)\n[ERROR DETECTED]: Error located precisely at 1-based position 6!\nCorrecting Bit at Position 6 (0 -> 1)...\nCorrected Codeword: 0110011\nExtracted Original Data: 1011"
-          },
-          {
-            title: "Test Case 2: 4-bit Data (1100) with Clean Channel",
-            input: "1100\n0",
-            output: "=== HAMMING CODE SENDER ===\nEnter Binary Data Bits (m bits): 1100\nData Bits (m): 4\nRedundant Bits (r) Required: 3\nEncoded 7-bit Transmitted Codeword: 1011100\n\n=== CHANNEL SIMULATION ===\nSimulate Error? (1: Yes, 0: No): 0\n\n=== HAMMING CODE RECEIVER ===\nCalculated Syndrome Bits (P4 P2 P1): 0 0 0 (Decimal 0)\n[RESULT]: Syndrome is 0! No error occurred during transmission.\nExtracted Original Data: 1100"
-          }
-        ],
-        code: `#include <iostream>
-#include <vector>
-#include <string>
-#include <cmath>
-
-using namespace std;
-
-// Sample Input 1:
-// Enter Binary Data Bits: 1011
-// Simulate Error? (1: Yes, 0: No): 1
-// Enter 1-based bit position to corrupt: 6
-
-// Sample Input 2:
-// Enter Binary Data Bits: 1100
-// Simulate Error? (1: Yes, 0: No): 0
-
-// Calculate required redundant parity bits such that 2^r >= m + r + 1
-int calculateRedundantBits(int m) {
-    int r = 0;
-    while (pow(2, r) < (m + r + 1)) {
-        r++;
-    }
-    return r;
-}
-
-int main() {
-    string data;
-    cout << "=============================================" << endl;
-    cout << "  HAMMING CODE (DETECTION & CORRECTION)      " << endl;
-    cout << "=============================================" << endl;
-    cout << "Enter Original Binary Data Word: ";
-    cin >> data;
-
-    for (char c : data) {
-        if (c != '0' && c != '1') {
-            cout << "[ERROR]: Only binary '0' and '1' are accepted." << endl;
-            return 1;
-        }
-    }
-
-    int m = data.length();
-    int r = calculateRedundantBits(m);
-    int totalLen = m + r;
-
-    // 1-based indexing for Hamming positions: 1 to totalLen
-    vector<int> code(totalLen + 1, 0);
-
-    // Place data bits, leaving powers of 2 (1, 2, 4, 8, ...) as 0 for parity
-    int dataIdx = m - 1; // from right to left
-    for (int i = 1; i <= totalLen; i++) {
-        // If i is a power of 2, it is a parity position
-        if ((i & (i - 1)) == 0) {
-            code[i] = 0;
-        } else {
-            code[i] = data[dataIdx--] - '0';
-        }
-    }
-
-    // Calculate Even Parity for each parity bit at position 2^i
-    for (int i = 0; i < r; i++) {
-        int parityPos = (1 << i);
-        int onesCount = 0;
-        for (int j = 1; j <= totalLen; j++) {
-            if ((j & parityPos) != 0 && j != parityPos) {
-                if (code[j] == 1) onesCount++;
-            }
-        }
-        code[parityPos] = (onesCount % 2 == 0) ? 0 : 1;
-    }
-
-    cout << "\\n--- SENDER SIDE ---" << endl;
-    cout << "Data Bits (m):          " << m << endl;
-    cout << "Redundant Bits (r):     " << r << " (satisfies 2^r >= m + r + 1)" << endl;
-    cout << "Codeword Length:        " << totalLen << " bits" << endl;
-    cout << "Encoded Codeword (MSB to LSB): ";
-    for (int i = totalLen; i >= 1; i--) {
-        cout << code[i];
-    }
-    cout << endl;
-
-    // Transmission Simulation
-    vector<int> received = code;
-    int injectError;
-    cout << "\\n--- CHANNEL SIMULATION ---" << endl;
-    cout << "Simulate Transmission Error? (1: Yes, 0: No): ";
-    cin >> injectError;
-
-    if (injectError == 1) {
-        int errorPos;
-        cout << "Enter 1-based bit position to corrupt (1 to " << totalLen << "): ";
-        cin >> errorPos;
-        if (errorPos >= 1 && errorPos <= totalLen) {
-            received[errorPos] = (received[errorPos] == 0) ? 1 : 0;
-            cout << "Bit flipped at position " << errorPos << "!" << endl;
-        }
-    }
-
-    // Receiver Side Syndrome Calculation
-    cout << "\\n--- RECEIVER SIDE ---" << endl;
-    cout << "Received Codeword (MSB to LSB): ";
-    for (int i = totalLen; i >= 1; i--) {
-        cout << received[i];
-    }
-    cout << endl;
-
-    int errorPosition = 0;
-    for (int i = 0; i < r; i++) {
-        int parityPos = (1 << i);
-        int onesCount = 0;
-        for (int j = 1; j <= totalLen; j++) {
-            if ((j & parityPos) != 0) {
-                if (received[j] == 1) onesCount++;
-            }
-        }
-        // If parity check fails (odd ones for even parity), add to syndrome
-        if (onesCount % 2 != 0) {
-            errorPosition += parityPos;
-        }
-    }
-
-    if (errorPosition == 0) {
-        cout << "\\n[RESULT]: Syndrome = 0. No error detected!" << endl;
-    } else {
-        cout << "\\n[ERROR DETECTED]: Error pinpointed at 1-based position: " << errorPosition << endl;
-        cout << "Correcting bit at position " << errorPosition << "..." << endl;
-        received[errorPosition] = (received[errorPosition] == 0) ? 1 : 0;
-        cout << "Corrected Codeword: ";
-        for (int i = totalLen; i >= 1; i--) {
-            cout << received[i];
-        }
-        cout << endl;
-    }
-
-    // Extract original data bits from non-parity positions
-    string extractedData = "";
-    for (int i = 1; i <= totalLen; i++) {
-        if ((i & (i - 1)) != 0) {
-            extractedData = to_string(received[i]) + extractedData;
-        }
-    }
-    cout << "Extracted Original Data Word: " << extractedData << endl;
-
-    return 0;
-}`
-      },
-      {
-        name: "Combined Error Control Menu",
-        fileName: "error_control_menu.cpp",
-        description: "Combined C++ program integrating Parity Check, Cyclic Redundancy Check (CRC), and Hamming Code into a unified menu-driven console application.",
-        howToRun: [
-          { step: 1, text: "Save file as error_control_menu.cpp." },
-          { step: 2, text: "Compile with MinGW g++:", cmd: "g++ error_control_menu.cpp -o error_control_menu" },
-          { step: 3, text: "Execute the unified application:", cmd: "./error_control_menu.exe" }
-        ],
-        samples: [
-          {
-            title: "Test Case 1: Menu Navigation to Parity Check then Exit",
-            input: "1\n1\n110011\n0\n4",
-            output: "=== COMPUTER NETWORKS ERROR CONTROL SUITE ===\n1. Parity Check (Even / Odd)\n2. Cyclic Redundancy Check (CRC)\n3. Hamming Code (Detection & Correction)\n4. Exit\nEnter choice: 1\n[Parity Check Executed...]\nEnter choice: 4\nExiting Error Control Suite. Goodbye!"
-          },
-          {
-            title: "Test Case 2: Menu Navigation to CRC then Hamming Code",
-            input: "2\n10101\n101\n0\n3\n1001\n0\n4",
-            output: "=== COMPUTER NETWORKS ERROR CONTROL SUITE ===\n[Runs CRC...]\n[Runs Hamming Code...]\nExiting Error Control Suite. Goodbye!"
-          }
-        ],
-        code: `#include <iostream>
-#include <string>
-#include <vector>
-#include <cmath>
-
-using namespace std;
-
-// Sample Input:
-// 1 (Parity Check) -> 1 (Even) -> 1011 -> 0 (No error)
-// 2 (CRC) -> 1101 -> 1011 -> 0
-// 3 (Hamming Code) -> 1011 -> 0
-// 4 (Exit)
-
-// ======================== PARITY CHECK ========================
-int countOnes(const string& str) {
-    int count = 0;
-    for (char c : str) if (c == '1') count++;
-    return count;
-}
-
-void runParityCheck() {
-    cout << "\\n--- [1] PARITY CHECK MODULE ---" << endl;
-    cout << "Select Parity Scheme (1: Even, 2: Odd): ";
-    int pType;
-    cin >> pType;
-    cout << "Enter Binary Data Word: ";
-    string data;
-    cin >> data;
-
-    int ones = countOnes(data);
-    char pBit = (pType == 1) ? ((ones % 2 == 0) ? '0' : '1') : ((ones % 2 == 0) ? '1' : '0');
-    string codeword = data + pBit;
-
-    cout << "Transmitted Codeword: " << codeword << endl;
-
-    int errChoice;
-    cout << "Simulate Error? (1: Yes, 0: No): ";
-    cin >> errChoice;
-    string received = codeword;
-    if (errChoice == 1) {
-        int pos;
-        cout << "Enter 1-based position to flip (1 to " << codeword.length() << "): ";
-        cin >> pos;
-        if (pos >= 1 && pos <= (int)codeword.length()) {
-            received[pos - 1] = (received[pos - 1] == '0') ? '1' : '0';
-        }
-    }
-
-    int recvOnes = countOnes(received);
-    bool valid = (pType == 1) ? (recvOnes % 2 == 0) : (recvOnes % 2 != 0);
-    cout << "Received Codeword:    " << received << endl;
-    if (valid) {
-        cout << "[STATUS]: No error detected. Parity integrity verified." << endl;
-    } else {
-        cout << "[STATUS]: Parity mismatch! Transmission ERROR detected." << endl;
-    }
-}
-
-// ======================== CRC MODULE ========================
-string xorOp(string a, string b) {
-    string res = "";
-    for (size_t i = 1; i < b.length(); i++) {
-        res += (a[i] == b[i]) ? '0' : '1';
-    }
-    return res;
-}
-
-string modulo2Div(string dividend, string divisor) {
-    int pick = divisor.length();
-    string tmp = dividend.substr(0, pick);
-    int n = dividend.length();
-
-    while (pick < n) {
-        if (tmp[0] == '1') tmp = xorOp(divisor, tmp) + dividend[pick];
-        else tmp = xorOp(string(divisor.length(), '0'), tmp) + dividend[pick];
-        pick++;
-    }
-    if (tmp[0] == '1') tmp = xorOp(divisor, tmp);
-    else tmp = xorOp(string(divisor.length(), '0'), tmp);
-    return tmp;
-}
-
-void runCRC() {
-    cout << "\\n--- [2] CYCLIC REDUNDANCY CHECK (CRC) MODULE ---" << endl;
-    string data, gen;
-    cout << "Enter Binary Data Word: ";
-    cin >> data;
-    cout << "Enter Generator Divisor: ";
-    cin >> gen;
-
-    int m = gen.length() - 1;
-    string appended = data + string(m, '0');
-    string rem = modulo2Div(appended, gen);
-    string codeword = data + rem;
-
-    cout << "Appended Remainder (CRC Checksum): " << rem << endl;
-    cout << "Transmitted Codeword:              " << codeword << endl;
-
-    int errChoice;
-    cout << "Simulate Error? (1: Yes, 0: No): ";
-    cin >> errChoice;
-    string received = codeword;
-    if (errChoice == 1) {
-        int pos;
-        cout << "Enter position to corrupt (1 to " << codeword.length() << "): ";
-        cin >> pos;
-        if (pos >= 1 && pos <= (int)codeword.length()) {
-            received[pos - 1] = (received[pos - 1] == '0') ? '1' : '0';
-        }
-    }
-
-    string recvRem = modulo2Div(received, gen);
-    cout << "Receiver Remainder (Syndrome):     " << recvRem << endl;
-    bool hasErr = (recvRem.find('1') != string::npos);
-    if (!hasErr) {
-        cout << "[STATUS]: Remainder is 0. Data accepted without error." << endl;
-    } else {
-        cout << "[STATUS]: Non-zero remainder! CRC Error detected. Frame discarded." << endl;
-    }
-}
-
-// ======================== HAMMING CODE MODULE ========================
-void runHammingCode() {
-    cout << "\\n--- [3] HAMMING CODE (CORRECTION) MODULE ---" << endl;
-    string data;
-    cout << "Enter Binary Data Bits: ";
-    cin >> data;
-
-    int m = data.length();
-    int r = 0;
-    while (pow(2, r) < (m + r + 1)) r++;
-    int totalLen = m + r;
-
-    vector<int> code(totalLen + 1, 0);
-    int dIdx = m - 1;
-    for (int i = 1; i <= totalLen; i++) {
-        if ((i & (i - 1)) == 0) code[i] = 0;
-        else code[i] = data[dIdx--] - '0';
-    }
-
-    for (int i = 0; i < r; i++) {
-        int pPos = (1 << i);
-        int ones = 0;
-        for (int j = 1; j <= totalLen; j++) {
-            if ((j & pPos) != 0 && j != pPos && code[j] == 1) ones++;
-        }
-        code[pPos] = (ones % 2 == 0) ? 0 : 1;
-    }
-
-    cout << "Transmitted Codeword (MSB to LSB): ";
-    for (int i = totalLen; i >= 1; i--) cout << code[i];
-    cout << endl;
-
-    int errChoice;
-    cout << "Simulate Error? (1: Yes, 0: No): ";
-    cin >> errChoice;
-    vector<int> received = code;
-    if (errChoice == 1) {
-        int pos;
-        cout << "Enter 1-based position to corrupt (1 to " << totalLen << "): ";
-        cin >> pos;
-        if (pos >= 1 && pos <= totalLen) received[pos] = (received[pos] == 0) ? 1 : 0;
-    }
-
-    int errPos = 0;
-    for (int i = 0; i < r; i++) {
-        int pPos = (1 << i);
-        int ones = 0;
-        for (int j = 1; j <= totalLen; j++) {
-            if ((j & pPos) != 0 && received[j] == 1) ones++;
-        }
-        if (ones % 2 != 0) errPos += pPos;
-    }
-
-    if (errPos == 0) {
-        cout << "[STATUS]: Syndrome is 0. No error detected." << endl;
-    } else {
-        cout << "[STATUS]: Single-bit error detected at position " << errPos << "!" << endl;
-        received[errPos] = (received[errPos] == 0) ? 1 : 0;
-        cout << "Corrected Codeword: ";
-        for (int i = totalLen; i >= 1; i--) cout << received[i];
-        cout << endl;
-    }
-}
-
-// ======================== MAIN MENU ========================
-int main() {
-    int choice;
-    do {
-        cout << "\\n==========================================" << endl;
-        cout << "   ERROR DETECTION & CORRECTION SUITE     " << endl;
-        cout << "==========================================" << endl;
-        cout << "1. Parity Check (Even / Odd)" << endl;
-        cout << "2. Cyclic Redundancy Check (CRC)" << endl;
-        cout << "3. Hamming Code (Detection & Correction)" << endl;
-        cout << "4. Exit" << endl;
-        cout << "Enter your choice (1-4): ";
-
-        if (!(cin >> choice)) {
-            cin.clear();
-            cin.ignore(1000, '\\n');
-            cout << "Invalid input! Please enter a number from 1 to 4." << endl;
-            continue;
-        }
-
-        switch (choice) {
-            case 1: runParityCheck(); break;
-            case 2: runCRC(); break;
-            case 3: runHammingCode(); break;
-            case 4: cout << "Exiting Error Control Suite. Goodbye!" << endl; break;
-            default: cout << "Invalid choice! Please select 1, 2, 3, or 4." << endl;
-        }
-    } while (choice != 4);
-
-    return 0;
-}`
-      }
-    ]
-  },
-
-  // ─────────────────────────────────────────────────────────────────
-  // PRACTICAL 04: SLIDING WINDOW MECHANISM
-  // ─────────────────────────────────────────────────────────────────
-  {
-    id: 4,
-    number: "PR-04",
-    title: "Sliding Window Mechanism",
-    category: "sliding-window",
-    categoryLabel: "Data Link Layer · Flow & Error Control",
-    type: "cpp",
-    shortDesc: "Complete C++ simulations for Stop-and-Wait ARQ, Go-Back-N ARQ, and Selective Repeat ARQ, demonstrating sender and receiver window behavior, cumulative vs individual ACKs, timeout handling, lost frame simulation, and retransmission.",
-    topics: ["Stop and Wait ARQ", "Go-Back-N ARQ", "Selective Repeat ARQ", "Window Buffering", "Cumulative vs Individual ACKs", "Retransmission"],
-    implCount: "4 C++ Implementations",
-    aim: "To implement and simulate the three core Sliding Window flow and error control protocols (Stop-and-Wait ARQ, Go-Back-N ARQ, and Selective Repeat ARQ) in C++, demonstrate frame transmission, acknowledgement receipt, packet loss, timeout expiration, retransmission dynamics, and integrate them into a menu-driven program.",
-    hasCode: true,
-    algorithms: [
-      {
-        name: "Stop and Wait ARQ",
-        fileName: "stop_and_wait_arq.cpp",
-        description: "Standalone C++ implementation of Stop and Wait ARQ (Window Size = 1). The sender transmits a single frame and waits for an ACK before sliding its window. Demonstrates timeout retransmission on frame loss or ACK loss using alternating sequence numbers (0 and 1).",
-        howToRun: [
-          { step: 1, text: "Save the code as stop_and_wait_arq.cpp." },
-          { step: 2, text: "Compile with MinGW g++:", cmd: "g++ stop_and_wait_arq.cpp -o stop_and_wait_arq" },
-          { step: 3, text: "Run in the console:", cmd: "./stop_and_wait_arq.exe" }
-        ],
-        samples: [
-          {
-            title: "Test Case 1: 4 Frames with Simulated Loss at Frame 2",
-            input: "4\n0\n1\n0\n0",
-            output: "=== STOP AND WAIT ARQ SIMULATION ===\nEnter total number of frames to send: 4\n\n[FRAME 1]: Sending Frame (Seq 0)...\nSimulate error for this frame? (0: None, 1: Frame Lost, 2: ACK Lost): 0\n[RECEIVER]: Frame (Seq 0) received successfully. Sending ACK 1.\n[SENDER]: ACK 1 received. Window slides forward!\n\n[FRAME 2]: Sending Frame (Seq 1)...\nSimulate error for this frame? (0: None, 1: Frame Lost, 2: ACK Lost): 1\n[CHANNEL]: Frame (Seq 1) LOST in transit!\n[TIMER]: Timeout expired on sender! No ACK received.\n[RETRANSMISSION]: Resending Frame (Seq 1)...\n[RECEIVER]: Frame (Seq 1) received successfully. Sending ACK 0.\n[SENDER]: ACK 0 received. Window slides forward!\n\nAll 4 frames transmitted and acknowledged successfully!"
-          },
-          {
-            title: "Test Case 2: 3 Frames with Simulated Lost Acknowledgement",
-            input: "3\n0\n2\n0",
-            output: "=== STOP AND WAIT ARQ SIMULATION ===\nEnter total number of frames to send: 3\n[FRAME 1]: Normal transmission...\n[FRAME 2]: ACK Lost in transit. Sender times out and resends duplicate frame. Receiver discards duplicate and re-sends ACK.\n[FRAME 3]: Normal transmission. Complete!"
-          }
-        ],
-        code: `#include <iostream>
-#include <vector>
-
-using namespace std;
-
-// Sample Input 1:
-// Total frames: 4
-// Frame 1 simulation choice (0: Normal, 1: Frame Lost, 2: ACK Lost): 0
-// Frame 2 simulation choice: 1
-// Frame 3 simulation choice: 0
-// Frame 4 simulation choice: 0
-
-int main() {
-    int totalFrames;
-    cout << "==========================================" << endl;
-    cout << "       STOP AND WAIT ARQ SIMULATION       " << endl;
-    cout << "==========================================" << endl;
-    cout << "Window Size: 1 frame (Sender waits for ACK before sending next)" << endl;
-    cout << "Enter total number of frames to transmit: ";
-    if (!(cin >> totalFrames) || totalFrames <= 0) {
-        cout << "[ERROR]: Total frames must be a positive integer!" << endl;
-        return 1;
-    }
-
-    int seqNum = 0; // Alternating 0 and 1
-
-    for (int i = 1; i <= totalFrames; i++) {
-        bool acknowledged = false;
-        int attempts = 0;
-
-        while (!acknowledged) {
-            attempts++;
-            cout << "\\n--------------------------------------------------" << endl;
-            cout << "Sending Frame #" << i << " [Sequence Bit: " << seqNum << "] (Attempt " << attempts << ")..." << endl;
-
-            int simChoice = 0;
-            if (attempts == 1) {
-                cout << "Select Channel Condition for Frame #" << i << ":\\n"
-                     << "  0. Normal (Frame & ACK delivered)\\n"
-                     << "  1. Frame Lost in Transit\\n"
-                     << "  2. ACK Lost in Transit\\n"
-                     << "Enter choice (0-2): ";
-                cin >> simChoice;
-            } else {
-                // On automatic retransmission, assume channel recovers
-                simChoice = 0;
-                cout << "[Channel recovered for retransmitted frame]" << endl;
-            }
-
-            if (simChoice == 1) {
-                cout << "[CHANNEL]: Frame #" << i << " (Seq " << seqNum << ") was LOST in transit!" << endl;
-                cout << "[SENDER TIMER]: Timeout expired waiting for ACK! Retransmitting frame..." << endl;
-            } else if (simChoice == 2) {
-                cout << "[RECEIVER]: Frame #" << i << " (Seq " << seqNum << ") received. Generated ACK " << (1 - seqNum) << "." << endl;
-                cout << "[CHANNEL]: ACK " << (1 - seqNum) << " was LOST in transit!" << endl;
-                cout << "[SENDER TIMER]: Timeout expired! Resending duplicate Frame #" << i << "..." << endl;
-                cout << "[RECEIVER]: Duplicate frame detected & discarded. Re-sending ACK " << (1 - seqNum) << "." << endl;
-                acknowledged = true;
-                seqNum = 1 - seqNum;
-            } else {
-                cout << "[RECEIVER]: Frame #" << i << " (Seq " << seqNum << ") received successfully." << endl;
-                cout << "[RECEIVER]: Sending ACK " << (1 - seqNum) << " back to sender." << endl;
-                cout << "[SENDER]: ACK " << (1 - seqNum) << " received. Window slides forward!" << endl;
-                acknowledged = true;
-                seqNum = 1 - seqNum;
-            }
-        }
-    }
-
-    cout << "\\n==========================================" << endl;
-    cout << "SUCCESS: All " << totalFrames << " frames delivered and acknowledged!" << endl;
-    return 0;
-}`
-      },
-      {
-        name: "Go-Back-N ARQ",
-        fileName: "go_back_n_arq.cpp",
-        description: "Standalone C++ implementation of Go-Back-N ARQ. Implements sender window of size N and receiver window of size 1. If frame k is lost, receiver discards all subsequent out-of-order frames. Upon sender timeout, sender goes back and retransmits all N frames starting from frame k.",
-        howToRun: [
-          { step: 1, text: "Save the code as go_back_n_arq.cpp." },
-          { step: 2, text: "Compile with g++:", cmd: "g++ go_back_n_arq.cpp -o go_back_n_arq" },
-          { step: 3, text: "Execute the binary:", cmd: "./go_back_n_arq.exe" }
-        ],
-        samples: [
-          {
-            title: "Test Case 1: Window Size 4, 8 Frames, Loss at Frame 3",
-            input: "8\n4\n3",
-            output: "=== GO-BACK-N ARQ SIMULATION ===\nEnter total frames to send: 8\nEnter Window Size (N): 4\nEnter 1-based frame to simulate loss (e.g., 3): 3\n\n--- Window: [1, 2, 3, 4] ---\nSender sends Frame 1 -> ACK 1 received. Window slides.\nSender sends Frame 2 -> ACK 2 received. Window slides.\nSender sends Frame 3 -> Frame 3 LOST!\nSender sends Frame 4 -> Discarded by receiver (out of order, expecting 3).\n[TIMEOUT]: Timer expired for Frame 3!\n[GO-BACK-N]: Retransmitting entire window starting from Frame 3 [3, 4, 5, 6]...\nRetransmitted Frame 3 -> ACK 3 received.\nRetransmitted Frame 4 -> ACK 4 received.\n...\nAll 8 frames received in order!"
-          },
-          {
-            title: "Test Case 2: Window Size 3, 6 Frames, Clean Transmission",
-            input: "6\n3\n0",
-            output: "=== GO-BACK-N ARQ SIMULATION ===\nTransmitting 6 frames with Window 3. No packet loss.\nAll frames acknowledged cumulatively. Total transmissions = 6."
-          }
-        ],
-        code: `#include <iostream>
-#include <vector>
-
-using namespace std;
-
-// Sample Input 1:
-// Total frames: 8
-// Window Size: 4
-// Frame to simulate loss (e.g., 3, or 0 for none): 3
-
-// Sample Input 2:
-// Total frames: 6
-// Window Size: 3
-// Frame to simulate loss: 0
-
-int main() {
-    int totalFrames, windowSize, lostFrame;
-
-    cout << "==========================================" << endl;
-    cout << "         GO-BACK-N ARQ SIMULATION         " << endl;
-    cout << "==========================================" << endl;
-    cout << "Enter Total Number of Frames to send: ";
-    cin >> totalFrames;
-    cout << "Enter Sender Window Size (N): ";
-    cin >> windowSize;
-    cout << "Enter 1-based Frame number to simulate LOSS (0 for no loss): ";
-    cin >> lostFrame;
-
-    int currentBase = 1; // Base of the window
-    int totalTransmissions = 0;
-    bool lossSimulated = false;
-
-    while (currentBase <= totalFrames) {
-        cout << "\\n==================================================" << endl;
-        cout << "Current Window: [ ";
-        for (int i = currentBase; i < currentBase + windowSize && i <= totalFrames; i++) {
-            cout << i << " ";
-        }
-        cout << "]" << endl;
-
-        // Sender transmits current window
-        int sentUpTo = min(currentBase + windowSize - 1, totalFrames);
-        for (int f = currentBase; f <= sentUpTo; f++) {
-            totalTransmissions++;
-            cout << "-> Sender transmits Frame " << f << endl;
-        }
-
-        // Check if lost frame is within this transmission window
-        if (!lossSimulated && lostFrame >= currentBase && lostFrame <= sentUpTo) {
-            lossSimulated = true;
-            cout << "\\n[CHANNEL]: *** Frame " << lostFrame << " was LOST in transmission! ***" << endl;
-
-            // Frames before lostFrame are acknowledged
-            for (int f = currentBase; f < lostFrame; f++) {
-                cout << "<- Receiver: Frame " << f << " in order. Sent ACK " << f << endl;
-            }
-
-            // Subsequent frames in the window are discarded by receiver
-            for (int f = lostFrame + 1; f <= sentUpTo; f++) {
-                cout << "<- Receiver: Frame " << f << " discarded (out-of-order, expected Frame " << lostFrame << ")" << endl;
-            }
-
-            cout << "\\n[TIMER EXPIRED]: Sender timer timed out for unacknowledged Frame " << lostFrame << "!" << endl;
-            cout << "[GO-BACK-N TRIGGERED]: Sender resets window and RETRANSMITS all frames from Frame " << lostFrame << endl;
-
-            currentBase = lostFrame; // Slide base to the lost frame for retransmission
-        } else {
-            // All frames in window successfully received and acknowledged
-            for (int f = currentBase; f <= sentUpTo; f++) {
-                cout << "<- Receiver: Frame " << f << " accepted. Cumulative ACK " << f << " received." << endl;
-            }
-            currentBase = sentUpTo + 1; // Window slides past all acknowledged frames
-        }
-    }
-
-    cout << "\\n==========================================" << endl;
-    cout << "SUCCESS: All " << totalFrames << " frames delivered in correct sequential order!" << endl;
-    cout << "Total frame transmissions required: " << totalTransmissions << endl;
-    return 0;
-}`
-      },
-      {
-        name: "Selective Repeat ARQ",
-        fileName: "selective_repeat_arq.cpp",
-        description: "Standalone C++ implementation of Selective Repeat ARQ. Both sender and receiver maintain a window of size N. The receiver independently buffers out-of-order frames within its window and sends individual ACKs / NAKs. The sender retransmits ONLY the specific damaged or lost frame.",
-        howToRun: [
-          { step: 1, text: "Save file as selective_repeat_arq.cpp." },
-          { step: 2, text: "Compile with MinGW g++:", cmd: "g++ selective_repeat_arq.cpp -o selective_repeat_arq" },
-          { step: 3, text: "Execute the program:", cmd: "./selective_repeat_arq.exe" }
-        ],
-        samples: [
-          {
-            title: "Test Case 1: Window Size 4, 8 Frames, Frame 3 Lost",
-            input: "8\n4\n3",
-            output: "=== SELECTIVE REPEAT ARQ SIMULATION ===\nEnter total frames: 8\nEnter Window Size: 4\nEnter Frame to simulate loss: 3\n\nSender transmits Window [1, 2, 3, 4]...\nFrame 1 -> ACK 1 received. Window slides.\nFrame 2 -> ACK 2 received. Window slides.\nFrame 3 -> LOST in transit!\nFrame 4 -> Received and BUFFERED by receiver. Individual ACK 4 sent.\n[SELECTIVE RETRANSMISSION]: Sender retransmits ONLY Frame 3 (does NOT retransmit Frame 4)!\nFrame 3 retransmitted -> Received by receiver.\nReceiver window slides over buffered Frame 4!\nAll 8 frames received."
-          },
-          {
-            title: "Test Case 2: Window Size 3, 5 Frames, Frame 2 Lost",
-            input: "5\n3\n2",
-            output: "=== SELECTIVE REPEAT ARQ SIMULATION ===\nTransmitting 5 frames. Frame 2 lost.\nFrame 3 buffered. Only Frame 2 retransmitted.\nEfficiency higher than Go-Back-N."
-          }
-        ],
-        code: `#include <iostream>
-#include <vector>
-
-using namespace std;
-
-// Sample Input 1:
-// Total frames: 8
-// Window size: 4
-// Frame to lose: 3
-
-int main() {
-    int totalFrames, windowSize, lostFrame;
-
-    cout << "==========================================" << endl;
-    cout << "      SELECTIVE REPEAT ARQ SIMULATION     " << endl;
-    cout << "==========================================" << endl;
-    cout << "Sender Window = N, Receiver Window = N" << endl;
-    cout << "Receiver buffers out-of-order frames; ONLY lost frames are resent." << endl;
-    cout << "Enter Total Number of Frames to send: ";
-    cin >> totalFrames;
-    cout << "Enter Window Size (N): ";
-    cin >> windowSize;
-    cout << "Enter 1-based Frame number to simulate LOSS (0 for none): ";
-    cin >> lostFrame;
-
-    vector<bool> acked(totalFrames + 1, false);
-    vector<bool> received(totalFrames + 1, false);
-
-    int currentBase = 1;
-    bool lossOccurred = false;
-    int totalTransmissions = 0;
-
-    while (currentBase <= totalFrames) {
-        cout << "\\n--------------------------------------------------" << endl;
-        cout << "Sender Window Base: Frame " << currentBase << endl;
-        cout << "Active Window Frames: [ ";
-        int windowEnd = min(currentBase + windowSize - 1, totalFrames);
-        for (int i = currentBase; i <= windowEnd; i++) {
-            cout << i << (acked[i] ? "(ACK) " : " ");
-        }
-        cout << "]" << endl;
-
-        // Send unacknowledged frames in current window
-        for (int f = currentBase; f <= windowEnd; f++) {
-            if (!acked[f]) {
-                totalTransmissions++;
-                cout << "-> Sender transmits Frame " << f << endl;
-
-                // Simulate loss if this is the targeted lost frame
-                if (!lossOccurred && f == lostFrame) {
-                    lossOccurred = true;
-                    cout << "[CHANNEL]: *** Frame " << f << " was LOST in transit! ***" << endl;
-                } else {
-                    received[f] = true;
-                    acked[f] = true;
-                    cout << "<- Receiver: Frame " << f << " received. Buffered in Receiver Window. Sending Individual ACK " << f << "." << endl;
-                }
-            }
-        }
-
-        // If the base frame is not ACKed, sender times out on it
-        if (!acked[currentBase]) {
-            cout << "\\n[TIMEOUT]: Timer expired on Sender for Frame " << currentBase << "!" << endl;
-            cout << "[SELECTIVE REPEAT]: Retransmitting ONLY Frame " << currentBase << " (Other buffered frames are NOT resent)!" << endl;
-            totalTransmissions++;
-            cout << "-> Sender retransmits Frame " << currentBase << endl;
-            received[currentBase] = true;
-            acked[currentBase] = true;
-            cout << "<- Receiver: Frame " << currentBase << " received. Sending ACK " << currentBase << "." << endl;
-        }
-
-        // Slide window forward past all consecutively acknowledged frames
-        while (currentBase <= totalFrames && acked[currentBase]) {
-            cout << "[WINDOW SLIDE]: Frame " << currentBase << " acknowledged. Sender and Receiver windows slide forward." << endl;
-            currentBase++;
-        }
-    }
-
-    cout << "\\n==========================================" << endl;
-    cout << "SUCCESS: All " << totalFrames << " frames delivered and buffered successfully!" << endl;
-    cout << "Total frame transmissions required: " << totalTransmissions << endl;
-    return 0;
-}`
-      },
-      {
-        name: "Combined Sliding Window Menu",
-        fileName: "sliding_window_menu.cpp",
-        description: "Unified C++ application containing Stop-and-Wait, Go-Back-N, and Selective Repeat ARQ protocols with comparison of window utilization and retransmission overhead.",
-        howToRun: [
-          { step: 1, text: "Save the code as sliding_window_menu.cpp." },
-          { step: 2, text: "Compile using g++:", cmd: "g++ sliding_window_menu.cpp -o sliding_window_menu" },
-          { step: 3, text: "Execute the menu:", cmd: "./sliding_window_menu.exe" }
-        ],
-        samples: [
-          {
-            title: "Test Case 1: Run Stop & Wait then Exit",
-            input: "1\n3\n0\n0\n0\n4",
-            output: "=== SLIDING WINDOW PROTOCOLS SUITE ===\n1. Stop and Wait ARQ\n2. Go-Back-N ARQ\n3. Selective Repeat ARQ\n4. Exit\nSelected Stop and Wait...\nExiting."
-          },
-          {
-            title: "Test Case 2: Run Go-Back-N then Selective Repeat",
-            input: "2\n5\n3\n2\n3\n5\n3\n2\n4",
-            output: "Demonstrates that Go-Back-N resends 4 frames whereas Selective Repeat resends only 1 lost frame."
-          }
-        ],
-        code: `#include <iostream>
-#include <vector>
-
-using namespace std;
-
-// Sample Input:
-// 1 -> 3 frames
-// 2 -> 6 frames, window 3, lose 2
-// 3 -> 6 frames, window 3, lose 2
-// 4 -> Exit
-
-void runStopAndWait() {
-    cout << "\\n=== [1] STOP AND WAIT ARQ SIMULATION ===" << endl;
-    int total;
-    cout << "Enter total frames to transmit: ";
-    cin >> total;
-    int seq = 0;
-    for (int i = 1; i <= total; i++) {
-        cout << "\\nSender sending Frame " << i << " (Seq " << seq << ")..." << endl;
-        cout << "Receiver received Frame " << i << ". Sending ACK " << (1 - seq) << "." << endl;
-        cout << "ACK received by Sender. Window slides." << endl;
-        seq = 1 - seq;
-    }
-    cout << "Stop & Wait complete for " << total << " frames." << endl;
-}
-
-void runGoBackN() {
-    cout << "\\n=== [2] GO-BACK-N ARQ SIMULATION ===" << endl;
-    int total, N, lost;
-    cout << "Enter total frames: ";
-    cin >> total;
-    cout << "Enter Window size (N): ";
-    cin >> N;
-    cout << "Enter frame to simulate loss (0 for none): ";
-    cin >> lost;
-
-    int base = 1, tx = 0;
-    bool lossDone = false;
-    while (base <= total) {
-        int end = min(base + N - 1, total);
-        cout << "\\nWindow: [ ";
-        for (int i = base; i <= end; i++) cout << i << " ";
-        cout << "]" << endl;
-
-        for (int f = base; f <= end; f++) {
-            tx++;
-            cout << "-> Sending Frame " << f << endl;
-        }
-
-        if (!lossDone && lost >= base && lost <= end) {
-            lossDone = true;
-            cout << "[!] Frame " << lost << " LOST! Subsequent frames discarded by receiver." << endl;
-            cout << "[TIMEOUT]: Go-Back-N retransmitting entire window from Frame " << lost << "!" << endl;
-            base = lost;
-        } else {
-            cout << "<- Cumulative ACK received for window up to Frame " << end << "." << endl;
-            base = end + 1;
-        }
-    }
-    cout << "Go-Back-N complete. Total transmissions: " << tx << endl;
-}
-
-void runSelectiveRepeat() {
-    cout << "\\n=== [3] SELECTIVE REPEAT ARQ SIMULATION ===" << endl;
-    int total, N, lost;
-    cout << "Enter total frames: ";
-    cin >> total;
-    cout << "Enter Window size (N): ";
-    cin >> N;
-    cout << "Enter frame to simulate loss (0 for none): ";
-    cin >> lost;
-
-    vector<bool> acked(total + 1, false);
-    int base = 1, tx = 0;
-    bool lossDone = false;
-
-    while (base <= total) {
-        int end = min(base + N - 1, total);
-        for (int f = base; f <= end; f++) {
-            if (!acked[f]) {
-                tx++;
-                cout << "-> Sending Frame " << f << endl;
-                if (!lossDone && f == lost) {
-                    lossDone = true;
-                    cout << "[!] Frame " << f << " LOST in transit!" << endl;
-                } else {
-                    acked[f] = true;
-                    cout << "<- Individual ACK " << f << " received (Buffered at receiver)." << endl;
-                }
-            }
-        }
-
-        if (!acked[base]) {
-            cout << "[TIMEOUT]: Retransmitting ONLY lost Frame " << base << "!" << endl;
-            tx++;
-            acked[base] = true;
-            cout << "<- ACK " << base << " received." << endl;
-        }
-
-        while (base <= total && acked[base]) base++;
-    }
-    cout << "Selective Repeat complete. Total transmissions: " << tx << endl;
-}
-
-int main() {
-    int choice;
-    do {
-        cout << "\\n==========================================" << endl;
-        cout << "    SLIDING WINDOW PROTOCOLS SUITE        " << endl;
-        cout << "==========================================" << endl;
-        cout << "1. Stop and Wait ARQ (Window = 1)" << endl;
-        cout << "2. Go-Back-N ARQ (Window = N, Discard Out-of-Order)" << endl;
-        cout << "3. Selective Repeat ARQ (Window = N, Buffer Out-of-Order)" << endl;
-        cout << "4. Exit" << endl;
-        cout << "Enter choice (1-4): ";
-
-        if (!(cin >> choice)) {
-            cin.clear();
-            cin.ignore(1000, '\\n');
-            continue;
-        }
-
-        switch (choice) {
-            case 1: runStopAndWait(); break;
-            case 2: runGoBackN(); break;
-            case 3: runSelectiveRepeat(); break;
-            case 4: cout << "Exiting Sliding Window Suite. Goodbye!" << endl; break;
-            default: cout << "Invalid choice! Enter 1-4." << endl;
-        }
-    } while (choice != 4);
-    return 0;
-}`
-      }
-    ]
-  },
-
-  // ─────────────────────────────────────────────────────────────────
-  // PRACTICAL 05: SUBNET CALCULATOR
-  // ─────────────────────────────────────────────────────────────────
-  {
-    id: 5,
-    number: "PR-05",
-    title: "Subnet Calculator",
-    category: "subnet",
-    categoryLabel: "Network Layer · IPv4 Addressing & Subnetting",
-    type: "cpp",
-    shortDesc: "Standalone C++ subnet calculator program utilizing bitwise operations to compute network address, broadcast address, first and last usable host IPs, usable host count, wildcard mask, borrowed bits, and class, with full support for /31 point-to-point and /32 single host edge cases.",
-    topics: ["IPv4 Addressing", "CIDR Notation", "Subnet Mask", "Network Address", "Broadcast Address", "/31 RFC 3021 Edge Case", "/32 Loopback Edge Case"],
-    implCount: "1 Standalone C++ Program",
-    aim: "To design and implement a standalone IPv4 Subnet Calculator in C++ using 32-bit bitwise operations, validate dotted-decimal IPv4 addresses and CIDR prefixes, determine class and borrowed subnet bits, calculate network/broadcast boundaries and usable host ranges, and accurately handle /31 and /32 edge cases.",
-    hasCode: true,
-    algorithms: [
-      {
-        name: "IPv4 Subnet Calculator",
-        fileName: "subnet_calculator.cpp",
-        description: "Complete standalone C++ subnet calculator. Supports CIDR notation (e.g. 192.168.1.150/26 or 192.168.1.150 with prefix 26) or subnet mask input. Computes all addressing parameters and handles edge cases (/31 point-to-point links per RFC 3021 and /32 single-host routes).",
-        howToRun: [
-          { step: 1, text: "Save the code as subnet_calculator.cpp in your workspace." },
-          { step: 2, text: "Compile with MinGW g++ in VS Code terminal:", cmd: "g++ subnet_calculator.cpp -o subnet_calculator" },
-          { step: 3, text: "Run the executable:", cmd: "./subnet_calculator.exe" }
-        ],
-        samples: [
-          {
-            title: "Test Case 1: Standard Class C Subnet (192.168.1.130 /26)",
-            input: "192.168.1.130\n26",
-            output: "=========================================================\n              IPv4 SUBNET CALCULATOR REPORT              \n=========================================================\nIP Address:             192.168.1.130\nCIDR Prefix:            /26\nSubnet Mask:            255.255.255.192\nWildcard Mask:          0.0.0.63\nNetwork Address:        192.168.1.128\nBroadcast Address:      192.168.1.191\nFirst Usable Host IP:   192.168.1.129\nLast Usable Host IP:    192.168.1.190\nTotal IP Addresses:     64\nUsable Host Addresses:  62\nIP Class:               Class C (Default Mask /24)\nSubnet Bits Borrowed:   2 bits (2^2 = 4 subnets created)\nHost Bits Remaining:    6 bits (2^6 - 2 = 62 usable hosts)"
-          },
-          {
-            title: "Test Case 2: RFC 3021 Point-to-Point Link Edge Case (10.0.0.5 /31)",
-            input: "10.0.0.5\n31",
-            output: "=========================================================\n              IPv4 SUBNET CALCULATOR REPORT              \n=========================================================\nIP Address:             10.0.0.5\nCIDR Prefix:            /31\nSubnet Mask:            255.255.255.254\nWildcard Mask:          0.0.0.1\nNetwork Address:        10.0.0.4\nBroadcast Address:      10.0.0.5\n[SPECIAL EDGE CASE - RFC 3021]:\nPoint-to-Point Link (/31): Both addresses are usable as host endpoints.\nEndpoint 1:             10.0.0.4\nEndpoint 2:             10.0.0.5\nTotal Addresses:        2\nUsable Host Count:      2"
-          }
-        ],
-        code: `#include <iostream>
-#include <string>
-#include <sstream>
-#include <vector>
-#include <iomanip>
-#include <cstdint>
-
-using namespace std;
-
-// Sample Input 1:
-// IP Address: 192.168.1.130
-// CIDR Prefix: 26
-
-// Sample Input 2:
-// IP Address: 10.0.0.5
-// CIDR Prefix: 31
-
-// Parse dotted-decimal IP string into 32-bit unsigned integer
-bool parseIPv4(const string& ipStr, uint32_t& ipInt, vector<int>& octets) {
-    octets.clear();
-    stringstream ss(ipStr);
-    string segment;
-    while (getline(ss, segment, '.')) {
-        try {
-            int val = stoi(segment);
-            if (val < 0 || val > 255) return false;
-            octets.push_back(val);
-        } catch (...) {
-            return false;
-        }
-    }
-    if (octets.size() != 4) return false;
-
-    ipInt = ((uint32_t)octets[0] << 24) |
-            ((uint32_t)octets[1] << 16) |
-            ((uint32_t)octets[2] << 8)  |
-            ((uint32_t)octets[3]);
-    return true;
-}
-
-// Convert 32-bit integer back to dotted-decimal string
-string intToIPv4(uint32_t ipInt) {
-    return to_string((ipInt >> 24) & 0xFF) + "." +
-           to_string((ipInt >> 16) & 0xFF) + "." +
-           to_string((ipInt >> 8)  & 0xFF) + "." +
-           to_string(ipInt & 0xFF);
-}
-
-// Convert 32-bit integer to 8-bit binary string representation
-string intToBinary(uint32_t val) {
-    string res = "";
-    for (int i = 31; i >= 0; i--) {
-        res += ((val >> i) & 1) ? '1' : '0';
-        if (i % 8 == 0 && i != 0) res += ".";
-    }
-    return res;
-}
-
-int main() {
-    string ipInput;
-    int cidr;
-
-    cout << "=========================================================" << endl;
-    cout << "             IPv4 SUBNET CALCULATOR ENGINE               " << endl;
-    cout << "=========================================================" << endl;
-    cout << "Enter IPv4 Address (e.g., 192.168.1.130): ";
-    cin >> ipInput;
-
-    uint32_t ip;
-    vector<int> octets;
-    if (!parseIPv4(ipInput, ip, octets)) {
-        cout << "[ERROR]: Invalid IPv4 address format! Each octet must be 0-255." << endl;
-        return 1;
-    }
-
-    cout << "Enter CIDR Prefix Length (0 to 32): ";
-    if (!(cin >> cidr) || cidr < 0 || cidr > 32) {
-        cout << "[ERROR]: Invalid CIDR prefix! Must be between 0 and 32." << endl;
-        return 1;
-    }
-
-    // Calculate Subnet Mask
-    uint32_t mask = (cidr == 0) ? 0 : (0xFFFFFFFF << (32 - cidr));
-    uint32_t wildcard = ~mask;
-    uint32_t network = ip & mask;
-    uint32_t broadcast = ip | wildcard;
-
-    // Determine IP Class & default prefix
-    string ipClass;
-    int defaultPrefix;
-    if (octets[0] >= 1 && octets[0] <= 126) {
-        ipClass = "Class A";
-        defaultPrefix = 8;
-    } else if (octets[0] >= 128 && octets[0] <= 191) {
-        ipClass = "Class B";
-        defaultPrefix = 16;
-    } else if (octets[0] >= 192 && octets[0] <= 223) {
-        ipClass = "Class C";
-        defaultPrefix = 24;
-    } else if (octets[0] >= 224 && octets[0] <= 239) {
-        ipClass = "Class D (Multicast)";
-        defaultPrefix = 0;
-    } else {
-        ipClass = "Class E (Experimental)";
-        defaultPrefix = 0;
-    }
-
-    // Address and host calculations
-    uint64_t totalAddresses = (1ULL << (32 - cidr));
-    uint64_t usableHosts = 0;
-    string firstHostStr, lastHostStr;
-
-    // Handle Edge Cases: /31 (RFC 3021) and /32 (Single Host)
-    if (cidr == 32) {
-        usableHosts = 1;
-        firstHostStr = intToIPv4(ip);
-        lastHostStr  = intToIPv4(ip);
-    } else if (cidr == 31) {
-        // RFC 3021: Point-to-point links (both addresses usable as hosts)
-        usableHosts = 2;
-        firstHostStr = intToIPv4(network);
-        lastHostStr  = intToIPv4(broadcast);
-    } else {
-        usableHosts = totalAddresses - 2;
-        firstHostStr = intToIPv4(network + 1);
-        lastHostStr  = intToIPv4(broadcast - 1);
-    }
-
-    int borrowedBits = (cidr >= defaultPrefix && defaultPrefix > 0) ? (cidr - defaultPrefix) : 0;
-
-    // Display Output Report
-    cout << "\\n=========================================================" << endl;
-    cout << "              IPv4 SUBNET CALCULATION REPORT             " << endl;
-    cout << "=========================================================" << endl;
-    cout << left << setw(26) << "IP Address:"            << intToIPv4(ip) << endl;
-    cout << left << setw(26) << "IP Binary:"             << intToBinary(ip) << endl;
-    cout << left << setw(26) << "CIDR Prefix:"           << "/" << cidr << endl;
-    cout << left << setw(26) << "Subnet Mask:"           << intToIPv4(mask) << endl;
-    cout << left << setw(26) << "Mask Binary:"           << intToBinary(mask) << endl;
-    cout << left << setw(26) << "Wildcard Mask:"         << intToIPv4(wildcard) << endl;
-    cout << left << setw(26) << "Network Address:"       << intToIPv4(network) << endl;
-    cout << left << setw(26) << "Broadcast Address:"     << intToIPv4(broadcast) << endl;
-
-    if (cidr == 31) {
-        cout << "\\n[SPECIAL CASE - RFC 3021]: /31 Point-to-Point Link" << endl;
-        cout << left << setw(26) << "Endpoint 1 (Host):"    << firstHostStr << endl;
-        cout << left << setw(26) << "Endpoint 2 (Host):"    << lastHostStr << endl;
-    } else if (cidr == 32) {
-        cout << "\\n[SPECIAL CASE]: /32 Single Host Route (Loopback)" << endl;
-        cout << left << setw(26) << "Host IP:"              << firstHostStr << endl;
-    } else {
-        cout << left << setw(26) << "First Usable Host:"     << firstHostStr << endl;
-        cout << left << setw(26) << "Last Usable Host:"      << lastHostStr << endl;
-    }
-
-    cout << left << setw(26) << "Total IP Addresses:"    << totalAddresses << endl;
-    cout << left << setw(26) << "Usable Host Count:"     << usableHosts << endl;
-    cout << left << setw(26) << "IP Class:"              << ipClass << " (Default: /" << defaultPrefix << ")" << endl;
-    cout << left << setw(26) << "Subnet Bits Borrowed:"  << borrowedBits << " bits (" << (1 << borrowedBits) << " subnets)" << endl;
-    cout << left << setw(26) << "Host Bits Remaining:"   << (32 - cidr) << " bits" << endl;
-    cout << "=========================================================" << endl;
-
-    return 0;
-}`
-      }
-    ]
-  },
-
-  // ─────────────────────────────────────────────────────────────────
-  // PRACTICAL 06: ROUTING ALGORITHMS
-  // ─────────────────────────────────────────────────────────────────
-  {
-    id: 6,
-    number: "PR-06",
-    title: "Routing Algorithms",
-    category: "routing",
-    categoryLabel: "Network Layer · Unicast Routing",
-    type: "cpp",
-    shortDesc: "Complete C++ implementations of Distance Vector Routing (Bellman-Ford algorithm with iterative matrix updates until convergence) and Link State Routing (Dijkstra's shortest path algorithm with path reconstruction), along with a combined menu-driven application.",
-    topics: ["Distance Vector Routing", "Bellman-Ford Algorithm", "Link State Routing", "Dijkstra's Algorithm", "Routing Tables", "Next Hop Determination", "Shortest Path Reconstruction"],
-    implCount: "3 C++ Implementations",
-    aim: "To implement Distance Vector Routing using the Bellman-Ford equation and Link State Routing using Dijkstra's Shortest Path Algorithm in C++, demonstrate routing table initialization, iterative exchange of distance vectors, convergence detection, shortest path computation, and integrate them into a menu-driven console program.",
-    hasCode: true,
-    algorithms: [
-      {
-        name: "Distance Vector Routing",
-        fileName: "distance_vector.cpp",
-        description: "Standalone C++ implementation of Distance Vector Routing based on the Bellman-Ford algorithm: D_x(y) = min_v { c(x,v) + D_v(y) }. Accepts cost adjacency matrix (using 9999 for infinity), displays iterative updates until convergence, and outputs final routing tables with next-hop router.",
-        howToRun: [
-          { step: 1, text: "Save code as distance_vector.cpp in VS Code." },
-          { step: 2, text: "Compile in terminal:", cmd: "g++ distance_vector.cpp -o distance_vector" },
-          { step: 3, text: "Run the binary executable:", cmd: "./distance_vector.exe" }
-        ],
-        samples: [
-          {
-            title: "Test Case 1: 3-Router Triangular Network",
-            input: "3\n0 2 7\n2 0 1\n7 1 0",
-            output: "=== DISTANCE VECTOR ROUTING (BELLMAN-FORD) ===\nEnter number of routers: 3\nEnter cost matrix (0 for self, 9999 for unreachable):\nRow 0: 0 2 7\nRow 1: 2 0 1\nRow 2: 7 1 0\n\n--- Iteration 1 ---\nRouting updates exchanged between adjacent neighbors...\nDistance vector updated via Router 1 (Cost 2+1=3 < 7)\nConvergence reached after 2 iterations!\n\n=== FINAL ROUTING TABLES ===\nRouting Table for Router 0:\n  Destination | Cost | Next Hop\n  0           | 0    | 0\n  1           | 2    | 1\n  2           | 3    | 1\n..."
-          },
-          {
-            title: "Test Case 2: 4-Router Mesh Network with Unreachable Link",
-            input: "4\n0 3 9999 7\n3 0 1 9999\n9999 1 0 2\n7 9999 2 0",
-            output: "Iterative Bellman-Ford updates discover indirect route 0 -> 1 -> 2 -> 3 with total cost 6 (less than direct link 7). Converged routing tables displayed."
-          }
-        ],
-        code: `#include <iostream>
-#include <vector>
-#include <iomanip>
-
-using namespace std;
-
-// Sample Input 1:
-// Routers: 3
-// Cost matrix:
-// 0 2 7
-// 2 0 1
-// 7 1 0
-
-const int INF = 9999;
-
-struct RouteEntry {
-    int dist;
-    int nextHop;
-};
-
-int main() {
-    int n;
-    cout << "=================================================" << endl;
-    cout << "   DISTANCE VECTOR ROUTING (BELLMAN-FORD)        " << endl;
-    cout << "=================================================" << endl;
-    cout << "Enter total number of routers: ";
-    if (!(cin >> n) || n <= 0) {
-        cout << "[ERROR]: Invalid number of routers!" << endl;
-        return 1;
-    }
-
-    vector<vector<int>> cost(n, vector<int>(n));
-    // routingTable[node][destination]
-    vector<vector<RouteEntry>> table(n, vector<RouteEntry>(n));
-
-    cout << "Enter " << n << "x" << n << " Cost Matrix (Use 0 for self, " << INF << " for no direct link):" << endl;
-    for (int i = 0; i < n; i++) {
-        for (int j = 0; j < n; j++) {
-            cin >> cost[i][j];
-            table[i][j].dist = cost[i][j];
-            if (i == j) {
-                table[i][j].nextHop = i;
-            } else if (cost[i][j] != INF) {
-                table[i][j].nextHop = j;
-            } else {
-                table[i][j].nextHop = -1; // Unreachable
-            }
-        }
-    }
-
-    // Bellman-Ford Iterative Convergence
-    // D_i(j) = min_k { cost[i][k] + D_k(j) }
-    int iteration = 0;
-    bool updated = true;
-
-    while (updated) {
-        updated = false;
-        iteration++;
-        for (int i = 0; i < n; i++) {
-            for (int j = 0; j < n; j++) {
-                for (int k = 0; k < n; k++) {
-                    if (cost[i][k] != INF && table[k][j].dist != INF) {
-                        int newDist = cost[i][k] + table[k][j].dist;
-                        if (newDist < table[i][j].dist) {
-                            table[i][j].dist = newDist;
-                            table[i][j].nextHop = table[i][k].nextHop;
-                            updated = true;
-                        }
-                    }
-                }
-            }
-        }
-    }
-
-    cout << "\\nRouting algorithm converged successfully after " << iteration << " iteration(s)!" << endl;
-
-    // Display Final Routing Tables
-    for (int i = 0; i < n; i++) {
-        cout << "\\n==========================================" << endl;
-        cout << "  Routing Table for Router " << i << " (Node R" << i << ")" << endl;
-        cout << "==========================================" << endl;
-        cout << left << setw(14) << "Destination" << setw(10) << "Cost" << setw(12) << "Next Hop" << endl;
-        cout << "------------------------------------------" << endl;
-        for (int j = 0; j < n; j++) {
-            cout << "R" << left << setw(13) << j;
-            if (table[i][j].dist == INF) {
-                cout << setw(10) << "INF" << setw(12) << "None" << endl;
-            } else {
-                cout << setw(10) << table[i][j].dist;
-                if (table[i][j].nextHop != -1) {
-                    cout << "R" << setw(11) << table[i][j].nextHop << endl;
-                } else {
-                    cout << setw(12) << "Self" << endl;
-                }
-            }
-        }
-    }
-
-    return 0;
-}`
-      },
-      {
-        name: "Link State Routing (Dijkstra)",
-        fileName: "link_state_dijkstra.cpp",
-        description: "Standalone C++ implementation of Link State Routing using Dijkstra's Shortest Path Algorithm. Accepts weighted adjacency matrix and source router, computes shortest distances, and reconstructs the full hop-by-hop transmission paths.",
-        howToRun: [
-          { step: 1, text: "Save as link_state_dijkstra.cpp in VS Code." },
-          { step: 2, text: "Compile with g++:", cmd: "g++ link_state_dijkstra.cpp -o link_state_dijkstra" },
-          { step: 3, text: "Run executable:", cmd: "./link_state_dijkstra.exe" }
-        ],
-        samples: [
-          {
-            title: "Test Case 1: 5-Node Graph with Source Router 0",
-            input: "5\n0 4 2 9999 9999\n4 0 1 5 9999\n2 1 0 8 10\n9999 5 8 0 2\n9999 9999 10 2 0\n0",
-            output: "=== LINK STATE ROUTING (DIJKSTRA'S ALGORITHM) ===\nSource Router: 0\nShortest Path Results:\nDest | Cost | Full Routing Path\nR0   | 0    | R0\nR1   | 3    | R0 -> R2 -> R1\nR2   | 2    | R0 -> R2\nR3   | 8    | R0 -> R2 -> R1 -> R3\nR4   | 10   | R0 -> R2 -> R1 -> R3 -> R4"
-          },
-          {
-            title: "Test Case 2: 4-Node Symmetric Ring with Source 2",
-            input: "4\n0 1 9999 1\n1 0 1 9999\n9999 1 0 1\n1 9999 1 0\n2",
-            output: "Calculates shortest paths from Router 2 to all destinations: R0 (cost 2), R1 (cost 1), R3 (cost 1)."
-          }
-        ],
-        code: `#include <iostream>
-#include <vector>
-#include <iomanip>
-#include <string>
-
-using namespace std;
-
-// Sample Input 1:
-// Routers: 5
-// Matrix:
-// 0 4 2 9999 9999
-// 4 0 1 5 9999
-// 2 1 0 8 10
-// 9999 5 8 0 2
-// 9999 9999 10 2 0
-// Source: 0
-
-const int INF = 9999;
-
-// Reconstruct path from source to target using parent array
-string reconstructPath(int target, const vector<int>& parent) {
-    if (parent[target] == -1) return "R" + to_string(target);
-    return reconstructPath(parent[target], parent) + " -> R" + to_string(target);
-}
-
-int main() {
-    int n, source;
-    cout << "=================================================" << endl;
-    cout << "     LINK STATE ROUTING (DIJKSTRA'S ALGORITHM)   " << endl;
-    cout << "=================================================" << endl;
-    cout << "Enter total number of routers: ";
-    cin >> n;
-
-    vector<vector<int>> cost(n, vector<int>(n));
-    cout << "Enter " << n << "x" << n << " Weighted Adjacency Matrix (0 for self, " << INF << " for no link):" << endl;
-    for (int i = 0; i < n; i++) {
-        for (int j = 0; j < n; j++) {
-            cin >> cost[i][j];
-        }
-    }
-
-    cout << "Enter Source Router ID (0 to " << n - 1 << "): ";
-    cin >> source;
-    if (source < 0 || source >= n) {
-        cout << "[ERROR]: Invalid source router ID!" << endl;
-        return 1;
-    }
-
-    vector<int> dist(n, INF);
-    vector<bool> visited(n, false);
-    vector<int> parent(n, -1);
-
-    dist[source] = 0;
-
-    // Dijkstra's Shortest Path Algorithm
-    for (int count = 0; count < n - 1; count++) {
-        // Find minimum distance unvisited vertex
-        int minDist = INF, u = -1;
-        for (int v = 0; v < n; v++) {
-            if (!visited[v] && dist[v] <= minDist) {
-                minDist = dist[v];
-                u = v;
-            }
-        }
-
-        if (u == -1 || dist[u] == INF) break;
-        visited[u] = true;
-
-        // Relax outgoing edges from u
-        for (int v = 0; v < n; v++) {
-            if (!visited[v] && cost[u][v] != INF && cost[u][v] != 0) {
-                if (dist[u] + cost[u][v] < dist[v]) {
-                    dist[v] = dist[u] + cost[u][v];
-                    parent[v] = u;
-                }
-            }
-        }
-    }
-
-    // Display Shortest Path Routing Results
-    cout << "\\n==========================================================" << endl;
-    cout << "   LINK STATE SHORTEST PATHS FROM SOURCE ROUTER R" << source << endl;
-    cout << "==========================================================" << endl;
-    cout << left << setw(14) << "Destination" << setw(12) << "Min Cost" << "Shortest Path Sequence" << endl;
-    cout << "----------------------------------------------------------" << endl;
-
-    for (int i = 0; i < n; i++) {
-        cout << "R" << left << setw(13) << i;
-        if (dist[i] == INF) {
-            cout << setw(12) << "INF" << "Unreachable (No Path)" << endl;
-        } else {
-            cout << setw(12) << dist[i];
-            cout << reconstructPath(i, parent) << endl;
-        }
-    }
-
-    return 0;
-}`
-      },
-      {
-        name: "Combined Routing Algorithms Menu",
-        fileName: "routing_algorithms_menu.cpp",
-        description: "Unified menu-driven C++ application containing both Distance Vector Routing (Bellman-Ford) and Link State Routing (Dijkstra) with interactive matrix inputs.",
-        howToRun: [
-          { step: 1, text: "Save file as routing_algorithms_menu.cpp." },
-          { step: 2, text: "Compile with MinGW g++:", cmd: "g++ routing_algorithms_menu.cpp -o routing_algorithms_menu" },
-          { step: 3, text: "Execute the program:", cmd: "./routing_algorithms_menu.exe" }
-        ],
-        samples: [
-          {
-            title: "Test Case 1: Run Distance Vector then Exit",
-            input: "1\n3\n0 2 5\n2 0 1\n5 1 0\n3",
-            output: "Runs Distance Vector routing for 3 nodes and exits."
-          },
-          {
-            title: "Test Case 2: Run Link State Dijkstra then Exit",
-            input: "2\n3\n0 2 5\n2 0 1\n5 1 0\n0\n3",
-            output: "Runs Dijkstra from Source R0 and exits."
-          }
-        ],
-        code: `#include <iostream>
-#include <vector>
-#include <iomanip>
-#include <string>
-
-using namespace std;
-
-// Sample Input:
-// 1 -> Distance Vector -> 3 nodes
-// 2 -> Link State -> 3 nodes
-// 3 -> Exit
-
-const int INF = 9999;
-
-void runDistanceVector() {
-    cout << "\\n=== [1] DISTANCE VECTOR ROUTING MODULE ===" << endl;
-    int n;
-    cout << "Enter number of routers: ";
-    cin >> n;
-
-    vector<vector<int>> cost(n, vector<int>(n));
-    vector<vector<int>> dist(n, vector<int>(n));
-    vector<vector<int>> nextHop(n, vector<int>(n));
-
-    cout << "Enter " << n << "x" << n << " Cost Matrix (0 for self, " << INF << " for infinity):" << endl;
-    for (int i = 0; i < n; i++) {
-        for (int j = 0; j < n; j++) {
-            cin >> cost[i][j];
-            dist[i][j] = cost[i][j];
-            nextHop[i][j] = (cost[i][j] != INF && i != j) ? j : i;
-        }
-    }
-
-    bool updated = true;
-    while (updated) {
-        updated = false;
-        for (int i = 0; i < n; i++) {
-            for (int j = 0; j < n; j++) {
-                for (int k = 0; k < n; k++) {
-                    if (cost[i][k] != INF && dist[k][j] != INF) {
-                        if (cost[i][k] + dist[k][j] < dist[i][j]) {
-                            dist[i][j] = cost[i][k] + dist[k][j];
-                            nextHop[i][j] = nextHop[i][k];
-                            updated = true;
-                        }
-                    }
-                }
-            }
-        }
-    }
-
-    for (int i = 0; i < n; i++) {
-        cout << "\\nRouting Table for Router R" << i << ":" << endl;
-        cout << left << setw(12) << "Dest" << setw(10) << "Cost" << "Next Hop" << endl;
-        for (int j = 0; j < n; j++) {
-            cout << "R" << left << setw(11) << j << setw(10) << dist[i][j] << "R" << nextHop[i][j] << endl;
-        }
-    }
-}
-
-string getPath(int target, const vector<int>& parent) {
-    if (parent[target] == -1) return "R" + to_string(target);
-    return getPath(parent[target], parent) + " -> R" + to_string(target);
-}
-
-void runLinkState() {
-    cout << "\\n=== [2] LINK STATE ROUTING (DIJKSTRA) MODULE ===" << endl;
-    int n, src;
-    cout << "Enter number of routers: ";
-    cin >> n;
-
-    vector<vector<int>> cost(n, vector<int>(n));
-    cout << "Enter " << n << "x" << n << " Adjacency Matrix:" << endl;
-    for (int i = 0; i < n; i++) {
-        for (int j = 0; j < n; j++) {
-            cin >> cost[i][j];
-        }
-    }
-
-    cout << "Enter Source Router ID (0 to " << n - 1 << "): ";
-    cin >> src;
-
-    vector<int> dist(n, INF);
-    vector<bool> vis(n, false);
-    vector<int> parent(n, -1);
-    dist[src] = 0;
-
-    for (int count = 0; count < n - 1; count++) {
-        int minD = INF, u = -1;
-        for (int v = 0; v < n; v++) {
-            if (!vis[v] && dist[v] <= minD) {
-                minD = dist[v];
-                u = v;
-            }
-        }
-        if (u == -1 || dist[u] == INF) break;
-        vis[u] = true;
-        for (int v = 0; v < n; v++) {
-            if (!vis[v] && cost[u][v] != INF && cost[u][v] != 0) {
-                if (dist[u] + cost[u][v] < dist[v]) {
-                    dist[v] = dist[u] + cost[u][v];
-                    parent[v] = u;
-                }
-            }
-        }
-    }
-
-    cout << "\\nShortest Paths from R" << src << ":" << endl;
-    cout << left << setw(10) << "Dest" << setw(10) << "Cost" << "Full Path" << endl;
-    for (int i = 0; i < n; i++) {
-        cout << "R" << left << setw(9) << i << setw(10) << dist[i] << getPath(i, parent) << endl;
-    }
-}
-
-int main() {
-    int choice;
-    do {
-        cout << "\\n==========================================" << endl;
-        cout << "     ROUTING ALGORITHMS BENCHMARK         " << endl;
-        cout << "==========================================" << endl;
-        cout << "1. Distance Vector Routing (Bellman-Ford)" << endl;
-        cout << "2. Link State Routing (Dijkstra)" << endl;
-        cout << "3. Exit" << endl;
-        cout << "Enter your choice (1-3): ";
-
-        if (!(cin >> choice)) {
-            cin.clear();
-            cin.ignore(1000, '\\n');
-            continue;
-        }
-
-        switch (choice) {
-            case 1: runDistanceVector(); break;
-            case 2: runLinkState(); break;
-            case 3: cout << "Exiting Routing Suite. Goodbye!" << endl; break;
-            default: cout << "Invalid choice! Enter 1, 2, or 3." << endl;
-        }
-    } while (choice != 3);
-
-    return 0;
-}`
-      }
-    ]
-  },
-
-  // ─────────────────────────────────────────────────────────────────
-  // PRACTICAL 07: SOCKET PROGRAMMING
-  // ─────────────────────────────────────────────────────────────────
-  {
-    id: 7,
-    number: "PR-07",
-    title: "Socket Programming",
-    category: "sockets",
-    categoryLabel: "Transport Layer · Winsock2 Client-Server",
-    type: "cpp",
-    shortDesc: "Complete separate client and server C++ implementations for both TCP (connection-oriented stream sockets) and UDP (connectionless datagram sockets) fully compatible with Windows 10/11 using MinGW g++ and Winsock2 (-lws2_32), including step-by-step two-terminal execution and Wireshark capture guides.",
-    topics: ["Winsock2", "TCP Server & Client", "UDP Server & Client", "WSAStartup & WSACleanup", "-lws2_32 Linker", "3-Way Handshake", "Wireshark Packet Inspection"],
-    implCount: "4 Separate C++ Source Files",
-    aim: "To implement connection-oriented TCP client-server and connectionless UDP client-server communication in C++ using the Windows Sockets (Winsock2) API, compile with MinGW g++ on Windows 10/11, execute in synchronized dual terminals, and analyze the TCP 3-way handshake and UDP datagram headers in Wireshark.",
-    hasCode: true,
-    socketContent: {
-      wiresharkGuide: {
-        filter: "tcp.port == 8080 || udp.port == 8888",
-        interface: "Npcap Loopback Adapter (for 127.0.0.1) or active Ethernet/Wi-Fi adapter",
-        observations: [
-          { phase: "TCP 3-Way Handshake", packets: "1. [SYN] Client -> Server\n2. [SYN, ACK] Server -> Client\n3. [ACK] Client -> Server", note: "Establishes a reliable full-duplex byte stream before any application data is transferred." },
-          { phase: "TCP Data Transfer", packets: "1. [PSH, ACK] Client -> Server carrying data payload\n2. [ACK] Server -> Client confirming receipt\n3. [PSH, ACK] Server -> Client echo reply", note: "Guarantees reliable, in-order packet delivery with sequence numbers and sliding window flow control." },
-          { phase: "TCP Teardown", packets: "1. [FIN, ACK] -> 2. [ACK] -> 3. [FIN, ACK] -> 4. [ACK]", note: "Graceful 4-way connection termination releasing socket handles." },
-          { phase: "UDP Datagram Exchange", packets: "1. Client -> Server Datagram\n2. Server -> Client Echo Datagram", note: "No connection handshake, no ACKs, minimal 8-byte header overhead." }
         ]
       },
-      troubleshooting: [
-        { error: "undefined reference to 'WSAStartup@8' / 'socket@12'", cause: "Missing the Winsock library link flag during compilation.", fix: "Append -lws2_32 at the end of your g++ command: g++ tcp_server.cpp -o tcp_server.exe -lws2_32" },
-        { error: "bind failed with error: 10048 (WSAEADDRINUSE)", cause: "Port 8080 or 8888 is already bound by a previous hung process.", fix: "Check active ports via: netstat -ano | findstr :8080, then terminate the process using taskkill /PID <pid> /F" },
-        { error: "connect failed with error: 10061 (WSAECONNREFUSED)", cause: "Client was launched before the Server was running.", fix: "Always start tcp_server.exe first in Terminal 1, wait for 'Server listening...' before launching tcp_client.exe in Terminal 2." }
-      ]
-    },
-    algorithms: [
-      {
-        name: "TCP Server (Winsock2)",
-        fileName: "tcp_server.cpp",
-        description: "Connection-oriented TCP Server for Windows. Initializes Winsock 2.2, creates a stream socket (AF_INET, SOCK_STREAM), binds to port 8080, listens for client connections, accepts a connection, receives messages, and sends an echo response.",
-        howToRun: [
-          { step: 1, text: "Open Terminal 1 in VS Code." },
-          { step: 2, text: "Compile with Winsock library flag:", cmd: "g++ tcp_server.cpp -o tcp_server.exe -lws2_32" },
-          { step: 3, text: "Run Server first:", cmd: ".\\tcp_server.exe" }
-        ],
-        samples: [
+      "cpp": {
+        "filename": "pipe_ipc.cpp",
+        "langLabel": "C++ (POSIX fork & pipe)",
+        "source": "/*\n * Practical 04: Process Creation, Termination & IPC using PIPE in C++\n * Note: Uses POSIX system calls (fork, pipe, read, write, waitpid) inside C++.\n * Compile: g++ -std=c++17 -Wall pipe_ipc.cpp -o pipe_ipc_cpp\n * Run:     ./pipe_ipc_cpp\n */\n#include <iostream>\n#include <string>\n#include <array>\n#include <unistd.h>\n#include <sys/wait.h>\n\nint main() {\n    int p2c[2], c2p[2];\n    if (pipe(p2c) == -1 || pipe(c2p) == -1) {\n        std::cerr << \"Error: Failed to create POSIX pipes.\\n\";\n        return 1;\n    }\n\n    std::string inputMsg;\n    std::cout << \"Enter message to send from Parent to Child: \";\n    std::getline(std::cin, inputMsg);\n    if (inputMsg.empty()) inputMsg = \"Default IPC Payload\";\n\n    pid_t pid = fork();\n    if (pid < 0) {\n        std::cerr << \"Error: fork() failed.\\n\";\n        return 1;\n    } else if (pid == 0) {\n        close(p2c[1]); close(c2p[0]);\n        std::array<char, 256> buffer{};\n        ssize_t bytesRead = read(p2c[0], buffer.data(), buffer.size() - 1);\n        std::string received = (bytesRead > 0) ? std::string(buffer.data(), bytesRead) : \"\";\n        std::cout << \"[Child PID \" << getpid() << \" | PPID \" << getppid()\n                  << \"] Received: \\\"\" << received << \"\\\"\\n\";\n        std::string reply = \"Child PID \" + std::to_string(getpid()) + \" received \"\n                          + std::to_string(received.size()) + \" bytes.\";\n        write(c2p[1], reply.c_str(), reply.size());\n        close(p2c[0]); close(c2p[1]);\n        std::cout << \"[Child PID \" << getpid() << \"] Exiting cleanly.\\n\";\n        _exit(0);\n    } else {\n        close(p2c[0]); close(c2p[1]);\n        std::cout << \"[Parent PID \" << getpid() << \"] Forked Child PID \" << pid << \"\\n\";\n        write(p2c[1], inputMsg.c_str(), inputMsg.size());\n        close(p2c[1]);\n\n        std::array<char, 256> ackBuf{};\n        ssize_t bytesRead = read(c2p[0], ackBuf.data(), ackBuf.size() - 1);\n        if (bytesRead > 0) {\n            std::cout << \"[Parent PID \" << getpid() << \"] Child Reply: \\\"\"\n                      << std::string(ackBuf.data(), bytesRead) << \"\\\"\\n\";\n        }\n        close(c2p[0]);\n\n        int status = 0;\n        waitpid(pid, &status, 0);\n        if (WIFEXITED(status)) {\n            std::cout << \"[Parent PID \" << getpid() << \"] Reaped Child PID \" << pid\n                      << \" (exit code: \" << WEXITSTATUS(status) << \")\\n\";\n        }\n    }\n    return 0;\n}\n",
+        "compileCmd": "g++ -std=c++17 -Wall pipe_ipc.cpp -o pipe_ipc_cpp",
+        "runCmd": "./pipe_ipc_cpp",
+        "sampleInputs": [
           {
-            title: "Test Case 1: Client Connects and Sends Message",
-            input: "[Runs server, waits for client to connect and send 'Hello Networks Lab!']",
-            output: "==========================================\n       WINSOCK TCP ECHO SERVER (8080)     \n==========================================\nWinsock initialized successfully.\nServer socket created.\nSocket bound to port 8080.\nServer listening for incoming connections...\n[CONNECTED]: Client connected from 127.0.0.1:52341\nReceived from Client: Hello Networks Lab!\nSent Echo Reply back to Client.\nClient disconnected. Closing server."
+            "desc": "Scenario 1: Standard text message",
+            "input": "Hello from C++ Parent"
           },
           {
-            title: "Test Case 2: Client Sends Exit Command",
-            input: "[Client sends 'exit']",
-            output: "Received from Client: exit\nClient requested termination. Shutting down gracefully.\nWinsock cleaned up."
+            "desc": "Scenario 2: Multi-word task payload",
+            "input": "COMPUTE_CHECKSUM_BLOCK_7"
           }
         ],
-        code: `#define WIN32_LEAN_AND_MEAN
-#include <iostream>
-#include <winsock2.h>
-#include <ws2tcpip.h>
-#include <string>
-
-// Link with ws2_32.lib
-#pragma comment(lib, "ws2_32.lib")
-
-#define DEFAULT_PORT 8080
-#define BUFFER_SIZE 1024
-
-using namespace std;
-
-// Compilation instruction for Windows MinGW g++:
-// g++ tcp_server.cpp -o tcp_server.exe -lws2_32
-// Execute: .\\tcp_server.exe
-
-int main() {
-    cout << "============================================" << endl;
-    cout << "       WINSOCK TCP ECHO SERVER (PORT " << DEFAULT_PORT << ")    " << endl;
-    cout << "============================================" << endl;
-
-    // Step 1: Initialize Winsock 2.2
-    WSADATA wsaData;
-    int wsaResult = WSAStartup(MAKEWORD(2, 2), &wsaData);
-    if (wsaResult != 0) {
-        cout << "[ERROR]: WSAStartup failed with error: " << wsaResult << endl;
-        return 1;
-    }
-    cout << "[1] Winsock 2.2 initialized successfully." << endl;
-
-    // Step 2: Create a TCP Stream Socket
-    SOCKET listenSocket = socket(AF_INET, SOCK_STREAM, IPPROTO_TCP);
-    if (listenSocket == INVALID_SOCKET) {
-        cout << "[ERROR]: socket creation failed with error: " << WSAGetLastError() << endl;
-        WSACleanup();
-        return 1;
-    }
-    cout << "[2] TCP socket created successfully." << endl;
-
-    // Step 3: Setup Server Address Structure & Bind
-    sockaddr_in serverAddr;
-    serverAddr.sin_family = AF_INET;
-    serverAddr.sin_addr.s_addr = INADDR_ANY; // Bind to any incoming interface
-    serverAddr.sin_port = htons(DEFAULT_PORT);
-
-    if (bind(listenSocket, (sockaddr*)&serverAddr, sizeof(serverAddr)) == SOCKET_ERROR) {
-        cout << "[ERROR]: bind failed with error: " << WSAGetLastError() << endl;
-        cout << "[HINT]: Port " << DEFAULT_PORT << " might already be in use." << endl;
-        closesocket(listenSocket);
-        WSACleanup();
-        return 1;
-    }
-    cout << "[3] Socket successfully bound to port " << DEFAULT_PORT << "." << endl;
-
-    // Step 4: Listen for incoming connections
-    if (listen(listenSocket, SOMAXCONN) == SOCKET_ERROR) {
-        cout << "[ERROR]: listen failed with error: " << WSAGetLastError() << endl;
-        closesocket(listenSocket);
-        WSACleanup();
-        return 1;
-    }
-    cout << "[4] Server is listening... Waiting for client to connect." << endl;
-    cout << "    (Now open Terminal 2 and launch tcp_client.exe)" << endl;
-
-    // Step 5: Accept client connection
-    sockaddr_in clientAddr;
-    int clientAddrSize = sizeof(clientAddr);
-    SOCKET clientSocket = accept(listenSocket, (sockaddr*)&clientAddr, &clientAddrSize);
-    if (clientSocket == INVALID_SOCKET) {
-        cout << "[ERROR]: accept failed with error: " << WSAGetLastError() << endl;
-        closesocket(listenSocket);
-        WSACleanup();
-        return 1;
-    }
-
-    char clientIP[INET_ADDRSTRLEN];
-    inet_ntop(AF_INET, &(clientAddr.sin_addr), clientIP, INET_ADDRSTRLEN);
-    cout << "\\n[CONNECTED]: Client accepted from " << clientIP << ":" << ntohs(clientAddr.sin_port) << endl;
-
-    // Step 6: Receive and Echo back message
-    char buffer[BUFFER_SIZE];
-    while (true) {
-        memset(buffer, 0, BUFFER_SIZE);
-        int bytesReceived = recv(clientSocket, buffer, BUFFER_SIZE - 1, 0);
-
-        if (bytesReceived > 0) {
-            string receivedMsg(buffer);
-            cout << "[CLIENT MSG]: " << receivedMsg << endl;
-
-            if (receivedMsg == "exit" || receivedMsg == "quit") {
-                cout << "[INFO]: Client requested disconnect. Exiting session..." << endl;
-                break;
-            }
-
-            // Echo response
-            string reply = "SERVER ECHO: " + receivedMsg;
-            send(clientSocket, reply.c_str(), reply.length(), 0);
-            cout << "[SENT REPLY]: " << reply << endl;
-        } else if (bytesReceived == 0) {
-            cout << "[INFO]: Client closed connection gracefully." << endl;
-            break;
-        } else {
-            cout << "[ERROR]: recv failed with error: " << WSAGetLastError() << endl;
-            break;
-        }
-    }
-
-    // Step 7: Clean up sockets and Winsock
-    closesocket(clientSocket);
-    closesocket(listenSocket);
-    WSACleanup();
-    cout << "[INFO]: Sockets closed and Winsock cleaned up. Server terminated." << endl;
-    return 0;
-}`
+        "sampleOutputs": [
+          {
+            "desc": "Output for Scenario 1",
+            "output": "[Parent PID 5201] Forked Child PID 5202\n[Child PID 5202 | PPID 5201] Received: \"Hello from C++ Parent\"\n[Child PID 5202] Exiting cleanly.\n[Parent PID 5201] Child Reply: \"Child PID 5202 received 21 bytes.\"\n[Parent PID 5201] Reaped Child PID 5202 (exit code: 0)"
+          },
+          {
+            "desc": "Output for Scenario 2",
+            "output": "[Parent PID 5240] Forked Child PID 5241\n[Child PID 5241 | PPID 5240] Received: \"COMPUTE_CHECKSUM_BLOCK_7\"\n[Child PID 5241] Exiting cleanly.\n[Parent PID 5240] Child Reply: \"Child PID 5241 received 24 bytes.\"\n[Parent PID 5240] Reaped Child PID 5241 (exit code: 0)"
+          }
+        ]
       },
-      {
-        name: "TCP Client (Winsock2)",
-        fileName: "tcp_client.cpp",
-        description: "Connection-oriented TCP Client for Windows. Initializes Winsock, connects to server at 127.0.0.1:8080, sends user messages, and displays server responses.",
-        howToRun: [
-          { step: 1, text: "Open Terminal 2 in VS Code (ensure Server is running in Terminal 1)." },
-          { step: 2, text: "Compile with Winsock link flag:", cmd: "g++ tcp_client.cpp -o tcp_client.exe -lws2_32" },
-          { step: 3, text: "Run Client:", cmd: ".\\tcp_client.exe" }
-        ],
-        samples: [
+      "python": {
+        "filename": "pipe_ipc.py",
+        "langLabel": "Python (multiprocessing.Pipe)",
+        "source": "#!/usr/bin/env python3\n\"\"\"\nPractical 04: Process Creation, Termination & IPC using PIPE in Python\nUses `multiprocessing.Process` and `multiprocessing.Pipe()` for real OS processes.\nRun: python3 pipe_ipc.py\n\"\"\"\nimport os\nfrom multiprocessing import Process, Pipe\n\ndef child_worker(conn):\n    pid = os.getpid()\n    ppid = os.getppid()\n    msg = conn.recv()\n    print(f\"[Child PID {pid} | PPID {ppid}] Received from parent: '{msg}'\")\n    conn.send(f\"ACK from Child PID {pid}: upper='{msg.upper()}'\")\n    conn.close()\n    print(f\"[Child PID {pid}] Task complete, terminating.\")\n\ndef main():\n    message = input(\"Enter message to send from Parent to Child: \").strip() or \"OS Practical Pipe Test\"\n    parent_conn, child_conn = Pipe()\n    child = Process(target=child_worker, args=(child_conn,))\n    child.start()\n    print(f\"[Parent PID {os.getpid()}] Spawned Child PID {child.pid}\")\n\n    parent_conn.send(message)\n    reply = parent_conn.recv()\n    print(f\"[Parent PID {os.getpid()}] Received via pipe: '{reply}'\")\n\n    parent_conn.close()\n    child.join()\n    print(f\"[Parent PID {os.getpid()}] Child exit code: {child.exitcode}\")\n\nif __name__ == \"__main__\":\n    main()\n",
+        "compileCmd": "python3 -m py_compile pipe_ipc.py",
+        "runCmd": "python3 pipe_ipc.py",
+        "sampleInputs": [
           {
-            title: "Test Case 1: Send Message to Server",
-            input: "Hello Networks Lab!\nexit",
-            output: "==========================================\n         WINSOCK TCP CLIENT             \n==========================================\nConnected to Server at 127.0.0.1:8080!\nEnter message to send: Hello Networks Lab!\nSent 19 bytes.\nServer Reply: SERVER ECHO: Hello Networks Lab!\nEnter message to send (or 'exit'): exit\nConnection closed."
+            "desc": "Scenario 1: Send lowercase message",
+            "input": "hello os kernel"
           },
           {
-            title: "Test Case 2: Server Not Running Error",
-            input: "[Run client without server running]",
-            output: "[ERROR]: connect failed with error: 10061 (Connection Refused). Make sure tcp_server.exe is running first!"
+            "desc": "Scenario 2: Send structured command",
+            "input": "sync_buffers_now"
           }
         ],
-        code: `#define WIN32_LEAN_AND_MEAN
-#include <iostream>
-#include <winsock2.h>
-#include <ws2tcpip.h>
-#include <string>
-
-#pragma comment(lib, "ws2_32.lib")
-
-#define SERVER_IP "127.0.0.1"
-#define SERVER_PORT 8080
-#define BUFFER_SIZE 1024
-
-using namespace std;
-
-// Compilation:
-// g++ tcp_client.cpp -o tcp_client.exe -lws2_32
-// Execute in Terminal 2: .\\tcp_client.exe
-
-int main() {
-    cout << "============================================" << endl;
-    cout << "             WINSOCK TCP CLIENT             " << endl;
-    cout << "============================================" << endl;
-
-    // Step 1: Initialize Winsock 2.2
-    WSADATA wsaData;
-    int wsaResult = WSAStartup(MAKEWORD(2, 2), &wsaData);
-    if (wsaResult != 0) {
-        cout << "[ERROR]: WSAStartup failed: " << wsaResult << endl;
-        return 1;
-    }
-
-    // Step 2: Create TCP Socket
-    SOCKET clientSocket = socket(AF_INET, SOCK_STREAM, IPPROTO_TCP);
-    if (clientSocket == INVALID_SOCKET) {
-        cout << "[ERROR]: Socket creation failed: " << WSAGetLastError() << endl;
-        WSACleanup();
-        return 1;
-    }
-
-    // Step 3: Setup Server Address
-    sockaddr_in serverAddr;
-    serverAddr.sin_family = AF_INET;
-    serverAddr.sin_port = htons(SERVER_PORT);
-    inet_pton(AF_INET, SERVER_IP, &serverAddr.sin_addr);
-
-    cout << "Attempting to connect to " << SERVER_IP << ":" << SERVER_PORT << "..." << endl;
-
-    // Step 4: Connect to Server (3-Way Handshake)
-    if (connect(clientSocket, (sockaddr*)&serverAddr, sizeof(serverAddr)) == SOCKET_ERROR) {
-        cout << "[ERROR]: connect failed with error: " << WSAGetLastError() << endl;
-        cout << "[HINT]: Ensure tcp_server.exe is running in Terminal 1 first!" << endl;
-        closesocket(clientSocket);
-        WSACleanup();
-        return 1;
-    }
-    cout << "[CONNECTED]: Successfully established TCP connection to Server!" << endl;
-
-    // Step 5: Communication Loop
-    string userMessage;
-    char buffer[BUFFER_SIZE];
-
-    while (true) {
-        cout << "\\nEnter message to send (or 'exit' to quit): ";
-        getline(cin, userMessage);
-
-        if (userMessage.empty()) continue;
-
-        // Send message to server
-        int bytesSent = send(clientSocket, userMessage.c_str(), userMessage.length(), 0);
-        if (bytesSent == SOCKET_ERROR) {
-            cout << "[ERROR]: send failed: " << WSAGetLastError() << endl;
-            break;
-        }
-
-        if (userMessage == "exit" || userMessage == "quit") {
-            cout << "Exiting client session..." << endl;
-            break;
-        }
-
-        // Receive server reply
-        memset(buffer, 0, BUFFER_SIZE);
-        int bytesReceived = recv(clientSocket, buffer, BUFFER_SIZE - 1, 0);
-        if (bytesReceived > 0) {
-            cout << "[SERVER RESPONSE]: " << buffer << endl;
-        } else {
-            cout << "[INFO]: Server closed connection." << endl;
-            break;
-        }
-    }
-
-    // Step 6: Cleanup
-    closesocket(clientSocket);
-    WSACleanup();
-    cout << "Client terminated." << endl;
-    return 0;
-}`
-      },
-      {
-        name: "UDP Server (Winsock2)",
-        fileName: "udp_server.cpp",
-        description: "Connectionless UDP Datagram Server for Windows. Creates a datagram socket (AF_INET, SOCK_DGRAM), binds to port 8888, receives client datagrams using recvfrom(), and replies with sendto().",
-        howToRun: [
-          { step: 1, text: "Open Terminal 1 in VS Code." },
-          { step: 2, text: "Compile with Winsock flag:", cmd: "g++ udp_server.cpp -o udp_server.exe -lws2_32" },
-          { step: 3, text: "Run UDP Server:", cmd: ".\\udp_server.exe" }
-        ],
-        samples: [
+        "sampleOutputs": [
           {
-            title: "Test Case 1: Receive Datagram and Echo",
-            input: "[Wait for UDP client datagram]",
-            output: "==========================================\n       WINSOCK UDP DATAGRAM SERVER (8888) \n==========================================\nUDP socket created and bound to port 8888.\nListening for incoming UDP datagrams...\n[DATAGRAM RECEIVED] from 127.0.0.1:54321:\nMessage: Hello UDP World!\nSent UDP Echo Reply to Client."
+            "desc": "Output for Scenario 1",
+            "output": "[Parent PID 6100] Spawned Child PID 6101\n[Child PID 6101 | PPID 6100] Received from parent: 'hello os kernel'\n[Child PID 6101] Task complete, terminating.\n[Parent PID 6100] Received via pipe: 'ACK from Child PID 6101: upper='HELLO OS KERNEL''\n[Parent PID 6100] Child exit code: 0"
           },
           {
-            title: "Test Case 2: Exit Command",
-            input: "[Client sends 'exit']",
-            output: "Received: exit. UDP Server terminating."
+            "desc": "Output for Scenario 2",
+            "output": "[Parent PID 6155] Spawned Child PID 6156\n[Child PID 6156 | PPID 6155] Received from parent: 'sync_buffers_now'\n[Child PID 6156] Task complete, terminating.\n[Parent PID 6155] Received via pipe: 'ACK from Child PID 6156: upper='SYNC_BUFFERS_NOW''\n[Parent PID 6155] Child exit code: 0"
           }
-        ],
-        code: `#define WIN32_LEAN_AND_MEAN
-#include <iostream>
-#include <winsock2.h>
-#include <ws2tcpip.h>
-#include <string>
-
-#pragma comment(lib, "ws2_32.lib")
-
-#define UDP_PORT 8888
-#define BUFFER_SIZE 1024
-
-using namespace std;
-
-// Compilation:
-// g++ udp_server.cpp -o udp_server.exe -lws2_32
-// Execute in Terminal 1: .\\udp_server.exe
-
-int main() {
-    cout << "============================================" << endl;
-    cout << "      WINSOCK UDP DATAGRAM SERVER (8888)    " << endl;
-    cout << "============================================" << endl;
-
-    // Step 1: Initialize Winsock 2.2
-    WSADATA wsaData;
-    int wsaResult = WSAStartup(MAKEWORD(2, 2), &wsaData);
-    if (wsaResult != 0) {
-        cout << "[ERROR]: WSAStartup failed: " << wsaResult << endl;
-        return 1;
-    }
-
-    // Step 2: Create a UDP Datagram Socket (SOCK_DGRAM)
-    SOCKET serverSocket = socket(AF_INET, SOCK_DGRAM, IPPROTO_UDP);
-    if (serverSocket == INVALID_SOCKET) {
-        cout << "[ERROR]: UDP socket creation failed: " << WSAGetLastError() << endl;
-        WSACleanup();
-        return 1;
-    }
-    cout << "[1] UDP socket created (Connectionless, Unreliable, Fast)." << endl;
-
-    // Step 3: Bind to port 8888
-    sockaddr_in serverAddr;
-    serverAddr.sin_family = AF_INET;
-    serverAddr.sin_addr.s_addr = INADDR_ANY;
-    serverAddr.sin_port = htons(UDP_PORT);
-
-    if (bind(serverSocket, (sockaddr*)&serverAddr, sizeof(serverAddr)) == SOCKET_ERROR) {
-        cout << "[ERROR]: bind failed: " << WSAGetLastError() << endl;
-        closesocket(serverSocket);
-        WSACleanup();
-        return 1;
-    }
-    cout << "[2] UDP Server bound to port " << UDP_PORT << ". Waiting for datagrams..." << endl;
-
-    // Step 4: Receive and Send loop
-    char buffer[BUFFER_SIZE];
-    sockaddr_in clientAddr;
-    int clientAddrLen = sizeof(clientAddr);
-
-    while (true) {
-        memset(buffer, 0, BUFFER_SIZE);
-        int bytesReceived = recvfrom(serverSocket, buffer, BUFFER_SIZE - 1, 0,
-                                     (sockaddr*)&clientAddr, &clientAddrLen);
-
-        if (bytesReceived == SOCKET_ERROR) {
-            cout << "[ERROR]: recvfrom failed: " << WSAGetLastError() << endl;
-            break;
-        }
-
-        char clientIP[INET_ADDRSTRLEN];
-        inet_ntop(AF_INET, &(clientAddr.sin_addr), clientIP, INET_ADDRSTRLEN);
-        string msg(buffer);
-
-        cout << "\\n[DATAGRAM RECEIVED] from " << clientIP << ":" << ntohs(clientAddr.sin_port) << endl;
-        cout << "Content: " << msg << endl;
-
-        if (msg == "exit") {
-            cout << "[INFO]: Exit signal received. Terminating UDP server..." << endl;
-            break;
-        }
-
-        // Echo reply back using sendto()
-        string reply = "UDP SERVER ECHO: " + msg;
-        sendto(serverSocket, reply.c_str(), reply.length(), 0,
-               (sockaddr*)&clientAddr, clientAddrLen);
-        cout << "[REPLY SENT]: " << reply << endl;
-    }
-
-    closesocket(serverSocket);
-    WSACleanup();
-    cout << "UDP Server closed." << endl;
-    return 0;
-}`
-      },
-      {
-        name: "UDP Client (Winsock2)",
-        fileName: "udp_client.cpp",
-        description: "Connectionless UDP Datagram Client for Windows. Initializes Winsock, sends datagrams directly to 127.0.0.1:8888 without connection setup, and waits for datagram reply.",
-        howToRun: [
-          { step: 1, text: "Open Terminal 2 in VS Code." },
-          { step: 2, text: "Compile with Winsock flag:", cmd: "g++ udp_client.cpp -o udp_client.exe -lws2_32" },
-          { step: 3, text: "Run UDP Client:", cmd: ".\\udp_client.exe" }
-        ],
-        samples: [
-          {
-            title: "Test Case 1: Send Datagram and Receive Echo",
-            input: "Hello UDP World!\nexit",
-            output: "==========================================\n         WINSOCK UDP CLIENT             \n==========================================\nTarget: 127.0.0.1:8888\nEnter datagram message: Hello UDP World!\nDatagram sent.\nServer Echo: UDP SERVER ECHO: Hello UDP World!\nEnter message (or 'exit'): exit\nUDP Client finished."
-          },
-          {
-            title: "Test Case 2: Connectionless Nature Demonstration",
-            input: "Test Packet",
-            output: "[Notice]: UDP does not require a 3-way handshake. Datagram is sent directly."
-          }
-        ],
-        code: `#define WIN32_LEAN_AND_MEAN
-#include <iostream>
-#include <winsock2.h>
-#include <ws2tcpip.h>
-#include <string>
-
-#pragma comment(lib, "ws2_32.lib")
-
-#define SERVER_IP "127.0.0.1"
-#define UDP_PORT 8888
-#define BUFFER_SIZE 1024
-
-using namespace std;
-
-// Compilation:
-// g++ udp_client.cpp -o udp_client.exe -lws2_32
-// Execute in Terminal 2: .\\udp_client.exe
-
-int main() {
-    cout << "============================================" << endl;
-    cout << "             WINSOCK UDP CLIENT             " << endl;
-    cout << "============================================" << endl;
-
-    WSADATA wsaData;
-    if (WSAStartup(MAKEWORD(2, 2), &wsaData) != 0) {
-        cout << "[ERROR]: WSAStartup failed." << endl;
-        return 1;
-    }
-
-    // Create UDP Socket
-    SOCKET clientSocket = socket(AF_INET, SOCK_DGRAM, IPPROTO_UDP);
-    if (clientSocket == INVALID_SOCKET) {
-        cout << "[ERROR]: Socket creation failed: " << WSAGetLastError() << endl;
-        WSACleanup();
-        return 1;
-    }
-
-    // Server destination address
-    sockaddr_in serverAddr;
-    serverAddr.sin_family = AF_INET;
-    serverAddr.sin_port = htons(UDP_PORT);
-    inet_pton(AF_INET, SERVER_IP, &serverAddr.sin_addr);
-
-    cout << "Target Server: " << SERVER_IP << ":" << UDP_PORT << " (Connectionless UDP)" << endl;
-
-    string message;
-    char buffer[BUFFER_SIZE];
-    int serverAddrLen = sizeof(serverAddr);
-
-    while (true) {
-        cout << "\\nEnter message to send via UDP (or 'exit'): ";
-        getline(cin, message);
-
-        if (message.empty()) continue;
-
-        // Send datagram directly
-        int bytesSent = sendto(clientSocket, message.c_str(), message.length(), 0,
-                               (sockaddr*)&serverAddr, serverAddrLen);
-        if (bytesSent == SOCKET_ERROR) {
-            cout << "[ERROR]: sendto failed: " << WSAGetLastError() << endl;
-            break;
-        }
-
-        if (message == "exit") break;
-
-        // Wait for reply datagram
-        memset(buffer, 0, BUFFER_SIZE);
-        int bytesRecv = recvfrom(clientSocket, buffer, BUFFER_SIZE - 1, 0,
-                                 (sockaddr*)&serverAddr, &serverAddrLen);
-        if (bytesRecv > 0) {
-            cout << "[SERVER ECHO]: " << buffer << endl;
-        } else {
-            cout << "[INFO]: No response or receive timeout." << endl;
-        }
-    }
-
-    closesocket(clientSocket);
-    WSACleanup();
-    cout << "UDP Client terminated." << endl;
-    return 0;
-}`
+        ]
       }
-    ]
+    }
+  },
+  {
+    "id": 5,
+    "number": "PR-05",
+    "title": "Process Synchronization (Producer-Consumer Problem)",
+    "category": "sync",
+    "categoryLabel": "Process Synchronization",
+    "type": "coding",
+    "aim": "To implement multithreaded process synchronization mechanisms (Semaphores, Mutexes, Condition Variables) using the bounded-buffer Producer-Consumer problem in C (pthread_mutex, sem_t), C++ (std::mutex, std::condition_variable), and Python (threading.Lock, Semaphore, Condition).",
+    "shortDesc": "Bounded-buffer Producer-Consumer synchronization using mutexes, semaphores, and condition variables.",
+    "topics": [
+      "POSIX Threads",
+      "pthread_mutex_t",
+      "sem_t Semaphore",
+      "std::condition_variable",
+      "Bounded Buffer",
+      "Race Condition Prevention"
+    ],
+    "implCount": 3,
+    "languages": [
+      "c",
+      "cpp",
+      "python"
+    ],
+    "defaultLang": "c",
+    "linuxOnlyNote": "C & C++ programs require the POSIX thread library (-pthread) during compilation on Linux/WSL.",
+    "code": {
+      "c": {
+        "filename": "producer_consumer.c",
+        "langLabel": "C (POSIX pthread + sem_t)",
+        "source": "/*\n * Practical 05: Producer-Consumer Synchronization in C\n * Uses POSIX semaphores (sem_t) + mutex (pthread_mutex_t) to protect bounded buffer.\n * Compile: gcc -Wall producer_consumer.c -o producer_consumer -pthread\n * Run:     ./producer_consumer\n */\n#include <stdio.h>\n#include <stdlib.h>\n#include <pthread.h>\n#include <semaphore.h>\n#include <unistd.h>\n\n#define BUFFER_SIZE 5\n\nint buffer[BUFFER_SIZE];\nint in = 0, out = 0;\nint num_items = 8;\n\nsem_t empty_slots;\nsem_t full_slots;\npthread_mutex_t mutex;\n\nvoid* producer(void* arg) {\n    int id = *(int*)arg;\n    for (int i = 1; i <= num_items; i++) {\n        int item = id * 100 + i;\n        sem_wait(&empty_slots);           // Wait if buffer is full\n        pthread_mutex_lock(&mutex);       // Enter critical section\n\n        buffer[in] = item;\n        printf(\"[Producer %d] Produced item %d at slot %d\\n\", id, item, in);\n        in = (in + 1) % BUFFER_SIZE;\n\n        pthread_mutex_unlock(&mutex);     // Exit critical section\n        sem_post(&full_slots);            // Signal available item\n        usleep(100000);                   // Simulate work (100ms)\n    }\n    return NULL;\n}\n\nvoid* consumer(void* arg) {\n    int id = *(int*)arg;\n    for (int i = 1; i <= num_items; i++) {\n        sem_wait(&full_slots);            // Wait if buffer is empty\n        pthread_mutex_lock(&mutex);       // Enter critical section\n\n        int item = buffer[out];\n        printf(\"    [Consumer %d] Consumed item %d from slot %d\\n\", id, item, out);\n        out = (out + 1) % BUFFER_SIZE;\n\n        pthread_mutex_unlock(&mutex);     // Exit critical section\n        sem_post(&empty_slots);           // Signal empty slot\n        usleep(150000);                   // Simulate consumption (150ms)\n    }\n    return NULL;\n}\n\nint main() {\n    printf(\"Enter number of items per producer/consumer (e.g. 6): \");\n    if (scanf(\"%d\", &num_items) != 1 || num_items <= 0) {\n        num_items = 6;\n    }\n\n    sem_init(&empty_slots, 0, BUFFER_SIZE);\n    sem_init(&full_slots, 0, 0);\n    pthread_mutex_init(&mutex, NULL);\n\n    pthread_t prod_tid, cons_tid;\n    int p_id = 1, c_id = 1;\n\n    printf(\"=== Bounded Buffer Synchronization (Size = %d) ===\\n\", BUFFER_SIZE);\n    pthread_create(&prod_tid, NULL, producer, &p_id);\n    pthread_create(&cons_tid, NULL, consumer, &c_id);\n\n    pthread_join(prod_tid, NULL);\n    pthread_join(cons_tid, NULL);\n\n    sem_destroy(&empty_slots);\n    sem_destroy(&full_slots);\n    pthread_mutex_destroy(&mutex);\n\n    printf(\"=== All items produced and consumed safely without race conditions. ===\\n\");\n    return 0;\n}\n",
+        "compileCmd": "gcc -Wall producer_consumer.c -o producer_consumer -pthread",
+        "runCmd": "./producer_consumer",
+        "sampleInputs": [
+          {
+            "desc": "Scenario 1: Produce and consume 6 items with buffer size 5",
+            "input": "6"
+          },
+          {
+            "desc": "Scenario 2: Produce and consume 10 items (wrap-around test)",
+            "input": "10"
+          }
+        ],
+        "sampleOutputs": [
+          {
+            "desc": "Synchronized execution output (6 items)",
+            "output": "Enter number of items per producer/consumer (e.g. 6): 6\n=== Bounded Buffer Synchronization (Size = 5) ===\n[Producer 1] Produced item 101 at slot 0\n    [Consumer 1] Consumed item 101 from slot 0\n[Producer 1] Produced item 102 at slot 1\n    [Consumer 1] Consumed item 102 from slot 1\n[Producer 1] Produced item 103 at slot 2\n[Producer 1] Produced item 104 at slot 3\n    [Consumer 1] Consumed item 103 from slot 2\n[Producer 1] Produced item 105 at slot 4\n[Producer 1] Produced item 106 at slot 0\n    [Consumer 1] Consumed item 104 from slot 3\n    [Consumer 1] Consumed item 105 from slot 4\n    [Consumer 1] Consumed item 106 from slot 0\n=== All items produced and consumed safely without race conditions. ==="
+          },
+          {
+            "desc": "Circular buffer wrap-around output (10 items)",
+            "output": "Enter number of items per producer/consumer (e.g. 6): 10\n=== Bounded Buffer Synchronization (Size = 5) ===\n[Producer 1] Produced item 101 at slot 0\n    [Consumer 1] Consumed item 101 from slot 0\n... (producer pauses automatically whenever 5 slots are full) ...\n[Producer 1] Produced item 110 at slot 4\n    [Consumer 1] Consumed item 110 from slot 4\n=== All items produced and consumed safely without race conditions. ==="
+          }
+        ]
+      },
+      "cpp": {
+        "filename": "producer_consumer.cpp",
+        "langLabel": "C++17 (std::mutex + condition_variable)",
+        "source": "/*\n * Practical 05: Producer-Consumer Synchronization in C++17\n * Uses std::thread, std::mutex, and std::condition_variable (portable across C++11/14/17/20).\n * Compile: g++ -std=c++17 -Wall producer_consumer.cpp -o prod_cons_cpp -pthread\n * Run:     ./prod_cons_cpp\n */\n#include <iostream>\n#include <queue>\n#include <thread>\n#include <mutex>\n#include <condition_variable>\n#include <chrono>\n\nclass BoundedBuffer {\nprivate:\n    std::queue<int> buffer;\n    const size_t capacity;\n    std::mutex mtx;\n    std::condition_variable notFull;\n    std::condition_variable notEmpty;\n\npublic:\n    explicit BoundedBuffer(size_t cap) : capacity(cap) {}\n\n    void produce(int id, int item) {\n        std::unique_lock<std::mutex> lock(mtx);\n        notFull.wait(lock, [this]() { return buffer.size() < capacity; });\n\n        buffer.push(item);\n        std::cout << \"[Producer \" << id << \"] Produced: \" << item\n                  << \" | Buffer Count: \" << buffer.size() << \"/\" << capacity << \"\\n\";\n\n        notEmpty.notify_one();\n    }\n\n    int consume(int id) {\n        std::unique_lock<std::mutex> lock(mtx);\n        notEmpty.wait(lock, [this]() { return !buffer.empty(); });\n\n        int item = buffer.front();\n        buffer.pop();\n        std::cout << \"    [Consumer \" << id << \"] Consumed: \" << item\n                  << \" | Buffer Count: \" << buffer.size() << \"/\" << capacity << \"\\n\";\n\n        notFull.notify_one();\n        return item;\n    }\n};\n\nint main() {\n    int totalItems = 6;\n    std::cout << \"Enter number of items to produce/consume: \";\n    if (!(std::cin >> totalItems) || totalItems <= 0) totalItems = 6;\n\n    BoundedBuffer bb(4);\n\n    std::thread prod([&]() {\n        for (int i = 1; i <= totalItems; ++i) {\n            bb.produce(1, i * 10);\n            std::this_thread::sleep_for(std::chrono::milliseconds(80));\n        }\n    });\n\n    std::thread cons([&]() {\n        for (int i = 1; i <= totalItems; ++i) {\n            bb.consume(1);\n            std::this_thread::sleep_for(std::chrono::milliseconds(140));\n        }\n    });\n\n    prod.join();\n    cons.join();\n    std::cout << \"=== Synchronization complete. Zero deadlocks or race conditions. ===\\n\";\n    return 0;\n}\n",
+        "compileCmd": "g++ -std=c++17 -Wall producer_consumer.cpp -o prod_cons_cpp -pthread",
+        "runCmd": "./prod_cons_cpp",
+        "sampleInputs": [
+          {
+            "desc": "Scenario 1: 6 items with buffer capacity 4",
+            "input": "6"
+          },
+          {
+            "desc": "Scenario 2: 8 items testing full-buffer blocking",
+            "input": "8"
+          }
+        ],
+        "sampleOutputs": [
+          {
+            "desc": "Output for 6 items",
+            "output": "Enter number of items to produce/consume: 6\n[Producer 1] Produced: 10 | Buffer Count: 1/4\n    [Consumer 1] Consumed: 10 | Buffer Count: 0/4\n[Producer 1] Produced: 20 | Buffer Count: 1/4\n[Producer 1] Produced: 30 | Buffer Count: 2/4\n    [Consumer 1] Consumed: 20 | Buffer Count: 1/4\n[Producer 1] Produced: 40 | Buffer Count: 2/4\n[Producer 1] Produced: 50 | Buffer Count: 3/4\n    [Consumer 1] Consumed: 30 | Buffer Count: 2/4\n[Producer 1] Produced: 60 | Buffer Count: 3/4\n    [Consumer 1] Consumed: 40 | Buffer Count: 2/4\n    [Consumer 1] Consumed: 50 | Buffer Count: 1/4\n    [Consumer 1] Consumed: 60 | Buffer Count: 0/4\n=== Synchronization complete. Zero deadlocks or race conditions. ==="
+          },
+          {
+            "desc": "Output for 8 items (buffer reaches 4/4 and blocks producer until consumed)",
+            "output": "Enter number of items to produce/consume: 8\n[Producer 1] Produced: 10 | Buffer Count: 1/4\n...\n[Producer 1] Produced: 50 | Buffer Count: 4/4\n    [Consumer 1] Consumed: 20 | Buffer Count: 3/4\n[Producer 1] Produced: 60 | Buffer Count: 4/4\n...\n    [Consumer 1] Consumed: 80 | Buffer Count: 0/4\n=== Synchronization complete. Zero deadlocks or race conditions. ==="
+          }
+        ]
+      },
+      "python": {
+        "filename": "producer_consumer.py",
+        "langLabel": "Python (threading.Semaphore & Lock)",
+        "source": "#!/usr/bin/env python3\n\"\"\"\nPractical 05: Producer-Consumer Synchronization in Python\nUses `threading.Semaphore`, `threading.Lock`, and `threading.Thread`.\nRun: python3 producer_consumer.py\n\"\"\"\nimport threading\nimport time\nfrom collections import deque\n\nBUFFER_CAPACITY = 4\nbuffer = deque()\nmutex = threading.Lock()\nempty_slots = threading.Semaphore(BUFFER_CAPACITY)\nfull_slots = threading.Semaphore(0)\n\ndef producer(prod_id, total_items):\n    for i in range(1, total_items + 1):\n        item = prod_id * 100 + i\n        empty_slots.acquire()\n        with mutex:\n            buffer.append(item)\n            print(f\"[Producer {prod_id}] Produced {item} | Buffer: {list(buffer)}\")\n        full_slots.release()\n        time.sleep(0.08)\n\ndef consumer(cons_id, total_items):\n    for _ in range(total_items):\n        full_slots.acquire()\n        with mutex:\n            item = buffer.popleft()\n            print(f\"    [Consumer {cons_id}] Consumed {item} | Buffer: {list(buffer)}\")\n        empty_slots.release()\n        time.sleep(0.14)\n\ndef main():\n    try:\n        n = int(input(\"Enter number of items to produce/consume (e.g. 6): \"))\n        if n <= 0:\n            n = 6\n    except ValueError:\n        n = 6\n\n    t_prod = threading.Thread(target=producer, args=(1, n))\n    t_cons = threading.Thread(target=consumer, args=(1, n))\n\n    print(f\"=== Python Producer-Consumer (Capacity={BUFFER_CAPACITY}) ===\")\n    t_prod.start()\n    t_cons.start()\n\n    t_prod.join()\n    t_cons.join()\n    print(\"=== Finished safely. ===\")\n\nif __name__ == \"__main__\":\n    main()\n",
+        "compileCmd": "python3 -m py_compile producer_consumer.py",
+        "runCmd": "python3 producer_consumer.py",
+        "sampleInputs": [
+          {
+            "desc": "Scenario 1: 6 items",
+            "input": "6"
+          },
+          {
+            "desc": "Scenario 2: 5 items",
+            "input": "5"
+          }
+        ],
+        "sampleOutputs": [
+          {
+            "desc": "Synchronized queue output (6 items)",
+            "output": "Enter number of items to produce/consume (e.g. 6): 6\n=== Python Producer-Consumer (Capacity=4) ===\n[Producer 1] Produced 101 | Buffer: [101]\n    [Consumer 1] Consumed 101 | Buffer: []\n[Producer 1] Produced 102 | Buffer: [102]\n[Producer 1] Produced 103 | Buffer: [102, 103]\n    [Consumer 1] Consumed 102 | Buffer: [103]\n[Producer 1] Produced 104 | Buffer: [103, 104]\n[Producer 1] Produced 105 | Buffer: [103, 104, 105]\n    [Consumer 1] Consumed 103 | Buffer: [104, 105]\n[Producer 1] Produced 106 | Buffer: [104, 105, 106]\n    [Consumer 1] Consumed 104 | Buffer: [105, 106]\n    [Consumer 1] Consumed 105 | Buffer: [106]\n    [Consumer 1] Consumed 106 | Buffer: []\n=== Finished safely. ==="
+          },
+          {
+            "desc": "Synchronized queue output (5 items)",
+            "output": "Enter number of items to produce/consume (e.g. 6): 5\n=== Python Producer-Consumer (Capacity=4) ===\n[Producer 1] Produced 101 | Buffer: [101]\n...\n    [Consumer 1] Consumed 105 | Buffer: []\n=== Finished safely. ==="
+          }
+        ]
+      }
+    }
+  },
+  {
+    "id": 6,
+    "number": "PR-06",
+    "title": "Banker's Algorithm for Deadlock Avoidance",
+    "category": "deadlock",
+    "categoryLabel": "Deadlock Avoidance",
+    "type": "coding",
+    "aim": "To implement the Banker's Algorithm for deadlock avoidance, compute the Need matrix (Max - Allocation), determine Safe/Unsafe system states with safe sequence detection, and analyze how increasing or decreasing Available resources affects system safety.",
+    "shortDesc": "Deadlock avoidance with Need matrix calculation, Safe/Unsafe detection, and resource modification tests.",
+    "topics": [
+      "Allocation Matrix",
+      "Max Matrix",
+      "Need = Max - Allocation",
+      "Safety Algorithm",
+      "Safe Sequence",
+      "Resource Modification"
+    ],
+    "implCount": 3,
+    "languages": [
+      "c",
+      "cpp",
+      "python"
+    ],
+    "defaultLang": "c",
+    "code": {
+      "c": {
+        "filename": "bankers.c",
+        "langLabel": "C (GCC)",
+        "source": "/*\n * Practical 06: Banker's Algorithm in C\n * Computes Need matrix, checks system safety, and tests resource delta (+/-).\n * Compile: gcc -Wall bankers.c -o bankers\n * Run:     ./bankers\n */\n#include <stdio.h>\n#include <stdbool.h>\n\n#define MAX_P 20\n#define MAX_R 10\n\nvoid print_matrices(int n, int m, int alloc[MAX_P][MAX_R], int max[MAX_P][MAX_R],\n                    int need[MAX_P][MAX_R], int avail[MAX_R]) {\n    printf(\"\\nProcess\\tAllocation\\tMax\\t\\tNeed\\n\");\n    for (int i = 0; i < n; i++) {\n        printf(\"P%d\\t\", i);\n        for (int j = 0; j < m; j++) printf(\"%d \", alloc[i][j]);\n        printf(\"\\t\\t\");\n        for (int j = 0; j < m; j++) printf(\"%d \", max[i][j]);\n        printf(\"\\t\\t\");\n        for (int j = 0; j < m; j++) printf(\"%d \", need[i][j]);\n        printf(\"\\n\");\n    }\n    printf(\"Available Resources: \");\n    for (int j = 0; j < m; j++) printf(\"%d \", avail[j]);\n    printf(\"\\n\");\n}\n\nbool check_safety(int n, int m, int alloc[MAX_P][MAX_R], int need[MAX_P][MAX_R],\n                  int avail[MAX_R], int safe_seq[MAX_P]) {\n    int work[MAX_R];\n    bool finish[MAX_P] = {false};\n\n    for (int j = 0; j < m; j++) work[j] = avail[j];\n\n    int count = 0;\n    while (count < n) {\n        bool found = false;\n        for (int i = 0; i < n; i++) {\n            if (!finish[i]) {\n                bool can_run = true;\n                for (int j = 0; j < m; j++) {\n                    if (need[i][j] > work[j]) {\n                        can_run = false;\n                        break;\n                    }\n                }\n                if (can_run) {\n                    for (int j = 0; j < m; j++) work[j] += alloc[i][j];\n                    safe_seq[count++] = i;\n                    finish[i] = true;\n                    found = true;\n                }\n            }\n        }\n        if (!found) {\n            return false; // System is in an UNSAFE state\n        }\n    }\n    return true;\n}\n\nint main() {\n    int n, m;\n    int alloc[MAX_P][MAX_R], max[MAX_P][MAX_R], need[MAX_P][MAX_R], avail[MAX_R];\n    int safe_seq[MAX_P];\n\n    printf(\"Enter number of processes and resource types: \");\n    if (scanf(\"%d %d\", &n, &m) != 2 || n <= 0 || m <= 0) return 1;\n\n    printf(\"Enter Allocation Matrix (%d x %d):\\n\", n, m);\n    for (int i = 0; i < n; i++)\n        for (int j = 0; j < m; j++)\n            scanf(\"%d\", &alloc[i][j]);\n\n    printf(\"Enter Max Demand Matrix (%d x %d):\\n\", n, m);\n    for (int i = 0; i < n; i++)\n        for (int j = 0; j < m; j++) {\n            scanf(\"%d\", &max[i][j]);\n            need[i][j] = max[i][j] - alloc[i][j];\n        }\n\n    printf(\"Enter Available Resources (%d values): \", m);\n    for (int j = 0; j < m; j++) scanf(\"%d\", &avail[j]);\n\n    print_matrices(n, m, alloc, max, need, avail);\n\n    if (check_safety(n, m, alloc, need, avail, safe_seq)) {\n        printf(\"\\n[RESULT] System is in a SAFE state.\\nSafe Sequence: \");\n        for (int i = 0; i < n; i++) {\n            printf(\"P%d%s\", safe_seq[i], (i < n - 1) ? \" -> \" : \"\\n\");\n        }\n    } else {\n        printf(\"\\n[RESULT] System is in an UNSAFE state! Potential deadlock.\\n\");\n    }\n\n    int mod_choice;\n    printf(\"\\nDo you want to modify Available resources to re-check safety? (1=Yes, 0=No): \");\n    if (scanf(\"%d\", &mod_choice) == 1 && mod_choice == 1) {\n        int delta[MAX_R];\n        printf(\"Enter change (+/-) for each of the %d resources (e.g., 1 0 2 or -2 0 -1): \", m);\n        for (int j = 0; j < m; j++) {\n            scanf(\"%d\", &delta[j]);\n            avail[j] += delta[j];\n            if (avail[j] < 0) avail[j] = 0;\n        }\n        printf(\"\\nUpdated Available Resources: \");\n        for (int j = 0; j < m; j++) printf(\"%d \", avail[j]);\n        printf(\"\\n\");\n\n        if (check_safety(n, m, alloc, need, avail, safe_seq)) {\n            printf(\"[MODIFIED RESULT] System is SAFE.\\nSafe Sequence: \");\n            for (int i = 0; i < n; i++) {\n                printf(\"P%d%s\", safe_seq[i], (i < n - 1) ? \" -> \" : \"\\n\");\n            }\n        } else {\n            printf(\"[MODIFIED RESULT] System is UNSAFE!\\n\");\n        }\n    }\n    return 0;\n}\n",
+        "compileCmd": "gcc -Wall bankers.c -o bankers",
+        "runCmd": "./bankers",
+        "sampleInputs": [
+          {
+            "desc": "Test Case 1 (Safe State -> Decrease Available to Unsafe)",
+            "input": "5 3\n0 1 0\n2 0 0\n3 0 2\n2 1 1\n0 0 2\n7 5 3\n3 2 2\n9 0 2\n2 2 2\n4 3 3\n3 3 2\n1\n-2 -2 -1"
+          },
+          {
+            "desc": "Test Case 2 (Initially Unsafe State -> Increase Available to Safe)",
+            "input": "3 3\n1 1 0\n2 0 1\n0 2 1\n3 3 2\n4 2 2\n2 3 3\n0 0 0\n1\n2 2 2"
+          }
+        ],
+        "sampleOutputs": [
+          {
+            "desc": "Expected Output (Test Case 1: Safe -> Decreased to Unsafe)",
+            "output": "Process\tAllocation\tMax\t\tNeed\nP0\t0 1 0 \t\t7 5 3 \t\t7 4 3 \nP1\t2 0 0 \t\t3 2 2 \t\t1 2 2 \nP2\t3 0 2 \t\t9 0 2 \t\t6 0 0 \nP3\t2 1 1 \t\t2 2 2 \t\t0 1 1 \nP4\t0 0 2 \t\t4 3 3 \t\t4 3 1 \nAvailable Resources: 3 3 2 \n\n[RESULT] System is in a SAFE state.\nSafe Sequence: P1 -> P3 -> P0 -> P2 -> P4\n\nUpdated Available Resources: 1 1 1 \n[MODIFIED RESULT] System is UNSAFE!"
+          },
+          {
+            "desc": "Expected Output (Test Case 2: Unsafe -> Increased to Safe)",
+            "output": "Process\tAllocation\tMax\t\tNeed\nP0\t1 1 0 \t\t3 3 2 \t\t2 2 2 \nP1\t2 0 1 \t\t4 2 2 \t\t2 2 1 \nP2\t0 2 1 \t\t2 3 3 \t\t2 1 2 \nAvailable Resources: 0 0 0 \n\n[RESULT] System is in an UNSAFE state! Potential deadlock.\n\nUpdated Available Resources: 2 2 2 \n[MODIFIED RESULT] System is SAFE.\nSafe Sequence: P0 -> P1 -> P2"
+          }
+        ]
+      },
+      "cpp": {
+        "filename": "bankers.cpp",
+        "langLabel": "C++ (G++ 17)",
+        "source": "/*\n * Practical 06: Banker's Algorithm in C++\n * Compile: g++ -std=c++17 -Wall bankers.cpp -o bankers_cpp\n * Run:     ./bankers_cpp\n */\n#include <iostream>\n#include <vector>\n\nbool checkSafety(int n, int m, const std::vector<std::vector<int>>& alloc,\n                 const std::vector<std::vector<int>>& need,\n                 std::vector<int> work, std::vector<int>& safeSeq) {\n    std::vector<bool> finish(n, false);\n    safeSeq.clear();\n\n    while (static_cast<int>(safeSeq.size()) < n) {\n        bool found = false;\n        for (int i = 0; i < n; ++i) {\n            if (!finish[i]) {\n                bool ok = true;\n                for (int j = 0; j < m; ++j) {\n                    if (need[i][j] > work[j]) { ok = false; break; }\n                }\n                if (ok) {\n                    for (int j = 0; j < m; ++j) work[j] += alloc[i][j];\n                    safeSeq.push_back(i);\n                    finish[i] = true;\n                    found = true;\n                }\n            }\n        }\n        if (!found) return false;\n    }\n    return true;\n}\n\nint main() {\n    int n, m;\n    std::cout << \"Enter number of processes and resource types: \";\n    if (!(std::cin >> n >> m) || n <= 0 || m <= 0) return 1;\n\n    std::vector<std::vector<int>> alloc(n, std::vector<int>(m));\n    std::vector<std::vector<int>> maxD(n, std::vector<int>(m));\n    std::vector<std::vector<int>> need(n, std::vector<int>(m));\n    std::vector<int> avail(m);\n\n    std::cout << \"Enter Allocation Matrix:\\n\";\n    for (int i = 0; i < n; ++i)\n        for (int j = 0; j < m; ++j) std::cin >> alloc[i][j];\n\n    std::cout << \"Enter Max Demand Matrix:\\n\";\n    for (int i = 0; i < n; ++i)\n        for (int j = 0; j < m; ++j) {\n            std::cin >> maxD[i][j];\n            need[i][j] = maxD[i][j] - alloc[i][j];\n        }\n\n    std::cout << \"Enter Available Resources: \";\n    for (int j = 0; j < m; ++j) std::cin >> avail[j];\n\n    std::cout << \"\\nNeed Matrix:\\n\";\n    for (int i = 0; i < n; ++i) {\n        std::cout << \"P\" << i << \": \";\n        for (int j = 0; j < m; ++j) std::cout << need[i][j] << \" \";\n        std::cout << \"\\n\";\n    }\n\n    std::vector<int> safeSeq;\n    if (checkSafety(n, m, alloc, need, avail, safeSeq)) {\n        std::cout << \"\\n[RESULT] SAFE State. Sequence: \";\n        for (size_t i = 0; i < safeSeq.size(); ++i)\n            std::cout << \"P\" << safeSeq[i] << (i + 1 < safeSeq.size() ? \" -> \" : \"\\n\");\n    } else {\n        std::cout << \"\\n[RESULT] UNSAFE State!\\n\";\n    }\n\n    int mod;\n    std::cout << \"\\nModify Available resources? (1=Yes, 0=No): \";\n    if (std::cin >> mod && mod == 1) {\n        std::cout << \"Enter delta (+/-) for \" << m << \" resources: \";\n        for (int j = 0; j < m; ++j) {\n            int d; std::cin >> d;\n            avail[j] = std::max(0, avail[j] + d);\n        }\n        if (checkSafety(n, m, alloc, need, avail, safeSeq)) {\n            std::cout << \"[MODIFIED] SAFE State. Sequence: \";\n            for (size_t i = 0; i < safeSeq.size(); ++i)\n                std::cout << \"P\" << safeSeq[i] << (i + 1 < safeSeq.size() ? \" -> \" : \"\\n\");\n        } else {\n            std::cout << \"[MODIFIED] UNSAFE State!\\n\";\n        }\n    }\n    return 0;\n}\n",
+        "compileCmd": "g++ -std=c++17 -Wall bankers.cpp -o bankers_cpp",
+        "runCmd": "./bankers_cpp",
+        "sampleInputs": [
+          {
+            "desc": "Test Case 1 (Safe State -> Decreased to Unsafe)",
+            "input": "5 3\n0 1 0\n2 0 0\n3 0 2\n2 1 1\n0 0 2\n7 5 3\n3 2 2\n9 0 2\n2 2 2\n4 3 3\n3 3 2\n1\n-2 -2 -1"
+          },
+          {
+            "desc": "Test Case 2 (Unsafe State -> Increased to Safe)",
+            "input": "3 3\n1 1 0\n2 0 1\n0 2 1\n3 3 2\n4 2 2\n2 3 3\n0 0 0\n1\n2 2 2"
+          }
+        ],
+        "sampleOutputs": [
+          {
+            "desc": "Expected Output (Test Case 1)",
+            "output": "Need Matrix:\nP0: 7 4 3 \nP1: 1 2 2 \nP2: 6 0 0 \nP3: 0 1 1 \nP4: 4 3 1 \n\n[RESULT] SAFE State. Sequence: P1 -> P3 -> P0 -> P2 -> P4\n[MODIFIED] UNSAFE State!"
+          },
+          {
+            "desc": "Expected Output (Test Case 2)",
+            "output": "Need Matrix:\nP0: 2 2 2 \nP1: 2 2 1 \nP2: 2 1 2 \n\n[RESULT] UNSAFE State!\n[MODIFIED] SAFE State. Sequence: P0 -> P1 -> P2"
+          }
+        ]
+      },
+      "python": {
+        "filename": "bankers.py",
+        "langLabel": "Python 3",
+        "source": "#!/usr/bin/env python3\n\"\"\"\nPractical 06: Banker's Algorithm in Python\nRun: python3 bankers.py\n\"\"\"\n\ndef is_safe(n, m, alloc, need, avail):\n    work = avail[:]\n    finish = [False] * n\n    safe_seq = []\n\n    while len(safe_seq) < n:\n        found = False\n        for i in range(n):\n            if not finish[i] and all(need[i][j] <= work[j] for j in range(m)):\n                for j in range(m):\n                    work[j] += alloc[i][j]\n                finish[i] = True\n                safe_seq.append(i)\n                found = True\n        if not found:\n            return False, []\n    return True, safe_seq\n\ndef main():\n    n, m = map(int, input(\"Enter processes and resource types (e.g. 5 3): \").split())\n    print(f\"Enter Allocation Matrix ({n} rows):\")\n    alloc = [list(map(int, input().split())) for _ in range(n)]\n    print(f\"Enter Max Demand Matrix ({n} rows):\")\n    max_d = [list(map(int, input().split())) for _ in range(n)]\n    avail = list(map(int, input(\"Enter Available Resources: \").split()))\n\n    need = [[max_d[i][j] - alloc[i][j] for j in range(m)] for i in range(n)]\n\n    print(\"\\nProcess\\tAllocation\\tMax\\t\\tNeed\")\n    for i in range(n):\n        print(f\"P{i}\\t{alloc[i]}\\t{max_d[i]}\\t{need[i]}\")\n    print(f\"Available: {avail}\")\n\n    safe, seq = is_safe(n, m, alloc, need, avail)\n    if safe:\n        print(\"\\n[RESULT] SAFE State. Sequence:\", \" -> \".join(f\"P{p}\" for p in seq))\n    else:\n        print(\"\\n[RESULT] UNSAFE State! Potential deadlock.\")\n\n    mod = int(input(\"\\nModify Available resources? (1=Yes, 0=No): \"))\n    if mod == 1:\n        delta = list(map(int, input(f\"Enter delta (+/-) for {m} resources: \").split()))\n        avail = [max(0, avail[j] + delta[j]) for j in range(m)]\n        print(\"Updated Available:\", avail)\n        safe, seq = is_safe(n, m, alloc, need, avail)\n        if safe:\n            print(\"[MODIFIED] SAFE State. Sequence:\", \" -> \".join(f\"P{p}\" for p in seq))\n        else:\n            print(\"[MODIFIED] UNSAFE State!\")\n\nif __name__ == \"__main__\":\n    main()\n",
+        "compileCmd": "python3 -m py_compile bankers.py",
+        "runCmd": "python3 bankers.py",
+        "sampleInputs": [
+          {
+            "desc": "Test Case 1 (Safe State -> Decreased to Unsafe)",
+            "input": "5 3\n0 1 0\n2 0 0\n3 0 2\n2 1 1\n0 0 2\n7 5 3\n3 2 2\n9 0 2\n2 2 2\n4 3 3\n3 3 2\n1\n-2 -2 -1"
+          },
+          {
+            "desc": "Test Case 2 (Unsafe State -> Increased to Safe)",
+            "input": "3 3\n1 1 0\n2 0 1\n0 2 1\n3 3 2\n4 2 2\n2 3 3\n0 0 0\n1\n2 2 2"
+          }
+        ],
+        "sampleOutputs": [
+          {
+            "desc": "Expected Output (Test Case 1)",
+            "output": "[RESULT] SAFE State. Sequence: P1 -> P3 -> P0 -> P2 -> P4\nUpdated Available: [1, 1, 1]\n[MODIFIED] UNSAFE State!"
+          },
+          {
+            "desc": "Expected Output (Test Case 2)",
+            "output": "[RESULT] UNSAFE State! Potential deadlock.\nUpdated Available: [2, 2, 2]\n[MODIFIED] SAFE State. Sequence: P0 -> P1 -> P2"
+          }
+        ]
+      }
+    }
+  },
+  {
+    "id": 7,
+    "number": "PR-07",
+    "title": "Virtual Memory and Page Replacement (FIFO, LRU, Optimal)",
+    "category": "memory",
+    "categoryLabel": "Virtual Memory Management",
+    "type": "coding_multi",
+    "aim": "To implement demand paging and virtual memory page replacement algorithms — FIFO (First-In First-Out), LRU (Least Recently Used), and Optimal — tracking frame state transitions, page hits, and page faults.",
+    "shortDesc": "Simulate FIFO, LRU, Optimal, and combined menu-driven page replacement in C, C++, and Python.",
+    "topics": [
+      "Demand Paging",
+      "FIFO Queue",
+      "LRU Recency",
+      "Optimal Lookahead",
+      "Page Faults & Hits"
+    ],
+    "implCount": 12,
+    "languages": [
+      "c",
+      "cpp",
+      "python"
+    ],
+    "defaultLang": "c",
+    "algorithms": [
+      {
+        "key": "fifo",
+        "label": "FIFO Standalone"
+      },
+      {
+        "key": "lru",
+        "label": "LRU Standalone"
+      },
+      {
+        "key": "optimal",
+        "label": "Optimal Standalone"
+      },
+      {
+        "key": "combined",
+        "label": "Combined Menu Program"
+      }
+    ],
+    "defaultAlgo": "fifo",
+    "code": {
+      "c": {
+        "fifo": {
+          "filename": "fifo_pr.c",
+          "langLabel": "C (GCC)",
+          "source": "/*\n * Practical 07 (C - FIFO Standalone): First-In First-Out Page Replacement\n * Compile: gcc -Wall fifo_pr.c -o fifo_pr\n * Run:     ./fifo_pr\n */\n#include <stdio.h>\n\nint main() {\n    int n, frames_count;\n    printf(\"Enter length of page reference string: \");\n    if (scanf(\"%d\", &n) != 1 || n <= 0) return 1;\n\n    int pages[200];\n    printf(\"Enter page reference string: \");\n    for (int i = 0; i < n; i++) scanf(\"%d\", &pages[i]);\n\n    printf(\"Enter number of frames: \");\n    if (scanf(\"%d\", &frames_count) != 1 || frames_count <= 0) return 1;\n\n    int frames[50];\n    for (int i = 0; i < frames_count; i++) frames[i] = -1;\n\n    int next_replace = 0, faults = 0, hits = 0;\n\n    printf(\"\\n--- FIFO Page Replacement ---\\n\");\n    printf(\"Ref\\tFrames\\t\\tStatus\\n\");\n    for (int i = 0; i < n; i++) {\n        int page = pages[i], hit = 0;\n        for (int j = 0; j < frames_count; j++) {\n            if (frames[j] == page) { hit = 1; break; }\n        }\n        if (hit) {\n            hits++;\n        } else {\n            frames[next_replace] = page;\n            next_replace = (next_replace + 1) % frames_count;\n            faults++;\n        }\n\n        printf(\"%d\\t[\", page);\n        for (int j = 0; j < frames_count; j++) {\n            if (frames[j] == -1) printf(\" -\");\n            else printf(\" %d\", frames[j]);\n        }\n        printf(\" ]\\t%s\\n\", hit ? \"HIT\" : \"FAULT\");\n    }\n\n    printf(\"\\nTotal Page Faults: %d\\nTotal Page Hits  : %d\\n\", faults, hits);\n    printf(\"Fault Ratio      : %.2f%%\\n\", (faults * 100.0) / n);\n    return 0;\n}\n",
+          "compileCmd": "gcc -Wall fifo_pr.c -o fifo_pr",
+          "runCmd": "./fifo_pr",
+          "sampleInputs": [
+            {
+              "desc": "Test Case 1: Classic 12-page string with 3 frames",
+              "input": "12\n7 0 1 2 0 3 0 4 2 3 0 3\n3"
+            },
+            {
+              "desc": "Test Case 2: 10-page string with 4 frames",
+              "input": "10\n1 2 3 4 1 2 5 1 2 3\n4"
+            }
+          ],
+          "sampleOutputs": [
+            {
+              "desc": "Expected FIFO Output (Test Case 1: 10 Faults, 2 Hits)",
+              "output": "--- FIFO Page Replacement ---\nRef\tFrames\t\tStatus\n7\t[ 7 - - ]\tFAULT\n0\t[ 7 0 - ]\tFAULT\n1\t[ 7 0 1 ]\tFAULT\n2\t[ 2 0 1 ]\tFAULT\n0\t[ 2 0 1 ]\tHIT\n3\t[ 2 3 1 ]\tFAULT\n0\t[ 2 3 0 ]\tFAULT\n4\t[ 4 3 0 ]\tFAULT\n2\t[ 4 2 0 ]\tFAULT\n3\t[ 4 2 3 ]\tFAULT\n0\t[ 0 2 3 ]\tFAULT\n3\t[ 0 2 3 ]\tHIT\n\nTotal Page Faults: 10\nTotal Page Hits  : 2"
+            },
+            {
+              "desc": "Expected FIFO Output (Test Case 2: 6 Faults, 4 Hits)",
+              "output": "--- FIFO Page Replacement ---\nTotal Page Faults: 6\nTotal Page Hits  : 4"
+            }
+          ]
+        },
+        "lru": {
+          "filename": "lru_pr.c",
+          "langLabel": "C (GCC)",
+          "source": "/*\n * Practical 07 (C - LRU Standalone): Least Recently Used Page Replacement\n * Compile: gcc -Wall lru_pr.c -o lru_pr\n * Run:     ./lru_pr\n */\n#include <stdio.h>\n\nint main() {\n    int n, frames_count;\n    printf(\"Enter length of page reference string: \");\n    if (scanf(\"%d\", &n) != 1 || n <= 0) return 1;\n\n    int pages[200];\n    printf(\"Enter page reference string: \");\n    for (int i = 0; i < n; i++) scanf(\"%d\", &pages[i]);\n\n    printf(\"Enter number of frames: \");\n    if (scanf(\"%d\", &frames_count) != 1 || frames_count <= 0) return 1;\n\n    int frames[50], last_used[50];\n    for (int i = 0; i < frames_count; i++) {\n        frames[i] = -1;\n        last_used[i] = -1;\n    }\n\n    int faults = 0, hits = 0;\n    printf(\"\\n--- LRU Page Replacement ---\\n\");\n    printf(\"Ref\\tFrames\\t\\tStatus\\n\");\n\n    for (int i = 0; i < n; i++) {\n        int page = pages[i], hit_idx = -1;\n        for (int j = 0; j < frames_count; j++) {\n            if (frames[j] == page) { hit_idx = j; break; }\n        }\n\n        if (hit_idx != -1) {\n            hits++;\n            last_used[hit_idx] = i;\n        } else {\n            int replace_idx = -1;\n            for (int j = 0; j < frames_count; j++) {\n                if (frames[j] == -1) { replace_idx = j; break; }\n            }\n            if (replace_idx == -1) {\n                replace_idx = 0;\n                for (int j = 1; j < frames_count; j++) {\n                    if (last_used[j] < last_used[replace_idx]) replace_idx = j;\n                }\n            }\n            frames[replace_idx] = page;\n            last_used[replace_idx] = i;\n            faults++;\n        }\n\n        printf(\"%d\\t[\", page);\n        for (int j = 0; j < frames_count; j++) {\n            if (frames[j] == -1) printf(\" -\");\n            else printf(\" %d\", frames[j]);\n        }\n        printf(\" ]\\t%s\\n\", (hit_idx != -1) ? \"HIT\" : \"FAULT\");\n    }\n\n    printf(\"\\nTotal Page Faults: %d\\nTotal Page Hits  : %d\\n\", faults, hits);\n    printf(\"Fault Ratio      : %.2f%%\\n\", (faults * 100.0) / n);\n    return 0;\n}\n",
+          "compileCmd": "gcc -Wall lru_pr.c -o lru_pr",
+          "runCmd": "./lru_pr",
+          "sampleInputs": [
+            {
+              "desc": "Test Case 1: Classic 12-page string with 3 frames",
+              "input": "12\n7 0 1 2 0 3 0 4 2 3 0 3\n3"
+            },
+            {
+              "desc": "Test Case 2: 10-page string with 4 frames",
+              "input": "10\n1 2 3 4 1 2 5 1 2 3\n4"
+            }
+          ],
+          "sampleOutputs": [
+            {
+              "desc": "Expected LRU Output (Test Case 1: 9 Faults, 3 Hits)",
+              "output": "--- LRU Page Replacement ---\nRef\tFrames\t\tStatus\n7\t[ 7 - - ]\tFAULT\n0\t[ 7 0 - ]\tFAULT\n1\t[ 7 0 1 ]\tFAULT\n2\t[ 2 0 1 ]\tFAULT\n0\t[ 2 0 1 ]\tHIT\n3\t[ 2 0 3 ]\tFAULT\n0\t[ 2 0 3 ]\tHIT\n4\t[ 4 0 3 ]\tFAULT\n2\t[ 4 0 2 ]\tFAULT\n3\t[ 4 3 2 ]\tFAULT\n0\t[ 0 3 2 ]\tFAULT\n3\t[ 0 3 2 ]\tHIT\n\nTotal Page Faults: 9\nTotal Page Hits  : 3"
+            },
+            {
+              "desc": "Expected LRU Output (Test Case 2: 6 Faults, 4 Hits)",
+              "output": "--- LRU Page Replacement ---\nTotal Page Faults: 6\nTotal Page Hits  : 4"
+            }
+          ]
+        },
+        "optimal": {
+          "filename": "optimal_pr.c",
+          "langLabel": "C (GCC)",
+          "source": "/*\n * Practical 07 (C - Optimal Standalone): Optimal Page Replacement\n * Compile: gcc -Wall optimal_pr.c -o optimal_pr\n * Run:     ./optimal_pr\n */\n#include <stdio.h>\n\nint main() {\n    int n, frames_count;\n    printf(\"Enter length of page reference string: \");\n    if (scanf(\"%d\", &n) != 1 || n <= 0) return 1;\n\n    int pages[200];\n    printf(\"Enter page reference string: \");\n    for (int i = 0; i < n; i++) scanf(\"%d\", &pages[i]);\n\n    printf(\"Enter number of frames: \");\n    if (scanf(\"%d\", &frames_count) != 1 || frames_count <= 0) return 1;\n\n    int frames[50];\n    for (int i = 0; i < frames_count; i++) frames[i] = -1;\n\n    int faults = 0, hits = 0;\n    printf(\"\\n--- Optimal Page Replacement ---\\n\");\n    printf(\"Ref\\tFrames\\t\\tStatus\\n\");\n\n    for (int i = 0; i < n; i++) {\n        int page = pages[i], hit = 0;\n        for (int j = 0; j < frames_count; j++) {\n            if (frames[j] == page) { hit = 1; break; }\n        }\n\n        if (hit) {\n            hits++;\n        } else {\n            int replace_idx = -1;\n            for (int j = 0; j < frames_count; j++) {\n                if (frames[j] == -1) { replace_idx = j; break; }\n            }\n            if (replace_idx == -1) {\n                int farthest = -1;\n                replace_idx = 0;\n                for (int j = 0; j < frames_count; j++) {\n                    int next_use = n + 1;\n                    for (int k = i + 1; k < n; k++) {\n                        if (pages[k] == frames[j]) { next_use = k; break; }\n                    }\n                    if (next_use > farthest) {\n                        farthest = next_use;\n                        replace_idx = j;\n                    }\n                }\n            }\n            frames[replace_idx] = page;\n            faults++;\n        }\n\n        printf(\"%d\\t[\", page);\n        for (int j = 0; j < frames_count; j++) {\n            if (frames[j] == -1) printf(\" -\");\n            else printf(\" %d\", frames[j]);\n        }\n        printf(\" ]\\t%s\\n\", hit ? \"HIT\" : \"FAULT\");\n    }\n\n    printf(\"\\nTotal Page Faults: %d\\nTotal Page Hits  : %d\\n\", faults, hits);\n    printf(\"Fault Ratio      : %.2f%%\\n\", (faults * 100.0) / n);\n    return 0;\n}\n",
+          "compileCmd": "gcc -Wall optimal_pr.c -o optimal_pr",
+          "runCmd": "./optimal_pr",
+          "sampleInputs": [
+            {
+              "desc": "Test Case 1: Classic 12-page string with 3 frames",
+              "input": "12\n7 0 1 2 0 3 0 4 2 3 0 3\n3"
+            },
+            {
+              "desc": "Test Case 2: 10-page string with 4 frames",
+              "input": "10\n1 2 3 4 1 2 5 1 2 3\n4"
+            }
+          ],
+          "sampleOutputs": [
+            {
+              "desc": "Expected Optimal Output (Test Case 1: 7 Faults, 5 Hits)",
+              "output": "--- Optimal Page Replacement ---\nRef\tFrames\t\tStatus\n7\t[ 7 - - ]\tFAULT\n0\t[ 7 0 - ]\tFAULT\n1\t[ 7 0 1 ]\tFAULT\n2\t[ 2 0 1 ]\tFAULT\n0\t[ 2 0 1 ]\tHIT\n3\t[ 2 0 3 ]\tFAULT\n0\t[ 2 0 3 ]\tHIT\n4\t[ 2 4 3 ]\tFAULT\n2\t[ 2 4 3 ]\tHIT\n3\t[ 2 4 3 ]\tHIT\n0\t[ 0 4 3 ]\tFAULT\n3\t[ 0 4 3 ]\tHIT\n\nTotal Page Faults: 7\nTotal Page Hits  : 5"
+            },
+            {
+              "desc": "Expected Optimal Output (Test Case 2: 5 Faults, 5 Hits)",
+              "output": "--- Optimal Page Replacement ---\nTotal Page Faults: 5\nTotal Page Hits  : 5"
+            }
+          ]
+        },
+        "combined": {
+          "filename": "page_rep_menu.c",
+          "langLabel": "C (GCC)",
+          "source": "/*\n * Practical 07 (C - Combined Menu-Driven): FIFO, LRU, Optimal Page Replacement\n * Compile: gcc -Wall page_rep_menu.c -o page_rep_menu\n * Run:     ./page_rep_menu\n */\n#include <stdio.h>\n\nvoid print_step(int page, int frames[], int fcount, int hit) {\n    printf(\"%d\\t[\", page);\n    for (int j = 0; j < fcount; j++) {\n        if (frames[j] == -1) printf(\" -\");\n        else printf(\" %d\", frames[j]);\n    }\n    printf(\" ]\\t%s\\n\", hit ? \"HIT\" : \"FAULT\");\n}\n\nvoid run_fifo(int pages[], int n, int fcount) {\n    int frames[50], next = 0, faults = 0, hits = 0;\n    for (int i = 0; i < fcount; i++) frames[i] = -1;\n    printf(\"\\n--- FIFO Page Replacement ---\\nRef\\tFrames\\t\\tStatus\\n\");\n    for (int i = 0; i < n; i++) {\n        int hit = 0;\n        for (int j = 0; j < fcount; j++) if (frames[j] == pages[i]) { hit = 1; break; }\n        if (hit) hits++;\n        else { frames[next] = pages[i]; next = (next + 1) % fcount; faults++; }\n        print_step(pages[i], frames, fcount, hit);\n    }\n    printf(\"Total Page Faults: %d | Total Hits: %d\\n\", faults, hits);\n}\n\nvoid run_lru(int pages[], int n, int fcount) {\n    int frames[50], last[50], faults = 0, hits = 0;\n    for (int i = 0; i < fcount; i++) { frames[i] = -1; last[i] = -1; }\n    printf(\"\\n--- LRU Page Replacement ---\\nRef\\tFrames\\t\\tStatus\\n\");\n    for (int i = 0; i < n; i++) {\n        int hit_idx = -1;\n        for (int j = 0; j < fcount; j++) if (frames[j] == pages[i]) { hit_idx = j; break; }\n        if (hit_idx != -1) { hits++; last[hit_idx] = i; }\n        else {\n            int rep = -1;\n            for (int j = 0; j < fcount; j++) if (frames[j] == -1) { rep = j; break; }\n            if (rep == -1) {\n                rep = 0;\n                for (int j = 1; j < fcount; j++) if (last[j] < last[rep]) rep = j;\n            }\n            frames[rep] = pages[i]; last[rep] = i; faults++;\n        }\n        print_step(pages[i], frames, fcount, hit_idx != -1);\n    }\n    printf(\"Total Page Faults: %d | Total Hits: %d\\n\", faults, hits);\n}\n\nvoid run_optimal(int pages[], int n, int fcount) {\n    int frames[50], faults = 0, hits = 0;\n    for (int i = 0; i < fcount; i++) frames[i] = -1;\n    printf(\"\\n--- Optimal Page Replacement ---\\nRef\\tFrames\\t\\tStatus\\n\");\n    for (int i = 0; i < n; i++) {\n        int hit = 0;\n        for (int j = 0; j < fcount; j++) if (frames[j] == pages[i]) { hit = 1; break; }\n        if (hit) hits++;\n        else {\n            int rep = -1;\n            for (int j = 0; j < fcount; j++) if (frames[j] == -1) { rep = j; break; }\n            if (rep == -1) {\n                int far = -1; rep = 0;\n                for (int j = 0; j < fcount; j++) {\n                    int nxt = n + 1;\n                    for (int k = i + 1; k < n; k++) if (pages[k] == frames[j]) { nxt = k; break; }\n                    if (nxt > far) { far = nxt; rep = j; }\n                }\n            }\n            frames[rep] = pages[i]; faults++;\n        }\n        print_step(pages[i], frames, fcount, hit);\n    }\n    printf(\"Total Page Faults: %d | Total Hits: %d\\n\", faults, hits);\n}\n\nint main() {\n    int n, fcount, pages[200], ch;\n    printf(\"Enter length of page reference string: \");\n    if (scanf(\"%d\", &n) != 1 || n <= 0) return 1;\n    printf(\"Enter page reference string: \");\n    for (int i = 0; i < n; i++) scanf(\"%d\", &pages[i]);\n    printf(\"Enter number of frames: \");\n    if (scanf(\"%d\", &fcount) != 1 || fcount <= 0) return 1;\n\n    do {\n        printf(\"\\n=== PAGE REPLACEMENT MENU ===\\n1. FIFO\\n2. LRU\\n3. Optimal\\n4. Exit\\nChoice: \");\n        if (scanf(\"%d\", &ch) != 1) break;\n        if (ch == 1) run_fifo(pages, n, fcount);\n        else if (ch == 2) run_lru(pages, n, fcount);\n        else if (ch == 3) run_optimal(pages, n, fcount);\n        else if (ch == 4) printf(\"Exiting.\\n\");\n    } while (ch != 4);\n    return 0;\n}\n",
+          "compileCmd": "gcc -Wall page_rep_menu.c -o page_rep_menu",
+          "runCmd": "./page_rep_menu",
+          "sampleInputs": [
+            {
+              "desc": "Test Case 1: Compare FIFO (1), LRU (2), Optimal (3) on 12-page string",
+              "input": "12\n7 0 1 2 0 3 0 4 2 3 0 3\n3\n1\n2\n3\n4"
+            },
+            {
+              "desc": "Test Case 2: Compare all 3 on 8-page string with 3 frames",
+              "input": "8\n1 3 0 3 5 6 3 1\n3\n1\n2\n3\n4"
+            }
+          ],
+          "sampleOutputs": [
+            {
+              "desc": "Combined Comparison Summary (Test Case 1)",
+              "output": "--- FIFO Page Replacement ---\nTotal Page Faults: 10 | Total Hits: 2\n\n--- LRU Page Replacement ---\nTotal Page Faults: 9 | Total Hits: 3\n\n--- Optimal Page Replacement ---\nTotal Page Faults: 7 | Total Hits: 5"
+            },
+            {
+              "desc": "Combined Comparison Summary (Test Case 2)",
+              "output": "--- FIFO Page Replacement ---\nTotal Page Faults: 6 | Total Hits: 2\n\n--- LRU Page Replacement ---\nTotal Page Faults: 5 | Total Hits: 3\n\n--- Optimal Page Replacement ---\nTotal Page Faults: 5 | Total Hits: 3"
+            }
+          ]
+        }
+      },
+      "cpp": {
+        "fifo": {
+          "filename": "fifo_pr.cpp",
+          "langLabel": "C++ (G++ 17)",
+          "source": "/*\n * Practical 07 (C++ - FIFO Standalone)\n * Compile: g++ -std=c++17 -Wall fifo_pr.cpp -o fifo_cpp\n * Run:     ./fifo_cpp\n */\n#include <iostream>\n#include <vector>\n#include <algorithm>\n#include <string>\n\nint main() {\n    int n, fcount;\n    std::cout << \"Enter length of page reference string: \";\n    if (!(std::cin >> n) || n <= 0) return 1;\n    std::vector<int> pages(n);\n    std::cout << \"Enter page reference string: \";\n    for (int i = 0; i < n; ++i) std::cin >> pages[i];\n    std::cout << \"Enter number of frames: \";\n    if (!(std::cin >> fcount) || fcount <= 0) return 1;\n\n    std::vector<int> frames(fcount, -1);\n    int next = 0, faults = 0, hits = 0;\n    std::cout << \"\\n--- FIFO Page Replacement ---\\nRef\\tFrames\\t\\tStatus\\n\";\n    for (int page : pages) {\n        bool hit = std::find(frames.begin(), frames.end(), page) != frames.end();\n        if (hit) ++hits;\n        else {\n            frames[next] = page;\n            next = (next + 1) % fcount;\n            ++faults;\n        }\n        std::cout << page << \"\\t[\";\n        for (int f : frames) std::cout << \" \" << (f == -1 ? \"-\" : std::to_string(f));\n        std::cout << \" ]\\t\" << (hit ? \"HIT\" : \"FAULT\") << \"\\n\";\n    }\n    std::cout << \"\\nTotal Page Faults: \" << faults << \"\\nTotal Page Hits  : \" << hits << \"\\n\";\n    return 0;\n}\n",
+          "compileCmd": "g++ -std=c++17 -Wall fifo_pr.cpp -o fifo_cpp",
+          "runCmd": "./fifo_cpp",
+          "sampleInputs": [
+            {
+              "desc": "Test Case 1: Classic 12-page string with 3 frames",
+              "input": "12\n7 0 1 2 0 3 0 4 2 3 0 3\n3"
+            },
+            {
+              "desc": "Test Case 2: 10-page string with 4 frames",
+              "input": "10\n1 2 3 4 1 2 5 1 2 3\n4"
+            }
+          ],
+          "sampleOutputs": [
+            {
+              "desc": "Expected FIFO Output (Test Case 1: 10 Faults, 2 Hits)",
+              "output": "--- FIFO Page Replacement ---\nRef\tFrames\t\tStatus\n7\t[ 7 - - ]\tFAULT\n0\t[ 7 0 - ]\tFAULT\n1\t[ 7 0 1 ]\tFAULT\n2\t[ 2 0 1 ]\tFAULT\n0\t[ 2 0 1 ]\tHIT\n3\t[ 2 3 1 ]\tFAULT\n0\t[ 2 3 0 ]\tFAULT\n4\t[ 4 3 0 ]\tFAULT\n2\t[ 4 2 0 ]\tFAULT\n3\t[ 4 2 3 ]\tFAULT\n0\t[ 0 2 3 ]\tFAULT\n3\t[ 0 2 3 ]\tHIT\n\nTotal Page Faults: 10\nTotal Page Hits  : 2"
+            },
+            {
+              "desc": "Expected FIFO Output (Test Case 2: 6 Faults, 4 Hits)",
+              "output": "--- FIFO Page Replacement ---\nTotal Page Faults: 6\nTotal Page Hits  : 4"
+            }
+          ]
+        },
+        "lru": {
+          "filename": "lru_pr.cpp",
+          "langLabel": "C++ (G++ 17)",
+          "source": "/*\n * Practical 07 (C++ - LRU Standalone)\n * Compile: g++ -std=c++17 -Wall lru_pr.cpp -o lru_cpp\n * Run:     ./lru_cpp\n */\n#include <iostream>\n#include <vector>\n#include <string>\n\nint main() {\n    int n, fcount;\n    std::cout << \"Enter length of page reference string: \";\n    if (!(std::cin >> n) || n <= 0) return 1;\n    std::vector<int> pages(n);\n    std::cout << \"Enter page reference string: \";\n    for (int i = 0; i < n; ++i) std::cin >> pages[i];\n    std::cout << \"Enter number of frames: \";\n    if (!(std::cin >> fcount) || fcount <= 0) return 1;\n\n    std::vector<int> frames(fcount, -1), lastUsed(fcount, -1);\n    int faults = 0, hits = 0;\n    std::cout << \"\\n--- LRU Page Replacement ---\\nRef\\tFrames\\t\\tStatus\\n\";\n    for (int i = 0; i < n; ++i) {\n        int hitIdx = -1;\n        for (int j = 0; j < fcount; ++j) if (frames[j] == pages[i]) { hitIdx = j; break; }\n        if (hitIdx != -1) {\n            ++hits; lastUsed[hitIdx] = i;\n        } else {\n            int rep = -1;\n            for (int j = 0; j < fcount; ++j) if (frames[j] == -1) { rep = j; break; }\n            if (rep == -1) {\n                rep = 0;\n                for (int j = 1; j < fcount; ++j) if (lastUsed[j] < lastUsed[rep]) rep = j;\n            }\n            frames[rep] = pages[i]; lastUsed[rep] = i; ++faults;\n        }\n        std::cout << pages[i] << \"\\t[\";\n        for (int f : frames) std::cout << \" \" << (f == -1 ? \"-\" : std::to_string(f));\n        std::cout << \" ]\\t\" << (hitIdx != -1 ? \"HIT\" : \"FAULT\") << \"\\n\";\n    }\n    std::cout << \"\\nTotal Page Faults: \" << faults << \"\\nTotal Page Hits  : \" << hits << \"\\n\";\n    return 0;\n}\n",
+          "compileCmd": "g++ -std=c++17 -Wall lru_pr.cpp -o lru_cpp",
+          "runCmd": "./lru_cpp",
+          "sampleInputs": [
+            {
+              "desc": "Test Case 1: Classic 12-page string with 3 frames",
+              "input": "12\n7 0 1 2 0 3 0 4 2 3 0 3\n3"
+            },
+            {
+              "desc": "Test Case 2: 10-page string with 4 frames",
+              "input": "10\n1 2 3 4 1 2 5 1 2 3\n4"
+            }
+          ],
+          "sampleOutputs": [
+            {
+              "desc": "Expected LRU Output (Test Case 1: 9 Faults, 3 Hits)",
+              "output": "--- LRU Page Replacement ---\nRef\tFrames\t\tStatus\n7\t[ 7 - - ]\tFAULT\n0\t[ 7 0 - ]\tFAULT\n1\t[ 7 0 1 ]\tFAULT\n2\t[ 2 0 1 ]\tFAULT\n0\t[ 2 0 1 ]\tHIT\n3\t[ 2 0 3 ]\tFAULT\n0\t[ 2 0 3 ]\tHIT\n4\t[ 4 0 3 ]\tFAULT\n2\t[ 4 0 2 ]\tFAULT\n3\t[ 4 3 2 ]\tFAULT\n0\t[ 0 3 2 ]\tFAULT\n3\t[ 0 3 2 ]\tHIT\n\nTotal Page Faults: 9\nTotal Page Hits  : 3"
+            },
+            {
+              "desc": "Expected LRU Output (Test Case 2: 6 Faults, 4 Hits)",
+              "output": "--- LRU Page Replacement ---\nTotal Page Faults: 6\nTotal Page Hits  : 4"
+            }
+          ]
+        },
+        "optimal": {
+          "filename": "optimal_pr.cpp",
+          "langLabel": "C++ (G++ 17)",
+          "source": "/*\n * Practical 07 (C++ - Optimal Standalone)\n * Compile: g++ -std=c++17 -Wall optimal_pr.cpp -o optimal_cpp\n * Run:     ./optimal_cpp\n */\n#include <iostream>\n#include <vector>\n#include <algorithm>\n#include <string>\n\nint main() {\n    int n, fcount;\n    std::cout << \"Enter length of page reference string: \";\n    if (!(std::cin >> n) || n <= 0) return 1;\n    std::vector<int> pages(n);\n    std::cout << \"Enter page reference string: \";\n    for (int i = 0; i < n; ++i) std::cin >> pages[i];\n    std::cout << \"Enter number of frames: \";\n    if (!(std::cin >> fcount) || fcount <= 0) return 1;\n\n    std::vector<int> frames(fcount, -1);\n    int faults = 0, hits = 0;\n    std::cout << \"\\n--- Optimal Page Replacement ---\\nRef\\tFrames\\t\\tStatus\\n\";\n    for (int i = 0; i < n; ++i) {\n        bool hit = std::find(frames.begin(), frames.end(), pages[i]) != frames.end();\n        if (hit) ++hits;\n        else {\n            int rep = -1;\n            for (int j = 0; j < fcount; ++j) if (frames[j] == -1) { rep = j; break; }\n            if (rep == -1) {\n                int far = -1; rep = 0;\n                for (int j = 0; j < fcount; ++j) {\n                    int nxt = n + 1;\n                    for (int k = i + 1; k < n; ++k) if (pages[k] == frames[j]) { nxt = k; break; }\n                    if (nxt > far) { far = nxt; rep = j; }\n                }\n            }\n            frames[rep] = pages[i]; ++faults;\n        }\n        std::cout << pages[i] << \"\\t[\";\n        for (int f : frames) std::cout << \" \" << (f == -1 ? \"-\" : std::to_string(f));\n        std::cout << \" ]\\t\" << (hit ? \"HIT\" : \"FAULT\") << \"\\n\";\n    }\n    std::cout << \"\\nTotal Page Faults: \" << faults << \"\\nTotal Page Hits  : \" << hits << \"\\n\";\n    return 0;\n}\n",
+          "compileCmd": "g++ -std=c++17 -Wall optimal_pr.cpp -o optimal_cpp",
+          "runCmd": "./optimal_cpp",
+          "sampleInputs": [
+            {
+              "desc": "Test Case 1: Classic 12-page string with 3 frames",
+              "input": "12\n7 0 1 2 0 3 0 4 2 3 0 3\n3"
+            },
+            {
+              "desc": "Test Case 2: 10-page string with 4 frames",
+              "input": "10\n1 2 3 4 1 2 5 1 2 3\n4"
+            }
+          ],
+          "sampleOutputs": [
+            {
+              "desc": "Expected Optimal Output (Test Case 1: 7 Faults, 5 Hits)",
+              "output": "--- Optimal Page Replacement ---\nRef\tFrames\t\tStatus\n7\t[ 7 - - ]\tFAULT\n0\t[ 7 0 - ]\tFAULT\n1\t[ 7 0 1 ]\tFAULT\n2\t[ 2 0 1 ]\tFAULT\n0\t[ 2 0 1 ]\tHIT\n3\t[ 2 0 3 ]\tFAULT\n0\t[ 2 0 3 ]\tHIT\n4\t[ 2 4 3 ]\tFAULT\n2\t[ 2 4 3 ]\tHIT\n3\t[ 2 4 3 ]\tHIT\n0\t[ 0 4 3 ]\tFAULT\n3\t[ 0 4 3 ]\tHIT\n\nTotal Page Faults: 7\nTotal Page Hits  : 5"
+            },
+            {
+              "desc": "Expected Optimal Output (Test Case 2: 5 Faults, 5 Hits)",
+              "output": "--- Optimal Page Replacement ---\nTotal Page Faults: 5\nTotal Page Hits  : 5"
+            }
+          ]
+        },
+        "combined": {
+          "filename": "page_rep_menu.cpp",
+          "langLabel": "C++ (G++ 17)",
+          "source": "/*\n * Practical 07 (C++ - Combined Menu-Driven): FIFO, LRU, Optimal\n * Compile: g++ -std=c++17 -Wall page_rep_menu.cpp -o page_rep_menu_cpp\n * Run:     ./page_rep_menu_cpp\n */\n#include <iostream>\n#include <vector>\n#include <algorithm>\n#include <string>\n\nvoid printStep(int page, const std::vector<int>& frames, bool hit) {\n    std::cout << page << \"\\t[\";\n    for (int f : frames) std::cout << \" \" << (f == -1 ? \"-\" : std::to_string(f));\n    std::cout << \" ]\\t\" << (hit ? \"HIT\" : \"FAULT\") << \"\\n\";\n}\n\nvoid runFIFO(const std::vector<int>& pages, int fcount) {\n    std::vector<int> frames(fcount, -1);\n    int next = 0, faults = 0, hits = 0;\n    std::cout << \"\\n--- FIFO Page Replacement ---\\nRef\\tFrames\\t\\tStatus\\n\";\n    for (int p : pages) {\n        bool hit = std::find(frames.begin(), frames.end(), p) != frames.end();\n        if (hit) ++hits;\n        else { frames[next] = p; next = (next + 1) % fcount; ++faults; }\n        printStep(p, frames, hit);\n    }\n    std::cout << \"Total Page Faults: \" << faults << \" | Total Hits: \" << hits << \"\\n\";\n}\n\nvoid runLRU(const std::vector<int>& pages, int fcount) {\n    std::vector<int> frames(fcount, -1), last(fcount, -1);\n    int faults = 0, hits = 0;\n    std::cout << \"\\n--- LRU Page Replacement ---\\nRef\\tFrames\\t\\tStatus\\n\";\n    for (size_t i = 0; i < pages.size(); ++i) {\n        int hitIdx = -1;\n        for (int j = 0; j < fcount; ++j) if (frames[j] == pages[i]) { hitIdx = j; break; }\n        if (hitIdx != -1) { ++hits; last[hitIdx] = static_cast<int>(i); }\n        else {\n            int rep = -1;\n            for (int j = 0; j < fcount; ++j) if (frames[j] == -1) { rep = j; break; }\n            if (rep == -1) {\n                rep = 0;\n                for (int j = 1; j < fcount; ++j) if (last[j] < last[rep]) rep = j;\n            }\n            frames[rep] = pages[i]; last[rep] = static_cast<int>(i); ++faults;\n        }\n        printStep(pages[i], frames, hitIdx != -1);\n    }\n    std::cout << \"Total Page Faults: \" << faults << \" | Total Hits: \" << hits << \"\\n\";\n}\n\nvoid runOptimal(const std::vector<int>& pages, int fcount) {\n    int n = static_cast<int>(pages.size()), faults = 0, hits = 0;\n    std::vector<int> frames(fcount, -1);\n    std::cout << \"\\n--- Optimal Page Replacement ---\\nRef\\tFrames\\t\\tStatus\\n\";\n    for (int i = 0; i < n; ++i) {\n        bool hit = std::find(frames.begin(), frames.end(), pages[i]) != frames.end();\n        if (hit) ++hits;\n        else {\n            int rep = -1;\n            for (int j = 0; j < fcount; ++j) if (frames[j] == -1) { rep = j; break; }\n            if (rep == -1) {\n                int far = -1; rep = 0;\n                for (int j = 0; j < fcount; ++j) {\n                    int nxt = n + 1;\n                    for (int k = i + 1; k < n; ++k) if (pages[k] == frames[j]) { nxt = k; break; }\n                    if (nxt > far) { far = nxt; rep = j; }\n                }\n            }\n            frames[rep] = pages[i]; ++faults;\n        }\n        printStep(pages[i], frames, hit);\n    }\n    std::cout << \"Total Page Faults: \" << faults << \" | Total Hits: \" << hits << \"\\n\";\n}\n\nint main() {\n    int n, fcount, ch;\n    std::cout << \"Enter length of page reference string: \";\n    if (!(std::cin >> n) || n <= 0) return 1;\n    std::vector<int> pages(n);\n    std::cout << \"Enter page reference string: \";\n    for (int i = 0; i < n; ++i) std::cin >> pages[i];\n    std::cout << \"Enter number of frames: \";\n    if (!(std::cin >> fcount) || fcount <= 0) return 1;\n\n    do {\n        std::cout << \"\\n=== PAGE REPLACEMENT MENU ===\\n1. FIFO\\n2. LRU\\n3. Optimal\\n4. Exit\\nChoice: \";\n        if (!(std::cin >> ch)) break;\n        if (ch == 1) runFIFO(pages, fcount);\n        else if (ch == 2) runLRU(pages, fcount);\n        else if (ch == 3) runOptimal(pages, fcount);\n    } while (ch != 4);\n    return 0;\n}\n",
+          "compileCmd": "g++ -std=c++17 -Wall page_rep_menu.cpp -o page_rep_menu_cpp",
+          "runCmd": "./page_rep_menu_cpp",
+          "sampleInputs": [
+            {
+              "desc": "Test Case 1: Compare FIFO (1), LRU (2), Optimal (3) on 12-page string",
+              "input": "12\n7 0 1 2 0 3 0 4 2 3 0 3\n3\n1\n2\n3\n4"
+            },
+            {
+              "desc": "Test Case 2: Compare all 3 on 8-page string with 3 frames",
+              "input": "8\n1 3 0 3 5 6 3 1\n3\n1\n2\n3\n4"
+            }
+          ],
+          "sampleOutputs": [
+            {
+              "desc": "Combined Comparison Summary (Test Case 1)",
+              "output": "--- FIFO Page Replacement ---\nTotal Page Faults: 10 | Total Hits: 2\n\n--- LRU Page Replacement ---\nTotal Page Faults: 9 | Total Hits: 3\n\n--- Optimal Page Replacement ---\nTotal Page Faults: 7 | Total Hits: 5"
+            },
+            {
+              "desc": "Combined Comparison Summary (Test Case 2)",
+              "output": "--- FIFO Page Replacement ---\nTotal Page Faults: 6 | Total Hits: 2\n\n--- LRU Page Replacement ---\nTotal Page Faults: 5 | Total Hits: 3\n\n--- Optimal Page Replacement ---\nTotal Page Faults: 5 | Total Hits: 3"
+            }
+          ]
+        }
+      },
+      "python": {
+        "fifo": {
+          "filename": "fifo_pr.py",
+          "langLabel": "Python 3",
+          "source": "#!/usr/bin/env python3\n\"\"\"Practical 07 (Python - FIFO Standalone) | Run: python3 fifo_pr.py\"\"\"\n\ndef fifo():\n    n = int(input(\"Enter length of page reference string: \"))\n    pages = list(map(int, input(\"Enter page reference string: \").split()))[:n]\n    fcount = int(input(\"Enter number of frames: \"))\n\n    frames = [-1] * fcount\n    nxt, faults, hits = 0, 0, 0\n    print(\"\\n--- FIFO Page Replacement ---\\nRef\\tFrames\\t\\tStatus\")\n    for p in pages:\n        hit = p in frames\n        if hit:\n            hits += 1\n        else:\n            frames[nxt] = p\n            nxt = (nxt + 1) % fcount\n            faults += 1\n        fstr = \" \".join(\"-\" if x == -1 else str(x) for x in frames)\n        print(f\"{p}\\t[ {fstr} ]\\t{'HIT' if hit else 'FAULT'}\")\n    print(f\"\\nTotal Page Faults: {faults}\\nTotal Page Hits  : {hits}\")\n\nif __name__ == \"__main__\":\n    fifo()\n",
+          "compileCmd": "python3 -m py_compile fifo_pr.py",
+          "runCmd": "python3 fifo_pr.py",
+          "sampleInputs": [
+            {
+              "desc": "Test Case 1: Classic 12-page string with 3 frames",
+              "input": "12\n7 0 1 2 0 3 0 4 2 3 0 3\n3"
+            },
+            {
+              "desc": "Test Case 2: 10-page string with 4 frames",
+              "input": "10\n1 2 3 4 1 2 5 1 2 3\n4"
+            }
+          ],
+          "sampleOutputs": [
+            {
+              "desc": "Expected FIFO Output (Test Case 1: 10 Faults, 2 Hits)",
+              "output": "--- FIFO Page Replacement ---\nRef\tFrames\t\tStatus\n7\t[ 7 - - ]\tFAULT\n0\t[ 7 0 - ]\tFAULT\n1\t[ 7 0 1 ]\tFAULT\n2\t[ 2 0 1 ]\tFAULT\n0\t[ 2 0 1 ]\tHIT\n3\t[ 2 3 1 ]\tFAULT\n0\t[ 2 3 0 ]\tFAULT\n4\t[ 4 3 0 ]\tFAULT\n2\t[ 4 2 0 ]\tFAULT\n3\t[ 4 2 3 ]\tFAULT\n0\t[ 0 2 3 ]\tFAULT\n3\t[ 0 2 3 ]\tHIT\n\nTotal Page Faults: 10\nTotal Page Hits  : 2"
+            },
+            {
+              "desc": "Expected FIFO Output (Test Case 2: 6 Faults, 4 Hits)",
+              "output": "--- FIFO Page Replacement ---\nTotal Page Faults: 6\nTotal Page Hits  : 4"
+            }
+          ]
+        },
+        "lru": {
+          "filename": "lru_pr.py",
+          "langLabel": "Python 3",
+          "source": "#!/usr/bin/env python3\n\"\"\"Practical 07 (Python - LRU Standalone) | Run: python3 lru_pr.py\"\"\"\n\ndef lru():\n    n = int(input(\"Enter length of page reference string: \"))\n    pages = list(map(int, input(\"Enter page reference string: \").split()))[:n]\n    fcount = int(input(\"Enter number of frames: \"))\n\n    frames = [-1] * fcount\n    last_used = [-1] * fcount\n    faults, hits = 0, 0\n    print(\"\\n--- LRU Page Replacement ---\\nRef\\tFrames\\t\\tStatus\")\n    for i, p in enumerate(pages):\n        if p in frames:\n            hits += 1\n            last_used[frames.index(p)] = i\n            hit = True\n        else:\n            hit = False\n            if -1 in frames:\n                rep = frames.index(-1)\n            else:\n                rep = min(range(fcount), key=lambda j: last_used[j])\n            frames[rep] = p\n            last_used[rep] = i\n            faults += 1\n        fstr = \" \".join(\"-\" if x == -1 else str(x) for x in frames)\n        print(f\"{p}\\t[ {fstr} ]\\t{'HIT' if hit else 'FAULT'}\")\n    print(f\"\\nTotal Page Faults: {faults}\\nTotal Page Hits  : {hits}\")\n\nif __name__ == \"__main__\":\n    lru()\n",
+          "compileCmd": "python3 -m py_compile lru_pr.py",
+          "runCmd": "python3 lru_pr.py",
+          "sampleInputs": [
+            {
+              "desc": "Test Case 1: Classic 12-page string with 3 frames",
+              "input": "12\n7 0 1 2 0 3 0 4 2 3 0 3\n3"
+            },
+            {
+              "desc": "Test Case 2: 10-page string with 4 frames",
+              "input": "10\n1 2 3 4 1 2 5 1 2 3\n4"
+            }
+          ],
+          "sampleOutputs": [
+            {
+              "desc": "Expected LRU Output (Test Case 1: 9 Faults, 3 Hits)",
+              "output": "--- LRU Page Replacement ---\nRef\tFrames\t\tStatus\n7\t[ 7 - - ]\tFAULT\n0\t[ 7 0 - ]\tFAULT\n1\t[ 7 0 1 ]\tFAULT\n2\t[ 2 0 1 ]\tFAULT\n0\t[ 2 0 1 ]\tHIT\n3\t[ 2 0 3 ]\tFAULT\n0\t[ 2 0 3 ]\tHIT\n4\t[ 4 0 3 ]\tFAULT\n2\t[ 4 0 2 ]\tFAULT\n3\t[ 4 3 2 ]\tFAULT\n0\t[ 0 3 2 ]\tFAULT\n3\t[ 0 3 2 ]\tHIT\n\nTotal Page Faults: 9\nTotal Page Hits  : 3"
+            },
+            {
+              "desc": "Expected LRU Output (Test Case 2: 6 Faults, 4 Hits)",
+              "output": "--- LRU Page Replacement ---\nTotal Page Faults: 6\nTotal Page Hits  : 4"
+            }
+          ]
+        },
+        "optimal": {
+          "filename": "optimal_pr.py",
+          "langLabel": "Python 3",
+          "source": "#!/usr/bin/env python3\n\"\"\"Practical 07 (Python - Optimal Standalone) | Run: python3 optimal_pr.py\"\"\"\n\ndef optimal():\n    n = int(input(\"Enter length of page reference string: \"))\n    pages = list(map(int, input(\"Enter page reference string: \").split()))[:n]\n    fcount = int(input(\"Enter number of frames: \"))\n\n    frames = [-1] * fcount\n    faults, hits = 0, 0\n    print(\"\\n--- Optimal Page Replacement ---\\nRef\\tFrames\\t\\tStatus\")\n    for i, p in enumerate(pages):\n        if p in frames:\n            hits += 1\n            hit = True\n        else:\n            hit = False\n            if -1 in frames:\n                rep = frames.index(-1)\n            else:\n                future = pages[i + 1:]\n                rep = max(range(fcount), key=lambda j: future.index(frames[j]) if frames[j] in future else len(pages) + 1)\n            frames[rep] = p\n            faults += 1\n        fstr = \" \".join(\"-\" if x == -1 else str(x) for x in frames)\n        print(f\"{p}\\t[ {fstr} ]\\t{'HIT' if hit else 'FAULT'}\")\n    print(f\"\\nTotal Page Faults: {faults}\\nTotal Page Hits  : {hits}\")\n\nif __name__ == \"__main__\":\n    optimal()\n",
+          "compileCmd": "python3 -m py_compile optimal_pr.py",
+          "runCmd": "python3 optimal_pr.py",
+          "sampleInputs": [
+            {
+              "desc": "Test Case 1: Classic 12-page string with 3 frames",
+              "input": "12\n7 0 1 2 0 3 0 4 2 3 0 3\n3"
+            },
+            {
+              "desc": "Test Case 2: 10-page string with 4 frames",
+              "input": "10\n1 2 3 4 1 2 5 1 2 3\n4"
+            }
+          ],
+          "sampleOutputs": [
+            {
+              "desc": "Expected Optimal Output (Test Case 1: 7 Faults, 5 Hits)",
+              "output": "--- Optimal Page Replacement ---\nRef\tFrames\t\tStatus\n7\t[ 7 - - ]\tFAULT\n0\t[ 7 0 - ]\tFAULT\n1\t[ 7 0 1 ]\tFAULT\n2\t[ 2 0 1 ]\tFAULT\n0\t[ 2 0 1 ]\tHIT\n3\t[ 2 0 3 ]\tFAULT\n0\t[ 2 0 3 ]\tHIT\n4\t[ 2 4 3 ]\tFAULT\n2\t[ 2 4 3 ]\tHIT\n3\t[ 2 4 3 ]\tHIT\n0\t[ 0 4 3 ]\tFAULT\n3\t[ 0 4 3 ]\tHIT\n\nTotal Page Faults: 7\nTotal Page Hits  : 5"
+            },
+            {
+              "desc": "Expected Optimal Output (Test Case 2: 5 Faults, 5 Hits)",
+              "output": "--- Optimal Page Replacement ---\nTotal Page Faults: 5\nTotal Page Hits  : 5"
+            }
+          ]
+        },
+        "combined": {
+          "filename": "page_rep_menu.py",
+          "langLabel": "Python 3",
+          "source": "#!/usr/bin/env python3\n\"\"\"Practical 07 (Python - Combined Menu-Driven): FIFO, LRU, Optimal | Run: python3 page_rep_menu.py\"\"\"\n\ndef run_fifo(pages, fcount):\n    frames, nxt, faults, hits = [-1] * fcount, 0, 0, 0\n    print(\"\\n--- FIFO Page Replacement ---\\nRef\\tFrames\\t\\tStatus\")\n    for p in pages:\n        hit = p in frames\n        if hit: hits += 1\n        else: frames[nxt] = p; nxt = (nxt + 1) % fcount; faults += 1\n        print(f\"{p}\\t[ {' '.join('-' if x == -1 else str(x) for x in frames)} ]\\t{'HIT' if hit else 'FAULT'}\")\n    print(f\"Total Page Faults: {faults} | Total Hits: {hits}\")\n\ndef run_lru(pages, fcount):\n    frames, last, faults, hits = [-1] * fcount, [-1] * fcount, 0, 0\n    print(\"\\n--- LRU Page Replacement ---\\nRef\\tFrames\\t\\tStatus\")\n    for i, p in enumerate(pages):\n        if p in frames:\n            hits += 1; last[frames.index(p)] = i; hit = True\n        else:\n            hit = False\n            rep = frames.index(-1) if -1 in frames else min(range(fcount), key=lambda j: last[j])\n            frames[rep] = p; last[rep] = i; faults += 1\n        print(f\"{p}\\t[ {' '.join('-' if x == -1 else str(x) for x in frames)} ]\\t{'HIT' if hit else 'FAULT'}\")\n    print(f\"Total Page Faults: {faults} | Total Hits: {hits}\")\n\ndef run_optimal(pages, fcount):\n    frames, faults, hits = [-1] * fcount, 0, 0\n    print(\"\\n--- Optimal Page Replacement ---\\nRef\\tFrames\\t\\tStatus\")\n    for i, p in enumerate(pages):\n        if p in frames:\n            hits += 1; hit = True\n        else:\n            hit = False\n            if -1 in frames: rep = frames.index(-1)\n            else:\n                future = pages[i + 1:]\n                rep = max(range(fcount), key=lambda j: future.index(frames[j]) if frames[j] in future else len(pages) + 1)\n            frames[rep] = p; faults += 1\n        print(f\"{p}\\t[ {' '.join('-' if x == -1 else str(x) for x in frames)} ]\\t{'HIT' if hit else 'FAULT'}\")\n    print(f\"Total Page Faults: {faults} | Total Hits: {hits}\")\n\ndef main():\n    n = int(input(\"Enter length of page reference string: \"))\n    pages = list(map(int, input(\"Enter page reference string: \").split()))[:n]\n    fcount = int(input(\"Enter number of frames: \"))\n    while True:\n        ch = int(input(\"\\n=== PAGE REPLACEMENT MENU ===\\n1. FIFO\\n2. LRU\\n3. Optimal\\n4. Exit\\nChoice: \"))\n        if ch == 1: run_fifo(pages, fcount)\n        elif ch == 2: run_lru(pages, fcount)\n        elif ch == 3: run_optimal(pages, fcount)\n        elif ch == 4: break\n\nif __name__ == \"__main__\":\n    main()\n",
+          "compileCmd": "python3 -m py_compile page_rep_menu.py",
+          "runCmd": "python3 page_rep_menu.py",
+          "sampleInputs": [
+            {
+              "desc": "Test Case 1: Compare FIFO (1), LRU (2), Optimal (3) on 12-page string",
+              "input": "12\n7 0 1 2 0 3 0 4 2 3 0 3\n3\n1\n2\n3\n4"
+            },
+            {
+              "desc": "Test Case 2: Compare all 3 on 8-page string with 3 frames",
+              "input": "8\n1 3 0 3 5 6 3 1\n3\n1\n2\n3\n4"
+            }
+          ],
+          "sampleOutputs": [
+            {
+              "desc": "Combined Comparison Summary (Test Case 1)",
+              "output": "--- FIFO Page Replacement ---\nTotal Page Faults: 10 | Total Hits: 2\n\n--- LRU Page Replacement ---\nTotal Page Faults: 9 | Total Hits: 3\n\n--- Optimal Page Replacement ---\nTotal Page Faults: 7 | Total Hits: 5"
+            },
+            {
+              "desc": "Combined Comparison Summary (Test Case 2)",
+              "output": "--- FIFO Page Replacement ---\nTotal Page Faults: 6 | Total Hits: 2\n\n--- LRU Page Replacement ---\nTotal Page Faults: 5 | Total Hits: 3\n\n--- Optimal Page Replacement ---\nTotal Page Faults: 5 | Total Hits: 3"
+            }
+          ]
+        }
+      }
+    }
+  },
+  {
+    "id": 8,
+    "number": "PR-08",
+    "title": "File System Implementation (Inode and FAT Simulation)",
+    "category": "filesystem",
+    "categoryLabel": "File System Architecture",
+    "type": "coding",
+    "aim": "To design and implement a safe, in-memory educational File System simulator supporting Create, Write, Read, Delete, List, Metadata inspection, and Storage Usage reporting using both Inode metadata structures and File Allocation Table (FAT) block chaining.",
+    "shortDesc": "Safe in-memory simulated filesystem demonstrating Inode metadata tables, FAT block chains, and CRUD file ops.",
+    "topics": [
+      "Inode Structure",
+      "FAT Block Chains",
+      "Virtual Disk Blocks",
+      "File Metadata",
+      "Storage Allocation Map"
+    ],
+    "implCount": 3,
+    "languages": [
+      "c",
+      "cpp",
+      "python"
+    ],
+    "defaultLang": "c",
+    "code": {
+      "c": {
+        "filename": "filesystem_sim.c",
+        "langLabel": "C (Inode + FAT In-Memory Sim)",
+        "source": "/*\n * Practical 08: Educational In-Memory File System Simulator in C\n * Simulates Inode metadata + FAT block-chain allocation safely in RAM.\n * Does NOT touch real disk files.\n * Compile: gcc -Wall filesystem_sim.c -o filesystem_sim\n * Run:     ./filesystem_sim\n */\n#include <stdio.h>\n#include <string.h>\n\n#define TOTAL_BLOCKS 32\n#define BLOCK_SIZE 16\n#define MAX_FILES 16\n#define FAT_FREE -1\n#define FAT_EOF  -2\n\ntypedef struct {\n    int inode_id;\n    char name[32];\n    int size;\n    int start_block;\n    int used;\n} Inode;\n\nchar disk_blocks[TOTAL_BLOCKS][BLOCK_SIZE];\nint fat[TOTAL_BLOCKS];\nInode inodes[MAX_FILES];\n\nvoid init_fs() {\n    for (int i = 0; i < TOTAL_BLOCKS; i++) {\n        fat[i] = FAT_FREE;\n        memset(disk_blocks[i], 0, BLOCK_SIZE);\n    }\n    for (int i = 0; i < MAX_FILES; i++) {\n        inodes[i].used = 0;\n        inodes[i].inode_id = i + 100;\n        inodes[i].start_block = -1;\n        inodes[i].size = 0;\n    }\n}\n\nint find_file(const char *name) {\n    for (int i = 0; i < MAX_FILES; i++) {\n        if (inodes[i].used && strcmp(inodes[i].name, name) == 0) return i;\n    }\n    return -1;\n}\n\nint alloc_free_block() {\n    for (int i = 0; i < TOTAL_BLOCKS; i++) {\n        if (fat[i] == FAT_FREE) return i;\n    }\n    return -1;\n}\n\nvoid create_file(const char *name) {\n    if (find_file(name) != -1) {\n        printf(\"[Error] File '%s' already exists.\\n\", name);\n        return;\n    }\n    for (int i = 0; i < MAX_FILES; i++) {\n        if (!inodes[i].used) {\n            inodes[i].used = 1;\n            strncpy(inodes[i].name, name, 31);\n            inodes[i].name[31] = '\\0';\n            inodes[i].size = 0;\n            inodes[i].start_block = FAT_EOF;\n            printf(\"[Created] File '%s' assigned Inode #%d.\\n\", name, inodes[i].inode_id);\n            return;\n        }\n    }\n    printf(\"[Error] Inode table full.\\n\");\n}\n\nvoid free_chain(int start) {\n    int curr = start;\n    while (curr >= 0 && curr < TOTAL_BLOCKS) {\n        int next = fat[curr];\n        fat[curr] = FAT_FREE;\n        memset(disk_blocks[curr], 0, BLOCK_SIZE);\n        curr = next;\n    }\n}\n\nvoid write_file(const char *name, const char *data) {\n    int idx = find_file(name);\n    if (idx == -1) { printf(\"[Error] File '%s' not found.\\n\", name); return; }\n\n    if (inodes[idx].start_block >= 0) free_chain(inodes[idx].start_block);\n\n    int len = (int)strlen(data);\n    int blocks_needed = (len + BLOCK_SIZE - 1) / BLOCK_SIZE;\n    if (blocks_needed == 0) blocks_needed = 1;\n\n    int prev = -1, first = -1, offset = 0;\n    for (int b = 0; b < blocks_needed; b++) {\n        int blk = alloc_free_block();\n        if (blk == -1) {\n            printf(\"[Error] Out of virtual disk space!\\n\");\n            if (first >= 0) free_chain(first);\n            inodes[idx].start_block = FAT_EOF;\n            inodes[idx].size = 0;\n            return;\n        }\n        fat[blk] = FAT_EOF;\n        if (prev != -1) fat[prev] = blk;\n        else first = blk;\n\n        int copy_len = (len - offset > BLOCK_SIZE) ? BLOCK_SIZE : (len - offset);\n        memcpy(disk_blocks[blk], data + offset, copy_len);\n        offset += copy_len;\n        prev = blk;\n    }\n    inodes[idx].start_block = first;\n    inodes[idx].size = len;\n    printf(\"[Written] %d bytes written to '%s' (%d block(s)).\\n\", len, name, blocks_needed);\n}\n\nvoid read_file(const char *name) {\n    int idx = find_file(name);\n    if (idx == -1) { printf(\"[Error] File '%s' not found.\\n\", name); return; }\n    printf(\"--- Content of '%s' (Size: %d bytes) ---\\n\", name, inodes[idx].size);\n    int curr = inodes[idx].start_block, remaining = inodes[idx].size;\n    while (curr >= 0 && remaining > 0) {\n        int chunk = (remaining > BLOCK_SIZE) ? BLOCK_SIZE : remaining;\n        printf(\"%.*s\", chunk, disk_blocks[curr]);\n        remaining -= chunk;\n        curr = fat[curr];\n    }\n    printf(\"\\n-------------------------------------------\\n\");\n}\n\nvoid delete_file(const char *name) {\n    int idx = find_file(name);\n    if (idx == -1) { printf(\"[Error] File '%s' not found.\\n\", name); return; }\n    if (inodes[idx].start_block >= 0) free_chain(inodes[idx].start_block);\n    inodes[idx].used = 0;\n    printf(\"[Deleted] File '%s' (Inode #%d) removed.\\n\", name, inodes[idx].inode_id);\n}\n\nvoid list_and_usage() {\n    printf(\"\\n=== INODE DIRECTORY TABLE ===\\n\");\n    printf(\"Inode\\tName\\t\\tSize(B)\\tFAT Block Chain\\n\");\n    for (int i = 0; i < MAX_FILES; i++) {\n        if (inodes[i].used) {\n            printf(\"#%d\\t%-12s\\t%d\\t\", inodes[i].inode_id, inodes[i].name, inodes[i].size);\n            int curr = inodes[i].start_block;\n            if (curr < 0) printf(\"(empty)\");\n            while (curr >= 0) {\n                printf(\"%d\", curr);\n                curr = fat[curr];\n                if (curr >= 0) printf(\" -> \");\n            }\n            printf(\"\\n\");\n        }\n    }\n    int used_blks = 0;\n    for (int i = 0; i < TOTAL_BLOCKS; i++) if (fat[i] != FAT_FREE) used_blks++;\n    printf(\"Storage Usage: %d/%d blocks used (%d/%d bytes)\\n\",\n           used_blks, TOTAL_BLOCKS, used_blks * BLOCK_SIZE, TOTAL_BLOCKS * BLOCK_SIZE);\n}\n\nint main() {\n    init_fs();\n    int ch;\n    char name[32], data[256];\n    do {\n        printf(\"\\n=== SIMULATED FS MENU (Inode + FAT) ===\\n\");\n        printf(\"1. Create File\\n2. Write File\\n3. Read File\\n4. Delete File\\n5. List & Storage Map\\n6. Exit\\nChoice: \");\n        if (scanf(\"%d\", &ch) != 1) break;\n        getchar();\n        if (ch == 1) {\n            printf(\"Enter filename: \"); scanf(\"%31s\", name); create_file(name);\n        } else if (ch == 2) {\n            printf(\"Enter filename: \"); scanf(\"%31s\", name); getchar();\n            printf(\"Enter text content: \"); fgets(data, sizeof(data), stdin);\n            data[strcspn(data, \"\\n\")] = '\\0';\n            write_file(name, data);\n        } else if (ch == 3) {\n            printf(\"Enter filename: \"); scanf(\"%31s\", name); read_file(name);\n        } else if (ch == 4) {\n            printf(\"Enter filename: \"); scanf(\"%31s\", name); delete_file(name);\n        } else if (ch == 5) {\n            list_and_usage();\n        }\n    } while (ch != 6);\n    return 0;\n}\n",
+        "compileCmd": "gcc -Wall filesystem_sim.c -o filesystem_sim",
+        "runCmd": "./filesystem_sim",
+        "sampleInputs": [
+          {
+            "desc": "Scenario 1: Create notes.txt, write 37 chars, list Inode/FAT, read, exit",
+            "input": "1\nnotes.txt\n2\nnotes.txt\nOperating Systems Inode and FAT Demo!\n5\n3\nnotes.txt\n6"
+          },
+          {
+            "desc": "Scenario 2: Create two files, delete first, verify freed blocks",
+            "input": "1\na.txt\n2\na.txt\nHello Block Chain\n1\nb.txt\n2\nb.txt\nSecond File\n4\na.txt\n5\n6"
+          }
+        ],
+        "sampleOutputs": [
+          {
+            "desc": "Expected Output (Scenario 1)",
+            "output": "[Created] File 'notes.txt' assigned Inode #100.\n[Written] 37 bytes written to 'notes.txt' (3 block(s)).\n\n=== INODE DIRECTORY TABLE ===\nInode\tName\t\tSize(B)\tFAT Block Chain\n#100\tnotes.txt   \t37\t0 -> 1 -> 2\nStorage Usage: 3/32 blocks used (48/512 bytes)\n--- Content of 'notes.txt' (Size: 37 bytes) ---\nOperating Systems Inode and FAT Demo!\n-------------------------------------------"
+          },
+          {
+            "desc": "Expected Output (Scenario 2)",
+            "output": "[Created] File 'a.txt' assigned Inode #100.\n[Written] 17 bytes written to 'a.txt' (2 block(s)).\n[Created] File 'b.txt' assigned Inode #101.\n[Written] 11 bytes written to 'b.txt' (1 block(s)).\n[Deleted] File 'a.txt' (Inode #100) removed.\n\n=== INODE DIRECTORY TABLE ===\nInode\tName\t\tSize(B)\tFAT Block Chain\n#101\tb.txt       \t11\t2\nStorage Usage: 1/32 blocks used (16/512 bytes)"
+          }
+        ]
+      },
+      "cpp": {
+        "filename": "filesystem_sim.cpp",
+        "langLabel": "C++17 (OOP Inode + FAT Sim)",
+        "source": "/*\n * Practical 08: Educational In-Memory File System Simulator in C++17\n * Simulates Inode metadata and FAT block chains safely in RAM.\n * Compile: g++ -std=c++17 -Wall filesystem_sim.cpp -o fs_sim_cpp\n * Run:     ./fs_sim_cpp\n */\n#include <iostream>\n#include <vector>\n#include <unordered_map>\n#include <string>\n\nstruct Inode {\n    int inodeId;\n    std::string name;\n    int size = 0;\n    int startBlock = -2; // -2 = EOF\n};\n\nclass VirtualFileSystem {\nprivate:\n    static constexpr int TOTAL_BLOCKS = 32;\n    static constexpr int BLOCK_SIZE = 16;\n    static constexpr int FAT_FREE = -1;\n    static constexpr int FAT_EOF = -2;\n\n    std::vector<std::string> blocks;\n    std::vector<int> fat;\n    std::unordered_map<std::string, Inode> inodes;\n    int nextInode = 100;\n\n    int allocBlock() {\n        for (int i = 0; i < TOTAL_BLOCKS; ++i) {\n            if (fat[i] == FAT_FREE) return i;\n        }\n        return -1;\n    }\n\n    void freeChain(int start) {\n        int curr = start;\n        while (curr >= 0 && curr < TOTAL_BLOCKS) {\n            int nxt = fat[curr];\n            fat[curr] = FAT_FREE;\n            blocks[curr].clear();\n            curr = nxt;\n        }\n    }\n\npublic:\n    VirtualFileSystem() : blocks(TOTAL_BLOCKS), fat(TOTAL_BLOCKS, FAT_FREE) {}\n\n    void createFile(const std::string& name) {\n        if (inodes.count(name)) {\n            std::cout << \"[Error] File '\" << name << \"' already exists.\\n\";\n            return;\n        }\n        inodes[name] = Inode{nextInode++, name, 0, FAT_EOF};\n        std::cout << \"[Created] '\" << name << \"' -> Inode #\" << inodes[name].inodeId << \"\\n\";\n    }\n\n    void writeFile(const std::string& name, const std::string& content) {\n        auto it = inodes.find(name);\n        if (it == inodes.end()) { std::cout << \"[Error] File not found.\\n\"; return; }\n\n        if (it->second.startBlock >= 0) freeChain(it->second.startBlock);\n\n        int len = static_cast<int>(content.size());\n        int needed = std::max(1, (len + BLOCK_SIZE - 1) / BLOCK_SIZE);\n        int first = -2, prev = -1;\n\n        for (int b = 0; b < needed; ++b) {\n            int blk = allocBlock();\n            if (blk == -1) {\n                std::cout << \"[Error] Out of disk space!\\n\";\n                if (first >= 0) freeChain(first);\n                it->second.startBlock = FAT_EOF;\n                it->second.size = 0;\n                return;\n            }\n            fat[blk] = FAT_EOF;\n            if (prev != -1) fat[prev] = blk; else first = blk;\n            blocks[blk] = content.substr(b * BLOCK_SIZE, BLOCK_SIZE);\n            prev = blk;\n        }\n        it->second.startBlock = first;\n        it->second.size = len;\n        std::cout << \"[Written] \" << len << \" bytes into \" << needed << \" block(s).\\n\";\n    }\n\n    void readFile(const std::string& name) const {\n        auto it = inodes.find(name);\n        if (it == inodes.end()) { std::cout << \"[Error] File not found.\\n\"; return; }\n        std::cout << \"--- Content of '\" << name << \"' (\" << it->second.size << \"B) ---\\n\";\n        int curr = it->second.startBlock;\n        while (curr >= 0) {\n            std::cout << blocks[curr];\n            curr = fat[curr];\n        }\n        std::cout << \"\\n----------------------------------------\\n\";\n    }\n\n    void deleteFile(const std::string& name) {\n        auto it = inodes.find(name);\n        if (it == inodes.end()) { std::cout << \"[Error] File not found.\\n\"; return; }\n        if (it->second.startBlock >= 0) freeChain(it->second.startBlock);\n        std::cout << \"[Deleted] '\" << name << \"' (Inode #\" << it->second.inodeId << \")\\n\";\n        inodes.erase(it);\n    }\n\n    void listFiles() const {\n        std::cout << \"\\n=== INODE & FAT TABLE ===\\nInode\\tName\\t\\tSize\\tFAT Chain\\n\";\n        for (const auto& [name, node] : inodes) {\n            std::cout << \"#\" << node.inodeId << \"\\t\" << name << \"\\t\\t\" << node.size << \"B\\t\";\n            int curr = node.startBlock;\n            if (curr < 0) std::cout << \"(empty)\";\n            while (curr >= 0) {\n                std::cout << curr;\n                curr = fat[curr];\n                if (curr >= 0) std::cout << \" -> \";\n            }\n            std::cout << \"\\n\";\n        }\n        int used = 0;\n        for (int f : fat) if (f != FAT_FREE) ++used;\n        std::cout << \"Storage: \" << used << \"/\" << TOTAL_BLOCKS << \" blocks used.\\n\";\n    }\n};\n\nint main() {\n    VirtualFileSystem vfs;\n    int ch;\n    std::string name, data;\n    do {\n        std::cout << \"\\n=== C++ VIRTUAL FS MENU ===\\n1. Create\\n2. Write\\n3. Read\\n4. Delete\\n5. List\\n6. Exit\\nChoice: \";\n        if (!(std::cin >> ch)) break;\n        std::cin.ignore();\n        if (ch == 1) { std::cout << \"Filename: \"; std::getline(std::cin, name); vfs.createFile(name); }\n        else if (ch == 2) {\n            std::cout << \"Filename: \"; std::getline(std::cin, name);\n            std::cout << \"Content: \"; std::getline(std::cin, data);\n            vfs.writeFile(name, data);\n        }\n        else if (ch == 3) { std::cout << \"Filename: \"; std::getline(std::cin, name); vfs.readFile(name); }\n        else if (ch == 4) { std::cout << \"Filename: \"; std::getline(std::cin, name); vfs.deleteFile(name); }\n        else if (ch == 5) vfs.listFiles();\n    } while (ch != 6);\n    return 0;\n}\n",
+        "compileCmd": "g++ -std=c++17 -Wall filesystem_sim.cpp -o fs_sim_cpp",
+        "runCmd": "./fs_sim_cpp",
+        "sampleInputs": [
+          {
+            "desc": "Scenario 1: Create, Write, List, Read",
+            "input": "1\nnotes.txt\n2\nnotes.txt\nOperating Systems Inode and FAT Demo!\n5\n3\nnotes.txt\n6"
+          },
+          {
+            "desc": "Scenario 2: Create 2 files, Delete 1, List",
+            "input": "1\na.txt\n2\na.txt\nHello Block Chain\n1\nb.txt\n2\nb.txt\nSecond File\n4\na.txt\n5\n6"
+          }
+        ],
+        "sampleOutputs": [
+          {
+            "desc": "Expected Output (Scenario 1)",
+            "output": "[Created] 'notes.txt' -> Inode #100\n[Written] 37 bytes into 3 block(s).\n\n=== INODE & FAT TABLE ===\nInode\tName\t\tSize\tFAT Chain\n#100\tnotes.txt\t\t37B\t0 -> 1 -> 2\nStorage: 3/32 blocks used."
+          },
+          {
+            "desc": "Expected Output (Scenario 2)",
+            "output": "[Deleted] 'a.txt' (Inode #100)\n\n=== INODE & FAT TABLE ===\nInode\tName\t\tSize\tFAT Chain\n#101\tb.txt\t\t11B\t2\nStorage: 1/32 blocks used."
+          }
+        ]
+      },
+      "python": {
+        "filename": "filesystem_sim.py",
+        "langLabel": "Python 3 (Inode + FAT Sim)",
+        "source": "#!/usr/bin/env python3\n\"\"\"\nPractical 08: Educational In-Memory File System Simulator in Python\nSimulates Inodes + FAT block chains safely in memory.\nRun: python3 filesystem_sim.py\n\"\"\"\n\nTOTAL_BLOCKS = 32\nBLOCK_SIZE = 16\nFAT_FREE = -1\nFAT_EOF = -2\n\nclass VirtualFS:\n    def __init__(self):\n        self.blocks = [\"\"] * TOTAL_BLOCKS\n        self.fat = [FAT_FREE] * TOTAL_BLOCKS\n        self.inodes = {}\n        self.next_inode = 100\n\n    def _alloc_block(self):\n        for i, status in enumerate(self.fat):\n            if status == FAT_FREE:\n                return i\n        return -1\n\n    def _free_chain(self, start):\n        curr = start\n        while curr >= 0:\n            nxt = self.fat[curr]\n            self.fat[curr] = FAT_FREE\n            self.blocks[curr] = \"\"\n            curr = nxt\n\n    def create(self, name):\n        if name in self.inodes:\n            print(f\"[Error] '{name}' already exists.\")\n            return\n        self.inodes[name] = {\"inode\": self.next_inode, \"size\": 0, \"start\": FAT_EOF}\n        print(f\"[Created] '{name}' -> Inode #{self.next_inode}\")\n        self.next_inode += 1\n\n    def write(self, name, data):\n        if name not in self.inodes:\n            print(f\"[Error] '{name}' not found.\")\n            return\n        if self.inodes[name][\"start\"] >= 0:\n            self._free_chain(self.inodes[name][\"start\"])\n\n        chunks = [data[i:i+BLOCK_SIZE] for i in range(0, len(data), BLOCK_SIZE)] or [\"\"]\n        first, prev = FAT_EOF, -1\n        for chunk in chunks:\n            blk = self._alloc_block()\n            if blk == -1:\n                print(\"[Error] Disk full!\")\n                if first >= 0: self._free_chain(first)\n                self.inodes[name][\"start\"] = FAT_EOF\n                self.inodes[name][\"size\"] = 0\n                return\n            self.fat[blk] = FAT_EOF\n            if prev != -1:\n                self.fat[prev] = blk\n            else:\n                first = blk\n            self.blocks[blk] = chunk\n            prev = blk\n\n        self.inodes[name][\"start\"] = first\n        self.inodes[name][\"size\"] = len(data)\n        print(f\"[Written] {len(data)} bytes into {len(chunks)} block(s).\")\n\n    def read(self, name):\n        if name not in self.inodes:\n            print(f\"[Error] '{name}' not found.\")\n            return\n        curr = self.inodes[name][\"start\"]\n        out = []\n        while curr >= 0:\n            out.append(self.blocks[curr])\n            curr = self.fat[curr]\n        print(f\"--- Content of '{name}' ({self.inodes[name]['size']}B) ---\")\n        print(\"\".join(out))\n        print(\"-\" * 40)\n\n    def delete(self, name):\n        if name not in self.inodes:\n            print(f\"[Error] '{name}' not found.\")\n            return\n        if self.inodes[name][\"start\"] >= 0:\n            self._free_chain(self.inodes[name][\"start\"])\n        iid = self.inodes[name][\"inode\"]\n        del self.inodes[name]\n        print(f\"[Deleted] '{name}' (Inode #{iid})\")\n\n    def list_all(self):\n        print(\"\\n=== INODE & FAT TABLE ===\")\n        print(\"Inode\\tName\\t\\tSize\\tFAT Chain\")\n        for name, meta in self.inodes.items():\n            chain = []\n            curr = meta[\"start\"]\n            while curr >= 0:\n                chain.append(str(curr))\n                curr = self.fat[curr]\n            cstr = \" -> \".join(chain) if chain else \"(empty)\"\n            print(f\"#{meta['inode']}\\t{name:<12}\\t{meta['size']}B\\t{cstr}\")\n        used = sum(1 for x in self.fat if x != FAT_FREE)\n        print(f\"Storage: {used}/{TOTAL_BLOCKS} blocks used ({used*BLOCK_SIZE}/{TOTAL_BLOCKS*BLOCK_SIZE} bytes)\")\n\ndef main():\n    vfs = VirtualFS()\n    while True:\n        print(\"\\n=== PYTHON VIRTUAL FS MENU ===\")\n        print(\"1. Create\\n2. Write\\n3. Read\\n4. Delete\\n5. List\\n6. Exit\")\n        ch = input(\"Choice: \").strip()\n        if ch == \"1\": vfs.create(input(\"Filename: \").strip())\n        elif ch == \"2\": vfs.write(input(\"Filename: \").strip(), input(\"Content: \"))\n        elif ch == \"3\": vfs.read(input(\"Filename: \").strip())\n        elif ch == \"4\": vfs.delete(input(\"Filename: \").strip())\n        elif ch == \"5\": vfs.list_all()\n        elif ch == \"6\": break\n\nif __name__ == \"__main__\":\n    main()\n",
+        "compileCmd": "python3 -m py_compile filesystem_sim.py",
+        "runCmd": "python3 filesystem_sim.py",
+        "sampleInputs": [
+          {
+            "desc": "Scenario 1: Create, Write, List, Read",
+            "input": "1\nnotes.txt\n2\nnotes.txt\nOperating Systems Inode and FAT Demo!\n5\n3\nnotes.txt\n6"
+          },
+          {
+            "desc": "Scenario 2: Create 2 files, Delete 1, List",
+            "input": "1\na.txt\n2\na.txt\nHello Block Chain\n1\nb.txt\n2\nb.txt\nSecond File\n4\na.txt\n5\n6"
+          }
+        ],
+        "sampleOutputs": [
+          {
+            "desc": "Expected Output (Scenario 1)",
+            "output": "[Created] 'notes.txt' -> Inode #100\n[Written] 37 bytes into 3 block(s).\n\n=== INODE & FAT TABLE ===\nInode\tName\t\tSize\tFAT Chain\n#100\tnotes.txt   \t37B\t0 -> 1 -> 2\nStorage: 3/32 blocks used (48/512 bytes)"
+          },
+          {
+            "desc": "Expected Output (Scenario 2)",
+            "output": "[Deleted] 'a.txt' (Inode #100)\n\n=== INODE & FAT TABLE ===\nInode\tName\t\tSize\tFAT Chain\n#101\tb.txt       \t11B\t2\nStorage: 1/32 blocks used (16/512 bytes)"
+          }
+        ]
+      }
+    }
   }
 ];
 
-// ===================================================================
-// SYNTAX HIGHLIGHTER FOR C++ (VANILLA JS ENGINE)
-// ===================================================================
-function highlightCppCode(rawCode) {
-  // Escape HTML entities
-  const escapeHtml = (text) => {
-    return text
-      .replace(/&/g, "&amp;")
-      .replace(/</g, "&lt;")
-      .replace(/>/g, "&gt;");
-  };
+// ============================================================================
+// OS PRACTICAL HUB — CLIENT-SIDE APPLICATION LOGIC
+// ============================================================================
 
-  const lines = rawCode.split("\n");
-  const highlightedLines = lines.map((line) => {
+let currentPracticalId = null;
+let currentLang = 'c';
+let currentAlgo = 'fcfs';
+let currentCmdCatIdx = 0;
+let activeCategoryFilter = 'all';
+let currentSearchTerm = '';
+let currentCodeRaw = '';
+let currentFilename = 'program.c';
+
+function escapeHtml(str) {
+  if (!str) return '';
+  return String(str)
+    .replace(/&/g, '&amp;')
+    .replace(/</g, '&lt;')
+    .replace(/>/g, '&gt;')
+    .replace(/"/g, '&quot;')
+    .replace(/'/g, '&#39;');
+}
+
+// Syntax Highlighter for C, C++, Python, Bash
+function highlightCode(code, lang) {
+  if (!code) return '';
+  const lines = code.split('\n');
+
+  const cKeywords = /\b(auto|break|case|char|const|continue|default|do|double|else|enum|extern|float|for|goto|if|inline|int|long|register|restrict|return|short|signed|sizeof|static|struct|switch|typedef|union|unsigned|void|volatile|while|class|namespace|public|private|protected|template|typename|using|virtual|override|explicit|constexpr|nullptr|true|false|bool|new|delete|try|catch|throw)\b/g;
+  const cTypes = /\b(size_t|ssize_t|pid_t|uint64_t|pthread_t|pthread_mutex_t|pthread_cond_t|sem_t|FILE|Process|Inode|BoundedBuffer|VirtualFileSystem|DiskMonitor|std|vector|string|queue|unordered_map|array|unique_lock|mutex|condition_variable|thread)\b/g;
+  const pyKeywords = /\b(and|as|assert|async|await|break|class|continue|def|del|elif|else|except|False|finally|for|from|global|if|import|in|is|lambda|None|nonlocal|not|or|pass|raise|return|True|try|while|with|yield)\b/g;
+  const bashKeywords = /\b(if|then|else|elif|fi|for|while|do|done|case|esac|in|function|return|local|export|echo|printf|read|exit|sudo|apt|df|chmod|awk|tail)\b/g;
+
+  return lines.map(line => {
     let escaped = escapeHtml(line);
 
-    // Comments: // ...
-    if (escaped.includes("//")) {
-      const parts = escaped.split("//");
-      const codePart = highlightTokens(parts[0]);
-      const commentPart = `<span class="tok-com">//${parts.slice(1).join("//")}</span>`;
-      return codePart + commentPart;
+    // Handle full-line or trailing comments safely via placeholders
+    const tokens = [];
+    const saveToken = (html) => {
+      const idx = tokens.length;
+      tokens.push(html);
+      return `\x00TOK${idx}\x00`;
+    };
+
+    if (lang === 'python' || lang === 'bash') {
+      escaped = escaped.replace(/(#.*)$/, (m) => saveToken(`<span class="tok-com">${m}</span>`));
+    } else {
+      escaped = escaped.replace(/(\/\/.*)$/, (m) => saveToken(`<span class="tok-com">${m}</span>`));
+      escaped = escaped.replace(/(&quot;.*?&quot;|&#39;.*?&#39;)/g, (m) => saveToken(`<span class="tok-str">${m}</span>`));
+      escaped = escaped.replace(/^(\s*#\s*(?:include|define|ifdef|ifndef|endif|pragma).*)$/, (m) => saveToken(`<span class="tok-prep">${m}</span>`));
     }
 
-    // Preprocessor: #include, #define, #pragma
-    if (escaped.trim().startsWith("#")) {
-      return `<span class="tok-prep">${escaped}</span>`;
+    if (lang === 'python' || lang === 'bash') {
+      escaped = escaped.replace(/(&quot;.*?&quot;|&#39;.*?&#39;)/g, (m) => saveToken(`<span class="tok-str">${m}</span>`));
     }
 
-    return highlightTokens(escaped);
-  });
+    if (lang === 'python') {
+      escaped = escaped.replace(pyKeywords, '<span class="tok-kw">$1</span>');
+    } else if (lang === 'bash') {
+      escaped = escaped.replace(bashKeywords, '<span class="tok-kw">$1</span>');
+    } else {
+      escaped = escaped.replace(cKeywords, '<span class="tok-kw">$1</span>');
+      escaped = escaped.replace(cTypes, '<span class="tok-type">$1</span>');
+    }
 
-  return highlightedLines;
+    escaped = escaped.replace(/\b(\d+(?:\.\d+)?)\b/g, '<span class="tok-num">$1</span>');
+
+    return escaped.replace(/\x00TOK(\d+)\x00/g, (_, idx) => tokens[Number(idx)]);
+  }).join('\n');
 }
 
-function highlightTokens(codeStr) {
-  // Strings
-  codeStr = codeStr.replace(/"([^"\\]*(\\.[^"\\]*)*)"/g, '<span class="tok-str">"$1"</span>');
-  // Character literals
-  codeStr = codeStr.replace(/'([^'\\]*(\\.[^'\\]*)*)'/g, "<span class=\"tok-str\">'$1'</span>");
+// ============================================================================
+// HOME GRID RENDERING & SEARCH / FILTERING
+// ============================================================================
 
-  // Keywords
-  const keywords = [
-    "int", "char", "void", "bool", "float", "double", "long", "short", "unsigned",
-    "if", "else", "for", "while", "do", "switch", "case", "break", "default", "continue",
-    "return", "struct", "class", "public", "private", "protected", "new", "delete",
-    "sizeof", "true", "false", "nullptr", "using", "namespace", "const", "static",
-    "auto", "try", "catch", "throw"
-  ];
-  const kwRegex = new RegExp(`\\b(${keywords.join("|")})\\b`, "g");
-  codeStr = codeStr.replace(kwRegex, '<span class="tok-kw">$1</span>');
-
-  // Common C++ & Winsock Types
-  const types = [
-    "string", "vector", "queue", "stack", "stringstream", "uint32_t", "uint64_t", "size_t",
-    "SOCKET", "WSADATA", "sockaddr_in", "sockaddr", "hostent", "RouteEntry"
-  ];
-  const typeRegex = new RegExp(`\\b(${types.join("|")})\\b`, "g");
-  codeStr = codeStr.replace(typeRegex, '<span class="tok-type">$1</span>');
-
-  // Common Functions
-  const fns = [
-    "main", "cin", "cout", "endl", "socket", "bind", "listen", "accept", "connect",
-    "send", "recv", "sendto", "recvfrom", "closesocket", "WSAStartup", "WSACleanup",
-    "htons", "ntohs", "inet_pton", "inet_ntop", "memset", "stoi", "to_string",
-    "pow", "min", "max", "setw"
-  ];
-  const fnRegex = new RegExp(`\\b(${fns.join("|")})\\b`, "g");
-  codeStr = codeStr.replace(fnRegex, '<span class="tok-fn">$1</span>');
-
-  // Numbers
-  codeStr = codeStr.replace(/\b(\d+)\b/g, '<span class="tok-num">$1</span>');
-
-  return codeStr;
-}
-
-// ===================================================================
-// UI RENDERING FUNCTIONS
-// ===================================================================
-
-// Render Homepage Practicals Grid
-function renderPracticalsGrid(filterCategory = 'all', searchQuery = '') {
-  const gridContainer = document.getElementById('practicalsGrid');
-  const counterEl = document.getElementById('resultsCounter');
+function renderPracticalsGrid() {
+  const grid = document.getElementById('practicalsGrid');
   const emptyState = document.getElementById('emptySearchState');
+  const counter = document.getElementById('resultsCounter');
+  if (!grid) return;
 
-  if (!gridContainer) return;
-
-  const q = searchQuery.toLowerCase().trim();
-
+  const q = currentSearchTerm.trim().toLowerCase();
   const filtered = practicalsData.filter(p => {
-    // Category check
-    const matchesCategory = (filterCategory === 'all' || p.category === filterCategory);
+    const matchesCat = activeCategoryFilter === 'all' || p.category === activeCategoryFilter;
+    if (!matchesCat) return false;
+    if (!q) return true;
 
-    // Search check
     const inTitle = p.title.toLowerCase().includes(q);
-    const inDesc = p.shortDesc.toLowerCase().includes(q);
-    const inTopics = p.topics.some(t => t.toLowerCase().includes(q));
-    const inNumber = p.number.toLowerCase().includes(q);
-
-    // Check algorithms if present
-    let inAlgos = false;
-    if (p.algorithms) {
-      inAlgos = p.algorithms.some(a => a.name.toLowerCase().includes(q) || a.fileName.toLowerCase().includes(q));
-    }
-
-    const matchesSearch = (!q || inTitle || inDesc || inTopics || inNumber || inAlgos);
-    return matchesCategory && matchesSearch;
+    const inNum = p.number.toLowerCase().includes(q);
+    const inCat = p.categoryLabel.toLowerCase().includes(q);
+    const inTopics = (p.topics || []).some(t => t.toLowerCase().includes(q));
+    const inDesc = (p.shortDesc || '').toLowerCase().includes(q);
+    const inCmds = p.type === 'commands' && (p.categories || []).some(c =>
+      c.name.toLowerCase().includes(q) || c.commands.some(cmd => cmd.name.toLowerCase().includes(q))
+    );
+    return inTitle || inNum || inCat || inTopics || inDesc || inCmds;
   });
 
-  counterEl.textContent = `Showing ${filtered.length} of ${practicalsData.length} practicals`;
-
-  if (filtered.length === 0) {
-    gridContainer.innerHTML = '';
-    emptyState.style.display = 'block';
-    return;
-  } else {
-    emptyState.style.display = 'none';
+  if (counter) {
+    counter.textContent = filtered.length === practicalsData.length
+      ? `Showing all ${practicalsData.length} practicals`
+      : `Showing ${filtered.length} of ${practicalsData.length} practicals`;
   }
 
-  gridContainer.innerHTML = filtered.map(p => {
+  if (filtered.length === 0) {
+    grid.innerHTML = '';
+    if (emptyState) emptyState.style.display = 'block';
+    return;
+  }
+
+  if (emptyState) emptyState.style.display = 'none';
+
+  grid.innerHTML = filtered.map(p => {
     return `
-      <div class="practical-card" id="card-${p.id}">
+      <article class="practical-card" onclick="openPractical(${p.id})">
         <div class="card-left">
-          <span class="practical-id-badge">${p.number}</span>
           <div class="card-title-wrap">
-            <h3 class="card-title">${p.title}</h3>
-            <span class="practical-category-pill">${p.categoryLabel}</span>
+            <h3 class="card-title">${escapeHtml(p.title)}</h3>
           </div>
         </div>
         <div class="card-right">
-          <span class="impl-count">
-            <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
-              <polyline points="16 18 22 12 16 6"></polyline>
-              <polyline points="8 6 2 12 8 18"></polyline>
-            </svg>
-            ${p.implCount}
-          </span>
-          <button class="btn-open-practical" onclick="openPractical(${p.id})">
+          <button class="btn-open-practical" onclick="event.stopPropagation(); openPractical(${p.id})">
             Open Practical
-            <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
-              <line x1="5" y1="12" x2="19" y2="12"></line>
-              <polyline points="12 5 19 12 12 19"></polyline>
+            <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5">
+              <polyline points="9 18 15 12 9 6"></polyline>
             </svg>
           </button>
         </div>
-      </div>
+      </article>
     `;
   }).join('');
 }
 
-// Render Individual Practical Detail View
-function openPractical(id, targetAlgoIdx = 0) {
-  const p = practicalsData.find(item => item.id === id);
+// ============================================================================
+// DETAIL VIEW RENDERING
+// ============================================================================
+
+function openPractical(id) {
+  const p = practicalsData.find(item => item.id === Number(id));
   if (!p) return;
 
-  currentPracticalId = id;
-  currentAlgoIndex = targetAlgoIdx;
+  currentPracticalId = p.id;
+  currentLang = p.defaultLang || 'c';
+  currentAlgo = p.defaultAlgo || 'fcfs';
+  currentCmdCatIdx = 0;
 
-  // Toggle views
-  document.getElementById('homeView').style.display = 'none';
-  document.getElementById('detailView').style.display = 'block';
+  const homeView = document.getElementById('homeView');
+  const detailView = document.getElementById('detailView');
+  const crumb = document.getElementById('detailBreadcrumb');
+  const navHomeBtn = document.getElementById('navHomeBtn');
+  const navAllBtn = document.getElementById('navAllBtn');
+  const jumpSelect = document.getElementById('quickJumpSelect');
 
-  // Update Breadcrumb & Header Nav
-  document.getElementById('detailBreadcrumb').textContent = `${p.number}: ${p.title}`;
-  document.getElementById('quickJumpSelect').value = String(id);
-  document.getElementById('navHomeBtn').classList.remove('active');
-  document.getElementById('navAllBtn').classList.remove('active');
+  if (homeView) homeView.style.display = 'none';
+  if (detailView) detailView.style.display = 'block';
+  if (crumb) crumb.textContent = `${p.number}: ${p.title}`;
+  if (navHomeBtn) navHomeBtn.classList.remove('active');
+  if (navAllBtn) navAllBtn.classList.add('active');
+  if (jumpSelect) jumpSelect.value = String(p.id);
 
-  const container = document.getElementById('practicalDetailContent');
-
-  if (p.id === 1) {
-    container.innerHTML = renderPractical01(p);
-  } else if (p.id === 2) {
-    container.innerHTML = renderPractical02(p);
+  if (p.type === 'commands') {
+    renderPractical01(p);
   } else {
-    container.innerHTML = renderCodingPractical(p, currentAlgoIndex);
+    renderCodingPractical(p);
   }
 
   window.scrollTo({ top: 0, behavior: 'smooth' });
 }
 
-// Render Practical 01 (Hardware & Wireshark)
 function renderPractical01(p) {
-  const hw = p.hardwareContent;
+  const container = document.getElementById('practicalDetailContent');
+  if (!container) return;
 
-  const hardwareRows = hw.requiredHardware.map(h => `
-    <tr>
-      <td><strong>${h.item}</strong></td>
-      <td>${h.qty}</td>
-      <td>${h.spec}</td>
-    </tr>
-  `).join('');
+  const cats = p.categories || [];
+  const activeCat = cats[currentCmdCatIdx] || cats[0];
 
-  const pinoutRows = hw.t568bPinout.map(wire => `
-    <tr>
-      <td><strong>Pin ${wire.pin}</strong></td>
-      <td>
-        <span class="wire-swatch" style="background-color: ${wire.colorCode};"></span>
-        ${wire.colorName} (${wire.wireType})
-      </td>
-      <td>${wire.function}</td>
-    </tr>
-  `).join('');
-
-  const cableStepsList = hw.cableSteps.map((step, idx) => `
-    <div class="run-step-item">
-      <div class="step-num-badge">${idx + 1}</div>
-      <div class="step-content">
-        <p class="step-text">${step}</p>
-      </div>
-    </div>
-  `).join('');
-
-  const diagnosticsRows = hw.testerGuide.diagnostics.map(d => `
-    <tr>
-      <td style="color:#b91c1c;"><strong>${d.error}</strong></td>
-      <td>${d.cause}</td>
-    </tr>
-  `).join('');
-
-  const ipRows = hw.ipTable.map(ip => `
-    <tr>
-      <td><strong>${ip.pc}</strong></td>
-      <td><code>${ip.ip}</code></td>
-      <td><code>${ip.subnet}</code></td>
-      <td><code>${ip.gateway}</code></td>
-      <td>${ip.role}</td>
-    </tr>
-  `).join('');
-
-  const cmdRows = hw.windowsCommands.map(c => `
-    <div style="margin-bottom: 12px;">
-      <p style="font-size:0.85rem; font-weight:600; color:var(--text-secondary); margin-bottom:4px;">${c.desc}:</p>
-      <code class="step-code-cmd">${c.cmd}</code>
-    </div>
-  `).join('');
-
-  const wsStepsList = hw.wiresharkGuide.steps.map((st, i) => `
-    <li style="margin-bottom: 8px;"><strong>Step ${i + 1}:</strong> ${st}</li>
-  `).join('');
-
-  const packetRows = hw.wiresharkGuide.packetAnalysis.map(pkt => `
-    <tr>
-      <td><span class="type-badge ${pkt.type.includes('Request') ? 'sim' : 'cpp'}">${pkt.type}</span></td>
-      <td><code>${pkt.src}</code></td>
-      <td><code>${pkt.dst}</code></td>
-      <td><code>${pkt.info}</code></td>
-      <td>${pkt.details}</td>
-    </tr>
-  `).join('');
-
-  return `
-    <div class="practical-header-block">
-      <div class="practical-header-top">
-        <span class="practical-code-pill">${p.number}</span>
-        <span class="practical-type-pill">Hardware &amp; Physical Networking</span>
-      </div>
-      <h1 class="practical-full-title">${p.title}</h1>
-      <div class="aim-box">
-        <span class="aim-label">Aim:</span> ${p.aim}
-      </div>
-    </div>
-
-    <!-- Section 1: Required Hardware -->
-    <div class="content-section-card">
-      <h3 class="card-section-title">
-        <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
-          <rect x="2" y="2" width="20" height="8" rx="2" ry="2"></rect>
-          <rect x="2" y="14" width="20" height="8" rx="2" ry="2"></rect>
-          <line x1="6" y1="6" x2="6.01" y2="6"></line>
-          <line x1="6" y1="18" x2="6.01" y2="18"></line>
-        </svg>
-        1. Required Hardware &amp; Laboratory Equipment
-      </h3>
-      <div class="summary-table-wrap">
-        <table class="academic-table">
-          <thead>
-            <tr>
-              <th>Equipment / Component</th>
-              <th>Quantity Required</th>
-              <th>Technical Specification</th>
-            </tr>
-          </thead>
-          <tbody>
-            ${hardwareRows}
-          </tbody>
-        </table>
-      </div>
-    </div>
-
-    <!-- Section 2: Ethernet Cable Preparation (T568B) -->
-    <div class="content-section-card">
-      <h3 class="card-section-title">
-        <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
-          <path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"></path>
-          <polyline points="14 2 14 8 20 8"></polyline>
-          <line x1="16" y1="13" x2="8" y2="13"></line>
-          <line x1="16" y1="17" x2="8" y2="17"></line>
-        </svg>
-        2. Preparation of Ethernet Cable (T568B Standard)
-      </h3>
-      <p style="font-size:0.9rem; color:var(--text-secondary); margin-bottom:14px;">
-        To connect computers to a Layer 2 switch, standard <strong>Straight-Through patch cables</strong> are required with both ends terminated identically using the <strong>EIA/TIA T568B standard</strong>.
-      </p>
-
-      <h4 style="font-size:0.95rem; font-weight:700; margin-bottom:10px;">T568B Pinout &amp; Color Coding Scheme:</h4>
-      <div class="summary-table-wrap">
-        <table class="academic-table">
-          <thead>
-            <tr>
-              <th>Pin Number</th>
-              <th>Wire Color (T568B)</th>
-              <th>Signal Assignment (100Base-TX)</th>
-            </tr>
-          </thead>
-          <tbody>
-            ${pinoutRows}
-          </tbody>
-        </table>
-      </div>
-
-      <h4 style="font-size:0.95rem; font-weight:700; margin: 20px 0 10px;">Step-by-Step Cable Fabrication Instructions:</h4>
-      <div class="run-steps-list">
-        ${cableStepsList}
-      </div>
-    </div>
-
-    <!-- Section 3: Testing with LAN Tester -->
-    <div class="content-section-card">
-      <h3 class="card-section-title">
-        <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
-          <path d="M22 11.08V12a10 10 0 1 1-5.93-9.14"></path>
-          <polyline points="22 4 12 14.01 9 11.01"></polyline>
-        </svg>
-        3. Cable Continuity Testing using LAN Cable Tester
-      </h3>
-      <p style="font-size:0.9rem; color:var(--text-secondary); margin-bottom:14px;">
-        ${hw.testerGuide.procedure}
-      </p>
-      <div class="callout-box" style="border-left-color: #16a34a; background-color:#f0fdf4; margin-bottom:18px;">
-        <div class="callout-title" style="color:#15803d;">
-          ✓ Expected Verification Result
-        </div>
-        <p style="font-size:0.86rem; color:#166534;">
-          ${hw.testerGuide.expectedResult}
-        </p>
-      </div>
-
-      <h4 style="font-size:0.92rem; font-weight:700; margin-bottom:10px;">Tester Diagnostics &amp; Fault Interpretation:</h4>
-      <div class="summary-table-wrap">
-        <table class="academic-table">
-          <thead>
-            <tr>
-              <th>LED Indication / Symptom</th>
-              <th>Physical Cause &amp; Remediation</th>
-            </tr>
-          </thead>
-          <tbody>
-            ${diagnosticsRows}
-          </tbody>
-        </table>
-      </div>
-    </div>
-
-    <!-- Section 4: Connecting Workstations & Static IP Configuration -->
-    <div class="content-section-card">
-      <h3 class="card-section-title">
-        <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
-          <rect x="2" y="3" width="20" height="14" rx="2" ry="2"></rect>
-          <line x1="8" y1="21" x2="16" y2="21"></line>
-          <line x1="12" y1="17" x2="12" y2="21"></line>
-        </svg>
-        4. Workstation Switch Connection &amp; Static IP Address Assignment
-      </h3>
-      <p style="font-size:0.9rem; color:var(--text-secondary); margin-bottom:14px;">
-        Connect the 4 workstations to Switch Ports 1, 2, 3, and 4 using the tested straight-through cables. Verify that the link LEDs on the switch illuminate. Assign static IPv4 addresses using the exact laboratory configuration:
-      </p>
-
-      <div class="summary-table-wrap">
-        <table class="academic-table">
-          <thead>
-            <tr>
-              <th>Computer</th>
-              <th>IP Address</th>
-              <th>Subnet Mask</th>
-              <th>Default Gateway</th>
-              <th>Role</th>
-            </tr>
-          </thead>
-          <tbody>
-            ${ipRows}
-          </tbody>
-        </table>
-      </div>
-
-      <h4 style="font-size:0.92rem; font-weight:700; margin: 20px 0 10px;">Windows Command Line Instructions:</h4>
-      ${cmdRows}
-    </div>
-
-    <!-- Section 5: Wireshark ICMP Packet Demonstration -->
-    <div class="content-section-card">
-      <h3 class="card-section-title">
-        <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
-          <circle cx="12" cy="12" r="10"></circle>
-          <polyline points="12 6 12 12 14 14"></polyline>
-        </svg>
-        5. Wireshark ICMP Packet Demonstration &amp; Header Inspection
-      </h3>
-      <p style="font-size:0.9rem; color:var(--text-secondary); margin-bottom:14px;">
-        Wireshark allows real-time packet capturing and protocol dissection on the physical network interface. Follow these steps to observe ICMP Echo Request and Echo Reply messages:
-      </p>
-
-      <ol style="margin-left: 20px; font-size:0.88rem; color:var(--text-secondary); margin-bottom:18px;">
-        ${wsStepsList}
-      </ol>
-
-      <h4 style="font-size:0.92rem; font-weight:700; margin-bottom:10px;">Expected Wireshark Packet List:</h4>
-      <div class="wireshark-trace-box">
-<span class="ws-line-meta">No.  Time      Source         Destination    Protocol Length Info</span>
-<span class="ws-line-arp">1    0.000000  00:1a:2b:3c:4d:5e  ff:ff:ff:ff:ff:ff  ARP      60     Who has 192.168.1.2? Tell 192.168.1.1</span>
-<span class="ws-line-arp">2    0.000215  00:1a:2b:99:88:77  00:1a:2b:3c:4d:5e  ARP      60     192.168.1.2 is at 00:1a:2b:99:88:77</span>
-<span class="ws-line-req">3    0.000850  192.168.1.1    192.168.1.2    ICMP     74     Echo (ping) request  id=0x0001, seq=1/256, ttl=128</span>
-<span class="ws-line-rep">4    0.001220  192.168.1.2    192.168.1.1    ICMP     74     Echo (ping) reply    id=0x0001, seq=1/256, ttl=128</span>
-<span class="ws-line-req">5    1.002100  192.168.1.1    192.168.1.2    ICMP     74     Echo (ping) request  id=0x0001, seq=2/512, ttl=128</span>
-<span class="ws-line-rep">6    1.002440  192.168.1.2    192.168.1.1    ICMP     74     Echo (ping) reply    id=0x0001, seq=2/512, ttl=128</span>
-      </div>
-
-      <div class="summary-table-wrap">
-        <table class="academic-table">
-          <thead>
-            <tr>
-              <th>Packet Type</th>
-              <th>Source IP</th>
-              <th>Destination IP</th>
-              <th>ICMP Type &amp; Code</th>
-              <th>Header &amp; Functional Breakdown</th>
-            </tr>
-          </thead>
-          <tbody>
-            ${packetRows}
-          </tbody>
-        </table>
-      </div>
-    </div>
-  `;
-}
-
-// Render Practical 02 (Cisco Packet Tracer Topologies & Subnetting)
-function renderPractical02(p) {
-  const content = p.tracerContent;
-
-  const topologiesHtml = content.topologies.map((topo, idx) => `
-    <div class="content-section-card" id="topo-${idx}">
-      <div style="display:flex; align-items:center; justify-content:space-between; flex-wrap:wrap; gap:12px; margin-bottom:12px;">
-        <h3 class="card-section-title" style="margin-bottom:0;">
-          <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
-            <circle cx="12" cy="12" r="3"></circle>
-            <path d="M19.4 15a1.65 1.65 0 0 0 .33 1.82l.06.06a2 2 0 0 1 0 2.83 2 2 0 0 1-2.83 0l-.06-.06a1.65 1.65 0 0 0-1.82-.33 1.65 1.65 0 0 0-1 1.51V21a2 2 0 0 1-2 2 2 2 0 0 1-2-2v-.09A1.65 1.65 0 0 0 9 19.4a1.65 1.65 0 0 0-1.82.33l-.06.06a2 2 0 0 1-2.83 0 2 2 0 0 1 0-2.83l.06-.06a1.65 1.65 0 0 0 .33-1.82 1.65 1.65 0 0 0-1.51-1H3a2 2 0 0 1-2-2 2 2 0 0 1 2-2h.09A1.65 1.65 0 0 0 4.6 9a1.65 1.65 0 0 0-.33-1.82l-.06-.06a2 2 0 0 1 0-2.83 2 2 0 0 1 2.83 0l.06.06a1.65 1.65 0 0 0 1.82.33H9a1.65 1.65 0 0 0 1-1.51V3a2 2 0 0 1 2-2 2 2 0 0 1 2 2v.09a1.65 1.65 0 0 0 1 1.51 1.65 1.65 0 0 0 1.82-.33l.06-.06a2 2 0 0 1 2.83 0 2 2 0 0 1 0 2.83l-.06.06a1.65 1.65 0 0 0-.33 1.82V9a1.65 1.65 0 0 0 1.51 1H21a2 2 0 0 1 2 2 2 2 0 0 1-2 2h-.09a1.65 1.65 0 0 0-1.51 1z"></path>
-          </svg>
-          ${topo.name} Simulation
-        </h3>
-        <a href="${topo.filePath}" download="${topo.fileName}" class="btn-download-pkt">
-          <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
-            <path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"></path>
-            <polyline points="7 10 12 15 17 10"></polyline>
-            <line x1="12" y1="15" x2="12" y2="3"></line>
-          </svg>
-          Download ${topo.fileName} (${topo.fileSize})
-        </a>
-      </div>
-
-      <div class="pkt-action-bar">
-        <div class="pkt-file-meta">
-          <div class="pkt-icon-badge">PKT</div>
-          <div class="pkt-details">
-            <span class="pkt-filename">${topo.fileName}</span>
-            <span class="pkt-filesize">${topo.fileSize} · ${topo.briefDesc}</span>
-          </div>
-        </div>
-        <div style="display:flex; align-items:center; gap:8px;">
-          <a href="${topo.filePath}" download="${topo.fileName}" class="btn-download-pkt">
-            Download File
-          </a>
-          <a href="${topo.repoUrl}" target="_blank" rel="noopener noreferrer" class="sample-copy-btn">
-            GitHub Source ↗
-          </a>
-        </div>
-      </div>
-
-      <div class="diagram-container">
-        ${topo.diagramSvg}
-        <span class="diagram-caption">Figure 2.${idx + 1}: Connectivity Diagram for ${topo.name}</span>
-      </div>
-
-      <div style="margin-top: 18px;">
-        <p style="font-size:0.88rem; margin-bottom:8px;"><strong>Required Devices:</strong> ${topo.devices}</p>
-        <p style="font-size:0.88rem; margin-bottom:8px;"><strong>Cabling:</strong> ${topo.cables}</p>
-        <p style="font-size:0.88rem; margin-bottom:12px;"><strong>IP Scheme:</strong> <code>${topo.ipScheme}</code></p>
-
-        <h4 style="font-size:0.9rem; font-weight:700; margin-bottom:6px;">Step-by-Step Packet Tracer Instructions:</h4>
-        <pre style="background:var(--bg-surface); padding:12px 16px; border-radius:6px; font-family:var(--font-mono); font-size:0.82rem; white-space:pre-wrap; border:1px solid var(--border-light); line-height:1.6; margin-bottom:14px;">${topo.instructions}</pre>
-
-        <div class="samples-grid">
-          <div class="sample-box">
-            <div class="sample-box-header">
-              <span class="sample-badge input-badge">Connectivity Verification</span>
-            </div>
-            <div class="sample-content">${topo.testing}</div>
-          </div>
-          <div class="sample-box">
-            <div class="sample-box-header">
-              <span class="sample-badge output-badge">Expected Simulation Result</span>
-            </div>
-            <div class="sample-content">${topo.expected}</div>
-          </div>
-        </div>
-      </div>
-    </div>
-  `).join('');
-
-  const subnetRows = content.subnetExercise.allocationTable.map(s => `
-    <tr>
-      <td><strong>${s.dept}</strong></td>
-      <td><code>${s.netAddr}</code></td>
-      <td><code>${s.usableRange}</code></td>
-      <td><code>${s.broadcast}</code></td>
-      <td><code>${s.gateway}</code></td>
-    </tr>
-  `).join('');
-
-  const fileRowsHtml = content.topologies.map(t => `
-    <tr>
-      <td><span class="type-badge sim">PKT</span> <strong>${t.name}</strong></td>
-      <td><code>${t.fileName}</code></td>
-      <td>${t.fileSize}</td>
-      <td>${t.briefDesc}</td>
-      <td>
-        <a href="${t.filePath}" download="${t.fileName}" class="table-link-btn" style="text-decoration:none; display:inline-flex; align-items:center; gap:4px;">
-          <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
-            <path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"></path>
-            <polyline points="7 10 12 15 17 10"></polyline>
-            <line x1="12" y1="15" x2="12" y2="3"></line>
-          </svg>
-          Download .pkt
-        </a>
-      </td>
-    </tr>
-  `).join('');
-
-  return `
-    <div class="practical-header-block">
-      <div class="practical-header-top">
-        <span class="practical-code-pill">${p.number}</span>
-        <span class="practical-type-pill">Network Design &amp; Packet Tracer Simulation</span>
-      </div>
-      <h1 class="practical-full-title">${p.title}</h1>
-      <div class="aim-box">
-        <span class="aim-label">Aim:</span> ${p.aim}
-      </div>
-    </div>
-
-    <!-- Packet Tracer Files Hub Banner -->
-    <div class="pkt-hub-banner">
-      <div class="pkt-hub-info">
-        <div class="pkt-hub-badge">✓ Verified Lab Files Available Offline</div>
-        <h3 class="pkt-hub-title">Cisco Packet Tracer (.pkt) Topology Files</h3>
-        <p class="pkt-hub-desc">
-          Actual simulation files retrieved from repository <code>VIRAJ-JAYASINGHE/Network-Topologies</code> on GitHub. Stored locally in <code>assets/packet-tracer/</code>. You can download each file individually or download the entire collection as a single archive.
-        </p>
-      </div>
-      <a href="${content.allZipPath}" download="Network_Topologies_All.zip" class="btn-download-all">
-        <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5">
-          <path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"></path>
-          <polyline points="7 10 12 15 17 10"></polyline>
-          <line x1="12" y1="15" x2="12" y2="3"></line>
-        </svg>
-        Download All Topologies (.ZIP — ${content.allZipSize})
-      </a>
-    </div>
-
-    <!-- Files Quick Table -->
-    <div class="content-section-card" style="margin-bottom: 24px;">
-      <h3 class="card-section-title">
-        <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
-          <path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"></path>
-          <polyline points="14 2 14 8 20 8"></polyline>
-        </svg>
-        Topology Files Index &amp; Direct Downloads
-      </h3>
-      <div class="summary-table-wrap">
-        <table class="academic-table">
-          <thead>
-            <tr>
-              <th>Topology</th>
-              <th>Filename</th>
-              <th>Size</th>
-              <th>Description</th>
-              <th>Action</th>
-            </tr>
-          </thead>
-          <tbody>
-            ${fileRowsHtml}
-          </tbody>
-        </table>
-      </div>
-    </div>
-
-    <!-- Section A: Topologies -->
-    <div style="margin-bottom: 24px;">
-      <h2 style="font-size: 1.35rem; font-weight:700; color:var(--text-primary); margin-bottom: 6px;">
-        Part A: Network Topologies Implementation
-      </h2>
-      <p style="font-size: 0.88rem; color:var(--text-muted); margin-bottom: 18px;">
-        Step-by-step device connection, IP addressing, ICMP ping verification, and direct .pkt downloads for each layout.
-      </p>
-      ${topologiesHtml}
-    </div>
-
-    <!-- Section B: Subnetting in Packet Tracer -->
-    <div class="content-section-card">
-      <h2 style="font-size: 1.35rem; font-weight:700; color:var(--text-primary); margin-bottom: 6px;">
-        Part B: Subnetting Exercise in Cisco Packet Tracer
-      </h2>
-      <p style="font-size: 0.9rem; color:var(--text-secondary); margin-bottom: 14px;">
-        <strong>Design Scenario:</strong> A college campus is assigned the Class C network block <code>${content.subnetExercise.network}</code> and requires 4 separate department subnets.
-      </p>
-
-      <div class="callout-box" style="margin-bottom:18px;">
-        <div class="callout-title">
-          Subnetting Calculations:
-        </div>
-        <p style="font-size:0.86rem; color:var(--text-secondary);">
-          ${content.subnetExercise.hostCalcFormula}
-        </p>
-      </div>
-
-      <h4 style="font-size:0.95rem; font-weight:700; margin-bottom:10px;">Subnet Allocation Table:</h4>
-      <div class="summary-table-wrap" style="margin-bottom:20px;">
-        <table class="academic-table">
-          <thead>
-            <tr>
-              <th>Department / Subnet</th>
-              <th>Network ID</th>
-              <th>Usable Host Range</th>
-              <th>Directed Broadcast</th>
-              <th>Default Gateway Interface</th>
-            </tr>
-          </thead>
-          <tbody>
-            ${subnetRows}
-          </tbody>
-        </table>
-      </div>
-
-      <h4 style="font-size:0.95rem; font-weight:700; margin-bottom:10px;">Router Gateway Configuration (Cisco IOS CLI):</h4>
-      <div class="code-viewer-card">
-        <div class="code-viewer-header">
-          <div class="file-info">
-            <span class="file-name">cisco_router_config.cfg</span>
-            <span class="lang-badge">Cisco IOS CLI</span>
-          </div>
-          <button class="btn-copy-code" onclick="copyRawCode(${JSON.stringify(content.subnetExercise.cliCommands)})">
-            Copy Commands
-          </button>
-        </div>
-        <div class="code-container">
-          <div class="code-body-col">${content.subnetExercise.cliCommands}</div>
-        </div>
-      </div>
-    </div>
-  `;
-}
-
-// Render Coding Practicals (PR-03, PR-04, PR-05, PR-06, PR-07)
-function renderCodingPractical(p, algoIndex = 0) {
-  const currentAlgo = p.algorithms[algoIndex];
-
-  // Tab Buttons
-  const tabButtonsHtml = p.algorithms.map((algo, idx) => `
-    <button class="algo-tab-btn ${idx === algoIndex ? 'active' : ''}" onclick="switchAlgo(${p.id}, ${idx})">
-      <span>${algo.name}</span>
-      <span class="algo-tab-badge">${algo.fileName}</span>
+  const catButtons = cats.map((cat, idx) => `
+    <button class="cmd-cat-btn ${idx === currentCmdCatIdx ? 'active' : ''}" onclick="switchCommandCategory(${idx})">
+      ${escapeHtml(cat.name)} (${cat.commands.length})
     </button>
   `).join('');
 
-  // Syntax-highlighted code lines
-  const highlightedLines = highlightCppCode(currentAlgo.code);
-  const lineNumbersHtml = highlightedLines.map((_, i) => `<div>${i + 1}</div>`).join('');
-  const codeBodyHtml = highlightedLines.join('\n');
+  const cmdCards = (activeCat.commands || []).map((cmd, idx) => {
+    const dangerClass = cmd.danger && cmd.danger.toLowerCase().includes('sudo') ? 'sudo' : 'danger';
+    const dangerPill = cmd.danger
+      ? `<span class="cmd-warning-pill ${dangerClass}">${escapeHtml(cmd.danger)}</span>`
+      : '';
 
-  // Sample Inputs & Outputs
-  const samplesHtml = currentAlgo.samples.map(sample => `
-    <div class="sample-box">
-      <div class="sample-box-header">
-        <span class="sample-badge input-badge">Sample Input</span>
-        <button class="sample-copy-btn" onclick="copySampleInput(${JSON.stringify(sample.input)})">
-          <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
-            <rect x="9" y="9" width="13" height="13" rx="2" ry="2"></rect>
-            <path d="M5 15H4a2 2 0 0 1-2-2V4a2 2 0 0 1 2-2h9a2 2 0 0 1 2 2v1"></path>
-          </svg>
-          Copy Input
-        </button>
-      </div>
-      <div class="sample-content">${sample.input}</div>
-    </div>
-    <div class="sample-box">
-      <div class="sample-box-header">
-        <span class="sample-badge output-badge">Expected Output</span>
-      </div>
-      <div class="sample-content">${sample.output}</div>
-    </div>
-  `).join('');
-
-  // How to Run Steps
-  const howToRunHtml = currentAlgo.howToRun.map(step => `
-    <div class="run-step-item">
-      <div class="step-num-badge">${step.step}</div>
-      <div class="step-content">
-        <p class="step-text">${step.text}</p>
-        ${step.cmd ? `<code class="step-code-cmd">${step.cmd}</code>` : ''}
-      </div>
-    </div>
-  `).join('');
-
-  // Socket-specific Wireshark guide if PR-07
-  let socketExtraHtml = '';
-  if (p.id === 7 && p.socketContent) {
-    const ws = p.socketContent.wiresharkGuide;
-    const obsRows = ws.observations.map(o => `
-      <tr>
-        <td><strong>${o.phase}</strong></td>
-        <td><pre style="font-family:var(--font-mono); font-size:0.78rem; line-height:1.4;">${o.packets}</pre></td>
-        <td>${o.note}</td>
-      </tr>
-    `).join('');
-
-    const troubleRows = p.socketContent.troubleshooting.map(t => `
-      <tr>
-        <td style="color:#b91c1c;"><code>${t.error}</code></td>
-        <td>${t.cause}</td>
-        <td><strong>${t.fix}</strong></td>
-      </tr>
-    `).join('');
-
-    socketExtraHtml = `
-      <div class="content-section-card">
-        <h3 class="card-section-title">
-          <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
-            <circle cx="12" cy="12" r="10"></circle>
-            <line x1="12" y1="8" x2="12" y2="12"></line>
-            <line x1="12" y1="16" x2="12.01" y2="16"></line>
-          </svg>
-          Wireshark Packet Analysis for Socket Programming
-        </h3>
-        <p style="font-size:0.88rem; color:var(--text-secondary); margin-bottom:12px;">
-          To inspect TCP and UDP packets on your local machine, open Wireshark and select the <strong>${ws.interface}</strong>. Apply filter: <code>${ws.filter}</code>.
-        </p>
-        <div class="summary-table-wrap" style="margin-bottom:20px;">
-          <table class="academic-table">
-            <thead>
-              <tr>
-                <th>Protocol Phase</th>
-                <th>Observed Packets / Flags</th>
-                <th>Underlying Protocol Behavior</th>
-              </tr>
-            </thead>
-            <tbody>
-              ${obsRows}
-            </tbody>
-          </table>
+    const examplesHtml = (cmd.examples || []).map((ex, eIdx) => `
+      <div class="cmd-ex-item">
+        <div class="cmd-ex-header">
+          <span class="cmd-ex-label">Example ${eIdx + 1}</span>
+          <button class="btn-copy-sm" onclick="copyTextToClipboard(${JSON.stringify(ex.cmd)}, 'Copied command: ${escapeHtml(ex.cmd)}')">Copy</button>
         </div>
+        <pre class="cmd-ex-cmd">$ ${escapeHtml(ex.cmd)}</pre>
+        <pre class="cmd-ex-out">${escapeHtml(ex.out)}</pre>
+      </div>
+    `).join('');
 
-        <h4 style="font-size:0.95rem; font-weight:700; margin-bottom:10px;">Common Socket Compilation &amp; Execution Troubleshooting:</h4>
-        <div class="summary-table-wrap">
-          <table class="academic-table">
-            <thead>
-              <tr>
-                <th>Error Message</th>
-                <th>Root Cause</th>
-                <th>Resolution Instruction</th>
-              </tr>
-            </thead>
-            <tbody>
-              ${troubleRows}
-            </tbody>
-          </table>
+    return `
+      <div class="cmd-card">
+        <div class="cmd-header">
+          <div class="cmd-title-group">
+            <code class="cmd-name">${escapeHtml(cmd.name)}</code>
+            ${dangerPill}
+          </div>
+          <button class="btn-copy-sm" onclick="copyTextToClipboard(${JSON.stringify(cmd.examples[0].cmd)}, 'Copied ${escapeHtml(cmd.name)} example!')">Copy Command</button>
+        </div>
+        <p class="cmd-purpose">${escapeHtml(cmd.purpose)}</p>
+        <div class="cmd-syntax-box">
+          <span class="syntax-label">Syntax:</span>
+          <code>${escapeHtml(cmd.syntax)}</code>
+        </div>
+        <div class="cmd-examples-section">
+          ${examplesHtml}
         </div>
       </div>
     `;
-  }
+  }).join('');
 
-  // Combined code copy buttons
-  const isCombined = currentAlgo.name.toLowerCase().includes("combined");
-  const copyButtons = `
-    <button class="btn-copy-code btn-primary-copy" onclick="copyCurrentCode()">
-      <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
-        <rect x="9" y="9" width="13" height="13" rx="2" ry="2"></rect>
-        <path d="M5 15H4a2 2 0 0 1-2-2V4a2 2 0 0 1 2-2h9a2 2 0 0 1 2 2v1"></path>
-      </svg>
-      Copy Code
-    </button>
-    ${isCombined ? `
-      <button class="btn-copy-code" onclick="copyCurrentCode()">
-        Copy All
-      </button>
-    ` : ''}
-  `;
-
-  return `
+  container.innerHTML = `
     <div class="practical-header-block">
       <div class="practical-header-top">
-        <span class="practical-code-pill">${p.number}</span>
-        <span class="practical-type-pill">${p.categoryLabel}</span>
+        <span class="practical-id-badge">${escapeHtml(p.number)}</span>
+        <span class="practical-category-pill">${escapeHtml(p.categoryLabel)}</span>
       </div>
-      <h1 class="practical-full-title">${p.title}</h1>
+      <h1 class="practical-full-title">${escapeHtml(p.title)}</h1>
       <div class="aim-box">
-        <span class="aim-label">Aim:</span> ${p.aim}
+        <div class="aim-label">Aim</div>
+        <p>${escapeHtml(p.aim)}</p>
       </div>
     </div>
 
-    <!-- Algorithm Tabs -->
-    <div class="algorithm-tabs-wrap">
-      ${tabButtonsHtml}
+    <div class="callout-box">
+      <div class="callout-title">Safety Notice</div>
+      <ul class="callout-list">
+        <li>Commands marked with <strong>Delete / Overwrite</strong> or <strong>Modify Permissions</strong> can alter files on disk. Always verify paths before running.</li>
+        <li>This portal never executes shell commands directly; copy and run them in your Linux/Ubuntu or WSL terminal.</li>
+      </ul>
     </div>
 
-    <!-- Code Viewer Component -->
+    <div class="cmd-categories-wrap">
+      ${catButtons}
+    </div>
+
+    <div class="cmd-category-header">
+      <div>
+        <h2 class="card-section-title">${escapeHtml(activeCat.name)}</h2>
+        <p class="section-subtitle">${activeCat.commands.length} essential commands with syntax and expected terminal outputs.</p>
+      </div>
+      <button class="btn btn-primary" onclick="copyCategoryCommands(${currentCmdCatIdx})">
+        Copy All Commands in Category
+      </button>
+    </div>
+
+    <div class="cmd-cards-grid">
+      ${cmdCards}
+    </div>
+  `;
+}
+
+function switchCommandCategory(idx) {
+  const p = practicalsData.find(item => item.id === currentPracticalId);
+  if (!p) return;
+  currentCmdCatIdx = idx;
+  renderPractical01(p);
+}
+
+function copyCategoryCommands(catIdx) {
+  const p = practicalsData.find(item => item.id === currentPracticalId);
+  if (!p || !p.categories || !p.categories[catIdx]) return;
+  const cat = p.categories[catIdx];
+  const allCmds = cat.commands.map(c => `# ${c.name}: ${c.purpose}\n${c.examples[0].cmd}`).join('\n\n');
+  copyTextToClipboard(allCmds, `Copied all ${cat.commands.length} commands from ${cat.name}!`);
+}
+
+function renderCodingPractical(p) {
+  const container = document.getElementById('practicalDetailContent');
+  if (!container) return;
+
+  const isMulti = p.type === 'coding_multi';
+  const langMap = { bash: 'Bash', c: 'C', cpp: 'C++', python: 'Python' };
+
+  const langButtons = (p.languages || []).map(l => `
+    <button class="lang-btn ${l === currentLang ? 'active' : ''}" onclick="setLanguage('${l}')">
+      ${langMap[l] || l.toUpperCase()}
+    </button>
+  `).join('');
+
+  let algoHtml = '';
+  let impl = null;
+
+  if (isMulti) {
+    const algoButtons = (p.algorithms || []).map(a => `
+      <button class="algo-btn ${a.key === currentAlgo ? 'active' : ''}" onclick="setAlgorithm('${a.key}')">
+        ${escapeHtml(a.label)}
+      </button>
+    `).join('');
+    algoHtml = `
+      <div class="switcher-group">
+        <span class="switcher-label">Algorithm / Mode:</span>
+        <div class="pill-button-group">${algoButtons}</div>
+      </div>
+    `;
+    impl = p.code[currentLang][currentAlgo];
+  } else {
+    impl = p.code[currentLang];
+  }
+
+  currentCodeRaw = impl.source || '';
+  currentFilename = impl.filename || 'program.txt';
+
+  const linesCount = currentCodeRaw.split('\n').length;
+  const lineNumsHtml = Array.from({ length: linesCount }, (_, i) => `<span>${i + 1}</span>`).join('');
+  const highlightedHtml = highlightCode(currentCodeRaw, currentLang);
+
+  const linuxNoteHtml = p.linuxOnlyNote ? `
+    <div class="callout-box">
+      <div class="callout-title">Environment Requirement (Linux / Ubuntu / WSL)</div>
+      <ul class="callout-list">
+        <li>${escapeHtml(p.linuxOnlyNote)}</li>
+      </ul>
+    </div>
+  ` : '';
+
+  const topicBadges = (p.topics || []).map(t =>
+    `<span class="practical-category-pill">${escapeHtml(t)}</span>`
+  ).join('');
+
+  // Sample Inputs & Outputs Accordion
+  const inputs = impl.sampleInputs || [];
+  const outputs = impl.sampleOutputs || [];
+  const pairCount = Math.max(inputs.length, outputs.length);
+
+  let samplesHtml = '';
+  for (let i = 0; i < pairCount; i++) {
+    const inp = inputs[i];
+    const out = outputs[i];
+    samplesHtml += `
+      <details class="accordion-item" ${i === 0 ? 'open' : ''}>
+        <summary class="accordion-header">
+          <span>Test Case ${i + 1}: ${escapeHtml((inp && inp.desc) || (out && out.desc) || 'Sample Run')}</span>
+          <span class="accordion-chevron">▾</span>
+        </summary>
+        <div class="samples-grid">
+          ${inp ? `
+            <div class="sample-box">
+              <div class="sample-box-header">
+                <span class="sample-badge input-badge">Sample Input ${i + 1}</span>
+                <button class="sample-copy-btn" onclick="copyTextToClipboard(${JSON.stringify(inp.input)}, 'Sample Input ${i + 1} copied!')">Copy Input</button>
+              </div>
+              <pre class="sample-content">${escapeHtml(inp.input)}</pre>
+            </div>
+          ` : ''}
+          ${out ? `
+            <div class="sample-box">
+              <div class="sample-box-header">
+                <span class="sample-badge output-badge">Expected Output ${i + 1}</span>
+                <button class="sample-copy-btn" onclick="copyTextToClipboard(${JSON.stringify(out.output)}, 'Expected Output ${i + 1} copied!')">Copy Output</button>
+              </div>
+              <pre class="sample-content">${escapeHtml(out.output)}</pre>
+            </div>
+          ` : ''}
+        </div>
+      </details>
+    `;
+  }
+
+  const compilerDesc = currentLang === 'c'
+    ? 'GCC (GNU C Compiler) on Ubuntu/Linux or WSL'
+    : currentLang === 'cpp'
+      ? 'G++ (GNU C++17 Compiler) on Ubuntu/Linux or WSL'
+      : currentLang === 'python'
+        ? 'Python 3 Interpreter (python3)'
+        : 'GNU Bash Shell (Ubuntu/Linux or WSL)';
+
+  container.innerHTML = `
+    <div class="practical-header-block">
+      <div class="practical-header-top">
+        <span class="practical-id-badge">${escapeHtml(p.number)}</span>
+        <span class="practical-category-pill">${escapeHtml(p.categoryLabel)}</span>
+      </div>
+      <h1 class="practical-full-title">${escapeHtml(p.title)}</h1>
+      <div class="aim-box">
+        <div class="aim-label">Aim</div>
+        <p>${escapeHtml(p.aim)}</p>
+      </div>
+    </div>
+
+    ${linuxNoteHtml}
+
+    <div class="control-switchers-card">
+      <div class="switcher-group">
+        <span class="switcher-label">Programming Language:</span>
+        <div class="pill-button-group">${langButtons}</div>
+      </div>
+      ${algoHtml}
+    </div>
+
     <div class="code-viewer-card">
       <div class="code-viewer-header">
         <div class="file-info">
-          <svg class="file-icon" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
-            <path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"></path>
-            <polyline points="14 2 14 8 20 8"></polyline>
-          </svg>
-          <span class="file-name">${currentAlgo.fileName}</span>
-          <span class="lang-badge">C++17 | MinGW g++</span>
+          <span class="file-icon">📄</span>
+          <span class="file-name">${escapeHtml(impl.filename)}</span>
+          <span class="lang-badge">${escapeHtml(impl.langLabel)}</span>
         </div>
         <div class="code-actions-group">
-          ${copyButtons}
+          <button class="btn-code-action" onclick="copyCurrentCode()">
+            📋 Copy Code
+          </button>
+          <button class="btn-code-action" onclick="downloadCurrentCode()">
+            ⬇ Download ${escapeHtml(impl.filename)}
+          </button>
         </div>
       </div>
-
-      <div class="code-container" id="codeContainerBlock">
-        <div class="line-numbers-col">${lineNumbersHtml}</div>
-        <div class="code-body-col">${codeBodyHtml}</div>
+      <div class="code-container">
+        <div class="line-numbers-col">${lineNumsHtml}</div>
+        <pre class="code-body-col"><code>${highlightedHtml}</code></pre>
       </div>
     </div>
 
-    <!-- Sample Inputs and Outputs -->
-    <h3 style="font-size:1.15rem; font-weight:700; color:var(--text-primary); margin: 24px 0 12px;">
-      Sample Test Cases &amp; Expected Program Behavior
-    </h3>
-    <div class="samples-grid">
+    <div class="section-block" style="margin-top: 24px;">
+      <h2 class="card-section-title" style="margin-bottom: 12px;">Sample Inputs &amp; Expected Outputs</h2>
       ${samplesHtml}
     </div>
 
-    <!-- How to Run Section -->
-    <div class="how-to-run-card">
-      <h3 class="card-section-title">
-        <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
-          <polygon points="5 3 19 12 5 21 5 3"></polygon>
-        </svg>
-        How to Run with MinGW g++ in VS Code
-      </h3>
-      <div class="run-steps-list">
-        ${howToRunHtml}
-      </div>
-
-      <div class="callout-box">
-        <div class="callout-title">
-          <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
-            <circle cx="12" cy="12" r="10"></circle>
-            <line x1="12" y1="8" x2="12" y2="12"></line>
-            <line x1="12" y1="16" x2="12.01" y2="16"></line>
-          </svg>
-          Troubleshooting Common MinGW Issues on Windows
+    <details class="how-to-run-card accordion-item" open style="margin-top: 24px;">
+      <summary class="accordion-header">
+        <span>How to Compile &amp; Run (${escapeHtml(langMap[currentLang] || currentLang)})</span>
+        <span class="accordion-chevron">▾</span>
+      </summary>
+      <div class="run-steps-list" style="padding: 16px;">
+        <div class="run-step-item">
+          <div class="step-num-badge">1</div>
+          <div class="step-content">
+            <div class="step-text"><strong>Required Environment:</strong> ${escapeHtml(compilerDesc)}</div>
+          </div>
         </div>
-        <ul class="callout-list">
-          <li><strong>'g++' is not recognized:</strong> Ensure your MinGW binary path (typically <code>C:\\MinGW\\bin</code> or <code>C:\\msys64\\ucrt64\\bin</code>) is added to your Windows System Environment Variable <code>PATH</code>.</li>
-          <li><strong>PowerShell Execution Policy:</strong> If VS Code terminal blocks script execution, compile directly using Command Prompt (<code>cmd</code>) or execute <code>Set-ExecutionPolicy -Scope CurrentUser RemoteSigned</code>.</li>
-          <li><strong>Clean Source Files:</strong> Always save changes in VS Code before compiling so the latest source code is compiled into the binary.</li>
-        </ul>
+        <div class="run-step-item">
+          <div class="step-num-badge">2</div>
+          <div class="step-content">
+            <div class="step-text">Save or download the source code as <code>${escapeHtml(impl.filename)}</code></div>
+          </div>
+        </div>
+        <div class="run-step-item">
+          <div class="step-num-badge">3</div>
+          <div class="step-content">
+            <div class="step-text">${currentLang === 'python' ? 'Verify syntax (optional):' : currentLang === 'bash' ? 'Make script executable:' : 'Compile the program:'}</div>
+            <div class="step-code-cmd">
+              <code>${escapeHtml(impl.compileCmd)}</code>
+              <button class="btn-copy-sm" onclick="copyTextToClipboard(${JSON.stringify(impl.compileCmd)}, 'Command copied!')">Copy</button>
+            </div>
+          </div>
+        </div>
+        <div class="run-step-item">
+          <div class="step-num-badge">4</div>
+          <div class="step-content">
+            <div class="step-text">Execute in Linux / WSL terminal:</div>
+            <div class="step-code-cmd">
+              <code>${escapeHtml(impl.runCmd)}</code>
+              <button class="btn-copy-sm" onclick="copyTextToClipboard(${JSON.stringify(impl.runCmd)}, 'Run command copied!')">Copy</button>
+            </div>
+          </div>
+        </div>
       </div>
-    </div>
-
-    ${socketExtraHtml}
+    </details>
   `;
 }
 
-// Switch Algorithm Tab within current practical
-function switchAlgo(practicalId, algoIdx) {
-  openPractical(practicalId, algoIdx);
+function setLanguage(lang) {
+  const p = practicalsData.find(item => item.id === currentPracticalId);
+  if (!p) return;
+  currentLang = lang;
+  renderCodingPractical(p);
 }
 
-// Copy to Clipboard Utility with Live Toast
-function copyTextToClipboard(text, message = "Code copied successfully!") {
-  if (navigator.clipboard && navigator.clipboard.writeText) {
-    navigator.clipboard.writeText(text).then(() => {
-      showToast(message);
-    }).catch(() => {
-      fallbackCopy(text, message);
-    });
+function setAlgorithm(algoKey) {
+  const p = practicalsData.find(item => item.id === currentPracticalId);
+  if (!p) return;
+  currentAlgo = algoKey;
+  renderCodingPractical(p);
+}
+
+// ============================================================================
+// CLIPBOARD, DOWNLOAD & NAVIGATION HELPERS
+// ============================================================================
+
+function copyTextToClipboard(text, successMsg = 'Copied to clipboard!') {
+  if (navigator.clipboard && window.isSecureContext) {
+    navigator.clipboard.writeText(text).then(() => showToast(successMsg)).catch(() => fallbackCopy(text, successMsg));
   } else {
-    fallbackCopy(text, message);
+    fallbackCopy(text, successMsg);
   }
 }
 
-function fallbackCopy(text, message) {
-  const textArea = document.createElement("textarea");
-  textArea.value = text;
-  textArea.style.position = "fixed";
-  textArea.style.opacity = "0";
-  document.body.appendChild(textArea);
-  textArea.focus();
-  textArea.select();
+function fallbackCopy(text, successMsg) {
+  const ta = document.createElement('textarea');
+  ta.value = text;
+  ta.style.position = 'fixed';
+  ta.style.left = '-9999px';
+  document.body.appendChild(ta);
+  ta.focus();
+  ta.select();
   try {
     document.execCommand('copy');
-    showToast(message);
-  } catch (err) {
-    showToast("Failed to copy automatically. Please select manually.");
+    showToast(successMsg);
+  } catch (e) {
+    showToast('Copy failed. Please copy manually.');
   }
-  document.body.removeChild(textArea);
+  document.body.removeChild(ta);
 }
 
 function copyCurrentCode() {
-  const p = practicalsData.find(item => item.id === currentPracticalId);
-  if (!p || !p.algorithms) return;
-  const currentCode = p.algorithms[currentAlgoIndex].code;
-  copyTextToClipboard(currentCode, `✓ ${p.algorithms[currentAlgoIndex].fileName} copied successfully!`);
+  copyTextToClipboard(currentCodeRaw, `Copied ${currentFilename} source code!`);
 }
 
-function copyRawCode(rawStr) {
-  copyTextToClipboard(rawStr, "✓ Commands copied to clipboard!");
+function downloadCurrentCode() {
+  const blob = new Blob([currentCodeRaw], { type: 'text/plain;charset=utf-8' });
+  const url = URL.createObjectURL(blob);
+  const a = document.createElement('a');
+  a.href = url;
+  a.download = currentFilename;
+  document.body.appendChild(a);
+  a.click();
+  document.body.removeChild(a);
+  URL.revokeObjectURL(url);
+  showToast(`Downloaded ${currentFilename}`);
 }
 
-function copySampleInput(sampleInput) {
-  copyTextToClipboard(sampleInput, "✓ Sample Input copied to clipboard!");
-}
-
-function showToast(message) {
+let toastTimer = null;
+function showToast(msg) {
   const toast = document.getElementById('copyToast');
   const msgEl = document.getElementById('toastMessage');
   if (!toast || !msgEl) return;
-
-  msgEl.textContent = message;
+  msgEl.textContent = msg;
   toast.classList.add('show');
-
-  setTimeout(() => {
-    toast.classList.remove('show');
-  }, 2400);
+  if (toastTimer) clearTimeout(toastTimer);
+  toastTimer = setTimeout(() => toast.classList.remove('show'), 2600);
 }
 
-// Navigation Helpers
 function navigateToHome() {
-  document.getElementById('homeView').style.display = 'block';
-  document.getElementById('detailView').style.display = 'none';
+  currentPracticalId = null;
+  const homeView = document.getElementById('homeView');
+  const detailView = document.getElementById('detailView');
+  const navHomeBtn = document.getElementById('navHomeBtn');
+  const navAllBtn = document.getElementById('navAllBtn');
+  const jumpSelect = document.getElementById('quickJumpSelect');
 
-  document.getElementById('navHomeBtn').classList.add('active');
-  document.getElementById('navAllBtn').classList.remove('active');
-  document.getElementById('quickJumpSelect').value = "";
+  if (detailView) detailView.style.display = 'none';
+  if (homeView) homeView.style.display = 'block';
+  if (navHomeBtn) navHomeBtn.classList.add('active');
+  if (navAllBtn) navAllBtn.classList.remove('active');
+  if (jumpSelect) jumpSelect.value = '';
   window.scrollTo({ top: 0, behavior: 'smooth' });
 }
 
 function scrollToPracticals() {
   navigateToHome();
-  const el = document.getElementById('practicalsSection');
-  if (el) {
-    el.scrollIntoView({ behavior: 'smooth' });
-  }
-  document.getElementById('navAllBtn').classList.add('active');
-  document.getElementById('navHomeBtn').classList.remove('active');
+  setTimeout(() => {
+    const sec = document.getElementById('practicalsSection');
+    if (sec) sec.scrollIntoView({ behavior: 'smooth' });
+  }, 60);
 }
 
 function scrollToTop() {
@@ -3635,74 +2641,61 @@ function scrollToTop() {
 }
 
 function handleSearch(val) {
+  currentSearchTerm = val;
+  const quickInput = document.getElementById('quickSearchInput');
   const clearBtn = document.getElementById('clearSearchBtn');
-  if (clearBtn) {
-    clearBtn.style.display = val ? 'flex' : 'none';
-  }
-  renderPracticalsGrid(currentCategoryFilter, val);
+  if (quickInput && quickInput.value !== val) quickInput.value = val;
+  if (clearBtn) clearBtn.style.display = val.trim() ? 'block' : 'none';
+  renderPracticalsGrid();
 }
 
 function handleQuickSearch(val) {
   navigateToHome();
-  const mainSearch = document.getElementById('mainSearchInput');
-  if (mainSearch) {
-    mainSearch.value = val;
-    handleSearch(val);
-  }
-  scrollToPracticals();
+  const mainInput = document.getElementById('mainSearchInput');
+  if (mainInput) mainInput.value = val;
+  handleSearch(val);
 }
 
 function clearSearch() {
-  const mainSearch = document.getElementById('mainSearchInput');
-  const quickSearch = document.getElementById('quickSearchInput');
-  if (mainSearch) mainSearch.value = '';
-  if (quickSearch) quickSearch.value = '';
-  document.getElementById('clearSearchBtn').style.display = 'none';
-  renderPracticalsGrid(currentCategoryFilter, '');
+  currentSearchTerm = '';
+  const mainInput = document.getElementById('mainSearchInput');
+  const quickInput = document.getElementById('quickSearchInput');
+  const clearBtn = document.getElementById('clearSearchBtn');
+  if (mainInput) mainInput.value = '';
+  if (quickInput) quickInput.value = '';
+  if (clearBtn) clearBtn.style.display = 'none';
+  renderPracticalsGrid();
 }
 
-function setCategoryFilter(category, buttonEl) {
-  currentCategoryFilter = category;
-
-  // Toggle active class on pills
-  const pills = document.querySelectorAll('.filter-pill');
-  pills.forEach(p => p.classList.remove('active'));
-  if (buttonEl) buttonEl.classList.add('active');
-
-  const mainSearch = document.getElementById('mainSearchInput');
-  const query = mainSearch ? mainSearch.value : '';
-  renderPracticalsGrid(category, query);
+function setCategoryFilter(cat, btnEl) {
+  activeCategoryFilter = cat;
+  document.querySelectorAll('.filter-pill').forEach(b => b.classList.remove('active'));
+  if (btnEl) btnEl.classList.add('active');
+  renderPracticalsGrid();
 }
 
 function handleQuickJump(val) {
   if (!val) return;
-  openPractical(parseInt(val, 10));
+  openPractical(Number(val));
 }
 
-// Keyboard Shortcuts & Scroll Events
-window.addEventListener('DOMContentLoaded', () => {
+document.addEventListener('DOMContentLoaded', () => {
   renderPracticalsGrid();
 
-  // Scroll to Top visibility
   const scrollBtn = document.getElementById('scrollToTopBtn');
   window.addEventListener('scroll', () => {
-    if (window.scrollY > 300) {
-      scrollBtn.classList.add('visible');
-    } else {
-      scrollBtn.classList.remove('visible');
-    }
+    if (!scrollBtn) return;
+    if (window.scrollY > 300) scrollBtn.classList.add('visible');
+    else scrollBtn.classList.remove('visible');
   });
 
-  // Global hotkey: '/' to focus search, 'Escape' to return home
   window.addEventListener('keydown', (e) => {
-    if (e.key === '/' && document.activeElement.tagName !== 'INPUT') {
+    if (e.key === '/' && document.activeElement.tagName !== 'INPUT' && document.activeElement.tagName !== 'TEXTAREA') {
       e.preventDefault();
+      navigateToHome();
       const searchInput = document.getElementById('mainSearchInput');
-      if (searchInput) {
-        navigateToHome();
-        searchInput.focus();
-      }
-    } else if (e.key === 'Escape') {
+      if (searchInput) searchInput.focus();
+    } else if (e.key === 'Escape' && currentPracticalId !== null) {
       navigateToHome();
     }
   });
