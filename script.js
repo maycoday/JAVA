@@ -2085,6 +2085,23 @@ let currentSearchTerm = '';
 let currentCodeRaw = '';
 let currentFilename = 'program.c';
 
+const practicalAssetFiles = {
+  1: { path: 'assets/Linux Commands Charts (1).doc', name: 'Linux Commands Charts (1).doc', label: 'Download Reference (.doc)' },
+  2: { path: 'assets/Assignment_02.pdf', name: 'Assignment_02.pdf', label: 'Download Assignment PDF' },
+  3: { path: 'assets/Assignment3 (2).pdf', name: 'Assignment3 (2).pdf', label: 'Download Assignment PDF' },
+  4: { path: 'assets/Assignment_04 (2).pdf', name: 'Assignment_04 (2).pdf', label: 'Download Assignment PDF' },
+  5: { path: 'assets/Assignment_05.pdf', name: 'Assignment_05.pdf', label: 'Download Assignment PDF' },
+  6: { path: 'assets/Assignment_06 (2).pdf', name: 'Assignment_06 (2).pdf', label: 'Download Assignment PDF' },
+  7: { path: 'assets/Assignment_07.pdf', name: 'Assignment_07.pdf', label: 'Download Assignment PDF' },
+  8: { path: 'assets/Assignment_08.pdf', name: 'Assignment_08.pdf', label: 'Download Assignment PDF' }
+};
+
+function renderAssetDownloadBtn(id) {
+  const asset = practicalAssetFiles[id];
+  if (!asset) return '';
+  return `<a href="${encodeURI(asset.path)}" download="${escapeHtml(asset.name)}" class="btn-download-asset" title="Download ${escapeHtml(asset.name)}">⬇ ${escapeHtml(asset.label)}</a>`;
+}
+
 function escapeHtml(str) {
   if (!str) return '';
   return String(str)
@@ -2297,6 +2314,7 @@ function renderPractical01(p) {
       <div class="practical-header-top">
         <span class="practical-id-badge">${escapeHtml(p.number)}</span>
         <span class="practical-category-pill">${escapeHtml(p.categoryLabel)}</span>
+        ${renderAssetDownloadBtn(p.id)}
       </div>
       <h1 class="practical-full-title">${escapeHtml(p.title)}</h1>
       <div class="aim-box">
@@ -2453,6 +2471,7 @@ function renderCodingPractical(p) {
       <div class="practical-header-top">
         <span class="practical-id-badge">${escapeHtml(p.number)}</span>
         <span class="practical-category-pill">${escapeHtml(p.categoryLabel)}</span>
+        ${renderAssetDownloadBtn(p.id)}
       </div>
       <h1 class="practical-full-title">${escapeHtml(p.title)}</h1>
       <div class="aim-box">
